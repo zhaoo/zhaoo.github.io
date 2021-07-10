@@ -1,0 +1,820 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>树莓派 - 安装配置汇总 - zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, raspberrypi,树莓派,配置,安装,设置,汉化">
+  <meta name="description" content="树莓派3安装和配置汇总。之前零零散散写过好多篇关于树莓...">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center">树莓派 - 安装配置汇总</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20191211065758.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">树莓派 - 安装配置汇总</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>五月 28, 2018</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2018/05/28/raspberrypi-config-collect/" class="leancloud" data-flag-title="树莓派 - 安装配置汇总"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>11793</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h1 id="无屏幕安装系统"><a href="#无屏幕安装系统" class="headerlink" title="无屏幕安装系统"></a>无屏幕安装系统</h1><h2 id="问题说明"><a href="#问题说明" class="headerlink" title="问题说明"></a>问题说明</h2><p>刚军训完的大学狗还没开始上课，比较闲，正巧从家里带了树莓派（我这个人呐，上大学都不忘带上些家伙），开始折腾咯。寝室没路由器，先折腾个路由器玩玩。燃鹅却遇到了麻烦。</p>
+<p>寝室没有显示器，该怎么安装系统呢，理所当然的想到先ssh连接，装个vnc远程桌面即可。燃鹅，我还是太天真了。好久没玩树莓派，最新的固件默认取消了ssh连接，说是为了安全性，唉。另外寝室还没路由器，我拿网线接电脑试了下，一直没成功，无奈之下怒买小米路由器3，总算解决了连接问题。（好像有些不对劲，我不是想折腾一个路由器来着）</p>
+<h2 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h2><h3 id="1-下载以下工具"><a href="#1-下载以下工具" class="headerlink" title="1.下载以下工具"></a>1.下载以下工具</h3><p><a target="_blank" rel="noopener" href="https://sourceforge.net/projects/win32diskimager/files/Archive/win32diskimager-v0.9-binary.zip/download">镜像烧录工具 - Win32DiskImager</a></p>
+<p><a target="_blank" rel="noopener" href="http://downloads.raspberrypi.org/raspbian_latest">镜像 - RaspbainJessie</a></p>
+<p>ps. 这里我们以“Jessie”系统为例，我觉得这是合新手入坑的最好选择。其实树莓派支持好多种系统（Linux、Android、win），我们也可以去<a target="_blank" rel="noopener" href="https://www.raspberrypi.org/downloads/">官方网站</a>下载或找民间包，这里不赘述。</p>
+<h3 id="2-烧录镜像"><a href="#2-烧录镜像" class="headerlink" title="2.烧录镜像"></a>2.烧录镜像</h3><p>将sd卡用读卡器连接电脑。解压上面下载的俩个文件，打开“Win32DiskImager”，选择“之前下载的镜像文件.img”和“目标磁盘”。（别选错了，会执行格式化）然后点击“write”写入即可，等几分钟镜像就写到sd卡上了。</p>
+<p><img  src="https://pic.izhaoo.com/20170920084254.jpg"  ><span class="image-caption">烧录镜像</span></p>
+<p>这时候将sd卡插回树莓派就可以开机了，但是，等等，我们没有显示器，所以还要做些工作。</p>
+<h2 id="ssh连接"><a href="#ssh连接" class="headerlink" title="ssh连接"></a>ssh连接</h2><h3 id="1-配置wifi"><a href="#1-配置wifi" class="headerlink" title="1.配置wifi"></a>1.配置wifi</h3><p>我们可以在未开机的情况下修改“/boot/wpa_supplicant.conf”来配置wifi。</p>
+<p>打开“/boot/”目录。新建一个“wpa_supplicant.conf”文件，注意后缀哦，记事本打开。</p>
+<p><img  src="https://pic.izhaoo.com/20170920095142.jpg"  ><span class="image-caption">boot目录</span></p>
+<p>写入以下代码：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">country</span>=CN<br><span class="hljs-attribute">ctrl_interface</span>=DIR=/var/run/wpa_supplicant <span class="hljs-attribute">GROUP</span>=netdev<br><span class="hljs-attribute">update_config</span>=1<br> <br>network=&#123;<br><span class="hljs-attribute">ssid</span>=<span class="hljs-string">&quot;zhaoo&quot;</span>        #ssid（wifi用户名）<br><span class="hljs-attribute">psk</span>=<span class="hljs-string">&quot;12345678&quot;</span>      #password（wifi密码）<br><span class="hljs-attribute">key_mgmt</span>=WPA-PSK    #wifi加密方式<br><span class="hljs-attribute">priority</span>=1          #优先级<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>摘自：<a target="_blank" rel="noopener" href="http://shumeipai.nxez.com/2017/09/13/raspberry-pi-network-configuration-before-boot.html">树莓派实验室</a></p>
+</blockquote>
+<p>说明以及不同安全性的 WiFi 配置示例：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-comment">#ssid:网络的ssid</span><br><span class="hljs-comment">#psk:密码</span><br><span class="hljs-comment">#priority:连接优先级，数字越大优先级越高（不可以是负数）</span><br><span class="hljs-comment">#scan_ssid:连接隐藏WiFi时需要指定该值为1</span><br><br>如果你的 WiFi 没有密码<br><br>network=&#123;<br>ssid=<span class="hljs-string">&quot;你的无线网络名称（ssid）&quot;</span><br>key_mgmt=NONE<br>&#125;<br><br>如果你的 WiFi 使用WEP加密<br><br>network=&#123;<br>ssid=<span class="hljs-string">&quot;你的无线网络名称（ssid）&quot;</span><br>key_mgmt=NONE<br>wep_key0=<span class="hljs-string">&quot;你的wifi密码&quot;</span><br>&#125;<br><br>如果你的 WiFi 使用WPA/WPA2加密<br><br>network=&#123;<br>ssid=<span class="hljs-string">&quot;你的无线网络名称（ssid）&quot;</span><br>key_mgmt=WPA-PSK<br>psk=<span class="hljs-string">&quot;你的wifi密码&quot;</span><br>&#125;<br><br>如果你不清楚 WiFi 的加密模式，可以在安卓手机上用 root explorer 打开 /data/misc/wifi/wpa/wpa_supplicant.conf，查看 WiFi 的信息。<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-配置ssh"><a href="#2-配置ssh" class="headerlink" title="2.配置ssh"></a>2.配置ssh</h3><p>新版“Jessie”系统默认是关闭ssh的，说是为了安全，麻烦的一批。</p>
+<p>在“/boot/”目录下新建“ssh”文件。（注意是小写且没有后缀的空文件）然后树莓派开机的时候检测到了这个文件就会开启ssh，还是没那么麻烦的。</p>
+<h3 id="3-电脑安装ssh连接软件"><a href="#3-电脑安装ssh连接软件" class="headerlink" title="3.电脑安装ssh连接软件"></a>3.电脑安装ssh连接软件</h3><p>安利俩个工具吧，自行下载。</p>
+<p><a target="_blank" rel="noopener" href="http://www.putty.org/">putty</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.netsarang.com/products/xsh_overview.html">xshell</a></p>
+<h3 id="4-开机"><a href="#4-开机" class="headerlink" title="4.开机"></a>4.开机</h3><p>将sd卡插回树莓派，通电开机。然后打开路由器后台，可以看到多了一台名为“raspberrypi”的设备，查看一下ip地址。</p>
+<p><img  src="https://pic.izhaoo.com/20170920100757.jpg"  ><span class="image-caption">查看ip</span></p>
+<p>然后ssh软件设置一下ip地址就可以连上树莓派了。</p>
+<p><img  src="https://pic.izhaoo.com/20170920101010.jpg"  ><span class="image-caption">填写ip</span></p>
+<p>需要填写树莓派ssh的用户名和密码。默认密码如下：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs applescript">用户名：<span class="hljs-literal">pi</span><br>密码：raspberry<br></code></pre></td></tr></table></figure>
+
+<p><img  src="https://pic.izhaoo.com/20170920084453.jpg"  ><span class="image-caption">填写用户名密码</span></p>
+<p>连接！看到以下界面就说明ssh连接树莓派成功了。尽情地折腾吧。</p>
+<p><img  src="https://pic.izhaoo.com/20170920084314.jpg"  ><span class="image-caption">ssh连接成功</span></p>
+<h1 id="IMG镜像解压"><a href="#IMG镜像解压" class="headerlink" title="IMG镜像解压"></a>IMG镜像解压</h1><p>今天折腾树莓派的更新源，手贱把原来的官方源删除了。网上教程都说加注释。别删！别删！别删！然后我不听，然后我就呵呵了。国内的源是残缺的，某些软件下载不了。</p>
+<p>痛定思痛，问题总归是要解决的。</p>
+<ul>
+<li><p>官方源我可记不住，网上也找不到。</p>
+</li>
+<li><p>重做系统？别了别了！我选择去死。</p>
+</li>
+</ul>
+<p>那么只能去官方下一个img镜像把里面的“sources.list”提取出来替换了。于是遇到了麻烦，img根本解压不了。简单的谷歌一下，get到了一款软件“LinuxRecovery”，可以用来解压img。</p>
+<p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1hsyA3Ow">LinuxRecovery</a></p>
+<p>教程我就不打字了，一早上写了太多了，放几张图片吧。相信机智你一定能解决的。 &gt;&gt;&gt;跑…</p>
+<p><img  src="https://pic.izhaoo.com/20170921095444.jpg"  ><span class="image-caption">IMG镜像解压-1</span></p>
+<p><img  src="https://pic.izhaoo.com/20170921095501.jpg"  ><span class="image-caption">IMG镜像解压-2</span></p>
+<p><img  src="https://pic.izhaoo.com/20170921095537.jpg"  ><span class="image-caption">IMG镜像解压-3</span></p>
+<p><img  src="https://pic.izhaoo.com/20170921095600.jpg"  ><span class="image-caption">IMG镜像解压-4</span></p>
+<p><img  src="https://pic.izhaoo.com/20170921095623.jpg"  ><span class="image-caption">IMG镜像解压-5</span></p>
+<p><img  src="https://pic.izhaoo.com/20170921095708.jpg"  ><span class="image-caption">IMG镜像解压-6</span></p>
+<h1 id="VNC"><a href="#VNC" class="headerlink" title="VNC"></a>VNC</h1><p>折腾树莓派嘛，当然少不了GUI图形界面，除非你是大佬，TUI文本界面敲代码，膜拜膜拜。说正经的，本文我们将安装个vnc远程连接树莓派。</p>
+<h2 id="树莓派端安装vnc服务端"><a href="#树莓派端安装vnc服务端" class="headerlink" title="树莓派端安装vnc服务端"></a>树莓派端安装vnc服务端</h2><p>首先我们ssh连接树莓派，还没连接过ssh的可以看我之前文章。<a target="_blank" rel="noopener" href="http://note.izhaoo.com/raspberrypi-install-system-without-display/">树莓派 – 无屏幕安装系统</a></p>
+<p>敲入以下代码：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">sudo apt-<span class="hljs-keyword">get</span> install tightvncserver    <span class="hljs-comment">#安装vnc服务端</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">vncpasswd</span>    <span class="hljs-comment">#设置vnc连接密码</span><br></code></pre></td></tr></table></figure>
+
+<p>两次输入密码，回车，注意密码是不会显示的。然后提示你是否设置查看(view-only)密码，没必要，按“n”。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo nano <span class="hljs-regexp">/etc/i</span>nit.d/tightvncserver    <span class="hljs-comment">#新建“tightvncserver”文件，设置开机启动</span><br></code></pre></td></tr></table></figure>
+
+<p>在nano编辑器内粘贴以下代码。然后按“ctrl+x”，再按“y”保存，回车确认。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/sh</span><br><span class="hljs-comment">### BEGIN INIT INFO</span><br><span class="hljs-comment"># Provides:          tightvncserver</span><br><span class="hljs-comment"># Required-Start:    $local_fs</span><br><span class="hljs-comment"># Required-Stop:     $local_fs</span><br><span class="hljs-comment"># Default-Start:     2 3 4 5</span><br><span class="hljs-comment"># Default-Stop:      0 1 6</span><br><span class="hljs-comment"># Short-Description: Start/stop tightvncserver</span><br><span class="hljs-comment">### END INIT INFO</span><br><span class="hljs-comment"># More details see:</span><br><span class="hljs-comment"># http://www.penguintutor.com/linux/tightvnc</span><br><span class="hljs-comment">### Customize this entry</span><br><span class="hljs-comment"># Set the USER variable to the name of the user to start tightvncserver under</span><br><span class="hljs-built_in">export</span> USER=<span class="hljs-string">&#x27;pi&#x27;</span><br><span class="hljs-comment">### End customization required</span><br><span class="hljs-built_in">eval</span> <span class="hljs-built_in">cd</span> ~<span class="hljs-variable">$USER</span><br><span class="hljs-keyword">case</span> <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> <span class="hljs-keyword">in</span><br>  start)<br>    <span class="hljs-comment"># 启动命令行。此处自定义分辨率（和你电脑分辨率设置一样吧）、控制台号码或其它参数。控制台号码设置为“0”的话之后可以不写。</span><br>    su <span class="hljs-variable">$USER</span> -c <span class="hljs-string">&#x27;/usr/bin/tightvncserver -depth 16 -geometry 1366x768 :1&#x27;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Starting TightVNC server for <span class="hljs-variable">$USER</span> &quot;</span><br>    ;;<br>  stop)<br>    <span class="hljs-comment"># 终止命令行。此处控制台号码与启动一致。</span><br>    su <span class="hljs-variable">$USER</span> -c <span class="hljs-string">&#x27;/usr/bin/tightvncserver -kill :1&#x27;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Tightvncserver stopped&quot;</span><br>    ;;<br>  *)<br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Usage: /etc/init.d/tightvncserver &#123;start|stop&#125;&quot;</span><br>    <span class="hljs-built_in">exit</span> 1<br>    ;;<br><span class="hljs-keyword">esac</span><br><span class="hljs-built_in">exit</span> 0<br></code></pre></td></tr></table></figure>
+
+<p>再给tightvncserver文件加执行权限，并更新开机启动列表。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo chmod <span class="hljs-number">755</span> <span class="hljs-regexp">/etc/i</span>nit.d/tightvncserver<br>sudo update-rc.d tightvncserver defaults<br></code></pre></td></tr></table></figure>
+
+<p>OK！树莓派端折腾完毕。</p>
+<h2 id="PC端安装VNC客户端"><a href="#PC端安装VNC客户端" class="headerlink" title="PC端安装VNC客户端"></a>PC端安装VNC客户端</h2><p>安利一个vnc客户端（同时它也有服务端）</p>
+<p><a target="_blank" rel="noopener" href="https://www.realvnc.com/en/connect/download/vnc/">RealVnc</a></p>
+<h2 id="连接VNC"><a href="#连接VNC" class="headerlink" title="连接VNC"></a>连接VNC</h2><p>在RealVnc设置ip等，连接。提示输入密码，就是之前设置的那个。</p>
+<p><img  src="https://pic.izhaoo.com/20170920111347.jpg"  ><span class="image-caption">vnc设置</span></p>
+<p><img  src="https://pic.izhaoo.com/20170920111404.jpg"  ><span class="image-caption">vnc连接</span></p>
+<p><img  src="https://pic.izhaoo.com/20170920112306.jpg"  ><span class="image-caption">输入密码</span></p>
+<p>OK！连接成功！</p>
+<p><img  src="https://pic.izhaoo.com/20170920112320.jpg"  ><span class="image-caption">连接成功</span></p>
+<h1 id="汉化"><a href="#汉化" class="headerlink" title="汉化"></a>汉化</h1><p>树莓派默认使用英文，对于我这种英语渣，就难以驾驭了。本文将介绍如何汉化树莓派。</p>
+<p>树莓派默认没装中文字库，如果强行更改语言为“中文”的话，会显示乱码或方块文。</p>
+<p>所以我们要先安装一个第三方字库。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-builtin-name">get</span> install ttf-wqy-zenhei<br></code></pre></td></tr></table></figure>
+
+<p>按“y”同意，并回车继续。</p>
+<p>然后我们再安装一个中文输入法。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-builtin-name">get</span> install scim-pinyin<br></code></pre></td></tr></table></figure>
+
+<p>同样按“y”同意，并回车继续。</p>
+<p>安装完毕后我们要设置中文显示。</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">sudo raspi-config<br></code></pre></td></tr></table></figure>
+
+
+<p>ps. 上下方向键选择，回车进入。</p>
+<p>“Internationalisation Options” –&gt; “change_locale” –&gt; “Default locale for the system environment:”</p>
+<p><img  src="https://pic.izhaoo.com/20170921081820.jpg"  ><span class="image-caption">语言配置</span></p>
+<p>ps. 光标上下移动，空格打“*”选择或取消。</p>
+<p>选择“zh_CN.UTF-8 UTF-8”，取消“en_GB.UTF-8 UTF-8”。</p>
+<p>然后按“tab”键将光标移到“ok”，回车保存。</p>
+<p>重启一下。</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">sudo shutdown -r now<br></code></pre></td></tr></table></figure>
+
+<p>重启后显示中文了，按“ctrl + space”还可以切换中文输入法。</p>
+<p><img  src="https://pic.izhaoo.com/20170921082603.jpg"  ><span class="image-caption">显示中文</span></p>
+<p>OK！中文是全世界最美（keng）的语言！</p>
+<h1 id="Vim文本编辑器-安装及设置代码高亮"><a href="#Vim文本编辑器-安装及设置代码高亮" class="headerlink" title="Vim文本编辑器 - 安装及设置代码高亮"></a>Vim文本编辑器 - 安装及设置代码高亮</h1><p>树莓派默认安装的文本编辑器是“nano”，燃鹅我并不喜欢，还是我“vim”最好。虽说树莓派也安装了“vim”，但是比较诡异，可能是变异了吧，完全不符合一般人的使用逻辑。</p>
+<p>首先我们要卸载“变异版vim”。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-builtin-name">get</span> <span class="hljs-builtin-name">remove</span> vim-common<br></code></pre></td></tr></table></figure>
+
+<p>再重新安装“正常版vim”。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-builtin-name">get</span> install vim<br></code></pre></td></tr></table></figure>
+
+<p>按“y”同意并回车，“vim”就安装好了。</p>
+<p>“vim”具体的使用命令可以问问度娘。</p>
+<p>接下来我们还需要配置代码高亮显示，嘛，必备的。</p>
+<p>在~目录下面新建”.vimrc”文件。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-built_in">pi</span>@raspberrypi ~ <span class="hljs-symbol">$</span> cd ~<br><span class="hljs-built_in">pi</span>@raspberrypi ~ <span class="hljs-symbol">$</span> vim .vimrc<br> <br><span class="hljs-keyword">set</span> number<br>syntax <span class="hljs-comment">on</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">tabstop=4</span><br></code></pre></td></tr></table></figure>
+
+<p>OK！代码高亮也配置完成。</p>
+<h1 id="更换为国内更新源"><a href="#更换为国内更新源" class="headerlink" title="更换为国内更新源"></a>更换为国内更新源</h1><p>树莓派默认更新源服务器位于国外，虽说没被墙，但下载速度太感人了，还是有必要换成国内源的。</p>
+<h2 id="更新-2017-10-04"><a href="#更新-2017-10-04" class="headerlink" title="更新-2017.10.04"></a>更新-2017.10.04</h2><p>修改“/etc/apt/sources.list”</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">deb http:<span class="hljs-regexp">//mi</span>rrors.ustc.edu.cn<span class="hljs-regexp">/raspbian/</span>raspbian/ jessie main contrib non-free<br></code></pre></td></tr></table></figure>
+
+<p>修改“/etc/apt/sources.list.d/raspi.list”</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">deb http:<span class="hljs-regexp">//mi</span>rrors.ustc.edu.cn<span class="hljs-regexp">/archive.raspberrypi.org/</span>debian/ jessie main<br></code></pre></td></tr></table></figure>
+
+<p>！！！ “wheezy”、“jessie”、“stretch”根据自己的改字段</p>
+<p>！！！ 以下内容作废，可参考过程。</p>
+<h2 id="更换阿里云源"><a href="#更换阿里云源" class="headerlink" title="更换阿里云源"></a>更换阿里云源</h2><p>这里我们以阿里云源为例说明如何更换更新源。</p>
+<p>编辑“/etc/apt/sources.list”文件，将原来的源加“#”注释掉，再将以下阿里云源粘贴即可。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo nano <span class="hljs-regexp">/etc/</span>apt/sources.list   <span class="hljs-comment">#编辑“sources.list”文件</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">deb http:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/raspbian/</span>raspbian/ jessie main contrib non-free    <span class="hljs-comment">#阿里云源</span><br>deb-src http:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/raspbian/</span>raspbian/ jessie main contrib non-free    <span class="hljs-comment">#阿里云源</span><br></code></pre></td></tr></table></figure>
+
+<p><img  src="https://pic.izhaoo.com/20170921085740.jpg"  ><span class="image-caption">更换源</span></p>
+<p>！！！ wheezy系统务必将上面的“jessie”字段换成“wheezy”。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-builtin-name">get</span> update &amp;&amp; apt-<span class="hljs-builtin-name">get</span><span class="hljs-built_in"> upgrade </span>-y     #更新源&amp;更新系统<br></code></pre></td></tr></table></figure>
+
+<p><img  src="https://pic.izhaoo.com/20170921091143.jpg"  ><span class="image-caption">更新系统和源</span></p>
+<h2 id="国内源列表"><a href="#国内源列表" class="headerlink" title="国内源列表"></a>国内源列表</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs awk">中国科学技术大学<br>Raspbian http:<span class="hljs-regexp">//mi</span>rrors.ustc.edu.cn<span class="hljs-regexp">/raspbian/</span>raspbian/<br><br>阿里云<br>Raspbian http:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/raspbian/</span>raspbian/<br><br>清华大学<br>Raspbian http:<span class="hljs-regexp">//mi</span>rrors.tuna.tsinghua.edu.cn<span class="hljs-regexp">/raspbian/</span>raspbian/<br><br>华中科技大学<br>Raspbian http:<span class="hljs-regexp">//mi</span>rrors.hustunique.com<span class="hljs-regexp">/raspbian/</span>raspbian/<br>Arch Linux ARM http:<span class="hljs-regexp">//mi</span>rrors.hustunique.com<span class="hljs-regexp">/archlinuxarm/</span><br><br>华南农业大学（华南用户）<br>Raspbian http:<span class="hljs-regexp">//mi</span>rrors.scau.edu.cn<span class="hljs-regexp">/raspbian/</span><br><br>大连东软信息学院源（北方用户）<br>Raspbian http:<span class="hljs-regexp">//mi</span>rrors.neusoft.edu.cn<span class="hljs-regexp">/raspbian/</span>raspbian/<br><br>重庆大学源（中西部用户）<br>Raspbian http:<span class="hljs-regexp">//mi</span>rrors.cqu.edu.cn<span class="hljs-regexp">/Raspbian/</span>raspbian/<br><br>中山大学 已跳转至中国科学技术大学源<br>Raspbian http:<span class="hljs-regexp">//mi</span>rror.sysu.edu.cn<span class="hljs-regexp">/raspbian/</span>raspbian/<br><br>新加坡国立大学（国外）<br>Raspbian http:<span class="hljs-regexp">//mi</span>rror.nus.edu.sg<span class="hljs-regexp">/raspbian/</span>raspbian<br><br>牛津大学（国外）<br>Raspbian http:<span class="hljs-regexp">//mi</span>rror.ox.ac.uk<span class="hljs-regexp">/sites/</span>archive.raspbian.org<span class="hljs-regexp">/archive/</span>raspbian/<br><br>韩国KAIST大学（国外）<br>Raspbian http:<span class="hljs-regexp">//</span>ftp.kaist.ac.kr<span class="hljs-regexp">/raspbian/</span>raspbian/<br></code></pre></td></tr></table></figure>
+
+<h1 id="绑定域名-让外网可以访问树莓派"><a href="#绑定域名-让外网可以访问树莓派" class="headerlink" title="绑定域名 - 让外网可以访问树莓派"></a>绑定域名 - 让外网可以访问树莓派</h1><p>树莓派绑定域名，让外网也可以通过域名访问。</p>
+<h2 id="2017-09-27"><a href="#2017-09-27" class="headerlink" title="2017-09-27"></a>2017-09-27</h2><p>今天发现，学校虽然是公网IP，但还是有租期，也就是说跳IP。只能路由器DDNS咯。</p>
+<h2 id="2017-09-26"><a href="#2017-09-26" class="headerlink" title="2017-09-26"></a>2017-09-26</h2><p>这几天一直在渡劫，如何给树莓派绑定域名，搭建一台小型服务器。然后我试了以下方式。</p>
+<p>|:————- :|:————-:|<br>|花生壳-DDNS|要实名交钱，太麻烦|<br>|Dnspod-DDNS|脚本没成功|<br>|ngrok-内网穿透|要敲的代码太多，太麻烦|<br>|frp-内网穿透|本地端没配置成功，是个bug|</p>
+<p>总之就是遇到各种问题。</p>
+<p>然后我向大学校友（老乡）求救，他居然说……学校是公网IP，不封80端口。WTF？！好吧，一看还真是。MD，我这两天在搞什么事情。</p>
+<p>然后直接解析域名到学校IP，路由器开个DMZ，就那么简单。唉，作死我，好气哟。</p>
+<h1 id="Webiopi-通过网页控制GPIO"><a href="#Webiopi-通过网页控制GPIO" class="headerlink" title="Webiopi - 通过网页控制GPIO"></a>Webiopi - 通过网页控制GPIO</h1><p>在树莓派上安装Webiopi，通过Web页面控制GPIO。</p>
+<h2 id="Webiopi"><a href="#Webiopi" class="headerlink" title="Webiopi"></a>Webiopi</h2><p><a target="_blank" rel="noopener" href="http://webiopi.trouch.com">Webiopi</a>（Web Internet Of RaspberryPi）。就是在树莓派上搭建一个Web页面，从而控制树莓派上的GPIO接口。比如说你可以远程点个LED啊，点个蜂鸣器啊。如果接个继电器，还可以点个电灯，点个空调。哇！我仿佛叩开了物联网（IOT）的大门。</p>
+<p><img  src="https://pic.izhaoo.com/20170928211527.jpg"  ><span class="image-caption">webiopi</span></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li>安装python开发版</li>
+</ol>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs q">sudo apt-<span class="hljs-built_in">get</span> install python-<span class="hljs-built_in">dev</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>安装GPIO</li>
+</ol>
+<p>到<a target="_blank" rel="noopener" href="https://pypi.python.org/pypi/RPi.GPIO">python-gpio页面</a>下载最新的python-gpio压缩包。</p>
+<p><img  src="https://pic.izhaoo.com/20170928202804.jpg"  ><span class="image-caption">gpio</span></p>
+<p>然后上传到树莓派。（可以通过宝塔面板或ftp上传）</p>
+<p>cd 到压缩包目录，解压缩，安装。</p>
+<p>！！！ 代码中的版本改成你下载的版本。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tar</span> -xvzf RRPi.GPIO-<span class="hljs-number">0</span>.<span class="hljs-number">6</span>.<span class="hljs-number">3</span>.tar.gz<br><br><span class="hljs-attribute">cd</span> WebIOPi-<span class="hljs-number">0</span>.<span class="hljs-number">6</span>.<span class="hljs-number">3</span><br><br><span class="hljs-attribute">sudo</span> ./setup.sh<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>安装Webiopi</li>
+</ol>
+<p>到<a target="_blank" rel="noopener" href="http://webiopi.trouch.com/DOWNLOADS.html">webiopi项目官网</a>下载最新的webiopi压缩包。</p>
+<p><img  src="https://pic.izhaoo.com/20170928210103.jpg"  ><span class="image-caption">webiopi</span></p>
+<p>同样上传到树莓派，解压缩，安装。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tar</span> xvzf WebIOPi-<span class="hljs-number">0</span>.<span class="hljs-number">7</span>.<span class="hljs-number">1</span>.tar.gz<br><span class="hljs-attribute">cd</span> WebIOPi-<span class="hljs-number">0</span>.<span class="hljs-number">7</span>.<span class="hljs-number">1</span><br><span class="hljs-attribute">sudo</span> ./setup.sh<br></code></pre></td></tr></table></figure>
+
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>修改webiopi的默认密码。</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sudo webiopi-passwd</span><br></code></pre></td></tr></table></figure>
+
+<p>输入默认用户名“webiopi”，然后输入你需要更改的密码两次。</p>
+<p>启动webiopi。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo <span class="hljs-regexp">/etc/i</span>nit.d/webiopi start<br></code></pre></td></tr></table></figure>
+
+<p>设置开机自动启动。</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">sudo <span class="hljs-keyword">update</span>-rc.d webiopi defaults<br></code></pre></td></tr></table></figure>
+
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>然后用浏览器打开页面 –&gt; “<a target="_blank" rel="noopener" href="http://192.168.31.23:8000/webiopi/”">http://192.168.31.23:8000/webiopi/”</a></p>
+<p>！！！ 地址换成你树莓派的地址，端口默认为“8000”。绑定了域名的树莓派也可以域名访问。</p>
+<p>提示输入用户名密码。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">默认用户名：webiopi<br>密码：刚你自己改的那个，不改默认是“webiopi”<br></code></pre></td></tr></table></figure>
+
+<p>然后看到以下界面就说明安装成功了。</p>
+<p><img  src="https://pic.izhaoo.com/20170928210648.jpg"  ><span class="image-caption">安装成功</span></p>
+<p>点第一项进入控制页面。其他几项也可以研究下，监控界面什么的。</p>
+<p><img  src="https://pic.izhaoo.com/20170928211527.jpg"  ><span class="image-caption">控制页面</span></p>
+<h2 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h2><ul>
+<li>点击外侧的“IN/OUT”切换GPIO的工作模式，输入/输出</li>
+<li>输出模式下，点击内侧的数字，切换输出电平，高/低</li>
+<li>输入模式下，内测数字代表GPIO的输入状态</li>
+</ul>
+<h1 id="更换默认用户密码-amp-启用Root超级用户"><a href="#更换默认用户密码-amp-启用Root超级用户" class="headerlink" title="更换默认用户密码&amp;启用Root超级用户"></a>更换默认用户密码&amp;启用Root超级用户</h1><p>给树莓派默认用户“pi”更换默认密码，启用Root超级用户。</p>
+<p>最近在折腾给树莓派接公网安装服务器跑脚本什么的，既然接到公网嘛，用树莓派默认用户密码肯定是不安全的，指不定什么时候给脚本小子H了。（嗯，多虑了，谁会在意我怎么个破盒子）</p>
+<p>那么我们就把树莓派默认用户密码给换了吧，增加点安全性。顺便把Root超级用户也开了，方便整事儿。</p>
+<h2 id="更改默认密码"><a href="#更改默认密码" class="headerlink" title="更改默认密码"></a>更改默认密码</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">sudo passwd <span class="hljs-literal">pi</span>    <span class="hljs-comment">#更换“pi”超级用户密码。</span><br></code></pre></td></tr></table></figure>
+
+<p>两次输入密码，回车，OK。</p>
+<h2 id="启用Root用户"><a href="#启用Root用户" class="headerlink" title="启用Root用户"></a>启用Root用户</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">sudo</span> passwd root    <span class="hljs-comment">#更换“root”超级用户密码。</span><br></code></pre></td></tr></table></figure>
+
+<p>两次输入密码，回车，OK。</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">sudo</span> <span class="hljs-string">passwd</span> <span class="hljs-built_in">--unlock</span> <span class="hljs-string">root</span>    <span class="hljs-comment">#开启Root用户</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="BerryBoot-通过WiFi连接VNC远程桌面"><a href="#BerryBoot-通过WiFi连接VNC远程桌面" class="headerlink" title="BerryBoot - 通过WiFi连接VNC远程桌面"></a>BerryBoot - 通过WiFi连接VNC远程桌面</h1><p>通过WiFi给BerryBoot添加VNC远程桌面。</p>
+<p>BerryBoot可能有童鞋了解，是给树莓派安装多系统的引导程序。问题又来了，作为苦逼的大学党，没有显示器。（其实这次返校从家里带了只旧显示器的，燃鹅，等我安到墙上后才发现，显示器是坏的→_→）没办法，试试看能不能VNC，别说还真可以，不过国内好像还没这方面教程，我是狗狗来的。</p>
+<h2 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h2><p>首先将安装BerryBoot的SD卡连接电脑，有个名为“boot”的FAT盘，打开它。</p>
+<p>打开“cmdline.txt”文件，改成：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">smsc95xx.<span class="hljs-attribute">turbo_mode</span>=N <span class="hljs-attribute">elevator</span>=deadline quiet <span class="hljs-attribute">bootmenutimeout</span>=30 vncinstall <span class="hljs-attribute">ipv4</span>=192.168.1.152/255.255.255.0/192.168.1.1/wlan0<br></code></pre></td></tr></table></figure>
+
+<p>PS. “cmdline.txt”源文件： <code>elevator=deadline bootmenutimeout=10 datadev=mmcblk0p2</code></p>
+<p>！！！注意    “192.168.1.152”改成你的树莓派IP    “192.168.1.1”改成你的网关（路由器地址）    “bootmenutimeout=30”是默认时间，长短随你</p>
+<p>新建一个“wpa_supplicant.conf”文件，写入：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">country</span>=CN<br><span class="hljs-attribute">ctrl_interface</span>=DIR=/var/run/wpa_supplicant <span class="hljs-attribute">GROUP</span>=netdev<br><span class="hljs-attribute">update_config</span>=1<br><br>network=&#123;<br><span class="hljs-attribute">ssid</span>=<span class="hljs-string">&quot;zhaoo&quot;</span> #ssid（wifi用户名）<br><span class="hljs-attribute">psk</span>=<span class="hljs-string">&quot;12345678&quot;</span> #password（wifi密码）<br><span class="hljs-attribute">priority</span>=1 #优先级<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后插回SD卡上电开机，看到绿灯一闪一闪说明树莓派连上WiFi了。</p>
+<p>打开VNCViewer，输入树莓派IP地址连接，端口是5900（可不填写），默认无帐号密码。</p>
+<p>！！！注意    色彩要改成24位真彩色，其他的显示不出。</p>
+<p><img  src="https://pic.izhaoo.com/20171015131949.jpg"  ><span class="image-caption">berryboot-vnc</span></p>
+<p><img  src="https://pic.izhaoo.com/20171015133429.jpg"  ><span class="image-caption">berryboot-vnc</span></p>
+<h1 id="宝塔面板"><a href="#宝塔面板" class="headerlink" title="宝塔面板"></a>宝塔面板</h1><p>在树莓派上部署宝塔面板，搭建网站。</p>
+<h2 id="认识宝塔面板"><a href="#认识宝塔面板" class="headerlink" title="认识宝塔面板"></a>认识宝塔面板</h2><p><a target="_blank" rel="noopener" href="https://www.bt.cn/">宝塔面板官网</a></p>
+<p>建站的朋友都熟悉宝塔面板吧，这是个好东西。宝塔面板可以理解为一个工具集，能一键创建网站、FTP、数据库、SSL；安全管理，计划任务，文件管理，PHP多版本共存及切换。试想一下，如果我们要在一个服务器上搭建一个动态网站，需要部署php、数据库……balabala一大堆，多麻烦。Linux技术不好的同学还老是遇到各种问题。（说我自己）而宝塔面板呢，只要简单部署一下，点点鼠标就解决了，还可以在任意服务间切换呢，什么时候网站被黑了出现大量并发，马上把Apache换成Nginx。</p>
+<p>那么树莓派上部署这玩意儿有什么意义呢？哈！没意义！瞎折腾咯~且不说做网站这么好玩的事。拿来监控监控cpu和内存也是不错的。</p>
+<p><img  src="https://pic.izhaoo.com/20170923215657.jpg"  ><span class="image-caption">cpu&amp;内存监控</span></p>
+<h2 id="树莓派安装宝塔面板"><a href="#树莓派安装宝塔面板" class="headerlink" title="树莓派安装宝塔面板"></a>树莓派安装宝塔面板</h2><p>树莓派jessie系统是基于debian开发的，所以可以完美套用debian系统安装命令。</p>
+<p><img  src="https://pic.izhaoo.com/20170923083600.jpg"  ><span class="image-caption">jessie</span></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget -O install.sh http:<span class="hljs-regexp">//</span>download.bt.cn<span class="hljs-regexp">/install/i</span>nstall-ubuntu.sh &amp;&amp; bash install.sh<br></code></pre></td></tr></table></figure>
+
+<p>一段代码搞定，easy吧。提示请输入“y”同意哦。等一会儿命令执行完的时候会返回宝塔面板默认用户名（admin）和密码（密匙），用这个用户名密码密码登陆宝塔面板，然后记得改下用户名密码。</p>
+<p>ps. 地址：树莓派内网地址:8888     比如我是 192.168.31.23:8888</p>
+<p><img  src="https://pic.izhaoo.com/20170923221740.jpg"  ><span class="image-caption">更改用户名密码</span></p>
+<h2 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h2><p>这个也没什么好说的，到软件管理界面，点点鼠标，选择一个合适的版本安装就好了。</p>
+<p><img  src="https://pic.izhaoo.com/20170923221919.jpg"  ><span class="image-caption">软件安装</span></p>
+<p>说明一下，就树莓派这小心脏，很卡。可以要安装个把小时。建议准备咖啡和书，或是来一局惊心动魄的……王者农药。（说好的卸农药）</p>
+<h2 id="LNMPA拓展"><a href="#LNMPA拓展" class="headerlink" title="LNMPA拓展"></a>LNMPA拓展</h2><p>大家都知道树莓派这么个小玩意儿虽说五脏俱全，但性能终归是有限。不停地跑宝塔面板，cpu发热严重。那我们来装一个轻量级包包吧–LNMP一键安装包。还有，宝塔面板只能LNMP或LAMP二选一，而LNMPA一键安装包可以融合以上两者灵活应对不同情况。不说了，给个链接自个儿了解吧。</p>
+<p><a target="_blank" rel="noopener" href="https://lnmp.org/">LNMP一键安装包官网</a></p>
+<h1 id="PiDashboard-安装树莓派专用仪表盘"><a href="#PiDashboard-安装树莓派专用仪表盘" class="headerlink" title="PiDashboard - 安装树莓派专用仪表盘"></a>PiDashboard - 安装树莓派专用仪表盘</h1><p>给树莓派安装Pi-Dashboard仪表盘，监控运行状况。</p>
+<h2 id="Pi-Dashboard仪表盘"><a href="#Pi-Dashboard仪表盘" class="headerlink" title="Pi-Dashboard仪表盘"></a>Pi-Dashboard仪表盘</h2><p><a target="_blank" rel="noopener" href="http://maker.quwj.com/project/10">项目主页</a>    <a target="_blank" rel="noopener" href="https://github.com/spoonysonny/pi-dashboard">GitHub</a></p>
+<p><a target="_blank" rel="noopener" href="http://pi.izhaoo.com/dashboard/">预览</a> （这是部署在我树莓派上的页面，如果能访问，说明我还在折腾）</p>
+<p>之前介绍了一个宝塔面板，那是部署Web服务器用的。今天再介绍一个树莓派专用的仪表盘，用来显示树莓派的Cpu、内存、储存等信息。</p>
+<p>目前已加入的监测项目有：摘自<a target="_blank" rel="noopener" href="http://shumeipai.nxez.com/2017/08/31/pi-dashboard-released.html">树莓派实验室</a></p>
+<ul>
+<li>CPU 基本信息、状态和使用率等实时数据</li>
+<li>内存、缓存、SWAP分区使用的实时数据</li>
+<li>SD卡（磁盘）的占用情况</li>
+<li>实时负载数据</li>
+<li>实施进程数据</li>
+<li>网络接口的实时数据</li>
+<li>树莓派IP、运行时间、操作系统、HOST 等基础信息</li>
+</ul>
+<p><img  src="https://pic.izhaoo.com/20170925140517.jpg"  ><span class="image-caption">树莓派仪表盘</span></p>
+<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><p>仪表盘是基于php编写的，所以我们只需搭建一个php环境即可。这里演示在宝塔面板部署 Php7.1 + Nginx1.8 （不需要MySQL）。可以参考前文。<a target="_blank" rel="noopener" href="http://note.izhaoo.com/raspberrypi-install-bt-panel/">树莓派 – 部署宝塔面板</a></p>
+<p>动动鼠标安装 P + N 两款软件。</p>
+<p><img  src="https://pic.izhaoo.com/20170925141011.jpg"  ><span class="image-caption">php</span></p>
+<p><img  src="https://pic.izhaoo.com/20170925141023.jpg"  ><span class="image-caption">nginx</span></p>
+<p>然后新建网站。</p>
+<p>ps. 如果你绑定了域名，可以选择绑定域名。没有的话只能填写内网ip了，酱紫外网是访问不到的。</p>
+<p><img  src="https://pic.izhaoo.com/20170925141133.jpg"  ><span class="image-caption">新建网站</span></p>
+<p>然后去<a target="_blank" rel="noopener" href="https://github.com/spoonysonny/pi-dashboard">GitHub</a>下载最新的程序，上传到树莓派，解压到网站根目录即可。</p>
+<p><img  src="https://pic.izhaoo.com/20170925141450.jpg"  ><span class="image-caption">上传</span></p>
+<p>然后访问域名或IP就可以查看效果了。</p>
+<h2 id="个性化"><a href="#个性化" class="headerlink" title="个性化"></a>个性化</h2><p>我们也可以改下前端代码，对仪表盘做个美化，比如可以看到我加了友情链接。不再赘述。</p>
+<p><img  src="https://pic.izhaoo.com/20170925141818.jpg"  ><span class="image-caption">个性化</span></p>
+<h1 id="在树莓派搭建Hexo博客"><a href="#在树莓派搭建Hexo博客" class="headerlink" title="在树莓派搭建Hexo博客"></a>在树莓派搭建Hexo博客</h1><p>本地生成Hexo静态页面，上传到树莓派3。</p>
+<p>本来想着在树莓派搭个LNMP环境，然后搭建Typecho动态博客。燃鹅，惊喜总是不断的。树莓派这小Cpu小内存，MySQL内存溢出装不上（即使装上了也卡的一批），难怪网友们都是装SQLite的。所以，我还是整个Hexo静态博客吧，鱼和熊掌得得兼。</p>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>不太了解Hexo的朋友可以先预习下我的另一篇文章。</p>
+<p><a target="_blank" rel="noopener" href="https://note.izhaoo.com/hexo-1-creat-blog.html">Hexo – 在GitHub搭建博客</a></p>
+<p>本文不是说在树莓派上部署 Node.js + Hexo 环境，然后直接生成静态页面，我个人觉得这种方式还是会卡。所以我决定在本地部署 Node.js + Hexo 环境，然后生成静态页面，再上传到树莓派展示。酱紫实际上树莓派只是做为一个静态空间，并没有运行任何程序，内存占用几乎为0。</p>
+<h2 id="本地环境搭建（前编）"><a href="#本地环境搭建（前编）" class="headerlink" title="本地环境搭建（前编）"></a>本地环境搭建（前编）</h2><p>！！！ 这部分是抄前文的，如果之前在本地已经部署过Hexo，可跳过。</p>
+<p>ps. 以下操作在PC本地执行</p>
+<h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><p>到<a target="_blank" rel="noopener" href="http://nodejs.cn/download/">Node.js下载页面</a>下载最新客户端，并安装。只需更改安装目录，其他选项都保持默认。</p>
+<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>打开CMD（当然GitBash也可以）</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">npm install -g hexo-<span class="hljs-keyword">cli</span><br></code></pre></td></tr></table></figure>
+
+<p>完成后输入</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">hexo</span><br></code></pre></td></tr></table></figure>
+
+<p>出现下图所示，说明安装成功。</p>
+<p><img  src="https://pic.izhaoo.com/20170907090256.jpg"  ><span class="image-caption">Hexo安装成功</span></p>
+<h2 id="环境搭建（后编）"><a href="#环境搭建（后编）" class="headerlink" title="环境搭建（后编）"></a>环境搭建（后编）</h2><p>新建一个文件夹，cd到文件夹</p>
+<p>安装Hexo:</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i -g hexo<br></code></pre></td></tr></table></figure>
+
+<p>初始化Hexo：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">hexo <span class="hljs-keyword">init</span><br></code></pre></td></tr></table></figure>
+
+<p>看下目录结构，和我一样就OK了。</p>
+<p><img  src="https://pic.izhaoo.com/20170907090532.jpg"  ><span class="image-caption">目录结构</span></p>
+<p>然后就是写文章，生成MaekDown，生成静态页面。balabala……不会的看我前文吧。</p>
+<h2 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h2><p>ps. 以下操作在树莓派执行</p>
+<p><del>刚是谁说不装任何软件来着</del> 抱歉了哈。只是觉得Nginx跑静态页面更有优势，比如说在刚并发的情况下。（我真的想多了，流量有1 ip/day就谢天谢地了）</p>
+<p>我们选择先装个宝塔面板，再安装Nginx。   传送门 –&gt; <a target="_blank" rel="noopener" href="http://note.izhaoo.com/raspberrypi-install-bt-panel.html">树莓派 – 部署宝塔面板</a></p>
+<p>然后新建网站。</p>
+<p>ps. 如果你绑定了域名，可以选择绑定域名。没有的话只能填写内网ip了，酱紫外网是访问不到的。</p>
+<p><img  src="https://pic.izhaoo.com/20170925141133.jpg"  ><span class="image-caption">新建网站</span></p>
+<h2 id="上传静态页面到树莓派"><a href="#上传静态页面到树莓派" class="headerlink" title="上传静态页面到树莓派"></a>上传静态页面到树莓派</h2><p>生成静态页面：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">hexo clean</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">hexo g</span><br></code></pre></td></tr></table></figure>
+
+<p>这时候，页面就存在“public”文件夹下了。把文件夹内的文件全部上传到树莓派上的网站目录即可。装了宝塔面板的话就可以直接上传压缩包，然后解压即可。</p>
+<p>OK。浏览器输入域名或IP查看效果吧。</p>
+<p>不得不说，这种纯静态博客是最适合我们小树莓派了。</p>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2018/05/28/raspberrypi-config-collect/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2018&#x2F;05&#x2F;28&#x2F;raspberrypi-config-collect&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2018&#x2F;05&#x2F;28&#x2F;raspberrypi-config-collect&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hack/" rel="tag">hack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raspberrypi/" rel="tag">raspberrypi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" rel="tag">树莓派</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2018/08/19/cycling-east-zhejiang/"><i class="iconfont iconleft"></i>浙东骑行</a>
+    <a href="/2018/05/12/frp-deploy/">frp - 内网穿透<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>

@@ -1,0 +1,578 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>树莓派 - JS 驱动 LCD1602 - zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, raspberry-pi,树莓派,lcd1602,johnny-five,js">
+  <meta name="description" content="树莓派使用 johnny-five.js 库驱动 LC...">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center">树莓派 - JS 驱动 LCD1602</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20210203154746.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">树莓派 - JS 驱动 LCD1602</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>二月 03, 2021</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2021/02/03/raspi-johnny-five-lcd1602/" class="leancloud" data-flag-title="树莓派 - JS 驱动 LCD1602"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2646</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <p>&lt;封面摄于浙江·安吉的凤凰山，大一在这些玩了半年树莓派，现在用树莓派来写毕设，不忘初心，笑。&gt;</p>
+<p>最近想用树莓派驱动 IoT 写个毕设，经过一番调研选择了 Johnny-Five 库，咱前端人必须用 JS 干啥都行。开始前先驱动个 LCD1602 试试。 LCD1602 我选择的是 I2C 驱动的，既省线，又不用拖个面包板。</p>
+<h3 id="安装-Node-js"><a href="#安装-Node-js" class="headerlink" title="安装 Node.js"></a>安装 Node.js</h3><p>这里我们选择用 <a target="_blank" rel="noopener" href="https://github.com/nvm-sh/nvm">nvm</a> 安装，执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash  <span class="hljs-comment"># 安装 nvm</span><br>$ <span class="hljs-built_in">source</span> ~/.bashrc  <span class="hljs-comment"># 刷新 bash 命令</span><br>$ nvm install node  <span class="hljs-comment"># 安装最新 Node.js</span><br></code></pre></td></tr></table></figure>
+<p>执行一下 <code>node -v</code> 和 <code>npm --version</code> 查看是否安装成功。</p>
+<h3 id="编译-pigpio"><a href="#编译-pigpio" class="headerlink" title="编译 pigpio"></a>编译 pigpio</h3><p>Johnny-Five 依赖于 <a target="_blank" rel="noopener" href="https://github.com/joan2937/pigpio">pigpio</a>，但是 Johnny-Five 库中集成的 pigpio 版本太老，不支持 64 位的系统，使用我们需要手动编译最新版本的 pigpio。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git <span class="hljs-built_in">clone</span> https://github.com/joan2937/pigpio.git  <span class="hljs-comment"># 下载最新版</span><br>$ unzip pigpio-master.zip  <span class="hljs-comment"># 解压</span><br>$ <span class="hljs-built_in">cd</span> pigpio-master  <span class="hljs-comment"># 进入目录</span><br>$ make  <span class="hljs-comment"># 编译</span><br>$ make install <span class="hljs-comment"># 安装</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="安装-Johnny-Five"><a href="#安装-Johnny-Five" class="headerlink" title="安装 Johnny-Five"></a>安装 Johnny-Five</h3><p>Johnny-Five 需要两个 JS 依赖，<code>johnny-five.js</code> 和 <code>raspi-io.js</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ mkdir exp &amp;&amp; <span class="hljs-built_in">cd</span> exp  <span class="hljs-comment"># 新建项目</span><br>$ npm init <span class="hljs-comment"># 初始化</span><br>$ npm i johnny-five raspi-io --save<br>$ nano index.js<br></code></pre></td></tr></table></figure>
+
+<p>输入以下内容并保存：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> &#123; RaspiIO &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;raspi-io&quot;</span>);<br><span class="hljs-keyword">const</span> five = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;johnny-five&quot;</span>);<br><br><span class="hljs-keyword">const</span> board = <span class="hljs-keyword">new</span> five.Board(&#123;<br>  <span class="hljs-attr">io</span>: <span class="hljs-keyword">new</span> RaspiIO()<br>&#125;);<br><br>board.on(<span class="hljs-string">&quot;ready&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> lcd = <span class="hljs-keyword">new</span> five.LCD(&#123; <br>  <span class="hljs-attr">controller</span>: <span class="hljs-string">&quot;PCF8574T&quot;</span>  <span class="hljs-comment">// 板子的型号</span><br>&#125;);<br>  lcd.print(<span class="hljs-string">&quot;Hello, World&quot;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>请查看板子背部芯片上刻着的型号正确填写，PCF8574、PCF8574A、PCF8574T、PCF8574AT。</p>
+<p>Johnny-Five 有个坑，会导致文字无法正确输出只会输出一个个方块，需要修复一下，详见：<a target="_blank" rel="noopener" href="https://github.com/rwaldron/johnny-five/issues/1639">Raspberry and I2C LCD1602 with PCF8574T controller does not show text but only squares</a></p>
+<p>cd 到 <code>node_modules/johnny-five/lib/lcd.js</code>，将 <code>this.io.i2cWrite(this.address, this.memory);</code> 改成 <code>this.io.i2cWrite(this.address, [this.memory]);</code>，保存即可。</p>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p><strong>接线</strong></p>
+<p>LCD1602 有四根引脚，按如关联方式接入树莓派：</p>
+<table>
+<thead>
+<tr>
+<th>LCD</th>
+<th>树莓派</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GND</td>
+<td>6</td>
+<td>接地</td>
+</tr>
+<tr>
+<td>VCC</td>
+<td>4</td>
+<td>电源（5v or 3.3v）</td>
+</tr>
+<tr>
+<td>SDA</td>
+<td>3</td>
+<td>数据信号</td>
+</tr>
+<tr>
+<td>SCL</td>
+<td>5</td>
+<td>控制信号</td>
+</tr>
+</tbody></table>
+<p>连接完成后命令行输入 <code>sudo raspi-config</code>，Interface Options =&gt; I2C，启动 <em>I2C</em> 并重启。</p>
+<p>重启后命令行输入 <code>i2cdetect -y -r 1</code>，若显示如下则说明 I2C 连接成功。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f<br>00:          -- -- -- -- -- -- -- -- -- -- -- -- -- <br>10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- <br>20: -- -- -- -- -- -- -- 27 -- -- -- -- -- -- -- -- <br>30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- <br>40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- <br>50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- <br>60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- <br>70: -- -- -- -- -- -- -- -- <br></code></pre></td></tr></table></figure>
+
+<p><strong>运行</strong></p>
+<p>输入 <code>sudo node index.js</code> 运行程序即可看到 LCD 输出了字符。</p>
+<p><img  src="https://pic.izhaoo.com/20210203152622.jpg"  ><span class="image-caption">输出字符</span></p>
+<p>这里只是简单的做了个输出示范，开发中对应的 API 可以查看<a target="_blank" rel="noopener" href="http://johnny-five.io/api/lcd/">官方文档</a>。</p>
+<p>Johnny-Five 这个库还是挺厉害的，基本可以无脑驱动周边常用的元器件，python 能干的事儿，咱 JS 肯定要更优雅。也可以尝试一下 <a target="_blank" rel="noopener" href="https://cylonjs.com/">Cylon.js</a> 这个库，博主试了一下有坑，对新版系统支持不好。</p>
+<h3 id="踩坑指北"><a href="#踩坑指北" class="headerlink" title="踩坑指北"></a>踩坑指北</h3><p>记录一下踩过的坑：</p>
+<ol>
+<li>pigpio 需要手动编译最新版本，否则无法驱动 64 位系统。</li>
+<li>Johnny-Five 需要修改源码，否则会导致输出不正确。</li>
+<li>板子型号确认正确。</li>
+<li>运行程序需要 <em>root</em> 权限，请跟 <code>sudo</code> 命令。</li>
+<li>运行程序后可能板子上啥也没有，试着拨一下板子背部的旋钮调节一下亮度。<br>（博主调了一天源码没输出，就差给作者打电话了，晚上发现原来板子亮度没开，吐了……）</li>
+</ol>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2021/02/03/raspi-johnny-five-lcd1602/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2021&#x2F;02&#x2F;03&#x2F;raspi-johnny-five-lcd1602&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2021&#x2F;02&#x2F;03&#x2F;raspi-johnny-five-lcd1602&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/raspberrypi/" rel="tag">raspberrypi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" rel="tag">树莓派</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2021/02/28/raspi-camera-push-stream/"><i class="iconfont iconleft"></i>树莓派 - 摄像头推流</a>
+    <a href="/2021/01/27/deploy-openfaas-on-mac/">Mac OS 部署 OpenFaas<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>

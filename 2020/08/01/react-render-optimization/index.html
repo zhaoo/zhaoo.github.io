@@ -1,0 +1,562 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>React - 渲染性能优化 - zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, React,前端">
+  <meta name="description" content="总结避免子组件不必要渲染的一些方法。
+
+
+
+水文预警：...">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center">React - 渲染性能优化</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20200718152348.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">React - 渲染性能优化</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>八月 01, 2020</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2020/08/01/react-render-optimization/" class="leancloud" data-flag-title="React - 渲染性能优化"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4045</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <blockquote>
+<p>水文预警：看题目就知道，这篇是水文，写给自己的备忘录。</p>
+</blockquote>
+<p>在 <code>React</code> 中，父组件一旦渲染，子组件也会跟着重新渲染。（父债子还）</p>
+<p>试想在复杂业务场景下，一群子组件依赖于父组件，然后父组件有逻辑触发了渲染，一群子组件跟着渲染，这不是炸了。（杀鸡用牛刀）</p>
+<p>所以 <code>React</code> 性能优化的要素就是打断父子组件之间的强依赖关系，跳过不必要的重新渲染。但是当属性更新时，子组件又能进行及时响应并渲染。（指哪打哪）</p>
+<p>本文讨论在子组件控制重新渲染的一些方法。</p>
+<h3 id="shouldComponentUpdate"><a href="#shouldComponentUpdate" class="headerlink" title="shouldComponentUpdate"></a>shouldComponentUpdate</h3><p><code>shouldComponentUpdate</code> 是一个生命周期，在组件更新阶段中触发，用于判断组件是否需要渲染。</p>
+<p>组件更新：componentWillReceiveProps（接收属性） -&gt; <strong>shouldComponentUpdate（判断是否渲染）</strong> -&gt; componentWillUpdate -&gt; render（重新渲染） -&gt; componentDidUpdate</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-title">shouldComponentUpdate</span>(<span class="hljs-params">nextProps, nextState</span>)</span> &#123;<br>  <span class="hljs-keyword">if</span> (nextProps.user === <span class="hljs-built_in">this</span>.props.user) &#123;  <span class="hljs-comment">//属性没有改变</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;  <span class="hljs-comment">//不渲染</span><br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;  <span class="hljs-comment">//渲染</span><br>  &#125;<br>&#125;<br><br><span class="hljs-comment">//简写</span><br><span class="hljs-function"><span class="hljs-title">shouldComponentUpdate</span>(<span class="hljs-params">nextProps, nextState</span>)</span> &#123;<br>  <span class="hljs-keyword">return</span> nextProps !== <span class="hljs-built_in">this</span>.props;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>该生命周期方法接收两个变量，表示下一次渲染后的属性和变量；返回一个布尔值表示是否需要渲染。</p>
+<p>在方法中我们可以对 <code>nextProps（更新后属性）</code> 、 <code>this.props （当前属性）</code> 、 <code>nextState（更新后状态）</code> 、 <code>this.state （当前状态）</code> 进行一些判断，来决定是否需要重新渲染。当父组件传给子组件的属性没有发生变化时，子组件自然就不用重新渲染了，就达到了性能优化的效果。</p>
+<p>但是需要注意的是，深比较（递归遍历对象下面的所有属性）可能得不偿失，一套比较下来还要渲染，还不如直接渲染来的快。</p>
+<p>所以正确的食用方法如下：</p>
+<ul>
+<li>只进行浅比较，对比引用对象即可：<code>nextProps === this.props</code></li>
+<li>进行深层次控制，比如只对比其中一部分属性：<code>nextProps.username === this.props.username</code></li>
+<li>将对象转化为 <code>immutable</code> 对象进行比较。<del>但是 <code>js</code> 转 <code>immutable</code> 再转回 <code>js</code> 太麻烦了</del></li>
+</ul>
+<blockquote>
+<p><code>immutable.js</code> 是不可变数据集合，数据一旦创建就不能被修改，可以进行高效的惰性比较。</p>
+</blockquote>
+<h3 id="PureComponent"><a href="#PureComponent" class="headerlink" title="PureComponent"></a>PureComponent</h3><p>每个子组件都写一通 <code>shouldComponentUpdate</code> 也太麻烦了，所以 <code>React</code> 为我们准备了 <code>PureComponent</code> 组件，原型对象中默认实现了 <strong>浅比较</strong> 。</p>
+<p>By the way，若是在 <code>PureComponent</code> 使用了 <code>shouldComponentUpdate</code> ，该方法会被重写。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React, &#123;PureComponent&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PureComponent</span></span>&#123;  <span class="hljs-comment">//默认进行浅比较，决定是否重渲染</span><br>  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> (<br>      ...<br>    )<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上述两种方式只适用于 <strong>对象式组件</strong>，对于 <strong>函数式组件</strong> 需要使用以下方法：</p>
+<h3 id="memo"><a href="#memo" class="headerlink" title="memo"></a>memo</h3><p><code>React.memo()</code> 是一个 HOC（高阶组件），传入两个参数：函数式组件、判断方法，返回被包裹后的对象。通过判断方法中返回的结果来决定是否需要重新渲染。</p>
+<p>第二个参数也可以不传，默认就是浅比较。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React, &#123; memo &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">const</span> isEqual = <span class="hljs-function">(<span class="hljs-params">prevProps, nextProps</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> prevProps !== nextProps;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> memo(<span class="hljs-function">(<span class="hljs-params">props = &#123;&#125;</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> (<br>    ...<br>  );<br>&#125;, isEqual);<br></code></pre></td></tr></table></figure>
+
+<p>使用 <code>Hooks</code> 特性后，<code>React.memo()</code> 方法就失效了。因为每次渲染返回的都是一个新闭包，不管怎么比较都是重新渲染。</p>
+<p>贴心的 <code>React</code> 团队提供了以下两个 <code>Hooks</code> 方法：</p>
+<h3 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h3><p><code>useMemo</code> 接受两个参数：函数 和 依赖项数组，返回缓存 <code>memoized</code> 值（个人理解是包装后的对象）。只有当依赖性数组中的某个值发生变化时，该函数才会重新渲染。</p>
+<p><code>useMemo</code> 的控制粒度更细，控制的是传入的函数，而不是整个组件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React, &#123; useState, useMemo &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Father = <span class="hljs-function">(<span class="hljs-params">props = &#123;&#125;</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> [username, setUsername] = useState(<span class="hljs-string">&#x27;zhaoo&#x27;</span>);<br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Child</span> <span class="hljs-attr">username</span>=<span class="hljs-string">&#123;username&#125;</span> /&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span>=&gt;</span>setUsername(username + &#x27;o&#x27;)&#125;&gt;改变用户名<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/&gt;</span></span><br>  )<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Child = <span class="hljs-function">(<span class="hljs-params">props = &#123;&#125;</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;--- component re-render ---&#x27;</span>);  <span class="hljs-comment">//组件不会重新渲染</span><br>  <span class="hljs-keyword">const</span> &#123;username&#125; = props;<br>  <span class="hljs-keyword">return</span> useMemo(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;--- useMemo re-render ---&#x27;</span>);  <span class="hljs-comment">//函数重新渲染</span><br>    <span class="hljs-keyword">return</span> (<br>      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;username&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    )<br>  &#125;, [username]);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="useCallback"><a href="#useCallback" class="headerlink" title="useCallback"></a>useCallback</h3><p><code>useCallback</code> 与 <code>useMemo</code> 类似，也接受两个参数：回调函数 和 依赖项数组，返回缓存 <code>memoized</code> 值。当依赖性数组中的某个值发生变化时，传入的回调函数被新的闭包函数取代。</p>
+<p>说白了就是，<code>useMemo</code> 中的函数直接运行，<code>useCallback</code> 返回的函数需要你手动跑。类比于 <code>call</code> 和 <code>bind</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React, &#123; useState, useCallback &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Father = <span class="hljs-function">(<span class="hljs-params">props = &#123;&#125;</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> [username, setUsername] = useState(<span class="hljs-string">&#x27;zhaoo&#x27;</span>);<br>  <span class="hljs-keyword">const</span> handleClick = useCallback(<span class="hljs-function">() =&gt;</span> &#123;<br>    setUsername(username + <span class="hljs-string">&#x27;o&#x27;</span>);<br>  &#125;);<br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Child</span> <span class="hljs-attr">username</span>=<span class="hljs-string">&#123;username&#125;</span> /&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;handleClick&#125;</span>&gt;</span>改变用户名<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/&gt;</span></span><br>  )<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Child = <span class="hljs-function">(<span class="hljs-params">props = &#123;&#125;</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> &#123;username&#125; = props;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;username&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>上文只是对这些 API 过了一遍，还是乱讲的那种。不过产生了一些体会，只可意会不可言传。</p>
+<p>从 <strong>生命周期</strong> 到 <strong>Hooks</strong>，从 <strong>对象式组件</strong> 到 <strong>函数式组件</strong>，从 <strong>命令式</strong> 到 <strong>声明式</strong>，应该是思想上转变，以及为什么要引入 <code>Hooks</code>。</p>
+<p>而不是讨论 <code>useEffect</code> 中传什么参数可以模拟 <code>componentDidMount</code> 还是 <code>componentWillUnmount</code> 还是 <code>componentWillUpdate</code>。</p>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2020/08/01/react-render-optimization/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;08&#x2F;01&#x2F;react-render-optimization&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;08&#x2F;01&#x2F;react-render-optimization&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2020/08/02/ai-garbage-classification/"><i class="iconfont iconleft"></i>口袋拾荒 - 垃圾分类助手</a>
+    <a href="/2020/07/25/hexo-article-carrier/">Hexo - 开发文章搬运功能<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>

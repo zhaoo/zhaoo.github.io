@@ -1,0 +1,542 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>RN - 适配安卓全面屏 - zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, RN,react-native,全面屏,适配,高度">
+  <meta name="description" content="ReactNative 中对安卓全面屏手机的进行适配，...">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center">RN - 适配安卓全面屏</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20200228081621.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">RN - 适配安卓全面屏</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>六月 25, 2020</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2020/06/25/rn-adapt-to-full-screen/" class="leancloud" data-flag-title="RN - 适配安卓全面屏"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3500</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <p>最近对 <code>RN</code> 项目打了包，在安卓端进行真机调试，各种水土不服。主要就是在全面屏下高度不匹配，底边会多出一段白边。下面简单解释一下原因，并给出解决方案：</p>
+<h3 id="高度获取"><a href="#高度获取" class="headerlink" title="高度获取"></a>高度获取</h3><p>在 <code>RN</code> 中，我们一般通过以下代码获取设备高度，并将其设置为视口高度。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123;Dimensions&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> (<br>      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;styles.container&#125;</span>&gt;</span></span><br><span class="xml">        ...</span><br><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span><br>    );<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> styles = StyleSheet.create(&#123;<br>  <span class="hljs-attr">container</span>: &#123;<br>    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&#x27;#f0f3f6&#x27;</span>,<br>    <span class="hljs-attr">height</span>: Dimensions.get(<span class="hljs-string">&#x27;window&#x27;</span>).height,    <span class="hljs-comment">//将设备高度设置为视口高度，少一截</span><br>  &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>在一般情况下这是设置是没有问题的，整个 <code>视口高度</code> 会以 <code>设备高度</code> 为准撑满整个屏幕。但是在 <strong>全面屏</strong> 或者使用 <strong>Navbar</strong> 的时候就会出问题了，需要进行适配。</p>
+<h3 id="全面屏"><a href="#全面屏" class="headerlink" title="全面屏"></a>全面屏</h3><h5 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h5><p>市场上大多数的全面屏安卓手机，一般都是以 <em>刘海屏</em> 、 <em>水滴屏</em> 、 <em>挖孔屏</em> 等异形屏的形式存在。以 <em>小米10（挖孔屏）</em> 为例，屏幕在显示 UI 界面的时候，顶上的挖孔部分一般都是作为 <strong>状态栏</strong> 的形式存在。</p>
+<p><code>Dimensions.get(&#39;window&#39;).height</code> 在计算高度的时候不会将他计算进去。但是在实际渲染界面的时候，这部分又会被作为可视区域计算进去。这就造成了 <code>Dimensions.get(&#39;window&#39;).height</code> 获取的 <strong>设备高度</strong> 比 <strong>设备实际高度</strong> 少了一截（状态栏），就会在底部就会以白条的形式进行补全，太丑了……</p>
+<p><img  src="https://pic.izhaoo.com/20200625224801266.jpg"  ><span class="image-caption">白边</span></p>
+<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><p>所以我们只要在 <code>Dimensions.get(&#39;window&#39;).height</code> 获取高度的时候，把状态栏的高度也给加上去，作为视口高度就可以了。获取状态栏高度的方法：<code>StatusBar.currentHeight</code>。</p>
+<p>改写上面栗子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123;Dimensions, StatusBar&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> (<br>      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;styles.container&#125;</span>&gt;</span></span><br><span class="xml">        ...</span><br><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span><br>    );<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> styles = StyleSheet.create(&#123;<br>  <span class="hljs-attr">container</span>: &#123;<br>    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&#x27;#f0f3f6&#x27;</span>,<br>    <span class="hljs-attr">height</span>: Dimensions.get(<span class="hljs-string">&#x27;window&#x27;</span>).height + StatusBar.currentHeight,    <span class="hljs-comment">//补上状态栏高度，刚刚好</span><br>  &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>那么如何保证不误伤 <strong>正常屏</strong> 呢？这里给出龙鸣方法：通过判断 <strong>纵横比</strong>。一般比值大于<code>1.8</code>的是全面屏，小于<code>1.8</code>的是正常屏，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123;Dimensions, StatusBar&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;<br><span class="hljs-keyword">const</span> &#123;width, height&#125; = Dimensions.get(<span class="hljs-string">&#x27;window&#x27;</span>);<br><span class="hljs-keyword">const</span> wh = height / width;<br><span class="hljs-keyword">const</span> height = wh &gt; <span class="hljs-number">1.8</span> ? height + StatusBar.currentHeight : height;<br></code></pre></td></tr></table></figure>
+
+<p><img  src="https://pic.izhaoo.com/20200625224747636.jpg"  ><span class="image-caption">完美</span></p>
+<h3 id="底部导航栏"><a href="#底部导航栏" class="headerlink" title="底部导航栏"></a>底部导航栏</h3><h5 id="原因-1"><a href="#原因-1" class="headerlink" title="原因"></a>原因</h5><p>我们一般会在主屏使用 <code>Navigation</code> 等 <strong>底部导航栏</strong>，这个导航栏也是有高度的，并且在 <code>Dimensions.get(&#39;window&#39;).height</code> 获取高度的时候导航栏的高度也会被计算进去。这就造成了一个问题：导航栏会遮挡页面上的组件。</p>
+<h5 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h5><p>所以我们只要把导航栏的高度减去即可：<code>Dimensions.get(&#39;window&#39;).height - 49</code></p>
+<p>这边的 <code>49</code> 是我使用的导航栏的高度，一般导航栏高度都是固定的，我们只需要测量一下直接减去数值即可。</p>
+<h3 id="简单封装"><a href="#简单封装" class="headerlink" title="简单封装"></a>简单封装</h3><p>若是每个页面都为了计算高度而写一堆花里胡哨的逻辑代码，也太扯淡了。还是需要简单封装一下，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//height.js</span><br><br><span class="hljs-keyword">import</span> &#123;Dimensions, StatusBar&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;<br><span class="hljs-keyword">const</span> &#123;width, height&#125; = Dimensions.get(<span class="hljs-string">&#x27;window&#x27;</span>);<br><span class="hljs-keyword">const</span> wh = height / width;<br><span class="hljs-keyword">const</span> realHeight = wh &gt; <span class="hljs-number">1.8</span> ? height + StatusBar.currentHeight + <span class="hljs-number">46</span> : height;    <span class="hljs-comment">//不带导航栏的真实高度</span><br><span class="hljs-keyword">const</span> windowHeight = wh &gt; <span class="hljs-number">1.8</span> ? height + StatusBar.currentHeight : height - <span class="hljs-number">49</span>;    <span class="hljs-comment">//减去导航栏的视口高度</span><br><span class="hljs-keyword">export</span> &#123;realHeight, windowHeight&#125;;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//page with tabbar</span><br><br><span class="hljs-keyword">import</span> &#123;windowHeight&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;height&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> (<br>      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;styles.container&#125;</span>&gt;</span></span><br><span class="xml">        ...</span><br><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span><br>    );<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> styles = StyleSheet.create(&#123;<br>  <span class="hljs-attr">container</span>: &#123;<br>    <span class="hljs-attr">height</span>: windowHeight<br>  &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//page without tabbar</span><br><br><span class="hljs-keyword">import</span> &#123;realHeight&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;height&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> (<br>      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;styles.container&#125;</span>&gt;</span></span><br><span class="xml">        ...</span><br><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span><br>    );<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> styles = StyleSheet.create(&#123;<br>  <span class="hljs-attr">container</span>: &#123;<br>    <span class="hljs-attr">height</span>: realHeight<br>  &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>最后吐槽一下！</p>
+<p>把前置摄像头砍了！完完全全的全面屏！它不香么？！</p>
+<p>后置摄像头那么多有什么用？！一颗大底高素质镜头足矣！</p>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2020/06/25/rn-adapt-to-full-screen/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;06&#x2F;25&#x2F;rn-adapt-to-full-screen&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;06&#x2F;25&#x2F;rn-adapt-to-full-screen&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2020/07/17/js-promise/"><i class="iconfont iconleft"></i>JavaScript - Promise</a>
+    <a href="/2020/05/17/react-lifecycle/">React - 生命周期<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>

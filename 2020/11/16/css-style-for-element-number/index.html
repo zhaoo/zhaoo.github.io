@@ -1,0 +1,575 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CSS - 元素数量选择器 - zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, css, 元素数量, 选择器, 向前选择">
+  <meta name="description" content="根据元素数量匹配样式，解决 向前选择 和 重复元素 问...">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center">CSS - 元素数量选择器</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20201112102133.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">CSS - 元素数量选择器</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>十一月 16, 2020</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2020/11/16/css-style-for-element-number/" class="leancloud" data-flag-title="CSS - 元素数量选择器"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4558</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <p>&lt;封面摄于江苏·南京的先锋书店，打卡网红书店。&gt;</p>
+<h2 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h2><h3 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a>场景一</h3><p>今天在给 <code>hexo-theme-zhaoo</code> 写 <strong>文章目录 (toc)</strong>，有个需求：当目录不存在时，不显示标题。</p>
+<p><img  src="https://pic.izhaoo.com/20201116195907.png"  ><span class="image-caption">文章目录</span></p>
+<p>抽象出 <code>DOM</code> 结构：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">aside</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;toc-wrap&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;toc-title&quot;</span>&gt;</span>文章目录：<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">ol</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;toc&quot;</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">ol</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">aside</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>最直接的思路是匹配 <code>.toc</code>，若该元素不存在，则将它前面的 <code>.toc-title</code> 隐藏。但是 <code>CSS</code> 没有向前选择，因为这样回引起回流。</p>
+<p>需要想个办法曲线救国，其实借助它们的公共父元素 <code>.toc-wrap</code> 即可解决，若 <code>.toc-wrap</code> 只有一个子元素则将它隐藏。如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.toc-wrap</span><br>  &amp; &gt; <span class="hljs-selector-pseudo">:only-child</span><br>    <span class="hljs-attribute">display</span> <span class="hljs-attribute">none</span><br></code></pre></td></tr></table></figure>
+
+<p>🌰 很简单，却值得思考一下，<code>CSS</code> 真的不能 “向前选择” 嘛？</p>
+<h3 id="场景二"><a href="#场景二" class="headerlink" title="场景二"></a>场景二</h3><p>在构建 <em>栅格化</em> 布局的时候，早期的 <code>BootStrap</code> 使用了大量的重复代码，类似这样：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) &#123;<br>  <span class="hljs-selector-class">.col-md-1</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">8.33333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">8.33333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-2</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">16.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">16.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-3</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">25%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">25%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-4</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">33.3333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">33.3333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-5</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">41.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">41.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-6</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">50%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">50%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-7</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">58.3333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">58.3333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-8</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">66.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">66.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-9</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">75%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">75%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-10</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">83.3333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">83.3333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-11</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">91.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">91.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-12</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">100%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">100%</span>; &#125;<br>&#125;<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">992px</span>) &#123;<br>  <span class="hljs-selector-class">.col-lg-1</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">8.33333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">8.33333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-2</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">16.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">16.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-3</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">25%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">25%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-4</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">33.3333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">33.3333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-5</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">41.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">41.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-6</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">50%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">50%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-7</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">58.3333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">58.3333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-8</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">66.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">66.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-9</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">75%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">75%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-10</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">83.3333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">83.3333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-11</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">91.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">91.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-12</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">100%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">100%</span>; &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在使用 <code>CSS 预处理器</code> 后可以简化成下面这样，但是编译后依然存在大量重复代码。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs css">for $<span class="hljs-selector-tag">i</span> in <span class="hljs-number">1</span> .. <span class="hljs-number">12</span><br>  <span class="hljs-selector-class">.col-</span>&#123;$<span class="hljs-selector-tag">i</span>&#125;<br>    col-attr round(($<span class="hljs-selector-tag">i</span> * <span class="hljs-number">100</span> / <span class="hljs-number">12</span>) %, <span class="hljs-number">6</span>)<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span> <span class="hljs-number">576px</span>)<br>  for $i in <span class="hljs-number">1</span> .. <span class="hljs-number">12</span><br>    .col-sm-&#123;$<span class="hljs-selector-tag">i</span>&#125;<br>      col-attr round(($<span class="hljs-selector-tag">i</span> * <span class="hljs-number">100</span> / <span class="hljs-number">12</span>) %, <span class="hljs-number">6</span>)<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span> <span class="hljs-number">768px</span>)<br>  for $i in <span class="hljs-number">1</span> .. <span class="hljs-number">12</span><br>    .col-md-&#123;$<span class="hljs-selector-tag">i</span>&#125;<br>      col-attr round(($<span class="hljs-selector-tag">i</span> * <span class="hljs-number">100</span> / <span class="hljs-number">12</span>) %, <span class="hljs-number">6</span>)<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span> <span class="hljs-number">992px</span>)<br>  for $i in <span class="hljs-number">1</span> .. <span class="hljs-number">12</span><br>    .col-lg-&#123;$<span class="hljs-selector-tag">i</span>&#125;<br>      col-attr round(($<span class="hljs-selector-tag">i</span> * <span class="hljs-number">100</span> / <span class="hljs-number">12</span>) %, <span class="hljs-number">6</span>)<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span> <span class="hljs-number">1200px</span>)<br>  for $i in <span class="hljs-number">1</span> .. <span class="hljs-number">12</span><br>    .col-xl-&#123;$<span class="hljs-selector-tag">i</span>&#125;<br>      col-attr round(($<span class="hljs-selector-tag">i</span> * <span class="hljs-number">100</span> / <span class="hljs-number">12</span>) %, <span class="hljs-number">6</span>)<br></code></pre></td></tr></table></figure>
+
+<p>灵魂拷问，<code>CSS</code> 真的不适合处理 “重复元素” 的场景嘛？</p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>一些 <code>CSS3</code> 选择器：</p>
+<ul>
+<li><code>&gt;</code> 子元素选择器</li>
+<li><code>+</code> 相邻元素选择器</li>
+<li><code>~</code> 兄弟元素选择器</li>
+</ul>
+<p>一些 <code>CSS3</code> 伪类：</p>
+<ul>
+<li><code>:only-child</code> 父元素的唯一子元素</li>
+<li><code>:first-child</code> 父元素的第一个子元素</li>
+<li><code>:last-child</code> 父元素的最后一个子元素</li>
+<li><code>:nth-child(n)</code> 父元素的第 N 个子元素</li>
+<li><code>:nth-last-child(n)</code> 父元素的倒数第 N 个子元素</li>
+<li><code>:nth-child(xn+y)</code> 父元素的第 xN + y 个子元素</li>
+<li><code>:nth-last-child(xn+y)</code> 父元素的倒数第 xN + y 个子元素</li>
+</ul>
+<h2 id="化学反应"><a href="#化学反应" class="headerlink" title="化学反应"></a>化学反应</h2><p>结合以上的 <em>选择器</em> 和 <em>伪类</em> 可以产生一些有趣的 “化学反应”，基于元素的数量来匹配样式。</p>
+<p><code>DOM</code> 结构如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  ...<br><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Andre-Luis"><a href="#Andre-Luis" class="headerlink" title="André Luís"></a>André Luís</h3><p><code>André Luís</code> 方案如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 只有一个元素时 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-child</span>(<span class="hljs-number">1</span>)<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">1</span>) &#123; <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>; &#125;  <span class="hljs-comment">/* 匹配第一个元素 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:only-child</span> &#123; <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>; &#125;  <span class="hljs-comment">/* 匹配第一个元素 */</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 有且仅有两个元素时 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-child</span>(<span class="hljs-number">1</span>)<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">2</span>),  <span class="hljs-comment">/* 匹配第一个元素 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-child</span>(<span class="hljs-number">2</span>)<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">1</span>) &#123;  <span class="hljs-comment">/* 匹配第二个元素 */</span><br>	<span class="hljs-attribute">width</span>: <span class="hljs-number">50%</span>;  <span class="hljs-comment">/* 合起来就是匹配所有元素 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 有且仅有三个元素时 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-child</span>(<span class="hljs-number">1</span>)<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">3</span>),<br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-child</span>(<span class="hljs-number">2</span>)<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">2</span>),<br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-child</span>(<span class="hljs-number">3</span>)<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">1</span>) &#123;<br>	<span class="hljs-attribute">width</span>: <span class="hljs-number">33.3333%</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://andr3.net/blog/post/142">Clever lists with CSS3 selectors</a></p>
+</blockquote>
+<h3 id="Lea-Verou"><a href="#Lea-Verou" class="headerlink" title="Lea Verou"></a>Lea Verou</h3><p>上述方案存在一个问题，当元素数量过多时，还是存在大量的重复选择器。升级版的 <code>Lea Verou</code> 方案只需两行固定的选择器即可解决。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 只有一个元素时 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:first</span>-child<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">1</span>) &#123;<br>	<span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 有且仅有两个元素时 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:first</span>-child<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">2</span>),<br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:first</span>-child<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">2</span>) ~ <span class="hljs-selector-tag">li</span> &#123;<br>	<span class="hljs-attribute">width</span>: <span class="hljs-number">50%</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 有且仅有三个元素时 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:first</span>-child<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">3</span>),  <span class="hljs-comment">/* 匹配第一个元素 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:first</span>-child<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">3</span>) ~ <span class="hljs-selector-tag">li</span> &#123;  <span class="hljs-comment">/* 匹配除第一个元素外的所有元素 */</span><br>	<span class="hljs-attribute">width</span>: <span class="hljs-number">33.3333%</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://lea.verou.me/2011/01/styling-children-based-on-their-number-with-css3/">Styling elements based on sibling count</a></p>
+</blockquote>
+<h3 id="再改进"><a href="#再改进" class="headerlink" title="再改进"></a>再改进</h3><p>不确定元素数量时：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 大于三个元素时 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:first</span>-child<span class="hljs-selector-pseudo">:nth-last-child</span>(n+<span class="hljs-number">3</span>),<br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:first</span>-child<span class="hljs-selector-pseudo">:nth-last-child</span>(n+<span class="hljs-number">3</span>) ~ <span class="hljs-selector-tag">li</span> &#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-number">100%</span> / n);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过上述方法即可解决 <strong>向前选择</strong> 和 <strong>重复元素</strong> 这两个问题，遇到实际场景时借助父元素灵活运用即可。</p>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2020/11/16/css-style-for-element-number/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;11&#x2F;16&#x2F;css-style-for-element-number&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;11&#x2F;16&#x2F;css-style-for-element-number&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2020/12/18/number-key-for-params/"><i class="iconfont iconleft"></i>请求参数中的数字键</a>
+    <a href="/2020/11/16/css-bem/">CSS - BEM 命名规范<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>

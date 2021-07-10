@@ -1,0 +1,587 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JS - 执行上下文/作用域链/闭包 - zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, javascript,js,执行上下文,作用域链,闭包">
+  <meta name="description" content="对于JavaScript中执行上下文、作用域、闭包等概...">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center">JS - 执行上下文/作用域链/闭包</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20200421201200.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">JS - 执行上下文/作用域链/闭包</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>四月 12, 2020</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2020/04/12/js-closure/" class="leancloud" data-flag-title="JS - 执行上下文/作用域链/闭包"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3215</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><p><code>执行上下文</code>(Execution Context)用一句话说就是JS代码执行时的抽象<code>环境</code>。</p>
+<p>例如在函数被 <em><code>调用</code></em> 时会生成一个<code>函数执行上下文</code>，就是这个函数的环境，这里强调 <em><code>调用</code></em> ，就是说是运行时的动态过程。</p>
+<p>举个栗子，一个国家就好比是一个<code>执行上下文</code>，公民就好比是<code>变量</code>，许多公民(不出境的那种)在国家这个范围内活动；再往下<code>执行上下文</code>有嵌套，那中国就可以比作<code>全局执行上下文</code>，浙江省就是第一层<code>函数执行上下文</code>，杭州市就是第二层<code>函数执行上下文</code>。</p>
+<h5 id="三种类型"><a href="#三种类型" class="headerlink" title="三种类型"></a>三种类型</h5><p>JS中一共有三种执行上下文类型：</p>
+<ul>
+<li><p><strong>全局执行上下文</strong>: 默认的最底层环境，任何不在<code>函数</code>或<code>eval</code>内部的代码都属于<code>全局执行上下文</code>，一段程序中只有一个全局执行上下文。</p>
+</li>
+<li><p><strong>函数执行上下文</strong>: 当一个函数被 <em><code>调用</code></em> 时，就会创建一个<code>函数执行上下文</code>，并进行一些准备工作。</p>
+</li>
+<li><p><strong>eval执行上下文</strong>: 执行eval函数时会创建一个<code>eval执行上下文</code>，类似于<code>函数执行上下文</code>。因为实际中用到eval的情况比较少，下文不再讨论。</p>
+</li>
+</ul>
+<p>以下代码创建的执行上下文如图所示:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">var</span> b = <span class="hljs-number">2</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">aa</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> c = <span class="hljs-number">3</span>;<br>  bb();<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bb</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> d = <span class="hljs-number">4</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cc</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> e = <span class="hljs-number">5</span>;<br>&#125;<br><br>aa();<br>cc();<br></code></pre></td></tr></table></figure>
+
+<div style="text-align: center">
+  <img  src="https://pic.izhaoo.com/20200412192325.jpg"   /><span class="image-caption">三种类型的执行上下文</span>
+</div>
+
+<h5 id="执行栈"><a href="#执行栈" class="headerlink" title="执行栈"></a>执行栈</h5><p>在JS中，是以<code>栈</code>(后进先出)这种数据结构存储<code>执行上下文</code>的，也就是我们所说的 <em><code>执行栈</code></em>。</p>
+<p>执行JS代码时，JS引擎首先会创建一个<code>全局执行上下文</code>，并压入栈底；之后每当 <em><code>调用</code></em> 一个函数时，都会为该函数创建一个<code>函数执行上下文</code>，并压入栈。</p>
+<p>之后引擎会执行栈顶的函数，函数执行结束后，该<code>函数执行上下文</code>从栈中弹出；再执行下一个函数，直到全部出栈。</p>
+<p>还是这段代码，执行栈如图所示:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">var</span> b = <span class="hljs-number">2</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">aa</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> c = <span class="hljs-number">3</span>;<br>  bb();<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bb</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> d = <span class="hljs-number">4</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cc</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> e = <span class="hljs-number">5</span>;<br>&#125;<br><br>aa();<br>cc();<br></code></pre></td></tr></table></figure>
+
+<div style="text-align: center">
+  <img  src="https://pic.izhaoo.com/20200412193736.jpg"  /><span class="image-caption">执行栈</span>
+</div>
+
+<h5 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h5><p>执行上下文的执行过程分为两个阶段：<code>创建阶段</code>和<code>执行阶段</code>，这部分内容后面会解释到。</p>
+<ul>
+<li><p><strong>创建阶段</strong>: 例如调用函数时，在执行代码前，将创建执行上下文，会处理三件事: <code>绑定this</code> → <code>创建词法环境</code> → <code>创建变量环境</code></p>
+</li>
+<li><p><strong>执行阶段</strong>: 对变量进行赋值，执行代码。</p>
+</li>
+</ul>
+<h3 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h3><h5 id="静态作用域"><a href="#静态作用域" class="headerlink" title="静态作用域"></a>静态作用域</h5><p>作用域是指程序代码中定义变量的区域，JS中采用的是<code>静态作用域</code>(词法作用域)。作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
+<p>还是上面的栗子，<code>执行上下文</code>是国家这个概念上的环境，<code>作用域</code>就是这个国家的实际作用范围；比如中国就是雄鸡这块版图，人民群众在没办护照的情况下是不能跑到国外去的。</p>
+<p>静态作用域 vs 动态作用域</p>
+<ul>
+<li><p>静态作用域: 作用域在函数<strong>定义</strong>时决定</p>
+</li>
+<li><p>动态作用域: 作用域在函数<strong>调用</strong>时决定</p>
+</li>
+</ul>
+<p>因为JS是<code>静态作用域</code>，所以直接看代码中变量的定义位置即可，而不是看调用过程。</p>
+<p>在以下代码中，运行会输出 1</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">aa</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(a);  <span class="hljs-comment">// 输出 1</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bb</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>;<br>  aa();<br>&#125;<br><br>bb();<br></code></pre></td></tr></table></figure>
+
+<h5 id="作用域链-1"><a href="#作用域链-1" class="headerlink" title="作用域链"></a>作用域链</h5><p>在代码中，我们经常会进行函数嵌套，<code>作用域</code>会随着嵌套结构向顶层链接，形成<code>作用域链</code>。这个概念和<code>原型链</code>类似。</p>
+<p>还是看代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">aa</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> b = <span class="hljs-number">2</span>;<br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bb</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(a + b);  <span class="hljs-comment">// 输出 1和2</span><br>  &#125;<br>  bb();<br>&#125;<br><br>aa();<br></code></pre></td></tr></table></figure>
+
+<p>在函数<code>bb()作用域</code>中并没有定义变量<code>a</code>和<code>b</code>，所以会通过<code>作用域链</code>往上层查找，在父函数<code>aa()作用域</code>中找到<code>a</code>，在<code>全局作用域</code>中找到<code>b</code>，最后输出。</p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>上文我们介绍了<code>执行上下文</code>和<code>作用域链</code>，终于到了<code>闭包</code>。</p>
+<p>ES5中变量只有两种作用域：函数外部，<code>全局变量</code>；函数内部，<code>局部变量</code>。且变量提升机制还会将变量声明提升到它所在作用域的顶端去执行。</p>
+<p>函数内部的变量都是局部变量，在函数外部是<strong>无法访问</strong>的。</p>
+<p>闭包其实就是充当一个桥梁的作用，从外部可以间接地访问到内部的变量。简单来讲，就是在一个函数内部返回另外函数，通过返回的函数去获取主函数内部的局部变量。</p>
+<p>先看一段代码: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">outer</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> private = <span class="hljs-number">1</span>;  <span class="hljs-comment">// 局部变量</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> private;<br>  &#125;<br>&#125;<br><br><span class="hljs-built_in">console</span>.log(private);  <span class="hljs-comment">// private is not defined</span><br><br><span class="hljs-keyword">var</span> inner = outer();  <span class="hljs-comment">// 将外层 outer 函数返回的匿名函数赋值给 inner</span><br><span class="hljs-built_in">console</span>.log(inner());  <span class="hljs-comment">// 1</span><br></code></pre></td></tr></table></figure>
+
+<p>在<code>outer</code>函数中定义的<code>private</code>局部变量，在函数外部直接访问是无法访问到的。但是我们在函数中能够访问这个局部变量，并通过一个<code>匿名函数</code>返回，在外边调用<code>outer()</code>接收这个匿名函数，并且赋值给外部的<code>inner</code>变量，再调用<code>inner()</code>即可获取到内部的<code>private</code>局部变量了。</p>
+<p>打个比方，函数就好比是一个集装箱，外面的人拿不到里面的物资。这时候甩出来一个小背包，装着里面的部分物资，外面的人就可以在小背包中拿到了。</p>
+<p>闭包可以隐藏函数内部细节，界定<code>公共变量 (public)</code>和<code>私有变量 (private)</code>。配合<code>匿名函数</code>和<code>立即执行函数</code>，常用来实现ES5中的<strong>模块化</strong>。</p>
+<h5 id="原理解析"><a href="#原理解析" class="headerlink" title="原理解析"></a>原理解析</h5><p>正常函数执行完毕后，里面声明的变量被垃圾回收处理掉，但是闭包可以让作用域里的变量，在函数执行完之后依旧保持没有被垃圾回收处理掉，从而被外部访问。因此闭包也可以将临时变量“缓存”在内存中。</p>
+<h5 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h5><p>前面提到闭包会暂存变量，不被垃圾回收，很直接的就会想到，闭包可能会造成<strong>内存泄漏</strong>。（很多文章都会这么说，包括我在面试中也讲到过。）</p>
+<p>其实这个说法是不确切的，内存泄漏是指<code>不再使用的变量没有被释放</code>。而闭包函数中的<code>局部变量</code>，在之后是有可能使用的，并不是“垃圾变量”，所以称不上内存泄漏。</p>
+<p>可以这么说，这一特性导致了闭包将会消耗额外的内存，因此谨慎使用。</p>
+<h5 id="个人体会"><a href="#个人体会" class="headerlink" title="个人体会"></a>个人体会</h5><p>文中其实我还隐藏了很多细节。比如：执行上下文的概念对象<code>ExecutionContext</code>、作用域链中的<code>[[scope]]</code>等。有兴趣的话应该逐一地去深入了解。（详见文末链接）</p>
+<p><code>执行上下文</code>、<code>作用域链</code>、<code>闭包</code>、<code>this</code>等概念。之前我是通过看面经的方式了解了点皮毛，所以面试过程中总是讲不清楚，一问一答就结束了。（我看你是完全不懂嘛）</p>
+<p>后来我看了它们的实现原理，将它们理了一遍，感觉茅塞顿开，面试的时候就可以滔滔不绝了。其实这些概念都是一环扣一环的，串起来理解就会很直观。</p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5ba32171f265da0ab719a6d7">[译] 理解 JavaScript 中的执行上下文和执行栈</a><br><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/3">JavaScript深入之词法作用域和动态作用域</a><br><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/6">JavaScript深入之作用域链</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/56490498">我从来不理解JavaScript闭包，直到有人这样向我解释它…</a></p>
+</blockquote>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2020/04/12/js-closure/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;04&#x2F;12&#x2F;js-closure&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;04&#x2F;12&#x2F;js-closure&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2020/04/12/js-module/"><i class="iconfont iconleft"></i>JavaScript - 模块化</a>
+    <a href="/2020/04/10/react-setState/">React - setState<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>

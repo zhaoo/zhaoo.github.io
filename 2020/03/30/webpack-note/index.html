@@ -1,0 +1,573 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>webpack - 学习笔记 - zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, webpack">
+  <meta name="description" content="webpack学习笔记。
+
+
+引子昨天小伙伴一面阿里，...">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center">webpack - 学习笔记</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20200404094138.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">webpack - 学习笔记</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>三月 30, 2020</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2020/03/30/webpack-note/" class="leancloud" data-flag-title="webpack - 学习笔记"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2827</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h3 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h3><p>昨天小伙伴一面阿里，面试官上来就<code>webpack</code>三连，直接问蒙。对于我们这些搬砖仔，平时项目一般都是直接开脚手架，根本没想到去碰<code>webpack</code>，即使需要配插件，也是按照官方文档照搬。不过，该学的还是得学。</p>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><code>webpack</code>大家应该很熟悉了，没用过肯定见过。简单的讲就是一个<code>静态模块打包器</code>，递归地构建项目依赖，然后打包输出。<code>webpack</code>可以自动的为我们打包项目，同时还能引入一些插件完成辅助功能，最终实现前端工程化。</p>
+<p>安装:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">yarn webpack webpack-cli --save-dev<br></code></pre></td></tr></table></figure>
+
+<p>安装成功后直接在项目目录新建一个配置文件<code>webpack.config.js</code>，内容类似于这样:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-meta">&#x27;use strict&#x27;</span><br><br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><br><span class="hljs-built_in">module</span>.exports = &#123;<br>  <span class="hljs-attr">entry</span>: &#123;<br>    <span class="hljs-attr">index</span>: <span class="hljs-string">&#x27;./src/app.js&#x27;</span>,<br>  &#125;,<br>  <span class="hljs-attr">output</span>: &#123;<br>    <span class="hljs-attr">path</span>: path.join(__dirname,<span class="hljs-string">&#x27;dist&#x27;</span>),<br>    <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;app.js&#x27;</span><br>  &#125;,<br>  <span class="hljs-attr">mode</span>: <span class="hljs-string">&#x27;production&#x27;</span>,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p><code>webpack</code>有四个核心概念，分别是<strong>入口 (entry)</strong>、<strong>出口 (output)</strong>、<strong>加载器 (loader)</strong>、<strong>插件 (plugins)</strong>，下面一一介绍:</p>
+<h5 id="入口-entry"><a href="#入口-entry" class="headerlink" title="入口 (entry)"></a>入口 (entry)</h5><p>入口可以理解为打包的起点，<code>webpack</code>从入口开始，首先找到入口文件的相关依赖，再依次递归查找整个项目的依赖。入口可以有<em>一个</em>或者<em>多个</em>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">module</span>.exports = &#123;<br>  <span class="hljs-attr">entry</span>: <span class="hljs-string">&#x27;.src/app.js&#x27;</span>  <span class="hljs-comment">//单入口</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">module</span>.exports = &#123;<br>  <span class="hljs-attr">entry</span>: &#123;  <span class="hljs-comment">//多入口</span><br>    <span class="hljs-attr">app</span>: <span class="hljs-string">&#x27;./src/app.js&#x27;</span>,<br>    <span class="hljs-attr">vendors</span>: <span class="hljs-string">&#x27;./src/vendors.js&#x27;</span><br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h5 id="出口-output"><a href="#出口-output" class="headerlink" title="出口 (output)"></a>出口 (output)</h5><p>出口告诉<code>webpack</code>将打包后的文件输出到哪里，以及如何命名这些文件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><br><span class="hljs-built_in">module</span>.exports = &#123;<br>  <span class="hljs-attr">output</span>: &#123;<br>    <span class="hljs-attr">path</span>: path.resolve(__dirname, <span class="hljs-string">&#x27;dist&#x27;</span>),  <span class="hljs-comment">//输出到 dist 文件夹</span><br>    <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;bundle.js&#x27;</span>  <span class="hljs-comment">//重命名为 bundle.js</span><br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h5 id="加载器-loader"><a href="#加载器-loader" class="headerlink" title="加载器 (loader)"></a>加载器 (loader)</h5><p><code>webpack</code>自身只能处理<code>JS</code>文件，但是项目中肯定不只有JS。这时候就要用到加载器了，通过它可以将其他类型的文件转换为<code>webpack</code>能够处理的模块，例如<em>CSS</em>、<em>图片</em>、<em>文件</em>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> config = &#123;<br>  <span class="hljs-attr">module</span>: &#123;<br>    <span class="hljs-attr">rules</span>: [<br>      &#123; <br>        <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.scss$/</span>,  <span class="hljs-comment">//正则表达式匹配 CSS 文件</span><br>        use: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>, <span class="hljs-string">&#x27;sass-loader&#x27;</span>]  <span class="hljs-comment">//依次使用三个 loader，注意先后顺序</span><br>      &#125;<br>    ]<br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h5 id="插件-plugins"><a href="#插件-plugins" class="headerlink" title="插件 (plugins)"></a>插件 (plugins)</h5><p>加载器只是简单地被用于转换某些类型的模块，而插件则可以用于执行范围更广的任务。例如<em>打包优化</em>、<em>压缩</em>、<em>变量重定义</em>等等。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><br></code></pre></td></tr></table></figure>
+
+<h5 id="模式-mode"><a href="#模式-mode" class="headerlink" title="模式 (mode)"></a>模式 (mode)</h5><p>顺带提一下模式，我们可以使用模式来定义开发环境，<code>development</code>或<code>production</code>二选一，从而在不同的环境下定义不同的执行逻辑。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">module</span>.exports = &#123;<br>  <span class="hljs-attr">mode</span>: <span class="hljs-string">&#x27;production&#x27;</span>  <span class="hljs-comment">//定义生产环境</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="菜单"><a href="#菜单" class="headerlink" title="菜单"></a>菜单</h3><p>作为第二问，面试官肯定会让你报上常用的<code>loader</code>和<code>plugins</code>，奉上常用菜单。</p>
+<h5 id="Loader"><a href="#Loader" class="headerlink" title="Loader"></a>Loader</h5><ul>
+<li><p>file-loader<br>打包静态资源，蒋文君输出到打包文件夹中，代码中可以通过相对地址引入文件。</p>
+</li>
+<li><p>url-loader<br>类似<code>file-loader</code>，在文件很小的情况下以 base64 的方式把文件内容注入到代码中去。</p>
+</li>
+<li><p>image-loader<br>加载并且压缩图片文件。</p>
+</li>
+<li><p>babel-loader<br>将<code>ES6</code>代码转换为<code>ES5</code>代码。</p>
+</li>
+<li><p>ts-loader<br>编译<code>TS</code>文件并打包生成<code>ES5</code>代码。</p>
+</li>
+<li><p>eslint-loader<br>通过<code>ESLint</code>检查代码规范。</p>
+</li>
+<li><p>sass-loader<br>将<code>scss</code>文件编译为<code>CSS</code>。</p>
+</li>
+<li><p>css-loader<br>整理多个<code>CSS</code>文件之间的关系，最后打包成一个<code>CSS</code>文件。</p>
+</li>
+<li><p>style-loader<br>自动将<code>CSS</code>样式挂载到<code>HTML</code>文件的<code>style</code>标签中。</p>
+</li>
+</ul>
+<h5 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h5><ul>
+<li><p>html-webpack-plugin<br>自动生成<code>HTML</code>文件到输出目录，并且将打包后的<code>chunk</code>文件自动引入到<code>HTML</code>文件中。</p>
+</li>
+<li><p>uglifyjs-webpack-plugin<br>通过<code>UglifyES</code>压缩<code>ES6</code>代码</p>
+</li>
+</ul>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><h5 id="别名-alias"><a href="#别名-alias" class="headerlink" title="别名 (alias)"></a>别名 (alias)</h5><p>在代码中导入文件的时候，使用相对路径(<code>../../</code>)或绝对路径(<code>/</code>)会很麻烦。这时候我们可以配置一个别名来简化路径，例如常见的<code>@</code>或<code>~</code>表示根目录。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript">resolve: &#123;<br>  <span class="hljs-attr">alias</span>: &#123;<br>    <span class="hljs-string">&#x27;@&#x27;</span>: path.resolve(__dirname, <span class="hljs-string">&#x27;src&#x27;</span>),  <span class="hljs-comment">//用 @ 表示根目录，下面同理</span><br>    <span class="hljs-attr">utils</span>: path.resolve(__dirname, <span class="hljs-string">&#x27;src/utils&#x27;</span>),<br>    <span class="hljs-attr">pages</span>: path.resolve(__dirname, <span class="hljs-string">&#x27;src/pages&#x27;</span>),<br>    <span class="hljs-attr">components</span>: path.resolve(__dirname, <span class="hljs-string">&#x27;src/components&#x27;</span>),<br>    <span class="hljs-attr">utils</span>: path.resolve(__dirname, <span class="hljs-string">&#x27;src/utils&#x27;</span>),<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>原理部分还在学习中，有时间补充……</p>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2020/03/30/webpack-note/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;03&#x2F;30&#x2F;webpack-note&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;03&#x2F;30&#x2F;webpack-note&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2020/04/10/react-setState/"><i class="iconfont iconleft"></i>React - setState</a>
+    <a href="/2020/03/28/rn-navigation-refresh/">RN - 页面跳转后刷新内容<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>

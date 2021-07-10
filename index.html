@@ -1,0 +1,724 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题">
+  <meta name="description" content="兆兆的博客，分享技术，记录生活。">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: true,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center"> </div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline active"> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  
+    <div class="preview">
+  <!-- <nav class="navbar j-navbar-menu">
+    <i class="iconfont iconmenu"></i>
+  </nav> -->
+  <div class="preview-image">
+    
+        
+              <div class="preview-overlay">
+                <svg class="preview-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                  viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                  <defs>
+                    <path id="gentle-wave"
+                      d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                  </defs>
+                  <g class="preview-parallax">
+                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(var(--color-background-rgb),0.7"></use>
+                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(var(--color-background-rgb),0.5)"></use>
+                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(var(--color-background-rgb),0.3)"></use>
+                    <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--color-background)"></use>
+                  </g>
+                </svg>
+              </div>
+              
+  </div>
+  <div class="preview-motto-wrapper">
+    <h2 class="preview-motto" id="motto">
+      
+    </h2>
+    
+      <span class="preview-cursor">_</span>
+      
+  </div>
+  <div class="preview-scroll">
+    <a href="#container" class="smooth-scroll"><i class="iconfont iconMouse"></i></a>
+  </div>
+</div>
+  
+  <div class="container" id="container">
+    <section class="row post">
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+      <div class="post-top"><div>置顶</div></div>
+    
+    <a href="/2021/07/05/hexo-weapp-zhaoo-doc/" class="post-image">
+      <img src="https://pic.izhaoo.com/20210628214443.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/07/05/hexo-weapp-zhaoo-doc/" title="小程序部署文档" >小程序部署文档</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">zhaoo 主题孪生小程序的相关部署文档。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>七月 05, 2021</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2021/07/05/hexo-weapp-zhaoo-doc/" class="leancloud" data-flag-title="小程序部署文档"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>2373</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2021/04/20/i-love-you/" class="post-image">
+      <img src="https://pic.izhaoo.com/20210421013918.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/04/20/i-love-you/" title="世界啊，好想再爱你。" >世界啊，好想再爱你。</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">一年时间，仿佛把一辈子过完了。人生苦短，且行且珍惜。珍惜眼前，珍惜身边人。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>四月 20, 2021</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2021/04/20/i-love-you/" class="leancloud" data-flag-title="世界啊，好想再爱你。"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>989</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2021/02/28/raspi-camera-push-stream/" class="post-image">
+      <img src="https://pic.izhaoo.com/20210228214818.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/02/28/raspi-camera-push-stream/" title="树莓派 - 摄像头推流" >树莓派 - 摄像头推流</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">树莓派中通过摄像头推送视频流的一些方案。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>二月 28, 2021</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2021/02/28/raspi-camera-push-stream/" class="leancloud" data-flag-title="树莓派 - 摄像头推流"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>2563</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2021/02/03/raspi-johnny-five-lcd1602/" class="post-image">
+      <img src="https://pic.izhaoo.com/20210203154746.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/02/03/raspi-johnny-five-lcd1602/" title="树莓派 - JS 驱动 LCD1602" >树莓派 - JS 驱动 LCD1602</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">树莓派使用 johnny-five.js 库驱动 LCD1602 输出文字。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>二月 03, 2021</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2021/02/03/raspi-johnny-five-lcd1602/" class="leancloud" data-flag-title="树莓派 - JS 驱动 LCD1602"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>2646</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2021/01/27/deploy-openfaas-on-mac/" class="post-image">
+      <img src="https://pic.izhaoo.com/20200228081628.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/01/27/deploy-openfaas-on-mac/" title="Mac OS 部署 OpenFaas" >Mac OS 部署 OpenFaas</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">在 Mac OS 中部署 OpenFaas，构建 Faas 开发环境。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>一月 27, 2021</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2021/01/27/deploy-openfaas-on-mac/" class="leancloud" data-flag-title="Mac OS 部署 OpenFaas"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>2472</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2020/12/18/number-key-for-params/" class="post-image">
+      <img src="https://pic.izhaoo.com/20201112102418.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2020/12/18/number-key-for-params/" title="请求参数中的数字键" >请求参数中的数字键</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">在请求参数中使用数字类型作为集合中的键。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 18, 2020</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2020/12/18/number-key-for-params/" class="leancloud" data-flag-title="请求参数中的数字键"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>811</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2020/11/16/css-style-for-element-number/" class="post-image">
+      <img src="https://pic.izhaoo.com/20201112102133.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2020/11/16/css-style-for-element-number/" title="CSS - 元素数量选择器" >CSS - 元素数量选择器</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">根据元素数量匹配样式，解决 向前选择 和 重复元素 问题。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>十一月 16, 2020</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2020/11/16/css-style-for-element-number/" class="leancloud" data-flag-title="CSS - 元素数量选择器"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>4558</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2020/11/16/css-bem/" class="post-image">
+      <img src="https://pic.izhaoo.com/20201112102553.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2020/11/16/css-bem/" title="CSS - BEM 命名规范" >CSS - BEM 命名规范</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">基于模块化思想的 CSS 样式命名规范。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>十一月 16, 2020</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2020/11/16/css-bem/" class="leancloud" data-flag-title="CSS - BEM 命名规范"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>3319</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2020/11/12/adapt-to-dark-mode/" class="post-image">
+      <img src="https://pic.izhaoo.com/20201112102432.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2020/11/12/adapt-to-dark-mode/" title="适配深色模式" >适配深色模式</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">为博客适配深色模式。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>十一月 12, 2020</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2020/11/12/adapt-to-dark-mode/" class="leancloud" data-flag-title="适配深色模式"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>11103</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+</section>
+    <section class="paginator">
+  
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">&gt;</a>
+  
+</section>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>

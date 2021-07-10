@@ -1,0 +1,710 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>小程序部署文档 - zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, hexo-weapp-zhaoo, zhaoo, hexo, 小程序, RESTful, 后端接口, 配置文档, document, 教程, 指南">
+  <meta name="description" content="zhaoo 主题孪生小程序的相关部署文档。
+
+
+关于文...">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center">小程序部署文档</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20210628214443.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">小程序部署文档</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>七月 05, 2021</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2021/07/05/hexo-weapp-zhaoo-doc/" class="leancloud" data-flag-title="小程序部署文档"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2373</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="关于文档"><a href="#关于文档" class="headerlink" title="关于文档"></a>关于文档</h2><blockquote>
+<p>如有疑惑欢迎加鹅群咨询：<strong>550262893</strong><br>需要使用者具备一丢丢的前端基础。</p>
+</blockquote>
+<p style="text-align: right;">文档更新于：2021年07月05日</p>
+
+<h2 id="RESTful"><a href="#RESTful" class="headerlink" title="RESTful"></a>RESTful</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>首先需要使用 <a target="_blank" rel="noopener" href="https://github.com/zhaoo/hexo-generator-restful-zhaoo">hexo-generator-restful-zhaoo</a> 插件生成 RESTful 接口，为小程序提供后端服务。</p>
+<p><code>cd</code> 到博客根目录，执行以下命令安装插件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ npm install hexo-generator-restful-zhaoo --save  <span class="hljs-comment"># 安装插件</span><br>$ hexo g  <span class="hljs-comment"># 生成静态页面</span><br></code></pre></td></tr></table></figure>
+
+<p>生成静态页面后可在 <code>public</code> 目录下找到 <code>api</code> 目录，里面存放的是一些 <code>json</code> 格式的文本数据，直接访问这些 <code>json</code> 文件即可调用接口。</p>
+<p><img  src="https://pic.izhaoo.com/20210705142146.jpg"  ><span class="image-caption">调用接口</span></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>该插件暴露了一些配置项供用户进行自定义配置，在博客根目录下的 <code>_config.yml</code> 配置文件末尾插入以下内容进行配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># 以下为缺省默认项</span><br><br><span class="hljs-attr">restful:</span><br>  <span class="hljs-comment"># site 可配置为数组选择性生成某些属性</span><br>  <span class="hljs-comment"># site: [&#x27;title&#x27;, &#x27;subtitle&#x27;, &#x27;description&#x27;, &#x27;author&#x27;, &#x27;since&#x27;, email&#x27;, &#x27;favicon&#x27;, &#x27;avatar&#x27;]</span><br>  <span class="hljs-attr">site:</span> <span class="hljs-literal">true</span>        <span class="hljs-comment"># hexo.config mix theme.config</span><br>  <span class="hljs-attr">posts_size:</span> <span class="hljs-number">10</span>    <span class="hljs-comment"># 文章列表分页，0 表示不分页</span><br>  <span class="hljs-attr">posts_props:</span>      <span class="hljs-comment"># 文章列表项的需要生成的属性</span><br>    <span class="hljs-attr">title:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">slug:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">date:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">updated:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">comments:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">path:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">excerpt:</span> <span class="hljs-literal">false</span><br>    <span class="hljs-attr">cover:</span> <span class="hljs-literal">true</span>      <span class="hljs-comment"># 封面图，取文章第一张图片</span><br>    <span class="hljs-attr">content:</span> <span class="hljs-literal">false</span><br>    <span class="hljs-attr">keywords:</span> <span class="hljs-literal">false</span><br>    <span class="hljs-attr">categories:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">tags:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">categories:</span> <span class="hljs-literal">true</span>         <span class="hljs-comment"># 分类数据</span><br>  <span class="hljs-attr">use_category_slug:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># Use slug for filename of category data</span><br>  <span class="hljs-attr">tags:</span> <span class="hljs-literal">true</span>               <span class="hljs-comment"># 标签数据</span><br>  <span class="hljs-attr">use_tag_slug:</span> <span class="hljs-literal">false</span>      <span class="hljs-comment"># Use slug for filename of tag data</span><br>  <span class="hljs-attr">post:</span> <span class="hljs-literal">true</span>               <span class="hljs-comment"># 文章数据</span><br>  <span class="hljs-attr">pages:</span> <span class="hljs-literal">false</span>             <span class="hljs-comment"># 额外的 Hexo 页面数据, 如 About</span><br>  <span class="hljs-attr">galleries:</span> <span class="hljs-literal">false</span>         <span class="hljs-comment"># 相册数据 </span><br></code></pre></td></tr></table></figure>
+
+<p>修改配置项后需要使用 <code>hexo g</code> 命令重新生成页面。</p>
+<h2 id="小程序"><a href="#小程序" class="headerlink" title="小程序"></a>小程序</h2><h3 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h3><p>首先需要在<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/cgi-bin/registermidpage?action=index&lang=zh_CN&token=">微信公众平台</a>注册一个小程序，填写基本信息即可。</p>
+<p><img  src="https://pic.izhaoo.com/20210705195454.jpg"  ><span class="image-caption">注册小程序</span></p>
+<p>注册完成后进入后台，在 <em>设置 → 基本设置</em> 中可以获取到 <strong>AppID</strong>，后面会使用到。</p>
+<p>在 <em>开发 → 开发管理 → 开发设置</em> 中添加 <em>request合法域名</em>，否则会被拦截，需要添加以下域名：</p>
+<ol>
+<li>RESTful 接口域名（例如：<a target="_blank" rel="noopener" href="https://www.izhaoo.com）">https://www.izhaoo.com）</a></li>
+<li><a target="_blank" rel="noopener" href="https://api.leancloud.cn">https://api.leancloud.cn</a> （第三方数据统计服务）</li>
+</ol>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><blockquote>
+<p>小程序基于 <a target="_blank" rel="noopener" href="https://taro.aotu.io/">Taro</a> 开发，建议阅读 <a target="_blank" rel="noopener" href="https://taro-docs.jd.com/taro/docs/README">Taro 官方文档</a> 了解更多姿势。</p>
+</blockquote>
+<p>首先需要安装 Taro <strong>（安全起见，建议安装 3.2.1 版本）</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ npm install -g @tarojs/cli@3.2.1  <span class="hljs-comment"># 安装 Taro</span><br>$ npm info @tarojs/cli  <span class="hljs-comment"># 查看 Taro 版本</span><br></code></pre></td></tr></table></figure>
+
+<p>在任意目录下拉取 <a target="_blank" rel="noopener" href="https://github.com/zhaoo/hexo-weapp-zhaoo">hexo-weapp-zhaoo</a> 最新代码（直接打包下载也行）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git <span class="hljs-built_in">clone</span> https://github.com/zhaoo/hexo-weapp-zhaoo.git<br></code></pre></td></tr></table></figure>
+
+<p>执行以下命令打包小程序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">cd</span> client  <span class="hljs-comment"># 移动到客户端目录</span><br>$ npm run build:weapp  <span class="hljs-comment"># 打包</span><br></code></pre></td></tr></table></figure>
+
+<p>执行后会在当前目录下生成 <code>dist</code> 目录（小程序编译目标）。</p>
+<h3 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h3><p>打开根目录下的 <code>project.config.json</code> 文件，将其中的 <code>appid</code> 项修改为刚才注册小程序得到的 <strong>AppID</strong>。</p>
+<p>修改 <code>/client/config.json</code> 中的相关配置，说明如下：</p>
+<ul>
+<li>baseUrl: 接口地址，例如：<a href="https://www.izhaoo.com/api">https://www.izhaoo.com/api</a></li>
+<li>webUrl: 网页博客地址（用于 WebView 跳转），例如：<a href="https://www.izhaoo.com">https://www.izhaoo.com</a></li>
+<li>donate: 打赏二维码图片地址</li>
+</ul>
+<p>修改配置后需要重新打包。</p>
+<h3 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h3><p>首先下载 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html">微信小程序开发工具</a>。</p>
+<p>打开开发工具，新建项目，项目目录设置为 <code>hexo-weapp-zhaoo</code> 所在目录即可，点击【新建】完成项目创建。</p>
+<p><img  src="https://pic.izhaoo.com/20210705202742.jpg"  ><span class="image-caption">新建项目</span></p>
+<p>打开项目后可以进行 <em>预览</em> 或 <em>真机调试</em>，确认没问题后点击右侧的【上传】按钮，设置版本号，即可将小程序代码上传至云端。</p>
+<p><img  src="https://pic.izhaoo.com/20210705203106.jpg"  ><span class="image-caption">上传小程序</span></p>
+<p>网页打开微信公众平台后台，在 <em>管理 → 版本管理</em> 处将 <em>开发版本</em> 提交审核，审核通过后即可设置为 <em>正式版本</em>，至此小伙伴们就可以访问到你的小程序啦。</p>
+<p><img  src="https://pic.izhaoo.com/20210705203440.jpg"  ><span class="image-caption">提交审核</span></p>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>版权声明：</strong>本文作者放弃了版权，大家随意搬运，特此奉上搬运链接：<a href="javascript:;" class="j-carrier-btn">一键打包带走</a></li>
+    <input value="---
+title: 小程序部署文档
+date: 2021-07-05 13:23:18
+tags: [Hexo, 小程序]
+keywords: hexo-weapp-zhaoo, zhaoo, hexo, 小程序, RESTful, 后端接口, 配置文档, document, 教程, 指南
+categories:
+- 项目
+image: https://pic.izhaoo.com/20210628214443.jpg
+top: 80
+carrier: true
+toc: false
+---
+
+`zhaoo` 主题孪生小程序的相关部署文档。
+
+&lt;!-- more --&gt;
+
+## 关于文档
+
+&gt; 如有疑惑欢迎加鹅群咨询：**550262893**
+&gt; 需要使用者具备一丢丢的前端基础。
+
+&lt;p style=&#34;text-align: right;&#34;&gt;文档更新于：2021年07月05日&lt;/p&gt;
+
+## RESTful
+
+### 安装
+
+首先需要使用 [hexo-generator-restful-zhaoo](https://github.com/zhaoo/hexo-generator-restful-zhaoo) 插件生成 RESTful 接口，为小程序提供后端服务。
+
+`cd` 到博客根目录，执行以下命令安装插件：
+
+```bash
+$ npm install hexo-generator-restful-zhaoo --save  # 安装插件
+$ hexo g  # 生成静态页面
+```
+
+生成静态页面后可在 `public` 目录下找到 `api` 目录，里面存放的是一些 `json` 格式的文本数据，直接访问这些 `json` 文件即可调用接口。
+
+![调用接口](https://pic.izhaoo.com/20210705142146.jpg)
+
+### 配置
+
+该插件暴露了一些配置项供用户进行自定义配置，在博客根目录下的 `_config.yml` 配置文件末尾插入以下内容进行配置：
+
+```yml
+# 以下为缺省默认项
+
+restful:
+  # site 可配置为数组选择性生成某些属性
+  # site: [&#39;title&#39;, &#39;subtitle&#39;, &#39;description&#39;, &#39;author&#39;, &#39;since&#39;, email&#39;, &#39;favicon&#39;, &#39;avatar&#39;]
+  site: true        # hexo.config mix theme.config
+  posts_size: 10    # 文章列表分页，0 表示不分页
+  posts_props:      # 文章列表项的需要生成的属性
+    title: true
+    slug: true
+    date: true
+    updated: true
+    comments: true
+    path: true
+    excerpt: false
+    cover: true      # 封面图，取文章第一张图片
+    content: false
+    keywords: false
+    categories: true
+    tags: true
+  categories: true         # 分类数据
+  use_category_slug: false # Use slug for filename of category data
+  tags: true               # 标签数据
+  use_tag_slug: false      # Use slug for filename of tag data
+  post: true               # 文章数据
+  pages: false             # 额外的 Hexo 页面数据, 如 About
+  galleries: false         # 相册数据 
+```
+
+修改配置项后需要使用 `hexo g` 命令重新生成页面。
+
+## 小程序
+
+### 注册
+
+首先需要在[微信公众平台](https://mp.weixin.qq.com/cgi-bin/registermidpage?action=index&amp;lang=zh_CN&amp;token=)注册一个小程序，填写基本信息即可。
+
+![注册小程序](https://pic.izhaoo.com/20210705195454.jpg)
+
+注册完成后进入后台，在 *设置 → 基本设置* 中可以获取到 **AppID**，后面会使用到。
+
+在 *开发 → 开发管理 → 开发设置* 中添加 *request合法域名*，否则会被拦截，需要添加以下域名：
+
+1. RESTful 接口域名（例如：https://www.izhaoo.com）
+2. https://api.leancloud.cn （第三方数据统计服务）
+
+### 部署
+
+&gt; 小程序基于 [Taro](https://taro.aotu.io/) 开发，建议阅读 [Taro 官方文档](https://taro-docs.jd.com/taro/docs/README) 了解更多姿势。
+
+首先需要安装 Taro **（安全起见，建议安装 3.2.1 版本）**：
+
+```bash
+$ npm install -g @tarojs/cli@3.2.1  # 安装 Taro
+$ npm info @tarojs/cli  # 查看 Taro 版本
+```
+
+在任意目录下拉取 [hexo-weapp-zhaoo](https://github.com/zhaoo/hexo-weapp-zhaoo) 最新代码（直接打包下载也行）：
+
+```bash
+$ git clone https://github.com/zhaoo/hexo-weapp-zhaoo.git
+```
+
+执行以下命令打包小程序：
+
+```bash
+$ cd client  # 移动到客户端目录
+$ npm run build:weapp  # 打包
+```
+
+执行后会在当前目录下生成 `dist` 目录（小程序编译目标）。
+
+### 配置
+
+打开根目录下的 `project.config.json` 文件，将其中的 `appid` 项修改为刚才注册小程序得到的 **AppID**。
+
+修改 `/client/config.json` 中的相关配置，说明如下：
+
+* baseUrl: 接口地址，例如：https://www.izhaoo.com/api
+* webUrl: 网页博客地址（用于 WebView 跳转），例如：https://www.izhaoo.com
+* donate: 打赏二维码图片地址
+
+修改配置后需要重新打包。
+
+### 上传
+
+首先下载 [微信小程序开发工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)。
+
+打开开发工具，新建项目，项目目录设置为 `hexo-weapp-zhaoo` 所在目录即可，点击【新建】完成项目创建。
+
+![新建项目](https://pic.izhaoo.com/20210705202742.jpg)
+
+打开项目后可以进行 *预览* 或 *真机调试*，确认没问题后点击右侧的【上传】按钮，设置版本号，即可将小程序代码上传至云端。
+
+![上传小程序](https://pic.izhaoo.com/20210705203106.jpg)
+
+网页打开微信公众平台后台，在 *管理 → 版本管理* 处将 *开发版本* 提交审核，审核通过后即可设置为 *正式版本*，至此小伙伴们就可以访问到你的小程序啦。
+
+![提交审核](https://pic.izhaoo.com/20210705203440.jpg)" class="j-carrier-data carrier-data">
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a></a>
+    <a href="/2021/04/20/i-love-you/">世界啊，好想再爱你。<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>

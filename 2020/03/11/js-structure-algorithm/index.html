@@ -1,0 +1,628 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JavaScript - 算法/数据结构 - zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, 算法,数据结构,前端">
+  <meta name="description" content="JavaScript数据结构和算法，面试手撕代码。
+
+...">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center">JavaScript - 算法/数据结构</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20191211065313.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">JavaScript - 算法/数据结构</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>三月 11, 2020</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2020/03/11/js-structure-algorithm/" class="leancloud" data-flag-title="JavaScript - 算法/数据结构"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>13537</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><p>这里基本语法选用<code>ES5</code>了，经测试<code>ES6</code>对性能影响蛮大的。</p>
+<p>测试性能: 在执行前打上<code>console.time(label)</code>，执行后打上<code>console.timeEnd(label)</code>。</p>
+<p>随机生成数组: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">randomArr</span>(<span class="hljs-params">lower, upper, num</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> arr = []<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; num; i++)<br>    arr.push(<span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * (lower - upper) + upper))<br>  <span class="hljs-keyword">return</span> arr<br>&#125;<br><br><span class="hljs-keyword">var</span> arr = randomArr(<span class="hljs-number">1</span>, <span class="hljs-number">100</span>, <span class="hljs-number">10000</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>156.190ms, O(n<sup>2</sup>), O(1), 稳定</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bubbleSort</span>(<span class="hljs-params">arr</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> len = arr.length<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; len; i++)<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; len - i - <span class="hljs-number">1</span>; j++)<br>      <span class="hljs-keyword">if</span> (arr[j] &gt; arr[j + <span class="hljs-number">1</span>])<br>        [arr[j], arr[j + <span class="hljs-number">1</span>]] = [arr[j + <span class="hljs-number">1</span>], arr[j]]<br>  <span class="hljs-keyword">return</span> arr<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><p>60.689ms, O(n<sup>2</sup>), O(1), 稳定</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">selectSort</span>(<span class="hljs-params">arr</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> len = arr.length<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;<br>    <span class="hljs-keyword">var</span> min = i<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = i; j &lt; len; j++) &#123;<br>      min = arr[j] &lt; arr[min] ? j : min<br>    &#125;<br>    [arr[i], arr[min]] = [arr[min], arr[i]]<br>  &#125;<br>  <span class="hljs-keyword">return</span> arr<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>14.673ms, O(nlog<sub>2</sub>n), O(nlog<sub>2</sub>n), 不稳定</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">quickSort</span>(<span class="hljs-params">arr</span>) </span>&#123;<br>  <span class="hljs-keyword">if</span> (arr.length &lt;= <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> arr<br>  <span class="hljs-keyword">var</span> left = [], right = []<br>  <span class="hljs-keyword">var</span> pivot = <span class="hljs-built_in">Math</span>.floor(arr.length / <span class="hljs-number">2</span>)<br>  <span class="hljs-keyword">var</span> pivotValue = arr.splice(pivot, <span class="hljs-number">1</span>)[<span class="hljs-number">0</span>]<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) &#123;<br>    <span class="hljs-keyword">if</span> (arr[i] &lt; pivotValue) &#123;<br>      left.push(arr[i])<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      right.push(arr[i])<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> [...quickSort(left), pivotValue, ...quickSort(right)]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><p>这里以n的阶乘为例。</p>
+<h3 id="普通递归"><a href="#普通递归" class="headerlink" title="普通递归"></a>普通递归</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">factorial</span>(<span class="hljs-params">n</span>) </span>&#123;<br>  <span class="hljs-keyword">if</span> (n === <span class="hljs-number">0</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>  <span class="hljs-keyword">return</span> n * factorial(n - <span class="hljs-number">1</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="尾递归"><a href="#尾递归" class="headerlink" title="尾递归"></a>尾递归</h3><p>由于普通递归过程中，每次执行都会将调用过程压入<code>调用栈</code>中，如果N的技术比较大，可能会栈溢出，所以这里提供尾递归方式解决这个问题。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">factorial</span>(<span class="hljs-params">n, total = <span class="hljs-number">1</span></span>) </span>&#123;<br>  <span class="hljs-keyword">if</span> (n === <span class="hljs-number">0</span>)<br>    <span class="hljs-keyword">return</span> total<br>  <span class="hljs-keyword">return</span> factorial(n - <span class="hljs-number">1</span>, n * total)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>注意！在<code>Node.js</code>中需要开启<code>harmony</code>模式实现尾递归，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">node --harmony_tailcalls factorial.js<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/HolyZheng/holyZheng-blog/issues/17">尾递归优化探索</a></p>
+</blockquote>
+<h1 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h1><p>基本数据类型: <code>undefined</code>，<code>boolean</code>，<code>number</code>，<code>string</code>，<code>null</code>, <code>symbol</code></p>
+<p>存放在栈内存中的简单数据段，数据大小确定，内存空间大小可以分配，是直接按值存放的，所以可以直接访问。对其进行赋值时，拷贝的是值；修改后它的原始值是不会改变的。</p>
+<p>引用类型: <code>object</code>, <code>array</code></p>
+<p>引用类型是存放在堆内存中的，变量实际上是一个存放在栈内存的指针，这个指针指向堆内存中的地址。每个空间大小不一样，要根据情况开进行特定的分配。对其进行赋值时，拷贝的是地址空间；修改后它的原始值会一起改变。</p>
+<table>
+<thead>
+<tr>
+<th>—</th>
+<th>和原数据是否指向同一对象</th>
+<th>第一层数据为基本数据类型</th>
+<th>原数据中包含子对象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>赋值</td>
+<td>是</td>
+<td>改变会使原数据一同改变</td>
+<td>改变会使原数据一同改变</td>
+</tr>
+<tr>
+<td>浅拷贝</td>
+<td>否</td>
+<td>改变不会使原数据一同改变</td>
+<td>改变会使原数据一同改变</td>
+</tr>
+<tr>
+<td>深拷贝</td>
+<td>否</td>
+<td>改变不会使原数据一同改变</td>
+<td>改变不会使原数据一同改变</td>
+</tr>
+</tbody></table>
+<p>示例对象:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> user = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;zhaoo&#x27;</span>,<br>  <span class="hljs-attr">gender</span>: <span class="hljs-number">0</span>,<br>  <span class="hljs-attr">social</span>: &#123;<br>    <span class="hljs-attr">email</span>: <span class="hljs-string">&#x27;izhaoo@163.com&#x27;</span>,<br>    <span class="hljs-attr">qq</span>: <span class="hljs-string">&#x27;894519210&#x27;</span>,<br>    <span class="hljs-attr">wechat</span>: <span class="hljs-literal">undefined</span>,<br>  &#125;,<br>  <span class="hljs-attr">vip</span>: <span class="hljs-literal">null</span>,<br>  <span class="hljs-attr">friendId</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">43</span>, <span class="hljs-number">23</span>, <span class="hljs-number">21</span>]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">user1 = user<br></code></pre></td></tr></table></figure>
+
+<h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><h5 id="assign"><a href="#assign" class="headerlink" title="assign"></a>assign</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> user1 = <span class="hljs-built_in">Object</span>.assign(&#123;&#125;, user)<br></code></pre></td></tr></table></figure>
+
+<h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3><h5 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">user1 = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">JSON</span>.stringify(user))<br></code></pre></td></tr></table></figure>
+
+<h5 id="递归遍历"><a href="#递归遍历" class="headerlink" title="递归遍历"></a>递归遍历</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clone</span>(<span class="hljs-params">target</span>) </span>&#123;<br>  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> target === <span class="hljs-string">&#x27;object&#x27;</span>) &#123;<br>    <span class="hljs-keyword">let</span> cloneTarget = <span class="hljs-built_in">Array</span>.isArray(target) ? [] : &#123;&#125;;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> key <span class="hljs-keyword">in</span> target) &#123;<br>      cloneTarget[key] = clone(target[key]);<br>    &#125;<br>    <span class="hljs-keyword">return</span> cloneTarget;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">return</span> target;<br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="防抖节流"><a href="#防抖节流" class="headerlink" title="防抖节流"></a>防抖节流</h1><h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><p>任务频繁触发的情况下，只有任务触发的间隔超过指定间隔的时候，任务才会执行</p>
+<p>搜索补全</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">debounce</span>(<span class="hljs-params">fn</span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> timeout = <span class="hljs-literal">null</span>;<br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">clearTimeout</span>(timeout);<br>    timeout = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      fn.call(<span class="hljs-built_in">this</span>, <span class="hljs-built_in">arguments</span>);<br>    &#125;, <span class="hljs-number">1000</span>);<br>  &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h3><p>指定时间间隔内只会执行一次任务</p>
+<p>懒加载监听滚动条位置、发送验证码计时器</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throttle</span>(<span class="hljs-params">fn</span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> canRun = <span class="hljs-literal">true</span>;<br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">if</span>(!canRun) &#123;<br>      <span class="hljs-keyword">return</span>;<br>    &#125;<br>    canRun = <span class="hljs-literal">false</span>;<br>    <span class="hljs-built_in">setTimeout</span>( <span class="hljs-function">() =&gt;</span> &#123;<br>      fn.call(<span class="hljs-built_in">this</span>, <span class="hljs-built_in">arguments</span>);<br>      canRun = <span class="hljs-literal">true</span>;<br>    &#125;, <span class="hljs-number">1000</span>);<br>  &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="手写源码"><a href="#手写源码" class="headerlink" title="手写源码"></a>手写源码</h1><h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//每个函数有this和args两个默认参数</span><br><span class="hljs-built_in">Function</span>.prototype.myCall = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context</span>) </span>&#123;<br>  <span class="hljs-comment">//传入的对象为空（null,number...）时指定为全局环境</span><br>  <span class="hljs-keyword">var</span> context = context || <span class="hljs-built_in">window</span><br>  <span class="hljs-comment">//用this获取调用myCall的函数</span><br>  <span class="hljs-comment">//fn.call(a, &#x27;yck&#x27;, &#x27;24&#x27;) =&gt; this = fn</span><br>  context.fn = <span class="hljs-built_in">this</span><br>  <span class="hljs-comment">//args是伪数组，没有slice这个方法</span><br>  <span class="hljs-keyword">var</span> args = [...arguments].slice(<span class="hljs-number">1</span>)<br>  <span class="hljs-comment">//执行并保存结果</span><br>  <span class="hljs-keyword">var</span> result = context.fn(...args)<br>  <span class="hljs-comment">//删除这个fn对象</span><br>  <span class="hljs-keyword">delete</span> context.fn<br>  <span class="hljs-comment">//返回结果</span><br>  <span class="hljs-keyword">return</span> result<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">Function</span>.prototype.myApply = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> context = context || <span class="hljs-built_in">window</span><br>  context.fn = <span class="hljs-built_in">this</span><br>  <span class="hljs-keyword">var</span> result<br>  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>]) &#123;<br>    result = context.fn(...arguments[<span class="hljs-number">1</span>])<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    result = context.fn()<br>  &#125;<br>  <span class="hljs-keyword">delete</span> context.fn<br>  <span class="hljs-keyword">return</span> result<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">Function</span>.prototype.myBind = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context</span>) </span>&#123;<br>  <span class="hljs-comment">// if (typeof this !== &#x27;function&#x27;) &#123;</span><br>  <span class="hljs-comment">//   throw new TypeError(&#x27;Error&#x27;)</span><br>  <span class="hljs-comment">// &#125;</span><br>  <span class="hljs-keyword">var</span> fn = <span class="hljs-built_in">this</span><br>  <span class="hljs-keyword">var</span> args = [...arguments].slice(<span class="hljs-number">1</span>)<br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">F</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span> <span class="hljs-keyword">instanceof</span> F) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> fn(...args, ...arguments)<br>    &#125;<br>    <span class="hljs-keyword">return</span> fn.apply(context, args.concat(...arguments))<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="new"><a href="#new" class="headerlink" title="new"></a>new</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">new</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>()<br>  <span class="hljs-keyword">let</span> Constructor = [].shift.call(<span class="hljs-built_in">arguments</span>)<br>  obj.__proto__ = Constructor.prototype<br>  <span class="hljs-keyword">let</span> result = Constructor.apply(obj, <span class="hljs-built_in">arguments</span>)<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> result === <span class="hljs-string">&#x27;object&#x27;</span> ? result : obj<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">student</span>(<span class="hljs-params">name, gender</span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.name = name<br>  <span class="hljs-built_in">this</span>.gender = gender<br>&#125;<br><br><span class="hljs-keyword">var</span> zhaoo = <span class="hljs-keyword">new</span>(student, <span class="hljs-string">&#x27;zhaoo&#x27;</span>, <span class="hljs-string">&#x27;male&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>创建一个空的简单JavaScript对象（即{}）；</li>
+<li>链接该对象（即设置该对象的构造函数）到另一个对象 ；</li>
+<li>将步骤1新创建的对象作为this的上下文 ；</li>
+<li>如果该函数没有返回对象，则返回this。</li>
+</ol>
+<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>后进先出 (LIFO)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Stack</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.stack = []<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">push</span>(<span class="hljs-params">item</span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.stack.push(item)<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">pop</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.stack.pop()<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">peek</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stack[<span class="hljs-built_in">this</span>.getCount() - <span class="hljs-number">1</span>]<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">getCount</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stack.length<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">isEmpty</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.getCount() === <span class="hljs-number">0</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>先进先出 (FIFO)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Queue</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.queue = []<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">enQueue</span>(<span class="hljs-params">item</span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.queue.push(item)<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">deQueue</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.queue.shift()  <span class="hljs-comment">//使用数组比较消耗性能</span><br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">getHeader</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.queue[<span class="hljs-number">0</span>]<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">getLength</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.queue.length<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">isEmpty</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.getLength() === <span class="hljs-number">0</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="优先级队列"><a href="#优先级队列" class="headerlink" title="优先级队列"></a>优先级队列</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PriorityQueue</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.queue = [&#123;<br>      priority<br>      value<br>    &#125;]<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">enQueue</span>(<span class="hljs-params">item</span>)</span> &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.isEmpty()) &#123;<br>      <span class="hljs-built_in">this</span>.queue.push(item)<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">var</span> flag = <span class="hljs-literal">false</span>;  <span class="hljs-comment">//判断是否排队</span><br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-built_in">this</span>.queue.length - <span class="hljs-number">1</span>; i &gt; <span class="hljs-number">0</span>; i--) &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.queue[i].priority &lt;= item.priority) &#123;<br>          <span class="hljs-built_in">this</span>.queue.splice(i, <span class="hljs-number">0</span>, item)<br>          flag = <span class="hljs-literal">true</span><br>          <span class="hljs-keyword">break</span><br>        &#125;<br>      &#125;<br>      <span class="hljs-comment">//循环后未入队，优先级最大，插入到第一位</span><br>      <span class="hljs-keyword">if</span> (!flag) &#123;<br>        <span class="hljs-built_in">this</span>.queue.unshift(item);<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 节点</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Node</span> (<span class="hljs-params">el</span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.el = el;<br>  <span class="hljs-built_in">this</span>.next = <span class="hljs-literal">null</span>;<br>&#125;<br><br><span class="hljs-comment">// 构造函数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Link</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.head = <span class="hljs-keyword">new</span> Node(<span class="hljs-string">&#x27;head&#x27;</span>);<br>&#125;<br><br><span class="hljs-comment">// 链表结尾追加一个节点</span><br>Link.prototype.append = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.head;<br>  <span class="hljs-keyword">while</span> (currNode.next != <span class="hljs-literal">null</span>) &#123;<br>    currNode = currNode.next;<br>  &#125;<br>  currNode.next = <span class="hljs-keyword">new</span> Node(el);<br>&#125;<br><br><span class="hljs-comment">// 按节点的值查找节点</span><br>Link.prototype.find = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.head;<br>  <span class="hljs-keyword">while</span> (currNode &amp;&amp; currNode.el != el) &#123;<br>    currNode = currNode.next;<br>  &#125;<br>  <span class="hljs-keyword">return</span> currNode;<br>&#125;<br><br><span class="hljs-comment">// 插入一个节点</span><br>Link.prototype.insert = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">newEl, oldEl</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> newNode = <span class="hljs-keyword">new</span> Node(newEl);<br>  <span class="hljs-keyword">var</span> findNode = <span class="hljs-built_in">this</span>.find(oldEl);<br>  <span class="hljs-keyword">if</span> (findNode) &#123;<br>    newNode.next = findNode.next;<br>    findNode.next = newNode;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;找不到给定插入的节点&#x27;</span>);<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 展示链表中的元素</span><br>Link.prototype.display = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.head.next;<br>  <span class="hljs-keyword">while</span> (currNode) &#123;<br>    <span class="hljs-built_in">console</span>.log(currNode.el);<br>    currNode = currNode.next;<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 寻找给定节点的前一个节点</span><br>Link.prototype.findPrev = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.head;<br>  <span class="hljs-keyword">while</span> (currNode.next &amp;&amp; currNode.next.el !== el) &#123;<br>    currNode = currNode.next;<br>  &#125;<br>  <span class="hljs-keyword">return</span> currNode;<br>&#125;<br><br><span class="hljs-comment">// 删除给定的节点</span><br>Link.prototype.remove = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> prevNode = <span class="hljs-built_in">this</span>.findPrev (el);<br>  <span class="hljs-keyword">if</span> (prevNode.next != <span class="hljs-literal">null</span>) &#123;<br>    prevNode.next = prevNode.next.next;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;找不到要删除的节点&#x27;</span>);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><br><span class="hljs-comment">// 双链表构造函数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DNode</span> (<span class="hljs-params">el</span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.el = el;<br>  <span class="hljs-built_in">this</span>.prev = <span class="hljs-literal">null</span>;<br>  <span class="hljs-built_in">this</span>.next = <span class="hljs-literal">null</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DLink</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.head = <span class="hljs-keyword">new</span> DNode(<span class="hljs-string">&#x27;head&#x27;</span>);<br>&#125;<br><br><span class="hljs-comment">// 在链表结尾添加一个新的节点</span><br>DLink.prototype.append = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.head;<br>  <span class="hljs-keyword">while</span> (currNode.next != <span class="hljs-literal">null</span>) &#123;<br>    currNode = currNode.next;<br>  &#125;<br>  <span class="hljs-keyword">var</span> newNode = <span class="hljs-keyword">new</span> Node(el);<br>  newNode.next = currNode.next;<br>  newNode.prev = currNode;<br>  currNode.next = newNode;<br>&#125;<br><br><span class="hljs-comment">// 根据节点的值查找链表节点</span><br>DLink.prototype.find = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.head;<br>  <span class="hljs-keyword">while</span> (currNode &amp;&amp; currNode.el != el) &#123;<br>    currNode = currNode.next;<br>  &#125;<br>  <span class="hljs-keyword">return</span> currNode;<br>&#125;<br><br><span class="hljs-comment">// 插入一个节点</span><br>DLink.prototype.insert = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">newEl, oldEl</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> newNode = <span class="hljs-keyword">new</span> DNode(newEl);<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.find(oldEl);<br>  <span class="hljs-keyword">if</span> (currNode) &#123;<br>    newNode.next = currNode.next;<br>    newNode.prev = currNode;<br>    currNode.next = newNode;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;未找到指定要插入节点位置对应的值！&#x27;</span>)<br>  &#125;<br>&#125;<br><br><br><span class="hljs-comment">// 顺序展示链表节点</span><br>DLink.prototype.display = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.head.next;<br>  <span class="hljs-keyword">while</span> (currNode) &#123;<br>    <span class="hljs-built_in">console</span>.log(currNode.el);<br>    currNode = currNode.next;<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 查找最后一个节点</span><br>DLink.prototype.findLast = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.head;<br>  <span class="hljs-keyword">while</span> (currNode.next != <span class="hljs-literal">null</span>) &#123;<br>    currNode = currNode.next;<br>  &#125;<br>  <span class="hljs-keyword">return</span> currNode;<br>&#125;<br><br><span class="hljs-comment">// 逆序展示链表节点</span><br>DLink.prototype.dispReverse = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.head;<br>  currNode = <span class="hljs-built_in">this</span>.findLast();<br>  <span class="hljs-keyword">while</span> (currNode.prev != <span class="hljs-literal">null</span>) &#123;<br>    <span class="hljs-built_in">console</span>(currNode.el);<br>    currNode = currNode.prev;<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 删除给定的节点</span><br>DLink.prototype.remove = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.find(el);<br>  <span class="hljs-keyword">if</span> (currNode &amp;&amp; currNode.next != <span class="hljs-literal">null</span>) &#123;<br>    currNode.prev.next = currNode.next;<br>    currNode.next.prev = currNode.prev;<br>    currNode.next = <span class="hljs-literal">null</span>;<br>    currNode.previous = <span class="hljs-literal">null</span>;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;找不到要删除对应的节点&#x27;</span>);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 循环链表构造函数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CLink</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.head = <span class="hljs-keyword">new</span> Node(<span class="hljs-string">&#x27;head&#x27;</span>);<br>  <span class="hljs-built_in">this</span>.head.next = <span class="hljs-built_in">this</span>.head;<br>&#125;<br><br><span class="hljs-comment">// 向循环链表结尾新增一个节点</span><br>CLink.prototype.append = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.head;<br>  <span class="hljs-keyword">while</span> (currNode.next != <span class="hljs-literal">null</span> &amp;&amp; currNode.next != <span class="hljs-built_in">this</span>.head) &#123;<br>    currNode = currNode.next;<br>  &#125;<br>  <span class="hljs-keyword">var</span> newNode = <span class="hljs-keyword">new</span> Node(el);<br>  newNode.next = currNode.next;<br>  currNode.next = newNode;<br>&#125;<br><br><span class="hljs-comment">// 根据节点的值查找链表节点</span><br>CLink.prototype.find = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.head;<br>  <span class="hljs-keyword">while</span> (currNode &amp;&amp; currNode.el != el &amp;&amp; currNode.next != <span class="hljs-built_in">this</span>.head) &#123;<br>    currNode = currNode.next;<br>  &#125;<br>  <span class="hljs-keyword">return</span> currNode;<br>&#125;<br><br><span class="hljs-comment">// 插入一个节点</span><br>CLink.prototype.insert = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">newEl, oldEl</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> newNode = <span class="hljs-keyword">new</span> Node(newEl);<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.find(oldEl);<br>  <span class="hljs-keyword">if</span> (currNode) &#123;<br>    newNode.next = currNode.next;<br>    currNode.next = newNode;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;未找到指定要插入节点位置对应的值！&#x27;</span>);<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 展示链表元素节点</span><br>CLink.prototype.display = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.head.next;<br>  <span class="hljs-keyword">while</span> (currNode &amp;&amp; currNode != <span class="hljs-built_in">this</span>.head) &#123;<br>    <span class="hljs-built_in">console</span>.log(currNode.el);<br>    currNode = currNode.next;<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 寻找前一个节点</span><br>CLink.prototype.findPrev = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> currNode = <span class="hljs-built_in">this</span>.head;<br>  <span class="hljs-keyword">while</span> (currNode.next &amp;&amp; currNode.next.el !== el) &#123;<br>    currNode = currNode.next;<br>  &#125;<br>  <span class="hljs-keyword">return</span> currNode;<br>&#125;<br><br><span class="hljs-comment">// 删除给定的节点</span><br>CLink.prototype.remove = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> prevNode = <span class="hljs-built_in">this</span>.findPrev(el);<br>  <span class="hljs-keyword">if</span> (prevNode.next != <span class="hljs-literal">null</span>) &#123;<br>    prevNode.next = prevNode.next.next;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;找不到要删除的节点&#x27;</span>);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Collection</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">data</span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.collection = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>(data);<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">add</span>(<span class="hljs-params">data</span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.collection.add(data);<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">get</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.collection;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">remove</span>(<span class="hljs-params">data</span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.collection.remove(data);<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">has</span>(<span class="hljs-params">data</span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.collection.has(data);<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">size</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.collection.size;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">values</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.collection;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">union</span>(<span class="hljs-params">collection</span>)</span> &#123;<br>    <span class="hljs-keyword">let</span> arr1 = <span class="hljs-built_in">Array</span>.from(collection);<br>    <span class="hljs-keyword">let</span> arr2 = <span class="hljs-built_in">Array</span>.from(<span class="hljs-built_in">this</span>.collection);<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>(arr1.concat(arr2));<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">intersect</span>(<span class="hljs-params">collection</span>)</span> &#123;<br>    <span class="hljs-keyword">let</span> arr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>();<br>    <span class="hljs-built_in">this</span>.collection.forEach(<span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span> &#123;<br>      <span class="hljs-keyword">if</span> (collection.has(element)) &#123;<br>        arr.add(element);<br>      &#125;<br>    &#125;);<br>    <span class="hljs-keyword">return</span> arr;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">difference</span>(<span class="hljs-params">collection</span>)</span> &#123;<br>    <span class="hljs-keyword">let</span> arr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>();<br>    <span class="hljs-built_in">this</span>.collection.forEach(<span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span> &#123;<br>      <span class="hljs-keyword">if</span> (!collection.has(element)) &#123;<br>        arr.add(element);<br>      &#125;<br>    &#125;);<br>    <span class="hljs-keyword">return</span> arr;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">sub</span>(<span class="hljs-params">collection</span>)</span> &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.size() &lt; collection.size()) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">let</span> res = <span class="hljs-literal">true</span>;<br>      collection.values().forEach(<span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span> &#123;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.collection.has(element)) &#123;<br>          res = <span class="hljs-literal">false</span>;<br>        &#125;<br>      &#125;);<br>      <span class="hljs-keyword">return</span> res;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/59ac1c4ef265da248e75892b#heading-6">js 深拷贝 vs 浅拷贝</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5d6aa4f96fb9a06b112ad5b1">如何写出一个惊艳面试官的深拷贝?</a></p>
+</blockquote>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2020/03/11/js-structure-algorithm/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;03&#x2F;11&#x2F;js-structure-algorithm&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;03&#x2F;11&#x2F;js-structure-algorithm&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2020/03/28/rn-navigation-refresh/"><i class="iconfont iconleft"></i>RN - 页面跳转后刷新内容</a>
+    <a href="/2020/02/29/design-pattern-note/">JavaScript - 设计模式<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>

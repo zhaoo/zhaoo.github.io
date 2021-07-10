@@ -1,0 +1,723 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题">
+  <meta name="description" content="兆兆的博客，分享技术，记录生活。">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: true,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center"> </div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  
+    <div class="preview">
+  <!-- <nav class="navbar j-navbar-menu">
+    <i class="iconfont iconmenu"></i>
+  </nav> -->
+  <div class="preview-image">
+    
+        
+              <div class="preview-overlay">
+                <svg class="preview-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                  viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                  <defs>
+                    <path id="gentle-wave"
+                      d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                  </defs>
+                  <g class="preview-parallax">
+                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(var(--color-background-rgb),0.7"></use>
+                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(var(--color-background-rgb),0.5)"></use>
+                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(var(--color-background-rgb),0.3)"></use>
+                    <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--color-background)"></use>
+                  </g>
+                </svg>
+              </div>
+              
+  </div>
+  <div class="preview-motto-wrapper">
+    <h2 class="preview-motto" id="motto">
+      
+    </h2>
+    
+      <span class="preview-cursor">_</span>
+      
+  </div>
+  <div class="preview-scroll">
+    <a href="#container" class="smooth-scroll"><i class="iconfont iconMouse"></i></a>
+  </div>
+</div>
+  
+  <div class="container" id="container">
+    <section class="row post">
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2018/05/11/orangepi-config-collect/" class="post-image">
+      <img src="https://pic.izhaoo.com/20200125102851.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2018/05/11/orangepi-config-collect/" title="香橙派 - 安装配置汇总" >香橙派 - 安装配置汇总</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">香橙派 Zero 安装和配置汇总。这几天朋友借了我的树莓派玩，顺便翻出了香橙派，这破板子买来就没玩过，丢着积灰。趁这几天有空折腾一番。部分内容我已经在其他文章写过了，这里就不再赘述，看“参考”文...</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>五月 11, 2018</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2018/05/11/orangepi-config-collect/" class="leancloud" data-flag-title="香橙派 - 安装配置汇总"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>7406</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2018/04/08/hard-disk-formatting-recovery/" class="post-image">
+      <img src="https://pic.izhaoo.com/20200228082019.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2018/04/08/hard-disk-formatting-recovery/" title="硬盘误格式化恢复" >硬盘误格式化恢复</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">硬盘误格式化恢复。这篇文章是去年暑假写在旧博客的，后来又丢到了知乎。快一年了，发现帮助了一些人，那么再把它搬到这边吧。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>四月 08, 2018</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2018/04/08/hard-disk-formatting-recovery/" class="leancloud" data-flag-title="硬盘误格式化恢复"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>1239</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2018/03/25/placeholder-use-font-awesome/" class="post-image">
+      <img src="https://pic.izhaoo.com/20200228082113.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2018/03/25/placeholder-use-font-awesome/" title="表单Placeholder内使用IconFont图标文字" >表单Placeholder内使用IconFont图标文字</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">表单Placeholder内使用IconFont图标文字。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>三月 25, 2018</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2018/03/25/placeholder-use-font-awesome/" class="leancloud" data-flag-title="表单Placeholder内使用IconFont图标文字"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>880</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2017/12/31/wechat-jump-hack/" class="post-image">
+      <img src="https://pic.izhaoo.com/20200228081618.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2017/12/31/wechat-jump-hack/" title="微信“跳一跳”自己动" >微信“跳一跳”自己动</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">最近微信出了个“跳一跳”小游戏，不得不说，鹅厂又剽窃人家了。作为一个手残党，跳了几次最多也就几十下。大写的不服，那就请python帮忙跳呗，因缺思听。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 31, 2017</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2017/12/31/wechat-jump-hack/" class="leancloud" data-flag-title="微信“跳一跳”自己动"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>1307</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2017/12/14/k2-flash-padavan/" class="post-image">
+      <img src="https://pic.izhaoo.com/20200228081638.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2017/12/14/k2-flash-padavan/" title="斐讯k2 - 烧录Padavan固件" >斐讯k2 - 烧录Padavan固件</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">今天撸了个斐讯k2，希望在未来的一个月能愉快顺利下车。开箱第一件事，设置上网？NO，NO，NO，刷机才是正道，刷个Padavan吧，虽说64MB的小心脏可能会受不了。不得不说啊，k2刷固件真心简单。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 14, 2017</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2017/12/14/k2-flash-padavan/" class="leancloud" data-flag-title="斐讯k2 - 烧录Padavan固件"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>746</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2017/12/13/mi-router-3-padavan/" class="post-image">
+      <img src="https://pic.izhaoo.com/20200228082337.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2017/12/13/mi-router-3-padavan/" title="小米路由器3 - Padavan固件" >小米路由器3 - Padavan固件</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">小米路由器3刷Padavan（老毛子）固件。
+今天老姐找我啊，说她们学校有个坑爹的“锐捷”校园网系统，然后她花了200买了个破解锐捷的路由器，用不了。我看了下，就一刷了固件的辣鸡TP，商家翻了十...</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 13, 2017</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2017/12/13/mi-router-3-padavan/" class="leancloud" data-flag-title="小米路由器3 - Padavan固件"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>1920</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2017/12/13/runing-go-hack-android/" class="post-image">
+      <img src="https://pic.izhaoo.com/20200125103032.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2017/12/13/runing-go-hack-android/" title="运动世界校园破解" >运动世界校园破解</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">安卓手机破解世界运动校园，解放双腿，上课跑、睡觉跑、随时随地都可跑。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 13, 2017</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2017/12/13/runing-go-hack-android/" class="leancloud" data-flag-title="运动世界校园破解"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>1023</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2017/12/08/erya-online-class-hack-android/" class="post-image">
+      <img src="https://pic.izhaoo.com/20200228081901.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2017/12/08/erya-online-class-hack-android/" title="超星尔雅破解" >超星尔雅破解</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">我又来玩尔雅了。上次是加速播放，三分钟刷一课；这次是快进，一秒钟刷一课；下次可能就自动刷完了。技术嘛，总是在不断发展的。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 08, 2017</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2017/12/08/erya-online-class-hack-android/" class="leancloud" data-flag-title="超星尔雅破解"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>461</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2017/10/19/esp8266-wifi-artifact/" class="post-image">
+      <img src="https://pic.izhaoo.com/20210628211131.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2017/10/19/esp8266-wifi-artifact/" title="ESP8266 - WiFi黑客神器" >ESP8266 - WiFi黑客神器</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">WiFi 干扰器ESP8266ESP8266 本身只是一块 WiFi 芯片，这里讲的 ESP8266 是指基于 ESP8266 芯片集成的 NodeMCU 开发板，某宝15大洋包邮，可玩性很高。...</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>十月 19, 2017</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2017/10/19/esp8266-wifi-artifact/" class="leancloud" data-flag-title="ESP8266 - WiFi黑客神器"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>2388</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+</section>
+    <section class="paginator">
+  
+    <a class="extend prev" rel="prev" href="/page/4/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">&gt;</a>
+  
+</section>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>

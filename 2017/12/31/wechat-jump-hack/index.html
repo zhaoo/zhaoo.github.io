@@ -1,0 +1,555 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>微信“跳一跳”自己动 - zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, 微信,跳一跳,破解">
+  <meta name="description" content="最近微信出了个“跳一跳”小游戏，不得不说，鹅厂又剽窃人...">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center">微信“跳一跳”自己动</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20200228081618.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">微信“跳一跳”自己动</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 31, 2017</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2017/12/31/wechat-jump-hack/" class="leancloud" data-flag-title="微信“跳一跳”自己动"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1307</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h3 id="程序大法"><a href="#程序大法" class="headerlink" title="程序大法"></a>程序大法</h3><p>今天去<code>@神奇的战士-王松</code>的GitHub上一逛，发现他已经把Python脚本编译成可执行文件了。真正意义上的方便大众了，省的配置Python环境，点赞。</p>
+<h5 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h5><p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1c2NL0Ik">STOP_jump_win</a>    </p>
+<p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1hrA5OB6">STOP_jump_macOS</a></p>
+<p>下载对应你系统的程序，解压。我这是win，就以第一个为例。然后根据你手机机型选择配置文件<code>config.json</code>。手机连接电脑，并且打开USB调试（下文有说明）。双击运行<code>stop_jump.exe</code>即可。</p>
+<p>其实本质还是一样的，编译了一下，更方便了。</p>
+<h3 id="程序小法"><a href="#程序小法" class="headerlink" title="程序小法"></a>程序小法</h3><h5 id="Python2"><a href="#Python2" class="headerlink" title="Python2"></a>Python2</h5><p>该程序是通过Python2来实现的，所以我们先安装它。这个不多说了，百度教程大把大把的。</p>
+<p><a target="_blank" rel="noopener" href="https://www.python.org/">python官网</a></p>
+<p>下载python2.x版本，安装即可。注意为python2“添加环境变量”，这个在安装对话框中可以直接勾选，忘记的话也可以自己添加。</p>
+<h5 id="wechat-jump-game"><a href="#wechat-jump-game" class="headerlink" title="wechat_jump_game"></a>wechat_jump_game</h5><p>首先感谢<a target="_blank" rel="noopener" href="https://github.com/wangshub">@神奇的战士-王松</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/wangshub/wechat_jump_game">wechat_jump_game下载</a></p>
+<p>下载这个工具，解压丢到某路径即可。</p>
+<h5 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h5><p>之后呢，我们还得安装一些python包，用pip很方便哟。</p>
+<p>打开cmd，目录定位到“wechat_jump_game”下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install -r requirements.txt<br>pip install image<br></code></pre></td></tr></table></figure>
+
+<h5 id="ADB"><a href="#ADB" class="headerlink" title="ADB"></a>ADB</h5><p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1jIajHe2">ADB下载</a></p>
+<p>下载这个工具，解压丢到某路径。然后为该路径添加环境变量。</p>
+<p>我的电脑右击 –&gt; 属性 –&gt; 高级系统设置 –&gt; 高级 –&gt; 环境变量 –&gt; 编辑“Path” –&gt; 将“ADB”的文件夹写上</p>
+<p>打开cmd敲入“adb”看看，有反应就ok。提示“不是内部或外部命令balabala”就是环境变量没做好。</p>
+<h5 id="USB调试"><a href="#USB调试" class="headerlink" title="USB调试"></a>USB调试</h5><p>安卓手机需要开启USB调试。</p>
+<p>以“小米6-MIUI9”为例，其他大同小异的。</p>
+<p>设置 –&gt; 我的设备 –&gt; 全部参数 –&gt; MIUI版本点击下开启开发者选项</p>
+<p>设置 –&gt; 系统和设备 –&gt; 更多设置 –&gt; 开发者选项 –&gt; 勾选USB调试</p>
+<p>然后把手机通过数据线接到电脑，允许。</p>
+<h5 id="自动跳"><a href="#自动跳" class="headerlink" title="自动跳"></a>自动跳</h5><p>手机数据线连接电脑。然后打开微信，打开跳一跳，开始游戏。</p>
+<p>运行程序。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python wechat-jump-auto.py<br></code></pre></td></tr></table></figure>
+
+<h3 id="数学小法"><a href="#数学小法" class="headerlink" title="数学小法"></a>数学小法</h3><p><img  src="https://pic.izhaoo.com/20180104114414.jpg"  ><span class="image-caption">1</span></p>
+<p><img  src="https://pic.izhaoo.com/20180104114356.jpg"  ><span class="image-caption">2</span></p>
+<h3 id="凉凉"><a href="#凉凉" class="headerlink" title="凉凉"></a>凉凉</h3><p>今天是2018第一天。跳过这步就是2018啦。</p>
+<p><img  src="https://pic.izhaoo.com/20180103123205.jpg"  ><span class="image-caption">2017</span></p>
+<p>然鹅，我没过去，我活在了2017。</p>
+<p><img  src="https://pic.izhaoo.com/20180103123300.jpg"  ><span class="image-caption">2018</span></p>
+<h3 id="相关文献"><a href="#相关文献" class="headerlink" title="相关文献"></a>相关文献</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32452473">教你用Python来玩微信跳一跳–致敬大佬</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lt94/Wechat-Jump-Helper-List">Wechat Jump Helper List–各种语言版本</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32492610">教你用Python来玩微信跳一跳《二》–免python环境搭建</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.v2ex.com/t/419056">微信跳一跳 可以直接更改分数，POST 请求没有校验–直接抓包改成绩已失效</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/264829281/answer/287019909">怎样实现微信小游戏跳一跳的外挂？–苹果模拟触控物理法</a></li>
+</ol>
+<p>怎么说，一个小游戏被玩成这样，也是没谁了。神奇的战士的GitHub一天收了1k+星星，也是没谁了。</p>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2017/12/31/wechat-jump-hack/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2017&#x2F;12&#x2F;31&#x2F;wechat-jump-hack&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2017&#x2F;12&#x2F;31&#x2F;wechat-jump-hack&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hack/" rel="tag">hack</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2018/03/25/placeholder-use-font-awesome/"><i class="iconfont iconleft"></i>表单Placeholder内使用IconFont图标文字</a>
+    <a href="/2017/12/14/k2-flash-padavan/">斐讯k2 - 烧录Padavan固件<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>

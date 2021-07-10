@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Django - 自定义模板标签 - zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, django,自定义模板标签,template,tags">
+  <meta name="description" content="这几天一直在折腾Django的博客项目，今天本想着做完...">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center">Django - 自定义模板标签</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20191211065828.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Django - 自定义模板标签</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>九月 01, 2018</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2018/09/01/django-template-tags/" class="leancloud" data-flag-title="Django - 自定义模板标签"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>5090</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h1 id="挖坑"><a href="#挖坑" class="headerlink" title="挖坑"></a>挖坑</h1><p>先来简单介绍一下本人亲手挖的坑：</p>
+<p>本博客项目<code>templates</code>中的所有页面都通过<code>block</code>标签继承自<code>base.html</code>母模板。其中继承了<code>&lt;title&gt;</code>、<code>&lt;keywords&gt;</code>、<code>&lt;discription&gt;</code>等内容。开发阶段这些内容都是直接写死在<code>base.html</code>母模板中了，现在准备上线，总不能让用户（假设有用户）去模板中改吧？所以我得将它写到数据库中，让用户可以在后台方便地设置博客的<code>名称</code>、<code>关键词</code>、<code>描述</code>等内容，各大博客也都是这么做的。燃鹅，事情并非那么简单，随之而来的是各种坑，作为处女座代码狗，我TM必须解决……</p>
+<h1 id="填坑"><a href="#填坑" class="headerlink" title="填坑"></a>填坑</h1><p>尝试了各种方法之后，终于完美解决了问题。用到了自定义模板标签（simple_tag）这个方法。详细解释在后文（踩坑）中，这里只做演示：</p>
+<p>在<code>index</code>应用中新建<code>index_tags.py</code>文件：</p>
+<figure class="highlight nim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs nim"><span class="hljs-keyword">from</span> django <span class="hljs-keyword">import</span> <span class="hljs-keyword">template</span>    <span class="hljs-comment"># 自定义模板是template类下的对象，所以先引入</span><br><span class="hljs-keyword">from</span> index.models <span class="hljs-keyword">import</span> <span class="hljs-type">Setting</span><br><br>register = <span class="hljs-keyword">template</span>.<span class="hljs-type">Library</span>()    <span class="hljs-comment"># 为对象起个别名</span><br><br>@register.simple_tag    <span class="hljs-comment"># 定义标签的类型</span><br>def get_setting():    <span class="hljs-comment"># 定义标签</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-type">Setting</span>.objects.last()    <span class="hljs-comment"># 标签的作用，返回Setting数据库的一条记录</span><br></code></pre></td></tr></table></figure>
+
+<p>在<code>blog</code>项目下的<code>setting.py</code>中改写以下几行：</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs sml"><span class="hljs-type">TEMPLATES</span> = [<br>    &#123;<br>        <span class="hljs-symbol">&#x27;BACKEND&#x27;</span>: <span class="hljs-symbol">&#x27;django</span>.template.backends.django.<span class="hljs-type">DjangoTemplates&#x27;</span>,<br>        <span class="hljs-symbol">&#x27;DIRS&#x27;</span>: [os.path.join(<span class="hljs-type">BASE_DIR</span>, <span class="hljs-symbol">&#x27;templates&#x27;</span>)],<br>        <span class="hljs-symbol">&#x27;APP_DIRS&#x27;</span>: <span class="hljs-type">True</span>,<br>        <span class="hljs-symbol">&#x27;OPTIONS&#x27;</span>: &#123;<br>            <span class="hljs-symbol">&#x27;context_processors&#x27;</span>: [<br>                <span class="hljs-symbol">&#x27;django</span>.template.context_processors.debug&#x27;,<br>                <span class="hljs-symbol">&#x27;django</span>.template.context_processors.request&#x27;,<br>                <span class="hljs-symbol">&#x27;django</span>.contrib.auth.context_processors.auth&#x27;,<br>                <span class="hljs-symbol">&#x27;django</span>.contrib.messages.context_processors.messages&#x27;,<br>            ],<br>            <span class="hljs-symbol">&#x27;libraries&#x27;</span>: &#123;<br>                <span class="hljs-symbol">&#x27;index_tags&#x27;</span>:  <span class="hljs-symbol">&#x27;index</span>.index_tags&#x27;,    # 注册index_tags这个库<br>            &#125;<br>        &#125;,<br>    &#125;,<br>]<br></code></pre></td></tr></table></figure>
+
+<p>在<code>base.html</code>开头写上以下两行：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs axapta">｛% load index_tags %｝    <span class="hljs-meta"># 引入index_tags自定义库</span><br>｛% get_setting <span class="hljs-keyword">as</span> <span class="hljs-keyword">setting</span> %｝    <span class="hljs-meta"># 使用get_setting自定义模板函数，并定义别名为setting</span><br></code></pre></td></tr></table></figure>
+
+<p>然后我们就可以在<code>base.html</code>母模板中使用<code>&#123;&#123; setting.title &#125;&#125;</code>、<code>&#123;&#123; setting.keywords &#125;&#125;</code>、<code>&#123;&#123; setting.discription &#125;&#125;</code>动态渲染数据库中的内容了。</p>
+<p>其他页面只需继承<code>base.html</code>页面即可。例如<code>文章页面</code>中，描述应该是该文章的摘要，我们就用<code>｛% block discription %｝ ｛% endblock %｝</code>重载母模板;而<code>标签页面</code>中，描述无需更改，那就什么都不做呗。</p>
+<h1 id="一号坑，重写视图函数"><a href="#一号坑，重写视图函数" class="headerlink" title="一号坑，重写视图函数"></a>一号坑，重写视图函数</h1><p>最简单的思路就是在<code>views.py</code>中的各个<code>视图函数</code>中调取数据库，然后再渲染到各个模板中，模板中再通过<code>block</code>标签重写这部分内容。不行，上帝告诉我，不能这么做。一次次地调数据库，渲染模板，重写模板，页面渲染速度拉下一大截。Veto!</p>
+<h1 id="二号坑，渲染母模板"><a href="#二号坑，渲染母模板" class="headerlink" title="二号坑，渲染母模板"></a>二号坑，渲染母模板</h1><p>稍微拐个弯，很自然的就能想到，我们只需要改写<code>base.html</code>母模板，动态渲染数据库中的内容即可。Yo, 看似很完美，Thinkphp中就可以用此方法完美解决。燃鹅，在Django中此路不通。因为Django的视图函数是接收到<code>request</code>请求后再进行后续的操作，我们的<code>base.html</code>是在模板中直接继承的，根本没有发送额外的请求，使用就不能单独的进行逻辑处理。Veto!！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">archive</span>(<span class="hljs-params">request</span>):</span><br>    articles = Article.objects.order_by(<span class="hljs-string">&#x27;-post_time&#x27;</span>).<span class="hljs-built_in">all</span>()<br>    <span class="hljs-keyword">return</span> render(request, <span class="hljs-string">&#x27;archive.html&#x27;</span>, &#123;<span class="hljs-string">&#x27;articles&#x27;</span>: articles&#125;)<br><br><span class="hljs-comment"># 例如这段代码是渲染文章内容的，可以看到必须要传入了一个请求（request）</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="三号坑，重写render方法"><a href="#三号坑，重写render方法" class="headerlink" title="三号坑，重写render方法"></a>三号坑，重写render方法</h1><p>终于百度到一条可行的解决方法，思路很清奇。重写Django框架中的render方法，让它能动态渲染<code>base.html</code>。确实很牛，从根本解决了问题，强烈建议Django官方填了这个坑。但是我这儿还是不想用，因为重写<code>render</code>方法之后我依然需要改动许多调用<code>render</code>的地方。Veto!!!</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/helloxiaoyu/p/8559206.html">django解决其他页面继承不了base模板的动态数据的问题</a></p>
+<h1 id="四号坑，伪造请求"><a href="#四号坑，伪造请求" class="headerlink" title="四号坑，伪造请求"></a>四号坑，伪造请求</h1><p>前面不是提到Django需要请求才能渲染页面嘛，<code>base.html</code>又不能传入请求。突然想到，我们直接伪造一个请求传进去不就好了。奇技淫巧，还是不想这么干。Veto!!!!</p>
+<h1 id="五号坑，引入自定义模板标签"><a href="#五号坑，引入自定义模板标签" class="headerlink" title="五号坑，引入自定义模板标签"></a>五号坑，引入自定义模板标签</h1><p>终于，谷歌到了一个方法，引入自定义标签。简单解释一下，<code>base.html</code>在是可以使用模板标签的，像<code>｛% if %｝</code>、<code>｛% for %｝</code>这种。Django又提供了自定义模板标签，就是说我们可以自己造个模板标签，就叫<code>｛% get_setting %｝</code>吧，这个标签的功能就是从数据库获取<code>博客名称</code>、<code>博客关键词</code>（存在Setting这个数据表中）这些内容。<br>一切突然光明了~查了下官方文档，开始操作。</p>
+<p>在<code>index</code>这个应用中新建一个<code>index_tags.py</code>文件：</p>
+<figure class="highlight nim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs nim"><span class="hljs-comment"># ！注意，此为错误示范</span><br><br><span class="hljs-keyword">from</span> django <span class="hljs-keyword">import</span> <span class="hljs-keyword">template</span>    <span class="hljs-comment"># 自定义模板是template类下的对象，所以先引入</span><br><span class="hljs-keyword">from</span> index.models <span class="hljs-keyword">import</span> <span class="hljs-type">Setting</span><br><br>register = <span class="hljs-keyword">template</span>.<span class="hljs-type">Library</span>()    <span class="hljs-comment"># 为对象起个别名</span><br><br>@register.template_tags    <span class="hljs-comment"># 定义标签的类型</span><br>def get_setting():    <span class="hljs-comment"># 定义标签</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-type">Setting</span>.objects.last()    <span class="hljs-comment"># 标签的作用，返回Setting数据库的一条记录</span><br></code></pre></td></tr></table></figure>
+
+<p>然后在<code>base.html</code>开头导入这个库：</p>
+<figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs erlang-repl">｛<span class="hljs-comment">% load index_tags %｝</span><br></code></pre></td></tr></table></figure>
+
+<p>然后就报错了：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">&#x27;index_tags&#x27; is not a registered <span class="hljs-keyword">tag</span> <span class="hljs-title">library</span>.<br></code></pre></td></tr></table></figure>
+
+<p>什么鬼，照着官方文档的方法没错啊？逛了圈谷歌后才发现，原来在模板中引入自定义库前需要先到项目的<code>setting.py</code>中注册这个库。Django官方文档怎么没说啊啊啊。</p>
+<p>打开<code>blog</code>项目下的<code>setting.py</code>文件，改写如下几行：</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs sml"><span class="hljs-type">TEMPLATES</span> = [<br>    &#123;<br>        <span class="hljs-symbol">&#x27;BACKEND&#x27;</span>: <span class="hljs-symbol">&#x27;django</span>.template.backends.django.<span class="hljs-type">DjangoTemplates&#x27;</span>,<br>        <span class="hljs-symbol">&#x27;DIRS&#x27;</span>: [os.path.join(<span class="hljs-type">BASE_DIR</span>, <span class="hljs-symbol">&#x27;templates&#x27;</span>)],<br>        <span class="hljs-symbol">&#x27;APP_DIRS&#x27;</span>: <span class="hljs-type">True</span>,<br>        <span class="hljs-symbol">&#x27;OPTIONS&#x27;</span>: &#123;<br>            <span class="hljs-symbol">&#x27;context_processors&#x27;</span>: [<br>                <span class="hljs-symbol">&#x27;django</span>.template.context_processors.debug&#x27;,<br>                <span class="hljs-symbol">&#x27;django</span>.template.context_processors.request&#x27;,<br>                <span class="hljs-symbol">&#x27;django</span>.contrib.auth.context_processors.auth&#x27;,<br>                <span class="hljs-symbol">&#x27;django</span>.contrib.messages.context_processors.messages&#x27;,<br>            ],<br>            <span class="hljs-symbol">&#x27;libraries&#x27;</span>: &#123;<br>                <span class="hljs-symbol">&#x27;index_tags&#x27;</span>:  <span class="hljs-symbol">&#x27;index</span>.index_tags&#x27;,    # 注册index_tags这个库<br>            &#125;<br>        &#125;,<br>    &#125;,<br>]<br></code></pre></td></tr></table></figure>
+
+<h1 id="六号坑，不存在分配标签"><a href="#六号坑，不存在分配标签" class="headerlink" title="六号坑，不存在分配标签"></a>六号坑，不存在分配标签</h1><p>先说明一下，Django中有三种自定义标签，分别是：</p>
+<ul>
+<li>simple_tag (简单标签)  – 单次使用只能返回一层数据。在这里就是说，不能从数据库中返回一条记录作为实例再渲染，只能分别定义N个简单标签分别渲染N条字段。</li>
+<li>inclusion_tag (内涵标签)  – 可以在标签中传入参数，这里没用。</li>
+<li>assignment_tag (分配标签) – 使用标签时可以定义别名，作为一个实例，然后可以渲染这个实例的各个对象。在这里就是说可以直接定义一个分配标签，然后在模板中定义一个别名“setting”，然后用 分配渲染。</li>
+</ul>
+<p>承接上文，我们注册了<code>index_tags.py</code>这个库后终于可以在模板引入了。在模板中使用自定义标签<code>｛% get_setting %｝</code>。又报错了：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">AttributeError: <span class="hljs-string">&#x27;Library&#x27;</span> <span class="hljs-keyword">object</span> has <span class="hljs-keyword">no</span> <span class="hljs-keyword">attribute</span> <span class="hljs-string">&#x27;assignment_tag&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>什么鬼？找不到<code>assignment_tag</code>对象？？？还是照着官方的用法没错啊，网上也都是这个干的。走投无路，忍无可忍，翻了一下Django框架的源码。发现……<code>Django2</code>已经启用了<code>assignment_tag</code>和<code>inclusion_tag</code>标签，所有标签的功能都集中在了<code>simple_tag</code>上。想想也是啊，一个标签可以解决的事情，干嘛撑得用三个。Django官方改进功能值得表扬，但是你TM能不能顺便更新一下文档，您的最新文档不是误导我们嘛！差点气晕！Veto!!!!!!</p>
+<p>填完各种天坑之后，终于完美解决了这个问题，头发掉了一大把，还是很开心。呵呵……呵呵呵……真是醉了……承接上文[填坑]</p>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2018/09/01/django-template-tags/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2018&#x2F;09&#x2F;01&#x2F;django-template-tags&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2018&#x2F;09&#x2F;01&#x2F;django-template-tags&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%86%E6%9E%B6/" rel="tag">框架</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2018/11/05/zjctf-wirteup/"><i class="iconfont iconleft"></i>浙江省首届网络安全大赛题解</a>
+    <a href="/2018/08/27/django-build-blog/">Django - 搭建博客<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>

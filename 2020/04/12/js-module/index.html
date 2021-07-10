@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JavaScript - 模块化 - zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, javascript,js,模块化">
+  <meta name="description" content="关于JavaScript中模块化的一些总结。
+
+
+在发...">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center">JavaScript - 模块化</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/2020050593403.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">JavaScript - 模块化</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>四月 12, 2020</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2020/04/12/js-module/" class="leancloud" data-flag-title="JavaScript - 模块化"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>6345</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <p>在发开大型软件项目时，一般需要通过<code>模块化</code>来管理代码。将一段有逻辑联系的代码封装成<code>模块</code>，其内部数据与实现是私有的，将一些公用接口暴露出去，与其他模块进行通信，最后组织成程序。</p>
+<p>模块化的作用:</p>
+<ul>
+<li>避免命名冲突</li>
+<li>按需加载</li>
+<li>提高复用程度</li>
+<li>提高可维护性</li>
+</ul>
+<blockquote>
+<p>软件工程提倡<strong>高内聚，低耦合</strong>。</p>
+</blockquote>
+<p>目前流行的JS模块化规范有<code>CommonJS</code>、<code>AMD</code>、<code>CMD</code>和<code>ES6模块</code>。通常将一个JS文件作为一个模块，向外暴露特定的变量和函数。</p>
+<h3 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h3><p><code>Node</code>是<code>CommonJS</code>规范的主要实践者，通过<code>module</code>、<code>exports</code>、<code>require</code>等关键词实现<code>模块加载</code>和<code>模块定义</code>。</p>
+<p>在服务端一般模块文件都存在本地，读取速度比较快，所以使用同步加载方式一般没问题。</p>
+<p><code>CommonJS</code>以<strong>同步</strong>方式加载模块。</p>
+<h5 id="模块引用"><a href="#模块引用" class="headerlink" title="模块引用"></a>模块引用</h5><p>使用<code>require()</code>方法引入模块，传入的变量为模块标识符。</p>
+<p>在Node中有三种模块类型，<code>核心模块</code>、<code>文件模块</code>、<code>自定义模块</code>。</p>
+<ul>
+<li>核心模块: Node内置的一些模块，例如<code>http</code>、<code>fs</code>、<code>path</code>等，模块标识符为<strong>模块名称</strong>。在Node的源码编译过程中已经将这些模块编译为二进制代码，所以加载过程很快。</li>
+<li>文件模块: 一般为用户自己定义的一些模块，一个文件就是一个模块，模块标识符为<strong>文件路径</strong>。由于指明了文件加载路径，所以加载速度较快。</li>
+<li>自定义模块: 用户使用<code>npm</code>等包管理工具安装的模块，一般保存在<code>node_moudles</code>目录下，模块标识符为<strong>模块名称</strong>。由于需要按照<code>npm</code>的加载规则匹配模块，所以加载过程较慢。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//main.js</span><br><br><span class="hljs-keyword">var</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>);  <span class="hljs-comment">//引入核心模块</span><br><span class="hljs-keyword">var</span> math = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./math&#x27;</span>);  <span class="hljs-comment">//引入文件模块</span><br><span class="hljs-keyword">var</span> koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;koa&#x27;</span>);  <span class="hljs-comment">//引入自定义模块</span><br><br><span class="hljs-built_in">console</span>.log(math.add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>));  <span class="hljs-comment">//使用math模块，输出3</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="模块定义"><a href="#模块定义" class="headerlink" title="模块定义"></a>模块定义</h5><p>对于文件模块，我们需要自己定义，一个文件就是一个模块。在CommonJS规范中<code>exports</code>对象是模块的唯一出口，定义导出的变量或方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//math.js</span><br><br><span class="hljs-built_in">exports</span>.add = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>&#123;  <span class="hljs-comment">//导出add方法</span><br>  <span class="hljs-keyword">return</span> a + b;<br>&#125;<br><br><span class="hljs-built_in">exports</span>.subtract = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>&#123;  <span class="hljs-comment">//导出subtract方法</span><br>  <span class="hljs-keyword">return</span> a - b;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>但是Node并不是完全按照CommonJS规范实现的，而是根据自身需要做了一些取舍，所以表现出一些特性。在Node中，我们更推荐使用<code>module.exports</code>来定义模块。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//math.js</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span> (<span class="hljs-params">a, b</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> a + b;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">subtract</span> (<span class="hljs-params">a, b</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> a - b;<br>&#125;<br><br><span class="hljs-built_in">module</span>.exports = &#123;<br>  <span class="hljs-attr">add</span>: add,<br>  <span class="hljs-attr">subtract</span>: subtract<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h5 id="module-exports-和-exports"><a href="#module-exports-和-exports" class="headerlink" title="module.exports 和 exports"></a>module.exports 和 exports</h5><p>在Node中，一个模块(文件)就是一个闭包，通过闭包机制实现了命名空间。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-built_in">exports</span>, <span class="hljs-built_in">require</span>, <span class="hljs-built_in">module</span>, __filename, __dirname</span>) </span>&#123;<br>  <span class="hljs-comment">//code</span><br>&#125;)();<br></code></pre></td></tr></table></figure>
+
+<p>每执行一个文件，就会自动创建一个<code>module</code>对象，而<code>module.exports</code>是其中的一个属性。所以<code>module.exports</code>才是真正的模块对象，<code>exports</code>只是对它的一个引用。</p>
+<p>因此，使用<code>module.exports</code>可以对该变量重新赋值，而使用<code>exports</code>不能进行重新赋值，只能对<code>exports</code>下的属性进行赋值，如<code>exports.add = add</code>。</p>
+<h3 id="ES6模块"><a href="#ES6模块" class="headerlink" title="ES6模块"></a>ES6模块</h3><p><code>ES6</code>标准在语法层面上实现了模块化，通过使用<code>import</code>和<code>export</code>实现<code>模块加载</code>和<code>模块定义</code>。由于是标准规范，使用在客户端和服务端都可以使用，一般是配合<code>webpack</code>等打包工具进行管理，因为现阶段<code>ES6</code>还需通过<code>babel</code>进行编码。</p>
+<p>不同于其他三种模块化方式，<code>ES6模块</code>是在<strong>编译过程中</strong>加载模块，而不是动态地引入一个对象。</p>
+<h5 id="模块定义-1"><a href="#模块定义-1" class="headerlink" title="模块定义"></a>模块定义</h5><p>使用<code>export</code>命令导出模块，也可以使用<code>export default</code>指定默认输出模块。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//math.js</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span> (<span class="hljs-params">a, b</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> a + b;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">subtract</span> (<span class="hljs-params">a, b</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> a - b;<br>&#125;<br><br><span class="hljs-keyword">export</span> &#123;add, subtract&#125;  <span class="hljs-comment">//输出函数</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="模块引用-1"><a href="#模块引用-1" class="headerlink" title="模块引用"></a>模块引用</h5><p>使用<code>import</code>命令导入模块，可以使用<code>解构赋值</code>的方式导入。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123;add, subtract&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./math&#x27;</span>;  <span class="hljs-comment">//引入add和subtract函数</span><br><br><span class="hljs-built_in">console</span>.log(add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>));  <span class="hljs-comment">//使用add函数，输出3</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="CommonJS-和-ES6模块"><a href="#CommonJS-和-ES6模块" class="headerlink" title="CommonJS 和 ES6模块"></a>CommonJS 和 ES6模块</h5><blockquote>
+<p>摘自 - 前端模块化：CommonJS,AMD,CMD,ES6</p>
+</blockquote>
+<h6 id="CommonJS模块输出的是一个值的拷贝，ES6模块输出的是值的引用"><a href="#CommonJS模块输出的是一个值的拷贝，ES6模块输出的是值的引用" class="headerlink" title="CommonJS模块输出的是一个值的拷贝，ES6模块输出的是值的引用"></a>CommonJS模块输出的是一个值的拷贝，ES6模块输出的是值的引用</h6><ul>
+<li><code>CommonJS</code>模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。</li>
+<li><code>ES6模块</code>的运行机制与<code>CommonJS</code>不一样。JS引擎对脚本静态分析的时候，遇到模块加载命令<code>import</code>，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。换句话说，<code>ES6</code>的<code>import</code>有点像<code>Unix</code>系统的<code>符号连接</code>，原始值变了，<code>import</code>加载的值也会跟着变。因此，<code>ES6模块</code>是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</li>
+</ul>
+<h6 id="CommonJS模块是运行时加载，ES6模块是编译时输出接口"><a href="#CommonJS模块是运行时加载，ES6模块是编译时输出接口" class="headerlink" title="CommonJS模块是运行时加载，ES6模块是编译时输出接口"></a>CommonJS模块是运行时加载，ES6模块是编译时输出接口</h6><ul>
+<li>运行时加载: <code>CommonJS</code>模块就是对象；即在输入时是先加载整个模块，生成一个对象，然后再从这个对象上面读取方法，这种加载称为“运行时加载”。</li>
+<li>编译时加载: <code>ES6模块</code>不是对象，而是通过<code>export</code>命令显式指定输出的代码，<code>import</code>时采用静态命令的形式。即在<code>import</code>时可以指定加载某个输出值，而不是加载整个模块，这种加载称为“编译时加载”。</li>
+</ul>
+<p><code>CommonJS</code>加载的是一个对象(即module.exports属性)，该对象只有在脚本运行完才会生成。而<code>ES6模块</code>不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。</p>
+<h3 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h3><p><code>require.js</code>是<code>AMD</code>规范的主要实践者，通过<code>define</code>定义模块、<code>require</code>引入模块。</p>
+<p>在客户端，一般是远程加载模块，受网络限制，使用异步方式更合理。</p>
+<p><code>AMD</code>以<strong>异步</strong>方式加载模块，推崇依赖前置，提前执行，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。</p>
+<h5 id="模块引用-2"><a href="#模块引用-2" class="headerlink" title="模块引用"></a>模块引用</h5><p>首先需要在<code>HTML</code>中使用<code>&lt;script&gt;</code>引入<code>require.js</code>和主模块。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html">// HTML<br><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;js/require.js&quot;</span> <span class="hljs-attr">data-main</span>=<span class="hljs-string">&quot;js/main&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>  //引入require.js 和 main.js<br></code></pre></td></tr></table></figure>
+
+<p>使用<code>require.config()</code>引入模块文件，可以设置路径前缀、设置模块名称。再使用<code>require()</code>使用模块，如下方式设置别名。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//main.js</span><br><br><span class="hljs-comment">//模块引入</span><br><span class="hljs-built_in">require</span>.config(&#123;<br>  <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&quot;js/lib&quot;</span>,  <span class="hljs-comment">//路径前缀</span><br>  <span class="hljs-attr">paths</span>: &#123;<br>    <span class="hljs-string">&quot;jquery&quot;</span>: <span class="hljs-string">&quot;jquery.min&quot;</span>,  <span class="hljs-comment">//实际路径为js/lib/jquery.min.js</span><br>    <span class="hljs-string">&quot;underscore&quot;</span>: <span class="hljs-string">&quot;underscore.min&quot;</span>,<br>    <span class="hljs-string">&quot;math&quot;</span>: <span class="hljs-string">&quot;math&quot;</span><br>  &#125;<br>&#125;);<br><br><span class="hljs-comment">//模块使用</span><br><span class="hljs-built_in">require</span>([<span class="hljs-string">&quot;jquery&quot;</span>, <span class="hljs-string">&quot;underscore&quot;</span>, <span class="hljs-string">&quot;math&quot;</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$, _, math</span>)</span>&#123;  <span class="hljs-comment">//使用别名</span><br>  <span class="hljs-comment">//code...</span><br>  $(<span class="hljs-string">&quot;body&quot;</span>).addClass(<span class="hljs-string">&quot;lock-screen&quot;</span>);  <span class="hljs-comment">//通过$别名使用jQuery</span><br>  <span class="hljs-built_in">console</span>.log(math.add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>));  <span class="hljs-comment">//通过math别名使用math模块，输出3</span><br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h5 id="模块定义-2"><a href="#模块定义-2" class="headerlink" title="模块定义"></a>模块定义</h5><p>使用<code>define()</code>方法定义一个模块，模块内容放在<code>回调函数</code>中，并通过<code>return</code>抛出。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// math.js</span><br><br><span class="hljs-comment">// 定义math模块</span><br>define(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">x, y</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> x + y;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">subtract</span> (<span class="hljs-params">a, b</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> a - b;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> &#123;<br>    <span class="hljs-attr">add</span>: add,<br>    <span class="hljs-attr">subtract</span>: subtract<br>  &#125;;<br>&#125;);<br><br><span class="hljs-comment">// 定义一个依赖jQuery的模块</span><br>define([<span class="hljs-string">&#x27;jquery&#x27;</span>],<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$</span>)</span>&#123;<br>  <br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setClass</span>(<span class="hljs-params"></span>) </span>&#123;<br>    $(<span class="hljs-string">&quot;body&quot;</span>).addClass(<span class="hljs-string">&quot;lock-screen&quot;</span>);<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> &#123;<br>    <span class="hljs-attr">setClass</span>: setClass<br>  &#125;;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h3><p><code>sea.js</code>是<code>CMD</code>规范的主要实践者，<code>CMD</code>吸收了<code>CommonJS</code>和<code>AMD</code>。</p>
+<p><code>CMD</code>以<strong>异步</strong>方式加载模块，推崇依赖就近，延迟执行，在代码中引入模块并运行。</p>
+<h5 id="模块引用-3"><a href="#模块引用-3" class="headerlink" title="模块引用"></a>模块引用</h5><p>首先需要在<code>HTML</code>中使用<code>&lt;script&gt;</code>引入<code>sea.js</code>和主模块。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html">// HTML<br><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;js/sea.js&quot;</span> <span class="hljs-attr">data-main</span>=<span class="hljs-string">&quot;js/main&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>  //引入sea.js 和 main.js<br></code></pre></td></tr></table></figure>
+
+<p>使用<code>define()</code>创建作用域，在<code>回调函数</code>(传入参数reuqire)中通过<code>require()</code>引入模块。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// main.js</span><br><br>define(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-built_in">require</span></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> math = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./math&#x27;</span>);<br>  <span class="hljs-built_in">console</span>.log(math.add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>));  <span class="hljs-comment">//使用math模块，输出3</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h5 id="模块定义-3"><a href="#模块定义-3" class="headerlink" title="模块定义"></a>模块定义</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// math.js</span><br><br>define(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-built_in">require</span>, <span class="hljs-built_in">exports</span>, <span class="hljs-built_in">module</span></span>) </span>&#123;<br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">x, y</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> x + y;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">subtract</span> (<span class="hljs-params">a, b</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> a - b;<br>  &#125;<br><br>  <span class="hljs-built_in">module</span>.exports = &#123;<br>    <span class="hljs-attr">add</span>: add,<br>    <span class="hljs-attr">subtract</span>: subtract<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>JS的全局变量其实是定义在一个window对象下的，例如<code>var history = 1;</code>其实是<code>var window.history = 1;</code>。然而，window对象又有许多的内置属性，如果我们自定义的属性刚好和内置属性重名的话，就会起冲突。</p>
+<p>因此，为了避免变量冲突，就有必要引入<code>命名空间</code>来隔离变量作用域，其实是用到<code>闭包</code>和<code>自触发函数</code>来模拟的。许多<code>模块化</code>的库都是基于这一原理。</p>
+<h5 id="自触发函数"><a href="#自触发函数" class="headerlink" title="自触发函数"></a>自触发函数</h5><p>先来看看<code>自触发函数</code>(IIFE)，在函数定义后立即触发。因为立即执行，后续一般不会再调用，所以可以使用匿名函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// Type 1, 没有匿名，但是立即触发</span><br>start();<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">start</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-comment">//...</span><br>&#125;<br><br><span class="hljs-comment">//Tpye 2</span><br>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-comment">//...</span><br>&#125;)();<br><br><span class="hljs-comment">//Type 3</span><br>!<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-comment">//...</span><br>&#125;();<br><br>Tpye <span class="hljs-number">4</span><br>;(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-comment">//...</span><br>&#125;)();<br></code></pre></td></tr></table></figure>
+
+<h5 id="命名空间-1"><a href="#命名空间-1" class="headerlink" title="命名空间"></a>命名空间</h5><p>结合<code>闭包</code>和<code>立即执行函数</code>，我们就可以很好的封装一个模块了。<code>闭包</code>用来限定作用域（命名空间），<code>立即执行函数</code>避免全局变量名字冲突。</p>
+<p><code>jQuery</code>就是用于以上两种机制，暴露出了一个<code>$</code>，来操作内部方法。</p>
+<p>以下例子，封住了<code>user</code>模块，解决变量冲突。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-built_in">window</span></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> name;<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getName</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> name;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setName</span>(<span class="hljs-params">name</span>) </span>&#123;<br>    name = name;<br>  &#125;<br><br>  <span class="hljs-built_in">window</span>.user = &#123; getName, setName &#125;;<br>&#125;)(<span class="hljs-built_in">window</span>);<br><br>user.setName(<span class="hljs-string">&#x27;zhaoo&#x27;</span>);<br><span class="hljs-built_in">console</span>.log(user.getName()); <span class="hljs-comment">// zhaoo</span><br></code></pre></td></tr></table></figure>
+
+<p>此外，ES6中的<code>let</code>和<code>const</code>可以产生一个块级作用域，其实也是用到了该原理。用<code>babel</code>编译后是如下ES5代码，是不是一目了然。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// ES6</span><br>&#123;<br>  <span class="hljs-keyword">let</span> a = <span class="hljs-string">&quot;abc&quot;</span>;<br>&#125;;<br><span class="hljs-built_in">console</span>.log(a);  <span class="hljs-comment">// Error, a is not defind</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// ES5</span><br>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>  <span class="hljs-keyword">var</span> a = <span class="hljs-string">&quot;abc&quot;</span>;<br>&#125;)();<br><span class="hljs-built_in">console</span>.log(a);  <span class="hljs-comment">// Error, a is not defind</span><br></code></pre></td></tr></table></figure>
+
+<p>命名空间模式也存在许多不足，一般在<code>ES5</code>年代比较多见。现在一般都是用<code>模块化</code>的方式直接引入文件模块了。</p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5aaa37c8f265da23945f365c#heading-4">前端模块化：CommonJS,AMD,CMD,ES6</a></p>
+</blockquote>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2020/04/12/js-module/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;04&#x2F;12&#x2F;js-module&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;04&#x2F;12&#x2F;js-module&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2020/05/05/hexo-theme-zhaoo-doc/"><i class="iconfont iconleft"></i>主题配置文档</a>
+    <a href="/2020/04/12/js-closure/">JS - 执行上下文/作用域链/闭包<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>

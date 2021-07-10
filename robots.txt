@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /about/
+Allow: /galleries/
+Allow: /tags/
+Disallow: /js/
+Disallow: /css/
+Disallow: /lib/
+Disallow: /images/
+Sitemap: https://www.izhaoo.com/baidusitemap.xml
+Sitemap: https://www.izhaoo.com/sitemap.xml
