@@ -1,0 +1,569 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ESP8266 - 小爱同学智能家居 - zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, esp8266,nodemcu,arduino,智能家居,小爱同学,blinker,点灯科技,控制空调,红外,物联网">
+  <meta name="description" content="基于 ESP8266 和 Blinker 组件智能家居...">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center">ESP8266 - 小爱同学智能家居</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20210628211131.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">ESP8266 - 小爱同学智能家居</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>七月 10, 2021</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2021/07/10/esp8266-xiaoai-smart-home/" class="leancloud" data-flag-title="ESP8266 - 小爱同学智能家居"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3317</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <p>&lt;封面摄于新疆·禾木的山间，高原下的寒松和草甸一片苍翠欲滴，哈萨克牧民就在山麓和山顶间来回迁徙。&gt;</p>
+<p>最近打工人搬进了出租房，闲鱼捡了个小爱触屏音箱，一百来块钱居然可以组 Mesh 网络，遂决定撘一套智能家居。可是这儿的空调、电视等都是传统设备，不支持物联网，改线又会被房东打死。唯一的办法就是借助红外遥控实现，搜了一下小米万能红外遥控器居然要一百多块钱，咋不去抢钱呢。于是默默地翻出积灰的电子元器件箱，掏出了几年前买的 ESP8266 板子，自己做一个吧，八要钱。</p>
+<p>下面以控制 LG 空调为例，整套智能家居架构如下：</p>
+<p>小爱触屏音箱 → Blinker（IRremote） → 电气设备</p>
+<ol>
+<li>米家接入 Bliker（点灯科技）物联网平台。</li>
+<li>ESP8266 刷入 Blinker 固件，作为物联网终端。</li>
+<li>ESP8266 基于 IRremote 库发射红外信号，控制空调等设备。</li>
+</ol>
+<h2 id="接线"><a href="#接线" class="headerlink" title="接线"></a>接线</h2><p>需要准备以下硬件，按如下方式接线：</p>
+<ul>
+<li>ESP8266 开发板（NodeMUC）</li>
+<li>红外二极管</li>
+<li>100Ω 电阻</li>
+<li>面包线（母对母）若干</li>
+</ul>
+<p><img  src="https://pic.izhaoo.com/20201022171055529.png"  ><span class="image-caption">接线图</span></p>
+<p><img  src="https://pic.izhaoo.com/20210710222545.png"  ><span class="image-caption">接好后，很挫</span></p>
+<h2 id="Blinker"><a href="#Blinker" class="headerlink" title="Blinker"></a>Blinker</h2><p><a target="_blank" rel="noopener" href="https://www.diandeng.tech/home">点灯科技</a></p>
+<p>首先在手机上安装点灯 APP 并打开。</p>
+<p>点击右上角加号添加设备，选择 <em>独立设备</em> → <em>网络接入</em> → <em>点灯科技</em>，把 <strong>key</strong> 保存一下，后面需要用到。</p>
+<p><img  src="https://pic.izhaoo.com/20210710220836.png"  ><span class="image-caption">添加设备</span></p>
+<p><img  src="https://pic.izhaoo.com/20210710220816.png"  ><span class="image-caption">独立设备</span></p>
+<p>点击右上角的编辑，定制遥控界面。</p>
+<p><img  src="https://pic.izhaoo.com/20210710221315.png"  ><span class="image-caption">编辑遥控界面</span></p>
+<p>点击右上角的三个点，可以重命名设备，方便之后语言控制。</p>
+<p><img  src="https://pic.izhaoo.com/20210710221709.png"  ><span class="image-caption">重命名设备</span></p>
+<p>在 Blinker APP 中编辑按钮，添加语音指令。</p>
+<p><img  src="https://pic.izhaoo.com/20210715144417.jpg"  ><span class="image-caption">语音指令</span></p>
+<h2 id="米家"><a href="#米家" class="headerlink" title="米家"></a>米家</h2><p>打开米家 APP，在 <em>我的</em> 页面，点击 <em>其他平台设备</em>，点击 <em>添加设备</em>，拉下来选择 <em>点灯科技</em>。</p>
+<p><img  src="https://pic.izhaoo.com/20210710221905.png"  ><span class="image-caption">其他平台设备</span></p>
+<p><img  src="https://pic.izhaoo.com/20210710221922.png"  ><span class="image-caption">点灯科技</span></p>
+<p>输入点灯科技注册的账号和密码，绑定账号。</p>
+<p><img  src="https://pic.izhaoo.com/20210710221934.png"  ><span class="image-caption">绑定账号</span></p>
+<p>点击同步设备，可以发现刚才在点灯平台添加的设备。</p>
+<p><img  src="https://pic.izhaoo.com/20210710222323.png"  ><span class="image-caption">同步设备</span></p>
+<h2 id="刷入固件"><a href="#刷入固件" class="headerlink" title="刷入固件"></a>刷入固件</h2><p>首先下载并安装 <a target="_blank" rel="noopener" href="http://www.arduino.cn/thread-5838-1-1.html">Arduion-IDE</a> 打开，我们需要安装 ESP8266 相关库。</p>
+<p>在 <em>文件 → 首选项 → 附加开发板管理配置</em> 中添加 ESP8266 的官方源：<code>http://arduino.esp8266.com/stable/package_esp8266com_index.json</code></p>
+<p><img  src="https://pic.izhaoo.com/20210715141625.jpg"  ><span class="image-caption">添加源</span></p>
+<p><del>然后在 <em>工具 → 管理包</em> 中搜索 <code>IRremoteESP8266</code> 安装这个包，用来控制输出红外信号的。</del></p>
+<p><img  src="https://pic.izhaoo.com/20210715142207.jpg"  ><span class="image-caption">安装 IRremoteESP8266</span></p>
+<p>也可以直接在 GitHub 下载 master 分支文件，丢到 <code>Arduino安装目录\Arduino\libraries</code> 目录下，需要下载以下包：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/crankyoldgit/IRremoteESP8266">IRremoteESP8266</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/blinker-iot/blinker-library">blinker-library</a></li>
+</ul>
+<p>然后在编辑器中输入以下代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> BLINKER_PRINT Serial</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> BLINKER_WIFI</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> BLINKER_MIOT_LIGHT</span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ESP8266WiFi.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;IRremoteESP8266.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;IRsend.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ir_LG.h&gt;</span>  <span class="hljs-comment">// 换成对应型号空调</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Blinker.h&gt;</span></span><br><br><span class="hljs-keyword">char</span> auth[] = <span class="hljs-string">&quot;**********&quot;</span>;  <span class="hljs-comment">// Bliker key</span><br><span class="hljs-keyword">char</span> ssid[] = <span class="hljs-string">&quot;**********&quot;</span>;  <span class="hljs-comment">// WiFi 名称</span><br><span class="hljs-keyword">char</span> pswd[] = <span class="hljs-string">&quot;**********&quot;</span>;  <span class="hljs-comment">// WiFi 密码</span><br><br><span class="hljs-function">BlinkerButton <span class="hljs-title">Button1</span><span class="hljs-params">(<span class="hljs-string">&quot;btn-abc&quot;</span>)</span></span>;  <span class="hljs-comment">// 按钮名称换成 Blinker 中设置的名称</span><br>IRLgAc _ac(D3);  <span class="hljs-comment">// D3 对应开发板上火线口</span><br><br><br><span class="hljs-comment">// 按钮</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">button1_callback</span><span class="hljs-params">(<span class="hljs-keyword">const</span> String &amp; state)</span> </span>&#123;<br>  BLINKER_LOG(<span class="hljs-string">&quot;get button state: &quot;</span>, state);<br>  <span class="hljs-keyword">if</span> (state == <span class="hljs-string">&quot;on&quot;</span>) &#123;<br>    digitalWrite(LED_BUILTIN, LOW);<br>    Button1.print(<span class="hljs-string">&quot;on&quot;</span>);<br>    IRLgAc _ac(D3);<br>    _ac.begin();<br>    _ac.on();<br>    _ac.send();<br>  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (state == <span class="hljs-string">&quot;off&quot;</span>) &#123;<br><br>    digitalWrite(LED_BUILTIN, HIGH);<br>    Button1.print(<span class="hljs-string">&quot;off&quot;</span>);<br>    IRLgAc _ac(D3);<br>    _ac.begin();<br>    _ac.off();<br>    _ac.send();<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">//小爱</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">miotPowerState</span><span class="hljs-params">(<span class="hljs-keyword">const</span> String &amp; state)</span></span><br><span class="hljs-function"></span>&#123;<br>  BLINKER_LOG(<span class="hljs-string">&quot;need set power state: &quot;</span>, state);<br><br>  <span class="hljs-keyword">if</span> (state == BLINKER_CMD_ON) &#123;<br>    digitalWrite(LED_BUILTIN, LOW);<br>    BlinkerMIOT.powerState(<span class="hljs-string">&quot;on&quot;</span>);<br>    BlinkerMIOT.print();<br>    IRLgAc _ac(D3);<br>    _ac.begin();<br>    _ac.on();<br>    _ac.send();<br>  &#125;<br>  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (state == BLINKER_CMD_OFF) &#123;<br>    digitalWrite(LED_BUILTIN, HIGH);<br>    BlinkerMIOT.powerState(<span class="hljs-string">&quot;off&quot;</span>);<br>    BlinkerMIOT.print();<br>    IRLgAc _ac(D3);<br>    _ac.off();<br>    _ac.send();<br>  &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>&#123;<br>  Serial.begin(<span class="hljs-number">115200</span>);<br>  BLINKER_DEBUG.stream(Serial);<br>  pinMode(LED_BUILTIN, OUTPUT);<br>  digitalWrite(LED_BUILTIN, HIGH);<br>  Blinker.begin(auth, ssid, pswd);<br>  Button1.attach(button1_callback);<br>  BlinkerMIOT.attachPowerState(miotPowerState);<br><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>&#123;<br>  Blinker.run();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后用 USB 线连接至电脑，点击输入按钮刷入即可。</p>
+<p><img  src="https://pic.izhaoo.com/20210715143716.jpg"  ><span class="image-caption">输入固件</span></p>
+<p>可以在 [IRremoteESP8266 包的目录下找到几乎所有型号的空调，更改一下代码即可。</p>
+<p><img  src="https://pic.izhaoo.com/20210715143910.jpg"  ><span class="image-caption">空调型号</span></p>
+<p><img  src="https://pic.izhaoo.com/20210715144057.jpg"  ><span class="image-caption">类名</span></p>
+<h3 id="开始装逼"><a href="#开始装逼" class="headerlink" title="开始装逼"></a>开始装逼</h3><p>一切都妥当后，将 ESP8266 和小爱同学连接至同一 WiFi 下。唤起小爱同学，输入刚才编辑的语音指令，即可发送红外信号控制电器设备。</p>
+<p>这里只是简单地示范了一下开/关 LG 空调，后续请学习相关库的文档，自行开启高阶能力。</p>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2021/07/10/esp8266-xiaoai-smart-home/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2021&#x2F;07&#x2F;10&#x2F;esp8266-xiaoai-smart-home&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2021&#x2F;07&#x2F;10&#x2F;esp8266-xiaoai-smart-home&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/IoT/" rel="tag">IoT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arduino/" rel="tag">arduino</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/esp8266/" rel="tag">esp8266</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/" rel="tag">智能家居</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a></a>
+    <a href="/2021/07/05/hexo-weapp-zhaoo-doc/">小程序部署文档<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>
