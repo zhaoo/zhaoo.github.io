@@ -60,10 +60,17 @@
       isHome: true,
       fancybox: true,
       pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
       lazyload: {
         enable: false,
         only_post: 'false',
-        loading: '/images/theme/loading.gif'
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: 'https://pic.izhaoo.com/lottie.json'
+        }
       },
       donate: {
         enable: true,
@@ -127,7 +134,7 @@
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body class="lock-screen">
-  <div class="loading"></div>
+  <div class="loading" id="loading"></div>
   
     
 
@@ -322,6 +329,64 @@
 <div class="col-lg-4 col-md-6 col-sm-12 post-item">
   <div class="post-wrap">
     
+    <a href="/2021/08/03/intersection-observer/" class="post-image">
+      <img src="https://pic.izhaoo.com/20210628212734.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/08/03/intersection-observer/" title="IntersectionObserver" >IntersectionObserver</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">IntersectionObserver API 用于监听元素与父元素或视口的可视状态，分享一些日常开发中的实际应用案例。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>八月 03, 2021</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2021/08/03/intersection-observer/" class="leancloud" data-flag-title="IntersectionObserver"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>8815</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2021/08/01/code-note/" class="post-image">
+      <img src="https://pic.izhaoo.com/20210714214358.jpg" draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/08/01/code-note/" title="搬砖笔记" >搬砖笔记</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">搬砖杂记，前端是门手艺活，我家狗看多了都会写。</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>八月 01, 2021</span>
+        
+          <span class="post-info-item">
+            <i class="iconfont iconeye"></i><span id="/2021/08/01/code-note/" class="leancloud" data-flag-title="搬砖笔记"></span>
+          </span>
+        
+        <span class="post-info-item"><i class="iconfont iconfont-size"></i>2179</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
     <a href="/2021/07/10/esp8266-xiaoai-smart-home/" class="post-image">
       <img src="https://pic.izhaoo.com/20210628211131.jpg" draggable="false">
     </a>
@@ -433,64 +498,6 @@
 </div>
 
   
-    
-
-<div class="col-lg-4 col-md-6 col-sm-12 post-item">
-  <div class="post-wrap">
-    
-    <a href="/2021/02/03/raspi-johnny-five-lcd1602/" class="post-image">
-      <img src="https://pic.izhaoo.com/20210203154746.jpg" draggable="false">
-    </a>
-    <div class="post-content">
-      <div class="post-content-wrap">
-        <h3 class="post-title"><a href="/2021/02/03/raspi-johnny-five-lcd1602/" title="树莓派 - JS 驱动 LCD1602" >树莓派 - JS 驱动 LCD1602</a></h3>
-        <div class="post-excerpt">
-          <p class="substr-3">树莓派使用 johnny-five.js 库驱动 LCD1602 输出文字。</p>
-        </div>
-      </div>
-      <div class="post-info">
-        <span class="post-info-item"><i class="iconfont iconcalendar"></i>二月 03, 2021</span>
-        
-          <span class="post-info-item">
-            <i class="iconfont iconeye"></i><span id="/2021/02/03/raspi-johnny-five-lcd1602/" class="leancloud" data-flag-title="树莓派 - JS 驱动 LCD1602"></span>
-          </span>
-        
-        <span class="post-info-item"><i class="iconfont iconfont-size"></i>2646</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-  
-    
-
-<div class="col-lg-4 col-md-6 col-sm-12 post-item">
-  <div class="post-wrap">
-    
-    <a href="/2021/01/27/deploy-openfaas-on-mac/" class="post-image">
-      <img src="https://pic.izhaoo.com/20200228081628.jpg" draggable="false">
-    </a>
-    <div class="post-content">
-      <div class="post-content-wrap">
-        <h3 class="post-title"><a href="/2021/01/27/deploy-openfaas-on-mac/" title="Mac OS 部署 OpenFaas" >Mac OS 部署 OpenFaas</a></h3>
-        <div class="post-excerpt">
-          <p class="substr-3">在 Mac OS 中部署 OpenFaas，构建 Faas 开发环境。</p>
-        </div>
-      </div>
-      <div class="post-info">
-        <span class="post-info-item"><i class="iconfont iconcalendar"></i>一月 27, 2021</span>
-        
-          <span class="post-info-item">
-            <i class="iconfont iconeye"></i><span id="/2021/01/27/deploy-openfaas-on-mac/" class="leancloud" data-flag-title="Mac OS 部署 OpenFaas"></span>
-          </span>
-        
-        <span class="post-info-item"><i class="iconfont iconfont-size"></i>2472</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-  
 </section>
     <section class="paginator">
   
@@ -580,6 +587,8 @@
 </body>
 
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
 
 
 

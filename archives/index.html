@@ -60,10 +60,17 @@
       isHome: false,
       fancybox: true,
       pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
       lazyload: {
         enable: false,
         only_post: 'false',
-        loading: '/images/theme/loading.gif'
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: 'https://pic.izhaoo.com/lottie.json'
+        }
       },
       donate: {
         enable: true,
@@ -127,7 +134,7 @@
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body class="lock-screen">
-  <div class="loading"></div>
+  <div class="loading" id="loading"></div>
   
     
 
@@ -188,11 +195,23 @@
   <section class="archive">
     <div class="archive-container">
       <div class="archive-post">
-        <h3 class="archive-total">归档: 51 篇</h3>
+        <h3 class="archive-total">归档: 53 篇</h3>
         
         
           
             <h3 class="archive-year">2021 年</h3>
+          
+          <div class="archive-item">
+            <a class="archive-date" href="/2021/08/03/intersection-observer/">八月 03</a>
+            <a class="archive-title" href="/2021/08/03/intersection-observer/">IntersectionObserver</a>
+          </div>
+        
+          
+          <div class="archive-item">
+            <a class="archive-date" href="/2021/08/01/code-note/">八月 01</a>
+            <a class="archive-title" href="/2021/08/01/code-note/">搬砖笔记</a>
+          </div>
+        
           
           <div class="archive-item">
             <a class="archive-date" href="/2021/07/10/esp8266-xiaoai-smart-home/">七月 10</a>
@@ -592,6 +611,8 @@
 </body>
 
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
 
 
 

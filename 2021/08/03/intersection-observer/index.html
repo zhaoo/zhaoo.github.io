@@ -1,0 +1,581 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>IntersectionObserver - zhaoo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, intersection-observer, js, 视口监听, 吸顶, 图片懒加载, 无限滚动, 滚动动画, 曝光埋点, 电梯导航">
+  <meta name="description" content="IntersectionObserver API 用于...">
+  <meta name="author" content="zhaoo">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_r673sha78lq.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: 'https://pic.izhaoo.com/lottie.json'
+        }
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d',
+          data_contents: ''
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '[{"title":"傻逼作者要上班去了","content":"傻逼作者要上班去了，以后没时间开发新功能了。","enable":true,"startTime":"2020-11-26 21:11:12","endTime":"2020-11-30 21:11:27"},{"title":"招募管理员大哥","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":false,"startTime":"2020-11-27 21:11:12","endTime":"2020-12-30 21:11:27"},{"title":"测试","content":"招募几位管理员大哥，平时帮忙管理一下交流群。","enable":true,"startTime":"2019-11-27 21:11:12","endTime":"2020-5-30 21:11:27"}]',
+        page_white_list: '["/","/categories/"]',
+        page_black_list: '["/about/"]'
+      },
+      search: {
+        enable: true,
+        path: '/search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center">IntersectionObserver</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/2020/05/05/hexo-theme-zhaoo-doc/ " class="underline "> 文档</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20210628212734.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">IntersectionObserver</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>八月 03, 2021</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2021/08/03/intersection-observer/" class="leancloud" data-flag-title="IntersectionObserver"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>8815</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h3 id="MDN"><a href="#MDN" class="headerlink" title="MDN"></a>MDN</h3><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/IntersectionObserver">IntersectionObserver</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/IntersectionObserverEntry">IntersectionObserver Entry</a></p>
+<blockquote>
+<p><em>IntersectionObserver</em> 用于异步观察目标元素与父元素可视状态。</p>
+</blockquote>
+<p>polyfill: tnpm install intersection-observer</p>
+<p><strong>base</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> observer = <span class="hljs-keyword">new</span> IntersectionObserver(callback, options);<br><br>observer.observe();  <span class="hljs-comment">//开始监听目标元素</span><br>observer.unobserve();  <span class="hljs-comment">//取消监听目标元素</span><br>observer.takeRecords();  <span class="hljs-comment">//返回所以观察目标的entries对象数组</span><br>observer.disconnect();  <span class="hljs-comment">//停止所有监听</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>callback</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> observer = <span class="hljs-keyword">new</span> IntersectionObserver(<span class="hljs-function">(<span class="hljs-params">entries</span>) =&gt;</span> &#123;<br>  entries.forEach(<span class="hljs-function">(<span class="hljs-params">entry</span>) =&gt;</span> &#123; <br>    <span class="hljs-built_in">console</span>.log(entry.isIntersecting);  <span class="hljs-comment">//目标元素进入可见区域或离开可见区域</span><br>  &#125;);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>isIntersecting: 目标元素进入可视区域或离开可见区域</li>
+<li>intersectionRatio: 目标元素在可视区域的比例</li>
+<li>intersectionRect: 目标元素与根元素的相交区域</li>
+<li>boundingClientRect: 目标元素的边界区域，同 <em>getBoundingClientRect()</em></li>
+<li>rootBounds: 返回交叉区域观察者中的根</li>
+<li>target: 触发时的目标元素</li>
+<li>time: 触发时的时间戳</li>
+</ul>
+<p><strong>options</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> observer = <span class="hljs-keyword">new</span> IntersectionObserver(callback, &#123;<br>  <span class="hljs-attr">root</span>: <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;container&quot;</span>),  <span class="hljs-comment">//父容器为container</span><br>  <span class="hljs-attr">rootMargin</span>: <span class="hljs-string">&quot;10px, 10px, 10px, 10px&quot;</span>,  <span class="hljs-comment">//父容器内缩10px为计算边界</span><br>  <span class="hljs-attr">threshold</span>: <span class="hljs-number">1</span>  <span class="hljs-comment">//较差比例为100%时触发</span><br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>root: 监听对象的父元素，未指定则默认为根元素（root）</li>
+<li>rootMargin: 计算时的边界偏移量，可以放大/缩小计算容器</li>
+<li>threshold: 监听对象与父元素交叉比例触发阈值（0~1）</li>
+</ul>
+<h3 id="吸顶吸底"><a href="#吸顶吸底" class="headerlink" title="吸顶吸底"></a>吸顶吸底</h3><p><img  src="https://pic.izhaoo.com/20210801222344gif.gif"  ><span class="image-caption">吸顶效果</span></p>
+<p>最近的一个业务需求中需要实现 TabBar 吸顶能力。对于简单的吸顶，我们直接用 <code>position: sticky;</code> 即可。但是视觉同学要求在吸顶的时候 TabBar 的样式也做相应的变化，这就需要我们去监听吸顶状态。通过监听滚动事件，计算父子元素的相对距离，从而判读是否吸顶，代码如下：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Tabbar</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> [isFixed, setIsFixed] = useState(<span class="hljs-literal">false</span>);<br><br>  useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">window</span>.addEventListener(<br>      <span class="hljs-string">&quot;scroll&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-keyword">const</span> rect = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;tabbar&quot;</span>) &amp;&amp; <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;tabbar&quot;</span>).getBoundingClientRect();  <span class="hljs-comment">//获取元素高度</span><br>        setIsFixed(rect.top &lt;= <span class="hljs-number">0</span> ? <span class="hljs-literal">true</span> : <span class="hljs-literal">false</span>);  <span class="hljs-comment">//吸顶状态更新</span><br>      &#125;, <span class="hljs-literal">true</span>  <span class="hljs-comment">//Rax中屏蔽了冒泡事件，需要在捕获阶段监听事件</span><br>    );<br>  &#125;, []);  <br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Tabbar</span> <span class="hljs-attr">className</span>=`<span class="hljs-attr">tabbar</span> $&#123;<span class="hljs-attr">isFixed</span> ? &quot;<span class="hljs-attr">tabbar--fixed</span>&quot; <span class="hljs-attr">:</span> <span class="hljs-attr">null</span>&#125;` <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;tabbar&quot;</span> /&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.tabbar</span> &#123;<br>  <span class="hljs-attribute">position</span>: sticky;  <span class="hljs-comment">/* 粘性定位 */</span><br>  <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;<br>  ...  <span class="hljs-comment">/* 未吸顶样式 */</span><br>&#125;<br><br><span class="hljs-selector-class">.abbar--fixed</span> &#123;<br>  ...  <span class="hljs-comment">/* 吸顶样式 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>虽然完美还原了视觉效果，但是一个简单的吸附判断需要添加滚动监听和状态机，对页面性能影响不小。并且还遇到了小坑：沉浸式 <em>TitleBar</em> 通过监听页面滚动切换效果，给了页面一个滚动层级，导致无法监听到元素的 <em>scrollTop</em> 属性，需要 Hack 处理。复盘的时候使用 <em>IntersectionObserver</em> 重构了一下，通过监听 Tabbar 元素与容器元素之间的交叉状态判断是否吸顶。看起来逼格提升了一个档次，代码如下：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Tabbar</span>(<span class="hljs-params"></span>) </span>&#123;<br>  useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">if</span> (containerRef.current &amp;&amp; tabbarRef.current) &#123;<br>      handleFixed(containerRef.current, tabbarRef.current);<br>    &#125;<br>  &#125;, []);<br><br>  <span class="hljs-keyword">const</span> handleFixed = <span class="hljs-function">(<span class="hljs-params">containerEle, tabbarEle</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> observer = <span class="hljs-keyword">new</span> IntersectionObserver(<span class="hljs-function">(<span class="hljs-params">entries</span>) =&gt;</span> &#123;<br>      entries.forEach(<span class="hljs-function">(<span class="hljs-params">entry</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">if</span> (entry.isIntersecting) &#123;<br>          tabbarEle.setAttribute(<span class="hljs-string">&#x27;class&#x27;</span>, <span class="hljs-string">&#x27;tabbar--fixed&#x27;</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>          tabbarEle.setAttribute(<span class="hljs-string">&#x27;class&#x27;</span>, <span class="hljs-string">&#x27;tabbar--unfixed&#x27;</span>);<br>        &#125;<br>      &#125;)<br>    &#125;, &#123;<br>      <span class="hljs-attr">threshold</span>: <span class="hljs-number">1</span>, <span class="hljs-comment">//元素完全可见时触发回调函数</span><br>    &#125;);<br>    observer.observe(containerEle); <span class="hljs-comment">//开始观察</span><br>  &#125;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;containerRef&#125;</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;container&quot;</span> &gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Tabbar</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;tabbarRef&#125;</span> /&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.container</span> &#123;<br>  <span class="hljs-attribute">position</span>: fixed;<br>  <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-selector-class">.tabbar--fixed</span> &#123;<br>  <span class="hljs-attribute">position</span>: fixed;<br>  <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;<br>  ...  <span class="hljs-comment">/* 吸顶样式 */</span><br>&#125;<br><br><span class="hljs-selector-class">.tabbar--unfixed</span> &#123;<br>  <span class="hljs-attribute">position</span>: relative;<br>  ...  <span class="hljs-comment">/* 未吸顶样式 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>看起来代码更烦了，但实际上可操作性更好。不用通过命令式地计算父子元素间的相对距离判断是否相交，而是声明式地把判断依据交给底层 API 实现。从 scroll 到 IntersectionObserver，性能也提升了不少。由于监听 scroll 事件密集发生，计算量很大，容易造成性能问题（套个节流函数 →_→）；而 IntersectionObserver 则是通过回调实现，只在临界计算一次，所以性能比较好。</p>
+<h3 id="电梯导航"><a href="#电梯导航" class="headerlink" title="电梯导航"></a>电梯导航</h3><p><img  src="https://pic.izhaoo.com/20210801222344.gif"  ><span class="image-caption">电梯效果</span></p>
+<p>不久，视觉同学提议将导航改成电梯导航，没问题……</p>
+<p>电梯导航可以拆成两块逻辑：1、点击导航项滑动至对应模块顶部。2、页面滚动时判断视口内的模块并切换导航。</p>
+<p>滑动模块：点击事件发生时调用 <code>window.scrollTo()</code> 方法平滑页面，平滑高度通过 <code>getElementById(id).offsetTop</code> 获取。</p>
+<p>切换导航：切入正题，使用 <strong>IntersectionObserver</strong> 监听模块元素和根元素（root）的可视状态，组合 <strong>isIntersecting</strong>（是否进入视口）和<strong>intersectionRatio</strong>（进入视口的比例）判断模块全部进入视口时切换 Tab。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> tabMap = [<span class="hljs-string">&#x27;raider&#x27;</span>, <span class="hljs-string">&#x27;show&#x27;</span>, <span class="hljs-string">&#x27;poi&#x27;</span>];<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> [tab, setTab] = useState(<span class="hljs-string">&#x27;raider&#x27;</span>);<br><br>  useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> tabEle = tabMap.map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> <span class="hljs-built_in">document</span>.getElementById(item));  <span class="hljs-comment">//获取DOM</span><br>    handleElevator(tabEle);<br>  &#125;, [])<br><br>  <span class="hljs-keyword">const</span> handleElevator = <span class="hljs-function">(<span class="hljs-params">tabEle</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> observer = <span class="hljs-keyword">new</span> IntersectionObserver(<span class="hljs-function">(<span class="hljs-params">entries</span>) =&gt;</span> &#123;<br>      entries.forEach(<span class="hljs-function">(<span class="hljs-params">entry</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">if</span> (entry.isIntersecting &amp;&amp; entry.intersectionRatio === <span class="hljs-number">1</span>) &#123;  <span class="hljs-comment">//当模块全部滑入页面时</span><br>          setTab(entry.target.id);  <span class="hljs-comment">//切换Tab</span><br>        &#125;<br>      &#125;);<br>    &#125;)<br>    tabEle.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> observer.observe(item));  <span class="hljs-comment">//遍历Tab设置监听</span><br>  &#125;<br><br>  <span class="hljs-keyword">const</span> handleClick = <span class="hljs-function">(<span class="hljs-params">id</span>) =&gt;</span> &#123;<br>    setTab(id)<br>    <span class="hljs-built_in">window</span>.scrollTo(&#123;<br>      <span class="hljs-attr">top</span>: <span class="hljs-built_in">document</span>.getElementById(id).offsetTop,  <span class="hljs-comment">//点击Tab项滑动至对应模块顶部</span><br>      <span class="hljs-attr">behavior</span>: <span class="hljs-string">&#x27;smooth&#x27;</span>  <span class="hljs-comment">//平滑效果</span><br>    &#125;);<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Tabbar</span> <span class="hljs-attr">tab</span>=<span class="hljs-string">&#123;tab&#125;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> handleClick(id)&#125; /&gt;</span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">RaiderGroup</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;raider&quot;</span> /&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">ShowGroup</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;show&quot;</span> /&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">PoiGroup</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;poi&quot;</span> /&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="图片懒加载"><a href="#图片懒加载" class="headerlink" title="图片懒加载"></a>图片懒加载</h3><p>同理，判断图片进入可视区后将 <em>src</em> 中的占位图替换为 <em>data-src</em> 中的真实地址即可。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Lazyload</span>(<span class="hljs-params"></span>) </span>&#123;<br>  useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> imagesEle = <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">&quot;image-lazyload&quot;</span>);<br>    <span class="hljs-keyword">const</span> containerEle = getElementById(<span class="hljs-string">&quot;container&quot;</span>);<br>    handleLazyload(imagesEle, containerEle);<br>  &#125;, [])<br><br>  <span class="hljs-keyword">const</span> handleLazyload = <span class="hljs-function">(<span class="hljs-params">imagesEle, containerEle</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> observer = <span class="hljs-keyword">new</span> IntersectionObserver(<span class="hljs-function">(<span class="hljs-params">entries</span>) =&gt;</span>&#123;<br>      entries.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;<br>        <span class="hljs-keyword">if</span> (item.isIntersecting) &#123;<br>          item.target.src = item.target.getAttribute(<span class="hljs-string">&quot;data-src&quot;</span>);  <span class="hljs-comment">//替换真实图片</span><br>          observer.unobserve(item.target);  <span class="hljs-comment">//取消监听</span><br>        &#125;<br>      &#125;)<br>    &#125;, &#123;<br>      <span class="hljs-attr">root</span>: containerEle<br>    &#125;);<br>    imagesEle.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> observer.observe(item));  <span class="hljs-comment">//遍历图片设置监听</span><br>  &#125;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Image</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;image-lazyload&quot;</span> <span class="hljs-attr">data-src</span>=<span class="hljs-string">&quot;...&quot;</span> /&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Image</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;image-lazyload&quot;</span> <span class="hljs-attr">data-src</span>=<span class="hljs-string">&quot;...&quot;</span> /&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Image</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;image-lazyload&quot;</span> <span class="hljs-attr">data-src</span>=<span class="hljs-string">&quot;...&quot;</span> /&gt;</span></span><br><span class="xml">      ...</span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="无限加载"><a href="#无限加载" class="headerlink" title="无限加载"></a>无限加载</h3><p>同理，判断页面划到底部时（Loading 进入视口时），获取数据并插入，可以设置预加载高度提前加载。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">LoadMore</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> [data, setData] = useState([])<br><br>  useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> loadingEle = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;loading&quot;</span>);<br>    handleLoadMore(loadingEle);<br>  &#125;, [])<br><br>  <span class="hljs-keyword">const</span> handleLoadMore = <span class="hljs-function">(<span class="hljs-params">loadingEle, preload</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> observer = <span class="hljs-keyword">new</span> IntersectionObserver(<span class="hljs-function">(<span class="hljs-params">entries</span>) =&gt;</span>&#123;<br>      entries.forEach(<span class="hljs-function">(<span class="hljs-params">entry</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">if</span> (entry.isIntersecting) &#123;  <span class="hljs-comment">//Loading进入视口时，即划到底部时</span><br>          fetchData();  <span class="hljs-comment">//获取数据</span><br>        &#125;<br>      &#125;)<br>    &#125;, &#123;<br>      <span class="hljs-attr">rootMargin</span>: <span class="hljs-string">`0px 0px <span class="hljs-subst">$&#123;preload&#125;</span>px 0px`</span>, <span class="hljs-comment">// 提前加载高度</span><br>    &#125;);<br>    observer.observe(loadingEle);  <span class="hljs-comment">//设置监听</span><br>  &#125;<br><br>  <span class="hljs-keyword">const</span> fetchData = <span class="hljs-keyword">async</span> () =&gt; &#123;<br>    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> get(...);<br>    <span class="hljs-keyword">if</span> (res.isSuccess) &#123;<br>      setData(data.concat(res.data));  <span class="hljs-comment">//插入数据</span><br>    &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span></span><br><span class="xml">      &#123;data &amp;&amp; data.length &gt; 0 &amp;&amp; data.map(item =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">View</span> /&gt;</span>)&#125;  &#123;/* 渲染元素 */&#125;</span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Loading</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;loading&quot;</span> /&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="曝光埋点"><a href="#曝光埋点" class="headerlink" title="曝光埋点"></a>曝光埋点</h3><p>同理，需要判断元素全部进入可视区域时触发。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Exposure</span>(<span class="hljs-params"></span>) </span>&#123;<br>  useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> expEle = <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">&quot;need-exp&quot;</span>);<br>    handleExposure(expEle);<br>  &#125;, [])<br><br>  <span class="hljs-keyword">const</span> handleExposure = <span class="hljs-function">(<span class="hljs-params">expEle</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> observer = <span class="hljs-keyword">new</span> IntersectionObserver(<span class="hljs-function">(<span class="hljs-params">entries</span>) =&gt;</span>&#123;<br>      entries.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;<br>        <span class="hljs-keyword">if</span> (item.intersectionRatio === <span class="hljs-number">1</span>) &#123;  <span class="hljs-comment">//元素全部进入可视区域时</span><br>          ...  <span class="hljs-comment">//曝光逻辑</span><br>          observer.unobserve(item.target);  <span class="hljs-comment">//取消监听</span><br>        &#125;<br>      &#125;)<br>    &#125;, &#123;<br>      <span class="hljs-attr">threshold</span>: <span class="hljs-number">1</span>  <span class="hljs-comment">//当元素全部进入可视区时触发</span><br>    &#125;);<br>    expEle.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> observer.observe(item));  <span class="hljs-comment">//遍历元素设置监听</span><br>  &#125;<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;need-exp&quot;</span> /&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;need-exp&quot;</span> /&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;need-exp&quot;</span> /&gt;</span></span><br><span class="xml">      ...</span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="滚动动画"><a href="#滚动动画" class="headerlink" title="滚动动画"></a>滚动动画</h3><p><img  src="https://pic.izhaoo.com/20210803223246.gif"  ><span class="image-caption">滚动效果</span></p>
+<p>之前业务需要轮播图自适应图片高度，勉强还原了视觉效果。但是可以看到效果并不是最佳，自适应动画是在图片切换完成后才触发的，并没有实现跟手。</p>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2021/08/03/intersection-observer/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2021&#x2F;08&#x2F;03&#x2F;intersection-observer&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2021&#x2F;08&#x2F;03&#x2F;intersection-observer&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a></a>
+    <a href="/2021/08/01/code-note/">搬砖笔记<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: '5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz',
+      appKey: 'xllg4mYlf0eT3efi7N0VOTeH',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud").each(async (e) => {
+        const url = $(".leancloud").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud").eq(e).text(count ? count : '--');
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud").length === 1 ? $(".leancloud").attr('id').trim() : 'https://www.izhaoo.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    $(function () {
+      const Counter = AV.Object.extend("Counter");
+      addCount(Counter);
+      showCount(Counter);
+    });
+
+  });
+</script>
+
+
+
+  
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", "https://widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "a7794e2b"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script defer src='https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8'></script>
+
+
+
+  <script defer src='https://s9.cnzz.com/z_stat.php?id=1278889820&web_id=1278889820'></script>
+
+
+
+  <script>
+    window.ga = window.ga || function () {
+      (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-105851767-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script defer src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script>
+    var _mtac = {};
+    (function () {
+      var mta = document.createElement("script");
+      mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500719113");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+    })();
+  </script>
+
+
+
+
+
+</html>
