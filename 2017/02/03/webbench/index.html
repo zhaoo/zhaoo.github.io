@@ -208,7 +208,7 @@
           <i class="iconfont iconeye"></i><span id="/2017/02/03/webbench/" class="leancloud" data-flag-title="webbench"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>950</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>946</span>
     </div>
   </div>
 </section>
@@ -219,12 +219,23 @@
 <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>Webbench是款网站压力测试工具，美其名曰压力测试，其实嘛你懂得。webbench不但能对静态页面测试，还能对动态页面（ASP,PHP,JAVA,CGI）进 行测试。还有就是他支持对含有SSL的安全网站进行静态或动态的性能测试。下图我们可以看到，它已经很久没更新了。</p>
 <p><img  src="https://pic.izhaoo.com/2017022415560711.jpg"  ><span class="image-caption">2</span></p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>webbench是用c语言编写的，所以理论上支持绝大多数平台。这里我们用黑客专用系统–kali2.0–做个范例。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt-get install ctags   // 安装依赖环境<br><br>wget http://home.tiscali.cz/~cz210552/distfiles/webbench-1.5.tar.gz     // 下载程序及编译<br><br>make<br><br>make install<br></code></pre></td></tr></table></figure>
+<pre><code class="bash">apt-get install ctags   // 安装依赖环境
 
+wget http://home.tiscali.cz/~cz210552/distfiles/webbench-1.5.tar.gz     // 下载程序及编译
+
+make
+
+make install</code></pre>
 <p>至此，webbench就安装完毕了。</p>
 <p><img  src="https://pic.izhaoo.com/2017022415560814.jpg"  ><span class="image-caption">3</span></p>
-<h3 id="压测"><a href="#压测" class="headerlink" title="压测"></a>压测</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">webbench -c 并发数量 -t 持续时间 测试的URL<br><br>webbench -c 500 -t 30 http://leme2014.top/ //测试首页，index.php动态页面<br><br>webbench -c 500 -t 30 http://leme2014.top/test.html //测试html静态页面<br><br>webbench -c 500 -t 30 http://leme2014.top/test.jpg //测试jpg文件<br><br></code></pre></td></tr></table></figure>
+<h3 id="压测"><a href="#压测" class="headerlink" title="压测"></a>压测</h3><pre><code class="bash">webbench -c 并发数量 -t 持续时间 测试的URL
 
+webbench -c 500 -t 30 http://leme2014.top/ //测试首页，index.php动态页面
+
+webbench -c 500 -t 30 http://leme2014.top/test.html //测试html静态页面
+
+webbench -c 500 -t 30 http://leme2014.top/test.jpg //测试jpg文件
+</code></pre>
 <p>可以看到加载圈转个不停，这时候其他人就无法访问此站了。对于一些虚拟主机，并发大了，系统就会资源耗尽关站，像万网一个月只能开三次，你打他个四五下就好玩了。</p>
 <p><img  src="https://pic.izhaoo.com/2017022415560858.jpg"  ><span class="image-caption">4</span></p>
 <h3 id="防治"><a href="#防治" class="headerlink" title="防治"></a>防治</h3><p>有攻必有防，防治cc攻击可以从以下方面着手。1.全站静态化，挂CDN。这样流量就全转到CDN去了。前提别泄漏真实IP哦。2.购买一些防cc产品，比如高防IP、流量稀释包等产品。3.对于cc防护其实还是容易的，毕竟只有一个IP嘛，我们把攻击IP或IP段添加到黑名单即可。4.暂时关会儿站吧。攻击是最好的防御，有能力就打回去，捣了对方窝点。</p>

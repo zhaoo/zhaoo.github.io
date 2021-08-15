@@ -208,7 +208,7 @@
           <i class="iconfont iconeye"></i><span id="/2018/05/11/orangepi-config-collect/" class="leancloud" data-flag-title="香橙派 - 安装配置汇总"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>7406</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>7278</span>
     </div>
   </div>
 </section>
@@ -218,30 +218,21 @@
 <p><a target="_blank" rel="noopener" href="https://www.armbian.com/orange-pi-zero/">Armbian官网</a></p>
 <p><a target="_blank" rel="noopener" href="https://note.izhaoo.com/raspberrypi-install-system-without-display.html">参考 – 树莓派 – 无屏幕安装系统</a></p>
 <p>我选择的系统是Armbian，非官方镜像，当然你也可以选择官网的其他系统。</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">Tips: 这板子坑的一批，官方放出的那些镜像都有Bug，要么<span class="hljs-built_in">WiFi</span>连不上，要么GPIO用不了……<br></code></pre></td></tr></table></figure>
-
-<p>官网没有Armbian的下载链接，要去<a target="_blank" rel="noopener" href="https://www.armbian.com/orange-pi-zero/">Armbian官网</a>下载。可以看到有两个版本：Xenial（基于Ubuntu内核，就当他是Ubuntu吧）和 Stretch（Debian内核，就当它是Debian吧），我下载的是Armbian-Xenial-4.14y。</p>
+<pre><code>Tips: 这板子坑的一批，官方放出的那些镜像都有Bug，要么WiFi连不上，要么GPIO用不了……</code></pre><p>官网没有Armbian的下载链接，要去<a target="_blank" rel="noopener" href="https://www.armbian.com/orange-pi-zero/">Armbian官网</a>下载。可以看到有两个版本：Xenial（基于Ubuntu内核，就当他是Ubuntu吧）和 Stretch（Debian内核，就当它是Debian吧），我下载的是Armbian-Xenial-4.14y。</p>
 <p>下载镜像之后就可以安装了。</p>
 <p><img  src="https://pic.izhaoo.com/20180511152558.jpg"  ><span class="image-caption">Armbian安装</span></p>
 <h1 id="SSH连接"><a href="#SSH连接" class="headerlink" title="SSH连接"></a>SSH连接</h1><p><a target="_blank" rel="noopener" href="https://note.izhaoo.com/raspberrypi-config-collect.html#无屏幕安装系统">参考 – 树莓派 – 无屏幕安装系统</a></p>
 <p>先用网线连接香橙派和路由器，然后登陆路由器查看香橙派的IP地址，在SSH软件（Xshell或Putty）上输入IP、用户名、密码连接即可。</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xquery">初始用户名<span class="hljs-built_in">：root</span><br>初始密码：<span class="hljs-number">1234</span><br></code></pre></td></tr></table></figure>
-
-<p><img  src="https://pic.izhaoo.com/20180511153305.jpg"  ><span class="image-caption">查看IP</span></p>
+<pre><code>初始用户名：root
+初始密码：1234</code></pre><p><img  src="https://pic.izhaoo.com/20180511153305.jpg"  ><span class="image-caption">查看IP</span></p>
 <h1 id="初始化配置"><a href="#初始化配置" class="headerlink" title="初始化配置"></a>初始化配置</h1><p>第一次连接SSH后会让你设置密码，设置一个。以后SSH和Root用户密码都是这个。</p>
 <p><img  src="https://pic.izhaoo.com/20180511153513.jpg"  ><span class="image-caption">更改密码</span></p>
 <p>然后会让你创建一个普通用户，输入用户名、密码、个人信息。（一般用不到，用Root用户就好了。）</p>
 <h1 id="SD卡大小调整"><a href="#SD卡大小调整" class="headerlink" title="SD卡大小调整"></a>SD卡大小调整</h1><p>需要调整SD卡大小，分配所有空间，不然之后会不够用。</p>
-<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs autoit">fs_resize    <span class="hljs-meta">#调整SD卡大小</span><br><span class="hljs-built_in">shutdown</span> -r now    <span class="hljs-meta">#重启一下</span><br></code></pre></td></tr></table></figure>
-
-<h1 id="系统更新"><a href="#系统更新" class="headerlink" title="系统更新"></a>系统更新</h1><p>重启后更新下系统，很漫长，耐心等待。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">apt-<span class="hljs-builtin-name">get</span> update<br>apt-<span class="hljs-builtin-name">get</span> upgrade<br></code></pre></td></tr></table></figure>
-
-<h1 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h1><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">armbian-<span class="hljs-built_in">config</span>    <span class="hljs-comment">#打开系统配置工具</span><br></code></pre></td></tr></table></figure>
-
-<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mathematica"><span class="hljs-variable">Tips</span><span class="hljs-operator">:</span> <span class="hljs-built_in">Tab</span>、方向键键选择，<span class="hljs-built_in">Enter</span>键确定<br></code></pre></td></tr></table></figure>
-
-<p>这里可以进行一些简单配置。这里汉化先不做了，下面会讲到。</p>
+<pre><code>fs_resize    #调整SD卡大小
+shutdown -r now    #重启一下</code></pre><h1 id="系统更新"><a href="#系统更新" class="headerlink" title="系统更新"></a>系统更新</h1><p>重启后更新下系统，很漫长，耐心等待。</p>
+<pre><code>apt-get update
+apt-get upgrade</code></pre><h1 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h1><pre><code>armbian-config    #打开系统配置工具</code></pre><pre><code>Tips: Tab、方向键键选择，Enter键确定</code></pre><p>这里可以进行一些简单配置。这里汉化先不做了，下面会讲到。</p>
 <ol>
 <li>System</li>
 </ol>
@@ -264,85 +255,115 @@
 <p>BBR简单说就是用来加快网速的，因为安装的系统内核是4.14 &gt; 4.9，所以自带BBR，我们只需要开启即可。</p>
 <h1 id="VNC连接"><a href="#VNC连接" class="headerlink" title="VNC连接"></a>VNC连接</h1><p><a target="_blank" rel="noopener" href="https://note.izhaoo.com/raspberrypi-config-collect.html#VNC">参考 – 树莓派 – vnc远程登陆配置</a></p>
 <h2 id="安装VNC"><a href="#安装VNC" class="headerlink" title="安装VNC"></a>安装VNC</h2><p>虽说这小弱鸡没必要安装图形化界面，但还是提一下吧。</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs applescript">sudo apt-<span class="hljs-keyword">get</span> install tightvncserver    <span class="hljs-comment">#安装VNC服务端</span><br>vncpasswd    <span class="hljs-comment">#设置VNC连接密码</span><br></code></pre></td></tr></table></figure>
-
-<p>输入两次密码，询问是否需要浏览用户，按N回车，不需要。</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo nano <span class="hljs-regexp">/etc/i</span>nit.d/tightvncserver    <span class="hljs-comment">#新建&quot;tightvncserver&quot;文件，设置开机自启动</span><br></code></pre></td></tr></table></figure>
-
-<p>写入以下内容，保存。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/sh</span><br><span class="hljs-comment">### BEGIN INIT INFO</span><br><span class="hljs-comment"># Provides:          tightvncserver</span><br><span class="hljs-comment"># Required-Start:    $local_fs</span><br><span class="hljs-comment"># Required-Stop:     $local_fs</span><br><span class="hljs-comment"># Default-Start:     2 3 4 5</span><br><span class="hljs-comment"># Default-Stop:      0 1 6</span><br><span class="hljs-comment"># Short-Description: Start/stop tightvncserver</span><br><span class="hljs-comment">### END INIT INFO</span><br><span class="hljs-comment"># More details see:</span><br><span class="hljs-comment"># http://www.penguintutor.com/linux/tightvnc</span><br><span class="hljs-comment">### Customize this entry</span><br><span class="hljs-comment"># Set the USER variable to the name of the user to start tightvncserver under</span><br><span class="hljs-comment"># 用户名</span><br><span class="hljs-built_in">export</span> USER=<span class="hljs-string">&#x27;root&#x27;</span><br><span class="hljs-comment">### End customization required</span><br><span class="hljs-built_in">eval</span> <span class="hljs-built_in">cd</span> ~<span class="hljs-variable">$USER</span><br><span class="hljs-keyword">case</span> <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> <span class="hljs-keyword">in</span><br>  start)<br>    <span class="hljs-comment"># 启动命令行。此处自定义分辨率（和你电脑分辨率设置一样吧）、控制台号码或其它参数。</span><br>    su <span class="hljs-variable">$USER</span> -c <span class="hljs-string">&#x27;/usr/bin/tightvncserver -depth 16 -geometry 1920x1080 :1&#x27;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Starting TightVNC server for <span class="hljs-variable">$USER</span> &quot;</span><br>    ;;<br>  stop)<br>    <span class="hljs-comment"># 终止命令行。此处控制台号码与启动一致。</span><br>    su <span class="hljs-variable">$USER</span> -c <span class="hljs-string">&#x27;/usr/bin/tightvncserver -kill :1&#x27;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Tightvncserver stopped&quot;</span><br>    ;;<br>  *)<br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Usage: /etc/init.d/tightvncserver &#123;start|stop&#125;&quot;</span><br>    <span class="hljs-built_in">exit</span> 1<br>    ;;<br><span class="hljs-keyword">esac</span><br><span class="hljs-built_in">exit</span> 0<br></code></pre></td></tr></table></figure>
-
-<p>再给<code>tightvncserver</code>文件加执行权限，并更新开机启动列表。</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo chmod <span class="hljs-number">755</span> <span class="hljs-regexp">/etc/i</span>nit.d/tightvncserver<br>sudo update-rc.d tightvncserver defaults<br></code></pre></td></tr></table></figure>
-
-<p>使用命令，后面控制台号码可以自行设置，连接的时候跟上就行。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">vncserver :1    <span class="hljs-comment">#开启VNC</span><br>vncserver <span class="hljs-built_in">kill</span> :1    <span class="hljs-comment">#关闭VNC</span><br></code></pre></td></tr></table></figure>
-
-<p>开启vnc后提示如下信息，缺少字体文件。</p>
+<pre><code>sudo apt-get install tightvncserver    #安装VNC服务端
+vncpasswd    #设置VNC连接密码</code></pre><p>输入两次密码，询问是否需要浏览用户，按N回车，不需要。</p>
+<pre><code>sudo nano /etc/init.d/tightvncserver    #新建&quot;tightvncserver&quot;文件，设置开机自启动</code></pre><p>写入以下内容，保存。</p>
+<pre><code>#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          tightvncserver
+# Required-Start:    $local_fs
+# Required-Stop:     $local_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start/stop tightvncserver
+### END INIT INFO
+# More details see:
+# http://www.penguintutor.com/linux/tightvnc
+### Customize this entry
+# Set the USER variable to the name of the user to start tightvncserver under
+# 用户名
+export USER=&#39;root&#39;
+### End customization required
+eval cd ~$USER
+case &quot;$1&quot; in
+  start)
+    # 启动命令行。此处自定义分辨率（和你电脑分辨率设置一样吧）、控制台号码或其它参数。
+    su $USER -c &#39;/usr/bin/tightvncserver -depth 16 -geometry 1920x1080 :1&#39;
+    echo &quot;Starting TightVNC server for $USER &quot;
+    ;;
+  stop)
+    # 终止命令行。此处控制台号码与启动一致。
+    su $USER -c &#39;/usr/bin/tightvncserver -kill :1&#39;
+    echo &quot;Tightvncserver stopped&quot;
+    ;;
+  *)
+    echo &quot;Usage: /etc/init.d/tightvncserver &#123;start|stop&#125;&quot;
+    exit 1
+    ;;
+esac
+exit 0</code></pre><p>再给<code>tightvncserver</code>文件加执行权限，并更新开机启动列表。</p>
+<pre><code>sudo chmod 755 /etc/init.d/tightvncserver
+sudo update-rc.d tightvncserver defaults</code></pre><p>使用命令，后面控制台号码可以自行设置，连接的时候跟上就行。</p>
+<pre><code>vncserver :1    #开启VNC
+vncserver kill :1    #关闭VNC</code></pre><p>开启vnc后提示如下信息，缺少字体文件。</p>
 <p><img  src="https://pic.izhaoo.com/20180511162604.jpg"  ><span class="image-caption">缺少字体</span></p>
 <h2 id="安装字体"><a href="#安装字体" class="headerlink" title="安装字体"></a>安装字体</h2><p>！！！敲黑板，重点来了。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">apt-<span class="hljs-keyword">get</span> install  xfonts-<span class="hljs-keyword">base</span>    <span class="hljs-meta">#安装基本字体</span><br></code></pre></td></tr></table></figure>
-
-<p>安装字体后就可以正常开启VNC了。</p>
+<pre><code>apt-get install  xfonts-base    #安装基本字体</code></pre><p>安装字体后就可以正常开启VNC了。</p>
 <p>连接后显示如下灰屏，因为我们没有安装桌面环境，下面我们来安装。</p>
 <h1 id="Xfce4桌面安装"><a href="#Xfce4桌面安装" class="headerlink" title="Xfce4桌面安装"></a>Xfce4桌面安装</h1><p><img  src="https://pic.izhaoo.com/20180511164417.jpg"  ><span class="image-caption">Xfce桌面</span></p>
 <p>Xfce是一款轻量级的Linux桌面环境，用在小弱鸡上丝毫不卡，网上很多人安利这款，但我个人觉得太丑了。</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">apt-<span class="hljs-keyword">get</span> install xfce4    <span class="hljs-comment">#安装Xfce桌面</span><br></code></pre></td></tr></table></figure>
-
-<p>开启一下VNC，会生成一个”xstartup”文件。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">vncserver</span> :<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
-
-<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs autoit">cd ~/.vnc    <span class="hljs-meta">#移动到VNC目录</span><br>cp xstartup xstartup-bak    <span class="hljs-meta">#备份<span class="hljs-string">&quot;xstartup&quot;</span>文件</span><br>nano xstartup    <span class="hljs-meta">#打开<span class="hljs-string">&quot;xstartup&quot;</span>文件</span><br></code></pre></td></tr></table></figure>
-
-<p>编辑<code>~/.vnc/xstartup</code>文件，删除或注释已有代码，写入以下代码。</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs 1c">xsetroot -solid grey<br>vncconfig -solid gery<br>x-terminal-emulator -geometry <span class="hljs-number">80</span>x24+<span class="hljs-number">10</span>+<span class="hljs-number">10</span> -ls -title <span class="hljs-string">&quot;$VNCDESKTOP Desktop&quot;</span> <span class="hljs-meta">&amp;</span><br>x-sesion-manager <span class="hljs-meta">&amp; xfdesktop &amp; xfce4-panel &amp;</span><br>xfce4-menu-plugin <span class="hljs-meta">&amp;</span><br>xfsettingsd <span class="hljs-meta">&amp;</span><br>xfconfd <span class="hljs-meta">&amp;</span><br>xfwm4 <span class="hljs-meta">&amp;</span><br></code></pre></td></tr></table></figure>
-
-<p><img  src="https://pic.izhaoo.com/20180511164107.jpg"  ><span class="image-caption">xstartup文件</span></p>
+<pre><code>apt-get install xfce4    #安装Xfce桌面</code></pre><p>开启一下VNC，会生成一个”xstartup”文件。</p>
+<pre><code>vncserver :1</code></pre><pre><code>cd ~/.vnc    #移动到VNC目录
+cp xstartup xstartup-bak    #备份&quot;xstartup&quot;文件
+nano xstartup    #打开&quot;xstartup&quot;文件</code></pre><p>编辑<code>~/.vnc/xstartup</code>文件，删除或注释已有代码，写入以下代码。</p>
+<pre><code>xsetroot -solid grey
+vncconfig -solid gery
+x-terminal-emulator -geometry 80x24+10+10 -ls -title &quot;$VNCDESKTOP Desktop&quot; &amp;
+x-sesion-manager &amp; xfdesktop &amp; xfce4-panel &amp;
+xfce4-menu-plugin &amp;
+xfsettingsd &amp;
+xfconfd &amp;
+xfwm4 &amp;</code></pre><p><img  src="https://pic.izhaoo.com/20180511164107.jpg"  ><span class="image-caption">xstartup文件</span></p>
 <p>保存并重启，连接VNC，可以看到Xfce桌面了。</p>
 <h1 id="KDE-Plasma桌面安装"><a href="#KDE-Plasma桌面安装" class="headerlink" title="KDE-Plasma桌面安装"></a>KDE-Plasma桌面安装</h1><p><img  src="https://pic.izhaoo.com/20180511174636.jpg"  ><span class="image-caption">KDE-Plasma桌面</span></p>
 <p>KDE-Plasma是一款很漂亮的桌面，但是强烈建议你不要装。因为……巨卡无比，中看不中用。好了，终于知道社区大佬们为什么都喜欢Xfce了。</p>
-<h2 id="安装KDE-Plasma"><a href="#安装KDE-Plasma" class="headerlink" title="安装KDE-Plasma"></a>安装KDE-Plasma</h2><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs smali">sudo<span class="hljs-built_in"> add-apt-repository </span>ppa:kubuntu-ppa/backports    <span class="hljs-comment">#添加源</span><br>sudo apt-get update    <span class="hljs-comment">#更新源</span><br>sudo apt-get install plasma-desktop    <span class="hljs-comment">#安装Plasma</span><br>sudo apt-get install lightdm-kde-greeter<br></code></pre></td></tr></table></figure>
-
-<p>编辑<code>/etc/lightdm/lightdm.conf</code>内容。</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">autologin-guest</span>=<span class="hljs-literal">false</span><br><span class="hljs-comment">#autologin-user=pi</span><br><span class="hljs-comment">#autologin-user-timeout=0</span><br><span class="hljs-attr">greeter-session</span>=lightdm-kde-greeter<br><span class="hljs-attr">user-session</span>=kde-plasma-kf5<br></code></pre></td></tr></table></figure>
-
-<p>编辑<code>~/.vnc/xstartup</code>文件，删除或注释已有代码，写入以下代码。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">xsetroot</span> -solid grey<br><span class="hljs-attribute">vncconfig</span> -solid gery<br><span class="hljs-attribute">x</span>-terminal-emulator -geometry <span class="hljs-number">80</span>x<span class="hljs-number">24</span>+<span class="hljs-number">10</span>+<span class="hljs-number">10</span> -ls -title <span class="hljs-string">&quot;$VNCDESKTOP Desktop&quot;</span> &amp;<br><span class="hljs-attribute">statkde</span> &amp;<br></code></pre></td></tr></table></figure>
-
-<p><img  src="https://pic.izhaoo.com/20180511174720.jpg"  ><span class="image-caption">xstartup文件</span></p>
+<h2 id="安装KDE-Plasma"><a href="#安装KDE-Plasma" class="headerlink" title="安装KDE-Plasma"></a>安装KDE-Plasma</h2><pre><code>sudo add-apt-repository ppa:kubuntu-ppa/backports    #添加源
+sudo apt-get update    #更新源
+sudo apt-get install plasma-desktop    #安装Plasma
+sudo apt-get install lightdm-kde-greeter</code></pre><p>编辑<code>/etc/lightdm/lightdm.conf</code>内容。</p>
+<pre><code>autologin-guest=false
+#autologin-user=pi
+#autologin-user-timeout=0
+greeter-session=lightdm-kde-greeter
+user-session=kde-plasma-kf5</code></pre><p>编辑<code>~/.vnc/xstartup</code>文件，删除或注释已有代码，写入以下代码。</p>
+<pre><code>xsetroot -solid grey
+vncconfig -solid gery
+x-terminal-emulator -geometry 80x24+10+10 -ls -title &quot;$VNCDESKTOP Desktop&quot; &amp;
+statkde &amp;</code></pre><p><img  src="https://pic.izhaoo.com/20180511174720.jpg"  ><span class="image-caption">xstartup文件</span></p>
 <p>保存并重启，连接VNC，可以看到KDE-Plasma桌面了。怎么样，体会到了吧，Xfce好。</p>
-<h2 id="卸载KDE-Plasma"><a href="#卸载KDE-Plasma" class="headerlink" title="卸载KDE-Plasma"></a>卸载KDE-Plasma</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-builtin-name">get</span> <span class="hljs-builtin-name">remove</span> kubuntu-desktop <br>sudo apt-<span class="hljs-builtin-name">get</span> autoremove<br>sudo apt-<span class="hljs-builtin-name">get</span> --purge <span class="hljs-builtin-name">remove</span> kdelibs4c2a<br>sudo apt-<span class="hljs-builtin-name">get</span> --purge <span class="hljs-builtin-name">remove</span> kdelibs4<br>sudo apt-<span class="hljs-builtin-name">get</span> <span class="hljs-builtin-name">remove</span> kdm<br>sudo apt-<span class="hljs-builtin-name">get</span> <span class="hljs-builtin-name">remove</span> plymouth-theme-kubuntu-logo<br>sudo shutdown -r now<br></code></pre></td></tr></table></figure>
-
-<h1 id="宝塔面板安装"><a href="#宝塔面板安装" class="headerlink" title="宝塔面板安装"></a>宝塔面板安装</h1><p><a target="_blank" rel="noopener" href="https://note.izhaoo.com/raspberrypi-config-collect.html#宝塔面板">参考 – 树莓派 – 部署宝塔面板</a></p>
+<h2 id="卸载KDE-Plasma"><a href="#卸载KDE-Plasma" class="headerlink" title="卸载KDE-Plasma"></a>卸载KDE-Plasma</h2><pre><code>sudo apt-get remove kubuntu-desktop 
+sudo apt-get autoremove
+sudo apt-get --purge remove kdelibs4c2a
+sudo apt-get --purge remove kdelibs4
+sudo apt-get remove kdm
+sudo apt-get remove plymouth-theme-kubuntu-logo
+sudo shutdown -r now</code></pre><h1 id="宝塔面板安装"><a href="#宝塔面板安装" class="headerlink" title="宝塔面板安装"></a>宝塔面板安装</h1><p><a target="_blank" rel="noopener" href="https://note.izhaoo.com/raspberrypi-config-collect.html#宝塔面板">参考 – 树莓派 – 部署宝塔面板</a></p>
 <p>搭建LNMP环境，运行Web服务。</p>
 <p>安装面板过程中会用到一个Python库，系统默认没有安装，我们先来安装它。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">wget</span> https://pypi.python.org/packages/<span class="hljs-number">2</span>.<span class="hljs-number">7</span>/s/setuptools/setuptools-<span class="hljs-number">0</span>.<span class="hljs-number">6</span>c<span class="hljs-number">11</span>-py<span class="hljs-number">2</span>.<span class="hljs-number">7</span>.egg    #下载库<br><span class="hljs-attribute">sh</span> setuptools-<span class="hljs-number">0</span>.<span class="hljs-number">6</span>c<span class="hljs-number">11</span>-py<span class="hljs-number">2</span>.<span class="hljs-number">7</span>.egg    #安装库<br></code></pre></td></tr></table></figure>
-
-<p>接下来就可以安装宝塔面板了，但是呢，现在宝塔面板已经“假装”不支持32位系统了，我们直接安装的话会提示错误。</p>
+<pre><code>wget https://pypi.python.org/packages/2.7/s/setuptools/setuptools-0.6c11-py2.7.egg    #下载库
+sh setuptools-0.6c11-py2.7.egg    #安装库</code></pre><p>接下来就可以安装宝塔面板了，但是呢，现在宝塔面板已经“假装”不支持32位系统了，我们直接安装的话会提示错误。</p>
 <p><img  src="https://pic.izhaoo.com/20180511182351.jpg"  ><span class="image-caption">不支持32位系统</span></p>
 <p>其实我们只要删除脚本的验证行就可以了，32位系统还是支持的。</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget -O install.sh http:<span class="hljs-regexp">//</span>download.bt.cn<span class="hljs-regexp">/install/i</span>nstall-ubuntu.sh    <span class="hljs-comment">#下载脚本</span><br>nano install.sh    <span class="hljs-comment">#编辑脚本</span><br></code></pre></td></tr></table></figure>
-
-<p>删除或注释如下几行。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"><span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$is64bit</span>&quot;</span> = <span class="hljs-string">&#x27;32&#x27;</span> ];<span class="hljs-keyword">then</span></span><br><span class="hljs-meta">#</span><span class="bash">        <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;=================================================&#x27;</span>;</span><br><span class="hljs-meta">#</span><span class="bash">        <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;\033[31m BT-Panel Incompatible 32 bit OS. \033[0m&quot;</span>;</span><br><span class="hljs-meta">#</span><span class="bash">        <span class="hljs-built_in">exit</span>;</span><br><span class="hljs-meta">#</span><span class="bash"><span class="hljs-keyword">fi</span></span><br></code></pre></td></tr></table></figure>
-
-<p><img  src="https://pic.izhaoo.com/20180511182652.jpg"  ><span class="image-caption">删除注释</span></p>
+<pre><code>wget -O install.sh http://download.bt.cn/install/install-ubuntu.sh    #下载脚本
+nano install.sh    #编辑脚本</code></pre><p>删除或注释如下几行。</p>
+<pre><code>#if [ &quot;$is64bit&quot; = &#39;32&#39; ];then
+#        echo &#39;=================================================&#39;;
+#        echo -e &quot;\033[31m BT-Panel Incompatible 32 bit OS. \033[0m&quot;;
+#        exit;
+#fi</code></pre><p><img  src="https://pic.izhaoo.com/20180511182652.jpg"  ><span class="image-caption">删除注释</span></p>
 <p>然后就可以安装了。</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">sh </span><span class="hljs-keyword">install.sh </span>   <span class="hljs-comment">#安装面板</span><br></code></pre></td></tr></table></figure>
-
-<p>安装好后在五分钟内访问网址，用默认密码登录，然后修改密码。</p>
+<pre><code>sh install.sh    #安装面板</code></pre><p>安装好后在五分钟内访问网址，用默认密码登录，然后修改密码。</p>
 <h1 id="一键LNMP"><a href="#一键LNMP" class="headerlink" title="一键LNMP"></a>一键LNMP</h1><p>宝塔面板毕竟太”重”了，还是装一个”轻”LNMP吧。手动配置LNMP呢又太麻烦，所以我们用一个脚本，一键LNMP。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">wget</span> -c http://soft.vpser.net/lnmp/lnmp<span class="hljs-number">1</span>.<span class="hljs-number">4</span>.tar.gz &amp;&amp; tar zxf lnmp<span class="hljs-number">1</span>.<span class="hljs-number">4</span>.tar.gz &amp;&amp; cd lnmp<span class="hljs-number">1</span>.<span class="hljs-number">4</span> &amp;&amp; ./install.sh lnmp<br></code></pre></td></tr></table></figure>
-
-<p>建议都选择默认配置，回车敲到底吧，偶尔会要你设置密码。</p>
+<pre><code>wget -c http://soft.vpser.net/lnmp/lnmp1.4.tar.gz &amp;&amp; tar zxf lnmp1.4.tar.gz &amp;&amp; cd lnmp1.4 &amp;&amp; ./install.sh lnmp</code></pre><p>建议都选择默认配置，回车敲到底吧，偶尔会要你设置密码。</p>
 <h1 id="Netdata安装"><a href="#Netdata安装" class="headerlink" title="Netdata安装"></a>Netdata安装</h1><p>Netdata是一款性能监测软件。</p>
 <p><img  src="https://pic.izhaoo.com/20180512110249.jpg"  ><span class="image-caption">Netdata</span></p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget --no-check-certificate https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/firehol/</span>netdata<span class="hljs-regexp">/releases/</span>download<span class="hljs-regexp">/v1.10.0/</span>netdata-<span class="hljs-number">1.10</span>.<span class="hljs-number">0</span>.tar.gz    <span class="hljs-comment">#下载</span><br>tar -xf netdata-<span class="hljs-number">1.10</span>.<span class="hljs-number">0</span>.tar.gz    <span class="hljs-comment">#解压</span><br>cd netdata-<span class="hljs-number">1.10</span>.<span class="hljs-number">0</span>    <span class="hljs-comment">#进入目录</span><br>./netdata-installer.sh    <span class="hljs-comment">#安装</span><br></code></pre></td></tr></table></figure>
-
-<p>食用方法：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/usr/</span>sbin/netdata    <span class="hljs-comment">#启动Netdata</span><br>killall netdata    <span class="hljs-comment">#关闭Netdata</span><br>vim <span class="hljs-regexp">/etc/</span>netdata/netdata.conf    <span class="hljs-comment">#配置Netdata</span><br></code></pre></td></tr></table></figure>
-
-<p>安装完成后浏览器访问<code>http://香橙派IP:19999</code>即可。</p>
+<pre><code>wget --no-check-certificate https://github.com/firehol/netdata/releases/download/v1.10.0/netdata-1.10.0.tar.gz    #下载
+tar -xf netdata-1.10.0.tar.gz    #解压
+cd netdata-1.10.0    #进入目录
+./netdata-installer.sh    #安装</code></pre><p>食用方法：</p>
+<pre><code>/usr/sbin/netdata    #启动Netdata
+killall netdata    #关闭Netdata
+vim /etc/netdata/netdata.conf    #配置Netdata</code></pre><p>安装完成后浏览器访问<code>http://香橙派IP:19999</code>即可。</p>
 <h1 id="Frp"><a href="#Frp" class="headerlink" title="Frp"></a>Frp</h1><p><a target="_blank" rel="noopener" href="https://note.izhaoo.com/frp-deploy.html">参考 – Frp内网穿透部署</a></p>
 <p>我们香橙派一般部署在内网，外网是无法访问的。通过部署Frp可以达到外网访问的目的。</p>
 <p>简单介绍一下原理，在服务端（服务器）和客户端（香橙派）同时部署Frp，客户端反向连接服务端，因为服务端一般是静态IP且绑了域名，然后我们就可以很方便地通过访问服务端来连接客户端了。。我自己都快绕晕了，简单来说就是服务器充当桥梁来连接香橙派。</p>
@@ -356,22 +377,22 @@
 <p><img  src="https://pic.izhaoo.com/20170929201808.jpg"  ><span class="image-caption">刷入</span></p>
 <p>等一会儿刷入完成，将TF卡插回香橙派，上电开机。</p>
 <h2 id="进入后台"><a href="#进入后台" class="headerlink" title="进入后台"></a>进入后台</h2><p>等一会儿，可以看到，我们能搜到一个叫做“OrangePiZero”的wifi，连接。</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">默认wifi密码：<span class="hljs-built_in">int</span>ernet<br></code></pre></td></tr></table></figure>
-
-<p><img  src="https://pic.izhaoo.com/20170929202814.jpg"  ><span class="image-caption">wifi</span></p>
+<pre><code>默认wifi密码：internet</code></pre><p><img  src="https://pic.izhaoo.com/20170929202814.jpg"  ><span class="image-caption">wifi</span></p>
 <p>然后浏览器输入地址“192.168.1.1”可以进入openwrt后台。</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xquery">默认后台帐号<span class="hljs-built_in">：root</span><br><br>默认后台密码<span class="hljs-built_in">：root</span><br></code></pre></td></tr></table></figure>
+<pre><code>默认后台帐号：root
 
-<p>然后进行各种设置就可以用了。</p>
+默认后台密码：root</code></pre><p>然后进行各种设置就可以用了。</p>
 <p><img  src="https://pic.izhaoo.com/20170929203458.jpg"  ><span class="image-caption">登陆界面</span></p>
 <p><img  src="https://pic.izhaoo.com/20170929204546.jpg"  ><span class="image-caption">进入后台</span></p>
 <h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><p>用“Xshell”或“putty”等工具连接香橙派。</p>
-<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dns">默认地址：<span class="hljs-number">192.168.1.1</span><br><br>默认SSH密码：root<br></code></pre></td></tr></table></figure>
+<pre><code>默认地址：192.168.1.1
 
-<h2 id="中文语言包"><a href="#中文语言包" class="headerlink" title="中文语言包"></a>中文语言包</h2><p>进入SSH后，输入以下命令安装：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cmake">opkg update<br><br>opkg <span class="hljs-keyword">install</span> luci<br><br>opkg <span class="hljs-keyword">install</span> luci-i18n-base-zh-cn<br></code></pre></td></tr></table></figure>
+默认SSH密码：root</code></pre><h2 id="中文语言包"><a href="#中文语言包" class="headerlink" title="中文语言包"></a>中文语言包</h2><p>进入SSH后，输入以下命令安装：</p>
+<pre><code>opkg update
 
-<p>然后进后台设置即可。</p>
+opkg install luci
+
+opkg install luci-i18n-base-zh-cn</code></pre><p>然后进后台设置即可。</p>
 <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>香橙派的openwrt毕竟是移植过来的，兼容性不太好，动不动死机，建议别用于生产环境。</p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/c5736406298a">简书 – 关爱单身狗成长协会 – OrangePi Zero 运行OpenWRT做迷你WIFI路由器</a></p>
 <h1 id="入坑山寨"><a href="#入坑山寨" class="headerlink" title="入坑山寨"></a>入坑山寨</h1><p>香橙派Zero是一款开源的单板电脑，新一代的arm开发板,它可以运行Android4.4、Ubuntu、Debian等操作系统。香橙派Zero使用全志H2系统级芯片，同时拥有512MB内存。</p>

@@ -211,7 +211,7 @@ GitHubGitH...">
           <i class="iconfont iconeye"></i><span id="/2020/01/30/hexo-theme-zhaoo/" class="leancloud" data-flag-title="hexo-theme-zhaoo"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2462</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2427</span>
     </div>
   </div>
 </section>
@@ -255,8 +255,34 @@ GitHubGitH...">
 <h2 id="文章演示"><a href="#文章演示" class="headerlink" title="文章演示"></a>文章演示</h2><h3 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h3><p>一个<code>幽灵</code>，共产主义的<code>幽灵</code>，在欧洲游荡。为了对这个<code>幽灵</code>进行神圣的围剿，旧欧洲的一切势力，教皇和沙皇、梅特涅和基佐、法国的激进派和德国的警察，都联合起来了。</p>
 <p>使用 <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>ESC</kbd> 打开任务管理器</p>
 <h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p><img  src="https://pic.izhaoo.com/20191211070006.jpg"   title="图片测试"><span class="image-caption">图片测试</span></p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-meta">&#x27;use strict&#x27;</span>;<br><span class="hljs-keyword">var</span> pagination = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;hexo-pagination&#x27;</span>);<br><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">locals</span>)</span>&#123;<br>  <span class="hljs-keyword">var</span> config = <span class="hljs-built_in">this</span>.config;<br>  <span class="hljs-keyword">var</span> posts = locals.posts;<br>    posts.data = posts.data.sort(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>&#123;<br>      <span class="hljs-keyword">if</span>(a.top &amp;&amp; b.top) &#123;<br>        <span class="hljs-keyword">if</span>(a.top == b.top) <span class="hljs-keyword">return</span> b.date - a.date;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> b.top - a.top;<br>      &#125;<br>      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(a.top &amp;&amp; !b.top) &#123;<br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>      &#125;<br>      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!a.top &amp;&amp; b.top) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>      &#125;<br>      <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> b.date - a.date;<br>    &#125;);<br>  <span class="hljs-keyword">var</span> paginationDir = config.pagination_dir || <span class="hljs-string">&#x27;page&#x27;</span>;<br>  <span class="hljs-keyword">return</span> pagination(<span class="hljs-string">&#x27;&#x27;</span>, posts, &#123;<br>    <span class="hljs-attr">perPage</span>: config.index_generator.per_page,<br>    <span class="hljs-attr">layout</span>: [<span class="hljs-string">&#x27;index&#x27;</span>, <span class="hljs-string">&#x27;archive&#x27;</span>],<br>    <span class="hljs-attr">format</span>: paginationDir + <span class="hljs-string">&#x27;/%d/&#x27;</span>,<br>    <span class="hljs-attr">data</span>: &#123;<br>      <span class="hljs-attr">__index</span>: <span class="hljs-literal">true</span><br>    &#125;<br>  &#125;);<br>&#125;;<br></code></pre></td></tr></table></figure>
-
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre><code class="javascript">&#39;use strict&#39;;
+var pagination = require(&#39;hexo-pagination&#39;);
+module.exports = function(locals)&#123;
+  var config = this.config;
+  var posts = locals.posts;
+    posts.data = posts.data.sort(function(a, b) &#123;
+      if(a.top &amp;&amp; b.top) &#123;
+        if(a.top == b.top) return b.date - a.date;
+        else return b.top - a.top;
+      &#125;
+      else if(a.top &amp;&amp; !b.top) &#123;
+        return -1;
+      &#125;
+      else if(!a.top &amp;&amp; b.top) &#123;
+        return 1;
+      &#125;
+      else return b.date - a.date;
+    &#125;);
+  var paginationDir = config.pagination_dir || &#39;page&#39;;
+  return pagination(&#39;&#39;, posts, &#123;
+    perPage: config.index_generator.per_page,
+    layout: [&#39;index&#39;, &#39;archive&#39;],
+    format: paginationDir + &#39;/%d/&#39;,
+    data: &#123;
+      __index: true
+    &#125;
+  &#125;);
+&#125;;</code></pre>
 <h3 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h3><h5 id="KaTex"><a href="#KaTex" class="headerlink" title="KaTex"></a>KaTex</h5><p>$E = m * c^2$</p>
 <p>f(x)=\int_{-\infty}^\infty\widehat f\xi,e^{2\pi i\xi x},d\xi</p>
 <h5 id="MathJax"><a href="#MathJax" class="headerlink" title="MathJax"></a>MathJax</h5><p style="text-align:center"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="22.759ex" height="8.009ex" style="vertical-align: -3.005ex;" viewBox="0 -2154.8 9798.9 3448.4" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-1-Title">

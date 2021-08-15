@@ -211,7 +211,7 @@
           <i class="iconfont iconeye"></i><span id="/2020/11/16/css-bem/" class="leancloud" data-flag-title="CSS - BEM 命名规范"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3319</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3293</span>
     </div>
   </div>
 </section>
@@ -236,24 +236,75 @@
 <p><strong>-（中划线）</strong></p>
 <p>中划线用来连接 <em>字符</em>，块、元素、修饰符中均可使用。例如：<code>order-form</code>、<code>progress-bar</code>、<code>theme-dark</code>。</p>
 <h2 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h2><p>组合上述部分进行命名即可，例如通常我们是这么命名的：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 传统命名 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">article</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;article&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;head&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;title&quot;</span>&gt;</span>CSS - BEM 命名规范<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;info&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>时间：十一月 16, 2020<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>访客：666<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;code&quot;</span>&gt;</span><br>      ...<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span><br>    ...<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span><br></code></pre></td></tr></table></figure>
-
+<pre><code class="html">&lt;!-- 传统命名 --&gt;
+&lt;article class=&quot;article&quot;&gt;
+  &lt;div class=&quot;head&quot;&gt;
+    &lt;h1 class=&quot;title&quot;&gt;CSS - BEM 命名规范&lt;/h1&gt;
+    &lt;div class=&quot;info&quot;&gt;
+      &lt;span&gt;时间：十一月 16, 2020&lt;/span&gt;
+      &lt;span&gt;访客：666&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;content&quot;&gt;
+    &lt;code class=&quot;code&quot;&gt;
+      ...
+    &lt;/code&gt;
+    ...
+  &lt;/div&gt;
+&lt;/article&gt;</code></pre>
 <p>换成 <code>BEM</code> 就可以这么写：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- REM 命名 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">article</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;article&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;article__head&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;article__title&quot;</span>&gt;</span>CSS - BEM 命名规范<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;article__info&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>时间：十一月 16, 2020<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>访客：666<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;article__content&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;article__code--highlight&quot;</span>&gt;</span><br>      ...<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span><br>    ...<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span><br></code></pre></td></tr></table></figure>
-
+<pre><code class="html">&lt;!-- REM 命名 --&gt;
+&lt;article class=&quot;article&quot;&gt;
+  &lt;div class=&quot;article__head&quot;&gt;
+    &lt;h1 class=&quot;article__title&quot;&gt;CSS - BEM 命名规范&lt;/h1&gt;
+    &lt;div class=&quot;article__info&quot;&gt;
+      &lt;span&gt;时间：十一月 16, 2020&lt;/span&gt;
+      &lt;span&gt;访客：666&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;article__content&quot;&gt;
+    &lt;code class=&quot;article__code--highlight&quot;&gt;
+      ...
+    &lt;/code&gt;
+    ...
+  &lt;/div&gt;
+&lt;/article&gt;</code></pre>
 <h2 id="一些建议"><a href="#一些建议" class="headerlink" title="一些建议"></a>一些建议</h2><h3 id="配合-CSS-预处理器使用"><a href="#配合-CSS-预处理器使用" class="headerlink" title="配合 CSS 预处理器使用"></a>配合 CSS 预处理器使用</h3><p><code>BEM</code> 最大的诟病是书写太麻烦了，每个样式都像一长串蚂蚁，真是简（you）洁（chou）明（you）了（chang）呢。</p>
 <p>在 <code>Sass</code>、<code>Less</code>、<code>Stylus</code> 等 <code>CSS</code> 预处理器大行其道的现在，配合 <code>&amp;（拼接符）</code> 使用会相对简单，如下：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* Stylus + BEM 编译前 */</span><br><span class="hljs-selector-class">.article</span><br>  &amp;__head<br>  &amp;__title<br>  &amp;__info<br>  &amp;__content<br>  &amp;__code<br>    &amp;--highlight<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* Stylus + BEM 编译后 */</span><br><span class="hljs-selector-class">.article__head</span> &#123;&#125;<br><span class="hljs-selector-class">.article__title</span> &#123;&#125;<br><span class="hljs-selector-class">.article__info</span> &#123;&#125;<br><span class="hljs-selector-class">.article__content</span> &#123;&#125;<br><span class="hljs-selector-class">.article__code</span> &#123;&#125;<br><span class="hljs-selector-class">.article__code--highlight</span> &#123;&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="css">/* Stylus + BEM 编译前 */
+.article
+  &amp;__head
+  &amp;__title
+  &amp;__info
+  &amp;__content
+  &amp;__code
+    &amp;--highlight</code></pre>
+<pre><code class="css">/* Stylus + BEM 编译后 */
+.article__head &#123;&#125;
+.article__title &#123;&#125;
+.article__info &#123;&#125;
+.article__content &#123;&#125;
+.article__code &#123;&#125;
+.article__code--highlight &#123;&#125;</code></pre>
 <p>其实在使用 <code>CSS</code> 预处理器时本身就具备了 <strong>作用域</strong> 的功能，最大的痛点解决了，使用 <code>BEM</code> duck 不必。存在即合理，<code>BEM</code> 还是有它的用武之地的。</p>
 <p>先来看看传统的 <code>CSS</code> 预处理代码。</p>
 <p><code>BEM</code> 的优势有以下方面：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 传统 Stylus 编译前 */</span><br><span class="hljs-selector-class">.article</span><br>  <span class="hljs-selector-class">.head</span><br>    <span class="hljs-selector-class">.title</span><br>    <span class="hljs-selector-class">.info</span><br>  <span class="hljs-selector-class">.content</span><br>    <span class="hljs-selector-class">.code</span><br>      &amp;<span class="hljs-selector-class">.highlight</span><br></code></pre></td></tr></table></figure>
-
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 传统 Stylus 编译后 */</span><br><span class="hljs-selector-class">.article</span> &#123;&#125;<br><span class="hljs-selector-class">.article</span> <span class="hljs-selector-class">.head</span> &#123;&#125;<br><span class="hljs-selector-class">.article</span> <span class="hljs-selector-class">.head</span> <span class="hljs-selector-class">.title</span> &#123;&#125;<br><span class="hljs-selector-class">.article</span> <span class="hljs-selector-class">.head</span> <span class="hljs-selector-class">.info</span> &#123;&#125;<br><span class="hljs-selector-class">.article</span> <span class="hljs-selector-class">.content</span> &#123;&#125;<br><span class="hljs-selector-class">.article</span> <span class="hljs-selector-class">.content</span> <span class="hljs-selector-class">.code</span> &#123;&#125;<br><span class="hljs-selector-class">.article</span> <span class="hljs-selector-class">.content</span> <span class="hljs-selector-class">.code</span><span class="hljs-selector-class">.highlight</span> &#123;&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="css">/* 传统 Stylus 编译前 */
+.article
+  .head
+    .title
+    .info
+  .content
+    .code
+      &amp;.highlight</code></pre>
+<pre><code class="css">/* 传统 Stylus 编译后 */
+.article &#123;&#125;
+.article .head &#123;&#125;
+.article .head .title &#123;&#125;
+.article .head .info &#123;&#125;
+.article .content &#123;&#125;
+.article .content .code &#123;&#125;
+.article .content .code.highlight &#123;&#125;</code></pre>
 <p><strong>性能</strong></p>
 <p>可以看到传统 <code>Stylus</code> 编译后的 <code>CSS</code> 样式中，选择器存在大量堆叠。而 <code>CSS</code> 引擎查找样式表时是根据 <em>从左到右</em> 的顺序去匹配规则的，这样就会浪费很多的查询性能，且开销随着嵌套层数呈几何级数递增。但是采用 <code>BEM</code> + <code>Stylus</code> 的写法一般就生成一条选择器样式，只需查询一次，做到 “指哪打哪”。</p>
 <p><strong>语义化</strong></p>

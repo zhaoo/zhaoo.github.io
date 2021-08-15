@@ -208,7 +208,7 @@
           <i class="iconfont iconeye"></i><span id="/2021/02/03/raspi-johnny-five-lcd1602/" class="leancloud" data-flag-title="树莓派 - JS 驱动 LCD1602"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2646</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2633</span>
     </div>
   </div>
 </section>
@@ -217,17 +217,35 @@
         <p>&lt;封面摄于浙江·安吉的凤凰山，大一在这些玩了半年树莓派，现在用树莓派来写毕设，不忘初心，笑。&gt;</p>
 <p>最近想用树莓派驱动 IoT 写个毕设，经过一番调研选择了 Johnny-Five 库，咱前端人必须用 JS 干啥都行。开始前先驱动个 LCD1602 试试。 LCD1602 我选择的是 I2C 驱动的，既省线，又不用拖个面包板。</p>
 <h3 id="安装-Node-js"><a href="#安装-Node-js" class="headerlink" title="安装 Node.js"></a>安装 Node.js</h3><p>这里我们选择用 <a target="_blank" rel="noopener" href="https://github.com/nvm-sh/nvm">nvm</a> 安装，执行以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash  <span class="hljs-comment"># 安装 nvm</span><br>$ <span class="hljs-built_in">source</span> ~/.bashrc  <span class="hljs-comment"># 刷新 bash 命令</span><br>$ nvm install node  <span class="hljs-comment"># 安装最新 Node.js</span><br></code></pre></td></tr></table></figure>
+<pre><code class="bash">$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash  # 安装 nvm
+$ source ~/.bashrc  # 刷新 bash 命令
+$ nvm install node  # 安装最新 Node.js</code></pre>
 <p>执行一下 <code>node -v</code> 和 <code>npm --version</code> 查看是否安装成功。</p>
 <h3 id="编译-pigpio"><a href="#编译-pigpio" class="headerlink" title="编译 pigpio"></a>编译 pigpio</h3><p>Johnny-Five 依赖于 <a target="_blank" rel="noopener" href="https://github.com/joan2937/pigpio">pigpio</a>，但是 Johnny-Five 库中集成的 pigpio 版本太老，不支持 64 位的系统，使用我们需要手动编译最新版本的 pigpio。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git <span class="hljs-built_in">clone</span> https://github.com/joan2937/pigpio.git  <span class="hljs-comment"># 下载最新版</span><br>$ unzip pigpio-master.zip  <span class="hljs-comment"># 解压</span><br>$ <span class="hljs-built_in">cd</span> pigpio-master  <span class="hljs-comment"># 进入目录</span><br>$ make  <span class="hljs-comment"># 编译</span><br>$ make install <span class="hljs-comment"># 安装</span><br></code></pre></td></tr></table></figure>
-
+<pre><code class="bash">$ git clone https://github.com/joan2937/pigpio.git  # 下载最新版
+$ unzip pigpio-master.zip  # 解压
+$ cd pigpio-master  # 进入目录
+$ make  # 编译
+$ make install # 安装</code></pre>
 <h3 id="安装-Johnny-Five"><a href="#安装-Johnny-Five" class="headerlink" title="安装 Johnny-Five"></a>安装 Johnny-Five</h3><p>Johnny-Five 需要两个 JS 依赖，<code>johnny-five.js</code> 和 <code>raspi-io.js</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ mkdir exp &amp;&amp; <span class="hljs-built_in">cd</span> exp  <span class="hljs-comment"># 新建项目</span><br>$ npm init <span class="hljs-comment"># 初始化</span><br>$ npm i johnny-five raspi-io --save<br>$ nano index.js<br></code></pre></td></tr></table></figure>
-
+<pre><code class="bash">$ mkdir exp &amp;&amp; cd exp  # 新建项目
+$ npm init # 初始化
+$ npm i johnny-five raspi-io --save
+$ nano index.js</code></pre>
 <p>输入以下内容并保存：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> &#123; RaspiIO &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;raspi-io&quot;</span>);<br><span class="hljs-keyword">const</span> five = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;johnny-five&quot;</span>);<br><br><span class="hljs-keyword">const</span> board = <span class="hljs-keyword">new</span> five.Board(&#123;<br>  <span class="hljs-attr">io</span>: <span class="hljs-keyword">new</span> RaspiIO()<br>&#125;);<br><br>board.on(<span class="hljs-string">&quot;ready&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> lcd = <span class="hljs-keyword">new</span> five.LCD(&#123; <br>  <span class="hljs-attr">controller</span>: <span class="hljs-string">&quot;PCF8574T&quot;</span>  <span class="hljs-comment">// 板子的型号</span><br>&#125;);<br>  lcd.print(<span class="hljs-string">&quot;Hello, World&quot;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+<pre><code class="javascript">const &#123; RaspiIO &#125; = require(&quot;raspi-io&quot;);
+const five = require(&quot;johnny-five&quot;);
 
+const board = new five.Board(&#123;
+  io: new RaspiIO()
+&#125;);
+
+board.on(&quot;ready&quot;, function() &#123;
+  const lcd = new five.LCD(&#123; 
+  controller: &quot;PCF8574T&quot;  // 板子的型号
+&#125;);
+  lcd.print(&quot;Hello, World&quot;);
+&#125;);</code></pre>
 <p>请查看板子背部芯片上刻着的型号正确填写，PCF8574、PCF8574A、PCF8574T、PCF8574AT。</p>
 <p>Johnny-Five 有个坑，会导致文字无法正确输出只会输出一个个方块，需要修复一下，详见：<a target="_blank" rel="noopener" href="https://github.com/rwaldron/johnny-five/issues/1639">Raspberry and I2C LCD1602 with PCF8574T controller does not show text but only squares</a></p>
 <p>cd 到 <code>node_modules/johnny-five/lib/lcd.js</code>，将 <code>this.io.i2cWrite(this.address, this.memory);</code> 改成 <code>this.io.i2cWrite(this.address, [this.memory]);</code>，保存即可。</p>
@@ -264,8 +282,15 @@
 </tbody></table>
 <p>连接完成后命令行输入 <code>sudo raspi-config</code>，Interface Options =&gt; I2C，启动 <em>I2C</em> 并重启。</p>
 <p>重启后命令行输入 <code>i2cdetect -y -r 1</code>，若显示如下则说明 I2C 连接成功。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f<br>00:          -- -- -- -- -- -- -- -- -- -- -- -- -- <br>10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- <br>20: -- -- -- -- -- -- -- 27 -- -- -- -- -- -- -- -- <br>30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- <br>40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- <br>50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- <br>60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- <br>70: -- -- -- -- -- -- -- -- <br></code></pre></td></tr></table></figure>
-
+<pre><code class="bash">     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+20: -- -- -- -- -- -- -- 27 -- -- -- -- -- -- -- -- 
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+70: -- -- -- -- -- -- -- -- </code></pre>
 <p><strong>运行</strong></p>
 <p>输入 <code>sudo node index.js</code> 运行程序即可看到 LCD 输出了字符。</p>
 <p><img  src="https://pic.izhaoo.com/20210203152622.jpg"  ><span class="image-caption">输出字符</span></p>

@@ -211,7 +211,7 @@
           <i class="iconfont iconeye"></i><span id="/2020/01/07/rn-note/" class="leancloud" data-flag-title="ReactNative - 开发笔记"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3278</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3306</span>
     </div>
   </div>
 </section>
@@ -241,20 +241,32 @@
 <p><a target="_blank" rel="noopener" href="https://github.com/axios/axios/issues/973">Axios doesn’t work with Android (emulator) raising a Network Error</a></p>
 </blockquote>
 <h5 id="导航标题不居中"><a href="#导航标题不居中" class="headerlink" title="导航标题不居中"></a>导航标题不居中</h5><p><code>react-navigation</code>标题在安卓上默认显示在左边，想在左边做一个回退按钮，按照官方文档设置了标题居中，并没有起效果。解决方案如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">static</span> navigationOptions = &#123; <br>	<span class="hljs-attr">headerTitleStyle</span>:&#123;<br>		<span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,<br>		<span class="hljs-attr">textAlign</span>: <span class="hljs-string">&#x27;center&#x27;</span>,<br>	&#125;, <br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="javascript">static navigationOptions = &#123; 
+    headerTitleStyle:&#123;
+        flex: 1,
+        textAlign: &#39;center&#39;,
+    &#125;, 
+&#125;</code></pre>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/alex-huanglintian/p/8641255.html"><a target="_blank" rel="noopener" href="https://www.cnblogs.com/alex-huanglintian/p/8641255.html">react-navigation 标题在安卓上不居中问题</a></a></p>
 </blockquote>
 <h5 id="打包无法联网"><a href="#打包无法联网" class="headerlink" title="打包无法联网"></a>打包无法联网</h5><p>安卓9开始需要添加配置才能开启联网权限。解决方案如下：</p>
 <ol>
 <li><p>在<code>/src/main/res</code>创建<code>network_security_config.xml</code>文件，内写代码：</p>
-  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml">	 <span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">network-security-config</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">base-config</span> <span class="hljs-attr">cleartextTrafficPermitted</span>=<span class="hljs-string">&quot;true&quot;</span> /&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">network-security-config</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<pre><code class="xml">      &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+    &lt;network-security-config&gt;
+        &lt;base-config cleartextTrafficPermitted=&quot;true&quot; /&gt;
+    &lt;/network-security-config&gt;</code></pre>
 </li>
 <li><p>在<code>/src/main/androidManifest.xml</code>加入如下代码：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">application</span></span><br><span class="hljs-tag">	<span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;.MainApplication&quot;</span></span><br><span class="hljs-tag">	<span class="hljs-attr">android:label</span>=<span class="hljs-string">&quot;@string/app_name&quot;</span></span><br><span class="hljs-tag">	<span class="hljs-attr">android:icon</span>=<span class="hljs-string">&quot;@mipmap/ic_launcher&quot;</span></span><br><span class="hljs-tag">	<span class="hljs-attr">android:networkSecurityConfig</span>=<span class="hljs-string">&quot;@xml/network_security_config&quot;</span>	//<span class="hljs-attr">Add</span></span><br><span class="hljs-tag">	<span class="hljs-attr">android:roundIcon</span>=<span class="hljs-string">&quot;@mipmap/ic_launcher_round&quot;</span></span><br><span class="hljs-tag">	<span class="hljs-attr">android:allowBackup</span>=<span class="hljs-string">&quot;false&quot;</span></span><br><span class="hljs-tag">	<span class="hljs-attr">android:theme</span>=<span class="hljs-string">&quot;@style/AppTheme&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
-
-
+<pre><code class="xml">&lt;application
+    android:name=&quot;.MainApplication&quot;
+    android:label=&quot;@string/app_name&quot;
+    android:icon=&quot;@mipmap/ic_launcher&quot;
+    android:networkSecurityConfig=&quot;@xml/network_security_config&quot;    //Add
+    android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;
+    android:allowBackup=&quot;false&quot;
+    android:theme=&quot;@style/AppTheme&quot;&gt;</code></pre>
 </li>
 </ol>
 <blockquote>
@@ -263,32 +275,67 @@
 <h5 id="支付宝开启沙箱"><a href="#支付宝开启沙箱" class="headerlink" title="支付宝开启沙箱"></a>支付宝开启沙箱</h5><p>开发支付业务时用到的第三方封装支付宝插件，但是没有集成沙箱环境，按以下方式集成。</p>
 <ol>
 <li><p><code>android/src/main/java/com/reactlibrary/AlipayModule.java</code>中添加以下代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.reactlibrary;<br><br><span class="hljs-keyword">import</span> com.alipay.sdk.app.EnvUtils;	<span class="hljs-comment">//Add</span><br><span class="hljs-keyword">import</span> com.alipay.sdk.app.H5PayCallback;<br><span class="hljs-keyword">import</span> com.alipay.sdk.util.H5PayResultModel;<br><span class="hljs-keyword">import</span> com.alipay.sdk.app.AuthTask;<br><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;<br>	thread.start();<br>&#125;<br><br><span class="hljs-comment">// Add</span><br><span class="hljs-meta">@ReactMethod</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setAlipaySandbox</span><span class="hljs-params">(Boolean isSandbox)</span> </span>&#123;<br>  <span class="hljs-keyword">if</span>(isSandbox)&#123;<br>    EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);<br>  &#125;<span class="hljs-keyword">else</span> &#123;<br>    EnvUtils.setEnv(EnvUtils.EnvEnum.ONLINE);<br>  &#125;<br>&#125;<br><br><span class="hljs-meta">@ReactMethod</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pay</span><span class="hljs-params">(<span class="hljs-keyword">final</span> String orderInfo, <span class="hljs-keyword">final</span> Promise promise)</span> </span>&#123;<br>  Runnable runnable = <span class="hljs-keyword">new</span> Runnable() &#123;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">package com.reactlibrary;
+
+import com.alipay.sdk.app.EnvUtils;    //Add
+import com.alipay.sdk.app.H5PayCallback;
+import com.alipay.sdk.util.H5PayResultModel;
+import com.alipay.sdk.app.AuthTask;
+
+public void run() &#123;
+    thread.start();
+&#125;
+
+// Add
+@ReactMethod
+public void setAlipaySandbox(Boolean isSandbox) &#123;
+  if(isSandbox)&#123;
+    EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
+  &#125;else &#123;
+    EnvUtils.setEnv(EnvUtils.EnvEnum.ONLINE);
+  &#125;
+&#125;
+
+@ReactMethod
+public void pay(final String orderInfo, final Promise promise) &#123;
+  Runnable runnable = new Runnable() &#123;</code></pre>
 </li>
 <li><p><code>index.d.ts</code>中添加以下代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function">function <span class="hljs-title">authWithInfo</span><span class="hljs-params">(infoStr: string)</span>: IResult</span>;<br><br><span class="hljs-comment">// Add</span><br><span class="hljs-function">function <span class="hljs-title">setAlipaySandbox</span><span class="hljs-params">(isSandbox: <span class="hljs-keyword">boolean</span>)</span>: <span class="hljs-keyword">void</span></span><br><span class="hljs-function"></span><br><span class="hljs-function">function <span class="hljs-title">pay</span><span class="hljs-params">(infoStr: string)</span>: IResult</span>;<br><br><span class="hljs-function">function <span class="hljs-title">payInterceptorWithUrl</span><span class="hljs-params">(infoStr: string)</span>: </span>&#123;<br></code></pre></td></tr></table></figure>
+<pre><code class="java">function authWithInfo(infoStr: string): IResult;
 
+// Add
+function setAlipaySandbox(isSandbox: boolean): void
+
+function pay(infoStr: string): IResult;
+
+function payInterceptorWithUrl(infoStr: string): &#123;</code></pre>
 </li>
 </ol>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://github.com/0x5e/react-native-alipay/pull/40/commits/36a7347c6e9ca1cbd3457c7ef93d620448bb9f29">add sandbox</a></p>
 </blockquote>
 <h3 id="组件导入相对路径配置"><a href="#组件导入相对路径配置" class="headerlink" title="组件导入相对路径配置"></a>组件导入相对路径配置</h3><p>安装并配置插件<code>babel-plugin-root-import</code>即可。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript">yarn add babel-plugin-root-<span class="hljs-keyword">import</span>    <span class="hljs-comment">// 下载插件</span><br><br><span class="hljs-attr">plugins</span>: [    <span class="hljs-comment">// 加入 babel.config.js 配置</span><br>    [<br>      <span class="hljs-string">&#x27;babel-plugin-root-import&#x27;</span>,<br>      &#123;<br>        <span class="hljs-attr">rootPathSuffix</span>: <span class="hljs-string">&#x27;src&#x27;</span>,<br>      &#125;,<br>    ],<br>  ],<br></code></pre></td></tr></table></figure>
+<pre><code class="javascript">yarn add babel-plugin-root-import    // 下载插件
 
+plugins: [    // 加入 babel.config.js 配置
+    [
+      &#39;babel-plugin-root-import&#39;,
+      &#123;
+        rootPathSuffix: &#39;src&#39;,
+      &#125;,
+    ],
+  ],</code></pre>
 <h3 id="获取sha1"><a href="#获取sha1" class="headerlink" title="获取sha1"></a>获取sha1</h3><p>在使用 <a target="_blank" rel="noopener" href="https://github.com/lovebing/react-native-baidu-map">react-native-baidu-map</a> 过程中，发现 <code>reverseGeoCode</code> 等一些功能无法使用，且在RN控制台没有报错。</p>
 <p>后来在 <code>Android Studio</code> 打包时发现原生模块报错，原来是 <code>百度地图SKD</code> 中的 <strong>开发版sha1</strong> 和 <strong>发布版sha1</strong> 没有配置正确。</p>
 <p><img  src="https://pic.izhaoo.com/20200509114652.jpg"  ><span class="image-caption">百度地图bug</span></p>
 <p>获取方法如下:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">cd</span> ./android/app<br></code></pre></td></tr></table></figure>
-
+<pre><code class="bash">$ cd ./android/app</code></pre>
 <p>可以看到 <code>debug.keystore</code> 和 <code>release.keystore</code> 签名文件。（具体文件名可能不同）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">keytool -list -v -keystore debug.keystore  <span class="hljs-comment">#获取开发版sha1</span><br></code></pre></td></tr></table></figure>
-
+<pre><code class="bash">keytool -list -v -keystore debug.keystore  #获取开发版sha1</code></pre>
 <p><img  src="https://pic.izhaoo.com/20200509153325.png"  ><span class="image-caption">开发版sha1</span></p>
 <p>提示 <code>输入秘钥库密码</code> ，直接回车，即可获取 <code>开发版sha1</code>。</p>
 <p><code>发布版sha1</code> 同理:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">keytool -list -v -keystore release.keystore  <span class="hljs-comment">#获取发布版sha1</span><br></code></pre></td></tr></table></figure>
+<pre><code class="bash">keytool -list -v -keystore release.keystore  #获取发布版sha1</code></pre>
       </section>
       <section class="extra">
         

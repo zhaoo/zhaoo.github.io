@@ -208,7 +208,7 @@
           <i class="iconfont iconeye"></i><span id="/2020/06/25/rn-adapt-to-full-screen/" class="leancloud" data-flag-title="RN - 适配安卓全面屏"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3500</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3426</span>
     </div>
   </div>
 </section>
@@ -216,30 +216,104 @@
       <section class="content">
         <p>最近对 <code>RN</code> 项目打了包，在安卓端进行真机调试，各种水土不服。主要就是在全面屏下高度不匹配，底边会多出一段白边。下面简单解释一下原因，并给出解决方案：</p>
 <h3 id="高度获取"><a href="#高度获取" class="headerlink" title="高度获取"></a>高度获取</h3><p>在 <code>RN</code> 中，我们一般通过以下代码获取设备高度，并将其设置为视口高度。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123;Dimensions&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> (<br>      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;styles.container&#125;</span>&gt;</span></span><br><span class="xml">        ...</span><br><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span><br>    );<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> styles = StyleSheet.create(&#123;<br>  <span class="hljs-attr">container</span>: &#123;<br>    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&#x27;#f0f3f6&#x27;</span>,<br>    <span class="hljs-attr">height</span>: Dimensions.get(<span class="hljs-string">&#x27;window&#x27;</span>).height,    <span class="hljs-comment">//将设备高度设置为视口高度，少一截</span><br>  &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+<pre><code class="javascript">import &#123;Dimensions&#125; from &#39;react-native&#39;;
 
+export default class Example extends Component &#123;
+  render() &#123;
+    return (
+      &lt;View style=&#123;styles.container&#125;&gt;
+        ...
+      &lt;/View&gt;
+    );
+  &#125;
+&#125;
+
+const styles = StyleSheet.create(&#123;
+  container: &#123;
+    backgroundColor: &#39;#f0f3f6&#39;,
+    height: Dimensions.get(&#39;window&#39;).height,    //将设备高度设置为视口高度，少一截
+  &#125;,
+&#125;);</code></pre>
 <p>在一般情况下这是设置是没有问题的，整个 <code>视口高度</code> 会以 <code>设备高度</code> 为准撑满整个屏幕。但是在 <strong>全面屏</strong> 或者使用 <strong>Navbar</strong> 的时候就会出问题了，需要进行适配。</p>
 <h3 id="全面屏"><a href="#全面屏" class="headerlink" title="全面屏"></a>全面屏</h3><h5 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h5><p>市场上大多数的全面屏安卓手机，一般都是以 <em>刘海屏</em> 、 <em>水滴屏</em> 、 <em>挖孔屏</em> 等异形屏的形式存在。以 <em>小米10（挖孔屏）</em> 为例，屏幕在显示 UI 界面的时候，顶上的挖孔部分一般都是作为 <strong>状态栏</strong> 的形式存在。</p>
 <p><code>Dimensions.get(&#39;window&#39;).height</code> 在计算高度的时候不会将他计算进去。但是在实际渲染界面的时候，这部分又会被作为可视区域计算进去。这就造成了 <code>Dimensions.get(&#39;window&#39;).height</code> 获取的 <strong>设备高度</strong> 比 <strong>设备实际高度</strong> 少了一截（状态栏），就会在底部就会以白条的形式进行补全，太丑了……</p>
 <p><img  src="https://pic.izhaoo.com/20200625224801266.jpg"  ><span class="image-caption">白边</span></p>
 <h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><p>所以我们只要在 <code>Dimensions.get(&#39;window&#39;).height</code> 获取高度的时候，把状态栏的高度也给加上去，作为视口高度就可以了。获取状态栏高度的方法：<code>StatusBar.currentHeight</code>。</p>
 <p>改写上面栗子：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123;Dimensions, StatusBar&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> (<br>      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;styles.container&#125;</span>&gt;</span></span><br><span class="xml">        ...</span><br><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span><br>    );<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> styles = StyleSheet.create(&#123;<br>  <span class="hljs-attr">container</span>: &#123;<br>    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&#x27;#f0f3f6&#x27;</span>,<br>    <span class="hljs-attr">height</span>: Dimensions.get(<span class="hljs-string">&#x27;window&#x27;</span>).height + StatusBar.currentHeight,    <span class="hljs-comment">//补上状态栏高度，刚刚好</span><br>  &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+<pre><code class="javascript">import &#123;Dimensions, StatusBar&#125; from &#39;react-native&#39;;
 
+export default class Example extends Component &#123;
+  render() &#123;
+    return (
+      &lt;View style=&#123;styles.container&#125;&gt;
+        ...
+      &lt;/View&gt;
+    );
+  &#125;
+&#125;
+
+const styles = StyleSheet.create(&#123;
+  container: &#123;
+    backgroundColor: &#39;#f0f3f6&#39;,
+    height: Dimensions.get(&#39;window&#39;).height + StatusBar.currentHeight,    //补上状态栏高度，刚刚好
+  &#125;,
+&#125;);</code></pre>
 <p>那么如何保证不误伤 <strong>正常屏</strong> 呢？这里给出龙鸣方法：通过判断 <strong>纵横比</strong>。一般比值大于<code>1.8</code>的是全面屏，小于<code>1.8</code>的是正常屏，代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123;Dimensions, StatusBar&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;<br><span class="hljs-keyword">const</span> &#123;width, height&#125; = Dimensions.get(<span class="hljs-string">&#x27;window&#x27;</span>);<br><span class="hljs-keyword">const</span> wh = height / width;<br><span class="hljs-keyword">const</span> height = wh &gt; <span class="hljs-number">1.8</span> ? height + StatusBar.currentHeight : height;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="javascript">import &#123;Dimensions, StatusBar&#125; from &#39;react-native&#39;;
+const &#123;width, height&#125; = Dimensions.get(&#39;window&#39;);
+const wh = height / width;
+const height = wh &gt; 1.8 ? height + StatusBar.currentHeight : height;</code></pre>
 <p><img  src="https://pic.izhaoo.com/20200625224747636.jpg"  ><span class="image-caption">完美</span></p>
 <h3 id="底部导航栏"><a href="#底部导航栏" class="headerlink" title="底部导航栏"></a>底部导航栏</h3><h5 id="原因-1"><a href="#原因-1" class="headerlink" title="原因"></a>原因</h5><p>我们一般会在主屏使用 <code>Navigation</code> 等 <strong>底部导航栏</strong>，这个导航栏也是有高度的，并且在 <code>Dimensions.get(&#39;window&#39;).height</code> 获取高度的时候导航栏的高度也会被计算进去。这就造成了一个问题：导航栏会遮挡页面上的组件。</p>
 <h5 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h5><p>所以我们只要把导航栏的高度减去即可：<code>Dimensions.get(&#39;window&#39;).height - 49</code></p>
 <p>这边的 <code>49</code> 是我使用的导航栏的高度，一般导航栏高度都是固定的，我们只需要测量一下直接减去数值即可。</p>
 <h3 id="简单封装"><a href="#简单封装" class="headerlink" title="简单封装"></a>简单封装</h3><p>若是每个页面都为了计算高度而写一堆花里胡哨的逻辑代码，也太扯淡了。还是需要简单封装一下，如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//height.js</span><br><br><span class="hljs-keyword">import</span> &#123;Dimensions, StatusBar&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;<br><span class="hljs-keyword">const</span> &#123;width, height&#125; = Dimensions.get(<span class="hljs-string">&#x27;window&#x27;</span>);<br><span class="hljs-keyword">const</span> wh = height / width;<br><span class="hljs-keyword">const</span> realHeight = wh &gt; <span class="hljs-number">1.8</span> ? height + StatusBar.currentHeight + <span class="hljs-number">46</span> : height;    <span class="hljs-comment">//不带导航栏的真实高度</span><br><span class="hljs-keyword">const</span> windowHeight = wh &gt; <span class="hljs-number">1.8</span> ? height + StatusBar.currentHeight : height - <span class="hljs-number">49</span>;    <span class="hljs-comment">//减去导航栏的视口高度</span><br><span class="hljs-keyword">export</span> &#123;realHeight, windowHeight&#125;;<br></code></pre></td></tr></table></figure>
+<pre><code class="javascript">//height.js
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//page with tabbar</span><br><br><span class="hljs-keyword">import</span> &#123;windowHeight&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;height&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> (<br>      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;styles.container&#125;</span>&gt;</span></span><br><span class="xml">        ...</span><br><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span><br>    );<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> styles = StyleSheet.create(&#123;<br>  <span class="hljs-attr">container</span>: &#123;<br>    <span class="hljs-attr">height</span>: windowHeight<br>  &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+import &#123;Dimensions, StatusBar&#125; from &#39;react-native&#39;;
+const &#123;width, height&#125; = Dimensions.get(&#39;window&#39;);
+const wh = height / width;
+const realHeight = wh &gt; 1.8 ? height + StatusBar.currentHeight + 46 : height;    //不带导航栏的真实高度
+const windowHeight = wh &gt; 1.8 ? height + StatusBar.currentHeight : height - 49;    //减去导航栏的视口高度
+export &#123;realHeight, windowHeight&#125;;</code></pre>
+<pre><code class="javascript">//page with tabbar
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//page without tabbar</span><br><br><span class="hljs-keyword">import</span> &#123;realHeight&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;height&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> (<br>      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;styles.container&#125;</span>&gt;</span></span><br><span class="xml">        ...</span><br><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span><br>    );<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> styles = StyleSheet.create(&#123;<br>  <span class="hljs-attr">container</span>: &#123;<br>    <span class="hljs-attr">height</span>: realHeight<br>  &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+import &#123;windowHeight&#125; from &#39;height&#39;;
 
+export default class Example extends Component &#123;
+  render() &#123;
+    return (
+      &lt;View style=&#123;styles.container&#125;&gt;
+        ...
+      &lt;/View&gt;
+    );
+  &#125;
+&#125;
+
+const styles = StyleSheet.create(&#123;
+  container: &#123;
+    height: windowHeight
+  &#125;,
+&#125;);</code></pre>
+<pre><code class="javascript">//page without tabbar
+
+import &#123;realHeight&#125; from &#39;height&#39;;
+
+export default class Example extends Component &#123;
+  render() &#123;
+    return (
+      &lt;View style=&#123;styles.container&#125;&gt;
+        ...
+      &lt;/View&gt;
+    );
+  &#125;
+&#125;
+
+const styles = StyleSheet.create(&#123;
+  container: &#123;
+    height: realHeight
+  &#125;,
+&#125;);</code></pre>
 <p>最后吐槽一下！</p>
 <p>把前置摄像头砍了！完完全全的全面屏！它不香么？！</p>
 <p>后置摄像头那么多有什么用？！一颗大底高素质镜头足矣！</p>

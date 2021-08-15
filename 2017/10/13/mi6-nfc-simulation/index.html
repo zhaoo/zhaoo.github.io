@@ -211,7 +211,7 @@
           <i class="iconfont iconeye"></i><span id="/2017/10/13/mi6-nfc-simulation/" class="leancloud" data-flag-title="小米6 - NFC模拟门禁卡"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>972</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>970</span>
     </div>
   </div>
 </section>
@@ -230,8 +230,11 @@
 <p>Root后需要解锁system分区，我们用adb命令来解锁吧。首先电脑安装刷机精灵（其实也没必要那么麻烦，装个adb就好了），手机开启USB调试，连接电脑。然后在“刷机精灵-其他板块”找到“ADB命令行”。</p>
 <p><img  src="https://pic.izhaoo.com/20171013205426.jpg"  ><span class="image-caption">adb连接</span></p>
 <p>依次输入以下代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">adb root    //获取root权限<br><br>adb disable-verity    //解锁system分区<br><br>adb reboot    //重启<br></code></pre></td></tr></table></figure>
+<pre><code class="bash">adb root    //获取root权限
 
+adb disable-verity    //解锁system分区
+
+adb reboot    //重启</code></pre>
 <p><img  src="https://pic.izhaoo.com/20171013205528.jpg"  ><span class="image-caption">adb解锁system</span></p>
 <p>重启后一般就成功了。</p>
 <h3 id="检测"><a href="#检测" class="headerlink" title="检测"></a>检测</h3><p>首先要到系统设置处将“NFC默认钱包”设置为“使用HCE钱包”。</p>

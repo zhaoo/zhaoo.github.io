@@ -208,7 +208,7 @@
           <i class="iconfont iconeye"></i><span id="/2020/04/12/js-closure/" class="leancloud" data-flag-title="JS - 执行上下文/作用域链/闭包"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3215</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3180</span>
     </div>
   </div>
 </section>
@@ -227,8 +227,24 @@
 </li>
 </ul>
 <p>以下代码创建的执行上下文如图所示:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">var</span> b = <span class="hljs-number">2</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">aa</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> c = <span class="hljs-number">3</span>;<br>  bb();<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bb</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> d = <span class="hljs-number">4</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cc</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> e = <span class="hljs-number">5</span>;<br>&#125;<br><br>aa();<br>cc();<br></code></pre></td></tr></table></figure>
+<pre><code class="javascript">var a = 1;
+var b = 2;
 
+function aa() &#123;
+  var c = 3;
+  bb();
+&#125;
+
+function bb() &#123;
+  var d = 4;
+&#125;
+
+function cc() &#123;
+  var e = 5;
+&#125;
+
+aa();
+cc();</code></pre>
 <div style="text-align: center">
   <img  src="https://pic.izhaoo.com/20200412192325.jpg"   /><span class="image-caption">三种类型的执行上下文</span>
 </div>
@@ -237,8 +253,24 @@
 <p>执行JS代码时，JS引擎首先会创建一个<code>全局执行上下文</code>，并压入栈底；之后每当 <em><code>调用</code></em> 一个函数时，都会为该函数创建一个<code>函数执行上下文</code>，并压入栈。</p>
 <p>之后引擎会执行栈顶的函数，函数执行结束后，该<code>函数执行上下文</code>从栈中弹出；再执行下一个函数，直到全部出栈。</p>
 <p>还是这段代码，执行栈如图所示:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">var</span> b = <span class="hljs-number">2</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">aa</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> c = <span class="hljs-number">3</span>;<br>  bb();<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bb</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> d = <span class="hljs-number">4</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cc</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> e = <span class="hljs-number">5</span>;<br>&#125;<br><br>aa();<br>cc();<br></code></pre></td></tr></table></figure>
+<pre><code class="javascript">var a = 1;
+var b = 2;
 
+function aa() &#123;
+  var c = 3;
+  bb();
+&#125;
+
+function bb() &#123;
+  var d = 4;
+&#125;
+
+function cc() &#123;
+  var e = 5;
+&#125;
+
+aa();
+cc();</code></pre>
 <div style="text-align: center">
   <img  src="https://pic.izhaoo.com/20200412193736.jpg"  /><span class="image-caption">执行栈</span>
 </div>
@@ -261,20 +293,48 @@
 </ul>
 <p>因为JS是<code>静态作用域</code>，所以直接看代码中变量的定义位置即可，而不是看调用过程。</p>
 <p>在以下代码中，运行会输出 1</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">aa</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(a);  <span class="hljs-comment">// 输出 1</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bb</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>;<br>  aa();<br>&#125;<br><br>bb();<br></code></pre></td></tr></table></figure>
+<pre><code class="javascript">var a = 1;
 
+function aa() &#123;
+  console.log(a);  // 输出 1
+&#125;
+
+function bb() &#123;
+  var a = 2;
+  aa();
+&#125;
+
+bb();</code></pre>
 <h5 id="作用域链-1"><a href="#作用域链-1" class="headerlink" title="作用域链"></a>作用域链</h5><p>在代码中，我们经常会进行函数嵌套，<code>作用域</code>会随着嵌套结构向顶层链接，形成<code>作用域链</code>。这个概念和<code>原型链</code>类似。</p>
 <p>还是看代码:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">aa</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> b = <span class="hljs-number">2</span>;<br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bb</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(a + b);  <span class="hljs-comment">// 输出 1和2</span><br>  &#125;<br>  bb();<br>&#125;<br><br>aa();<br></code></pre></td></tr></table></figure>
+<pre><code class="javascript">var a = 1;
 
+function aa() &#123;
+  var b = 2;
+  function bb() &#123;
+    console.log(a + b);  // 输出 1和2
+  &#125;
+  bb();
+&#125;
+
+aa();</code></pre>
 <p>在函数<code>bb()作用域</code>中并没有定义变量<code>a</code>和<code>b</code>，所以会通过<code>作用域链</code>往上层查找，在父函数<code>aa()作用域</code>中找到<code>a</code>，在<code>全局作用域</code>中找到<code>b</code>，最后输出。</p>
 <h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>上文我们介绍了<code>执行上下文</code>和<code>作用域链</code>，终于到了<code>闭包</code>。</p>
 <p>ES5中变量只有两种作用域：函数外部，<code>全局变量</code>；函数内部，<code>局部变量</code>。且变量提升机制还会将变量声明提升到它所在作用域的顶端去执行。</p>
 <p>函数内部的变量都是局部变量，在函数外部是<strong>无法访问</strong>的。</p>
 <p>闭包其实就是充当一个桥梁的作用，从外部可以间接地访问到内部的变量。简单来讲，就是在一个函数内部返回另外函数，通过返回的函数去获取主函数内部的局部变量。</p>
 <p>先看一段代码: </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">outer</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> private = <span class="hljs-number">1</span>;  <span class="hljs-comment">// 局部变量</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> private;<br>  &#125;<br>&#125;<br><br><span class="hljs-built_in">console</span>.log(private);  <span class="hljs-comment">// private is not defined</span><br><br><span class="hljs-keyword">var</span> inner = outer();  <span class="hljs-comment">// 将外层 outer 函数返回的匿名函数赋值给 inner</span><br><span class="hljs-built_in">console</span>.log(inner());  <span class="hljs-comment">// 1</span><br></code></pre></td></tr></table></figure>
+<pre><code class="javascript">function outer() &#123;
+  var private = 1;  // 局部变量
+  return function () &#123;
+    return private;
+  &#125;
+&#125;
 
+console.log(private);  // private is not defined
+
+var inner = outer();  // 将外层 outer 函数返回的匿名函数赋值给 inner
+console.log(inner());  // 1</code></pre>
 <p>在<code>outer</code>函数中定义的<code>private</code>局部变量，在函数外部直接访问是无法访问到的。但是我们在函数中能够访问这个局部变量，并通过一个<code>匿名函数</code>返回，在外边调用<code>outer()</code>接收这个匿名函数，并且赋值给外部的<code>inner</code>变量，再调用<code>inner()</code>即可获取到内部的<code>private</code>局部变量了。</p>
 <p>打个比方，函数就好比是一个集装箱，外面的人拿不到里面的物资。这时候甩出来一个小背包，装着里面的部分物资，外面的人就可以在小背包中拿到了。</p>
 <p>闭包可以隐藏函数内部细节，界定<code>公共变量 (public)</code>和<code>私有变量 (private)</code>。配合<code>匿名函数</code>和<code>立即执行函数</code>，常用来实现ES5中的<strong>模块化</strong>。</p>

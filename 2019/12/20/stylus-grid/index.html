@@ -208,7 +208,7 @@
           <i class="iconfont iconeye"></i><span id="/2019/12/20/stylus-grid/" class="leancloud" data-flag-title="Stylus - 实现栅格化"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1058</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1032</span>
     </div>
   </div>
 </section>
@@ -219,7 +219,40 @@
 <p>我的初衷是倾尽全力设计一个简洁的博客主题，代码也必须简洁，所以就仿照<code>BootStrap</code>，用<code>Stylus</code>实现了栅格化功能。</p>
 <p>几行代码，取代了长篇大论的<code>BootStrap</code>。</p>
 <p>食用方法同<code>BootStrap</code>。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-comment">// Grid</span><br><span class="hljs-selector-class">.row</span><br>  <span class="hljs-attribute">display</span> -ms-flexbox<br>  <span class="hljs-attribute">display</span> flex<br>  -ms-<span class="hljs-attribute">flex-wrap</span> wrap<br>  <span class="hljs-attribute">flex-wrap</span> wrap<br><span class="hljs-keyword">for</span> <span class="hljs-variable">$i</span> <span class="hljs-keyword">in</span> <span class="hljs-number">1</span> .. <span class="hljs-number">12</span><br>  .col-&#123;<span class="hljs-variable">$i</span>&#125;, .col-md-&#123;<span class="hljs-variable">$i</span>&#125;, .col-lg-&#123;<span class="hljs-variable">$i</span>&#125;<br>    <span class="hljs-attribute">position</span> relative<br>    <span class="hljs-attribute">width</span> <span class="hljs-number">100%</span><br>    <span class="hljs-attribute">padding-right</span> <span class="hljs-number">15px</span><br>    <span class="hljs-attribute">padding-left</span> <span class="hljs-number">15px</span><br>    <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">max-width</span>: <span class="hljs-number">576px</span>)<br>      padding-right <span class="hljs-number">0</span><br>      padding-left <span class="hljs-number">0</span><br>col-attr()<br>  -ms-flex <span class="hljs-number">0</span> <span class="hljs-number">0</span> arguments<br>  flex <span class="hljs-number">0</span> <span class="hljs-number">0</span> arguments<br>  <span class="hljs-attribute">max-width</span> arguments<br>for $i in <span class="hljs-number">1</span> .. <span class="hljs-number">12</span><br>  .col-&#123;<span class="hljs-variable">$i</span>&#125;<br>    col-attr round((<span class="hljs-variable">$i</span> * <span class="hljs-number">100</span> / <span class="hljs-number">12</span>) %, <span class="hljs-number">6</span>)<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">576px</span>)<br>  for $i in <span class="hljs-number">1</span> .. <span class="hljs-number">12</span><br>    .col-sm-&#123;<span class="hljs-variable">$i</span>&#125;<br>      col-attr round((<span class="hljs-variable">$i</span> * <span class="hljs-number">100</span> / <span class="hljs-number">12</span>) %, <span class="hljs-number">6</span>)<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>)<br>  for $i in <span class="hljs-number">1</span> .. <span class="hljs-number">12</span><br>    .col-md-&#123;<span class="hljs-variable">$i</span>&#125;<br>      col-attr round((<span class="hljs-variable">$i</span> * <span class="hljs-number">100</span> / <span class="hljs-number">12</span>) %, <span class="hljs-number">6</span>)<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">992px</span>)<br>  for $i in <span class="hljs-number">1</span> .. <span class="hljs-number">12</span><br>    .col-lg-&#123;<span class="hljs-variable">$i</span>&#125;<br>      col-attr round((<span class="hljs-variable">$i</span> * <span class="hljs-number">100</span> / <span class="hljs-number">12</span>) %, <span class="hljs-number">6</span>)<br></code></pre></td></tr></table></figure>
+<pre><code class="stylus">// Grid
+.row
+  display -ms-flexbox
+  display flex
+  -ms-flex-wrap wrap
+  flex-wrap wrap
+for $i in 1 .. 12
+  .col-&#123;$i&#125;, .col-md-&#123;$i&#125;, .col-lg-&#123;$i&#125;
+    position relative
+    width 100%
+    padding-right 15px
+    padding-left 15px
+    @media (max-width: 576px)
+      padding-right 0
+      padding-left 0
+col-attr()
+  -ms-flex 0 0 arguments
+  flex 0 0 arguments
+  max-width arguments
+for $i in 1 .. 12
+  .col-&#123;$i&#125;
+    col-attr round(($i * 100 / 12) %, 6)
+@media (min-width: 576px)
+  for $i in 1 .. 12
+    .col-sm-&#123;$i&#125;
+      col-attr round(($i * 100 / 12) %, 6)
+@media (min-width: 768px)
+  for $i in 1 .. 12
+    .col-md-&#123;$i&#125;
+      col-attr round(($i * 100 / 12) %, 6)
+@media (min-width: 992px)
+  for $i in 1 .. 12
+    .col-lg-&#123;$i&#125;
+      col-attr round(($i * 100 / 12) %, 6)</code></pre>
       </section>
       <section class="extra">
         

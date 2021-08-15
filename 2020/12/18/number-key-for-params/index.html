@@ -211,7 +211,7 @@
           <i class="iconfont iconeye"></i><span id="/2020/12/18/number-key-for-params/" class="leancloud" data-flag-title="请求参数中的数字键"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>811</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>801</span>
     </div>
   </div>
 </section>
@@ -220,8 +220,10 @@
         <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>最近在业务中遇到一个坑：接口提供方用<strong>数字类型</strong>做集合的<strong>键</strong>，而大部分情况中数字类型会被转换成字符串类型，导致请求失败。</p>
 <p>Java 类型表述：<code>Map&lt;Integer, List&lt;String&gt;&gt;</code></p>
 <p>转换成 JavaScript 对象如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&#123;<br>  <span class="hljs-number">996</span>: [<span class="hljs-string">&#x27;福报&#x27;</span>, <span class="hljs-string">&#x27;肝就完了&#x27;</span>],<br>  <span class="hljs-number">965</span>: [<span class="hljs-string">&#x27;养老&#x27;</span>, <span class="hljs-string">&#x27;工作生活平衡&#x27;</span>]<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="javascript">&#123;
+  996: [&#39;福报&#39;, &#39;肝就完了&#39;],
+  965: [&#39;养老&#39;, &#39;工作生活平衡&#39;]
+&#125;</code></pre>
 <p>但是通过请求传递后，后端接收到的却是：<code>&#123; &#39;996&#39;: [&#39;福报&#39;, &#39;肝就完了&#39;], &#39;965&#39;: [&#39;养老&#39;, &#39;工作生活平衡&#39;] &#125;</code></p>
 <h3 id="两种语言支持情况"><a href="#两种语言支持情况" class="headerlink" title="两种语言支持情况"></a>两种语言支持情况</h3><ul>
 <li><code>JavaScript</code>: 支持，可以用 Number 类型做为 object 中的键。</li>

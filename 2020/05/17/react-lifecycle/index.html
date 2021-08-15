@@ -211,7 +211,7 @@ v16...">
           <i class="iconfont iconeye"></i><span id="/2020/05/17/react-lifecycle/" class="leancloud" data-flag-title="React - 生命周期"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4576</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4562</span>
     </div>
   </div>
 </section>
@@ -232,8 +232,15 @@ v16...">
 <li><p>在 <code>this.state</code> 中可以初始化 <code>state</code> 内容。</p>
 </li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">props</span>)</span> &#123;<br>    <span class="hljs-built_in">super</span>(props);<br>    <span class="hljs-built_in">this</span>.state = &#123;<br>      <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;anonymous&#x27;</span>,<br>      <span class="hljs-attr">gender</span>: <span class="hljs-string">&#x27;male&#x27;</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="javascript">class User extends Component &#123;
+  constructor(props) &#123;
+    super(props);
+    this.state = &#123;
+      name: &#39;anonymous&#39;,
+      gender: &#39;male&#39;
+    &#125;
+  &#125;
+&#125;</code></pre>
 <h3 id="Mounting-挂载阶段"><a href="#Mounting-挂载阶段" class="headerlink" title="Mounting (挂载阶段)"></a>Mounting (挂载阶段)</h3><p>该阶段在组件第一次挂载时触发，只会执行一次。</p>
 <h5 id="componentWillMount"><a href="#componentWillMount" class="headerlink" title="componentWillMount()"></a>componentWillMount()</h5><p><strong>触发时机：</strong></p>
 <p>组件挂在到 DOM <em>前</em> 执行，只会执行一次。</p>
@@ -255,8 +262,10 @@ v16...">
 <li><p>使用 <code>ref</code> 操作 DOM，因为这时候组件已经挂载到 DOM 上了。</p>
 </li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">componentDidMount</span>(<span class="hljs-params"></span>)</span> &#123;<br>  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> getUserInfo();<br>  <span class="hljs-built_in">this</span>.setState(&#123; <span class="hljs-attr">userInfo</span>: res.data &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="javascript">async componentDidMount() &#123;
+  const res = await getUserInfo();
+  this.setState(&#123; userInfo: res.data &#125;);
+&#125;</code></pre>
 <h3 id="Updation-更新阶段"><a href="#Updation-更新阶段" class="headerlink" title="Updation (更新阶段)"></a>Updation (更新阶段)</h3><p>该阶段在组件 <code>state</code> 或 <code>props</code> 改变时触发，可能触发多次。</p>
 <h5 id="componentWillReceiveProps-nextProps"><a href="#componentWillReceiveProps-nextProps" class="headerlink" title="componentWillReceiveProps(nextProps)"></a>componentWillReceiveProps(nextProps)</h5><p><strong>触发时机：</strong></p>
 <p>组件挂载完成后，接收到新的 <code>props</code> 时触发，此时还没有触发重渲染。</p>
@@ -275,8 +284,9 @@ v16...">
 <p>可以通过对比 <code>this.state</code> 和 <code>nextState</code>，或 <code>this.props</code> 和 <code>nextProps</code> 是否发生变化，返回一个 <code>boolean</code> 值决定是否重渲染（返回 <code>true</code> 表示本次允许重渲染，返回 <code>false</code> 表示本次不允许重渲染），从而达到性能优化的目的。建议只进行浅比较（不递归比较嵌套对象），因为比较层级过多的话消耗掉会大于重渲染，得不偿失。在 React 15.3 后引入了 <code>PureComponent</code>，代替了 <code>shouldComponentUpdate</code> 自动进行 <em>浅比较</em> 判断 <code>state</code> 或 <code>props</code> 是否更新，从而优化性能，不过它只对子组件生效。</p>
 <p><strong>使用场景：</strong></p>
 <p>判断 <code>state</code> 或 <code>props</code> 是否更新，从而决定是否渲染，达到性能优化的目的。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-title">shouldComponentUpdate</span>(<span class="hljs-params">nextProps, nextState</span>)</span> &#123;<br>  <span class="hljs-keyword">return</span> nextState.user !== <span class="hljs-built_in">this</span>.state.user<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="javascript">shouldComponentUpdate(nextProps, nextState) &#123;
+  return nextState.user !== this.state.user
+&#125;</code></pre>
 <h5 id="componentWillUpdate-nextProps-nextState"><a href="#componentWillUpdate-nextProps-nextState" class="headerlink" title="componentWillUpdate(nextProps, nextState)"></a>componentWillUpdate(nextProps, nextState)</h5><p><strong>触发时机：</strong></p>
 <p><code>state</code> 或 <code>props</code> 发生变化时，重渲染 <em>前</em> 触发。</p>
 <p><strong>解析：</strong></p>
@@ -300,8 +310,9 @@ v16...">
 <p>由于是单页面应用（SPA），在路由跳转后，页面内的一些 <em>事件订阅</em> 或 <em>定时操作</em> 并不会主动销毁，任然留在内存中继续执行。此时会引发内存泄漏，影响性能；此外，由于组件已经销毁，<code>this</code> 已经解除链接，获取不到相关引用变量， 会造成 <code>underfined</code> 报错。</p>
 <p><strong>使用场景：</strong></p>
 <p>执行一些必要的清理操作，例如 <code>clearInterval()</code> 、 <code>clearTimeout()</code>等。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-title">componentWillUnmount</span>(<span class="hljs-params"></span>)</span> &#123;<br>  <span class="hljs-built_in">this</span>.timer &amp;&amp; <span class="hljs-built_in">clearTimeout</span>(<span class="hljs-built_in">this</span>.timer);<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="javascript">componentWillUnmount() &#123;
+  this.timer &amp;&amp; clearTimeout(this.timer);
+&#125;</code></pre>
 <h1 id="v16-0-后的生命周期"><a href="#v16-0-后的生命周期" class="headerlink" title="v16.0 后的生命周期"></a>v16.0 后的生命周期</h1><p>在 React 16.0 之后，废除了 <code>componentWillMount</code>、<code>componentWillUpdate</code>、<code>componentWillReceiveProps</code> 这三个生命周期，将在 17.0 之后移除。因为引入了 <code>fiber</code> 架构，<code>render()</code> 前一阶段可以被打断并且执行多次，导致这些生命周期变得不可控。不过为了平滑升级，暂时可以使用 <code>UNSAFE_componentWillMount</code>、<code>UNSAFE_componentWillUpdate</code>、<code>UNSAFE_componentWillReceiveProps</code> 代替。</p>
 <p>取而代之引入了两个新的生命周期：<code>getDerivedStateFromProps</code>、<code>getSnapshotBeforeUpdate</code>。</p>
 <p><strong>组件挂载：</strong> getDerivedStateFromProps -&gt; render -&gt; componentDidMount</p>
@@ -313,8 +324,15 @@ v16...">
 <p>首先这是一个 <code>static</code> 方法，不能使用 <code>this</code> 访问对象属性，所以也就不能直接使用 <code>this.setState()</code> 方法了。该方法接受两个参数，<code>nextProps</code> 指接收的新属性，<code>prevState</code> 指当前状态，最后返回一个对象来更新当前 <code>state</code> 状态，如果不需要渲染则返回一个 <code>null</code>。本质上就是讲传入的 <code>props</code> 映射到 <code>state</code>。</p>
 <p><strong>使用场景：</strong></p>
 <p>替代之前的 <code>componentWillReceiveProps</code> 等生命周期。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">getDerivedStateFromProps</span>(<span class="hljs-params">nextProps, prevState</span>)</span> &#123;<br>  <span class="hljs-keyword">const</span> &#123;username&#125; = nextProps;<br>  <span class="hljs-keyword">if</span> (username !== prevState.username) &#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>      username,<br>    &#125;;<br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="javascript">static getDerivedStateFromProps(nextProps, prevState) &#123;
+  const &#123;username&#125; = nextProps;
+  if (username !== prevState.username) &#123;
+    return &#123;
+      username,
+    &#125;;
+  &#125;
+  return null;
+&#125;</code></pre>
 <h5 id="getSnapshotBeforeUpdate-prevProps-prevState"><a href="#getSnapshotBeforeUpdate-prevProps-prevState" class="headerlink" title="getSnapshotBeforeUpdate(prevProps, prevState)"></a>getSnapshotBeforeUpdate(prevProps, prevState)</h5><p><strong>触发时机：</strong></p>
 <p>在渲染后，<code>componentDidUpdate</code> 前调用。</p>
 <p><strong>解析：</strong></p>

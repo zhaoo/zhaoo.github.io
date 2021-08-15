@@ -211,7 +211,7 @@ BBR...">
           <i class="iconfont iconeye"></i><span id="/2017/09/27/ubuntu-install-bbr/" class="leancloud" data-flag-title="Ubuntu开启BBR加速"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1035</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1021</span>
     </div>
   </div>
 </section>
@@ -221,12 +221,10 @@ BBR...">
 <p>在最新内核的Linux系统上你默认配备BBR技术的。所以我们只需给老版本的系统升级最新内核，然后开启BBR即可。</p>
 <p>我的服务器是运行在阿里云上的Ubuntu 14.04。另外，据说采用OpenVZ虚拟技术的VPS不适合开启BBR，BUG多。</p>
 <h1 id="升级Ubuntu内核"><a href="#升级Ubuntu内核" class="headerlink" title="升级Ubuntu内核"></a>升级Ubuntu内核</h1><p>查看当前内核：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">uname -r<br></code></pre></td></tr></table></figure>
-
+<pre><code class="bash">uname -r</code></pre>
 <p>如果返回结果 &lt;= 4.9 的话，说明我们需要升级内核了。</p>
 <p>查看系统是32位还是64位：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">arch<br></code></pre></td></tr></table></figure>
-
+<pre><code class="bash">arch</code></pre>
 <p>我这是64位，待会儿有用。</p>
 <p><img  src="https://pic.izhaoo.com/20170927215315.jpg"  ><span class="image-caption">查看系统版本</span></p>
 <p>访问<a target="_blank" rel="noopener" href="http://kernel.ubuntu.com/~kernel-ppa/mainline/">Ubuntu内核网址</a> ，向下拉找到最新发行版，不推荐RC发行候选版哦，点击进入。</p>
@@ -234,23 +232,24 @@ BBR...">
 <p>然后根据你的系统版本找到内核下载地址。</p>
 <p><img  src="https://pic.izhaoo.com/20170927220209.jpg"  ><span class="image-caption">下载地址</span></p>
 <p>下载内核：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.13/linux-image-4.13.0-041300-generic_4.13.0-041300.201709031731_amd64.deb<br></code></pre></td></tr></table></figure>
-
+<pre><code class="bash">wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.13/linux-image-4.13.0-041300-generic_4.13.0-041300.201709031731_amd64.deb</code></pre>
 <p><img  src="https://pic.izhaoo.com/20170927220631.jpg"  ><span class="image-caption">下载内核</span></p>
 <p>安装内核：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dpkg -i linux-image-4.13.0-041300-generic_4.13.0-041300.201709031731_amd64.deb<br></code></pre></td></tr></table></figure>
-
+<pre><code class="bash">dpkg -i linux-image-4.13.0-041300-generic_4.13.0-041300.201709031731_amd64.deb</code></pre>
 <p><img  src="https://pic.izhaoo.com/20170927220809.jpg"  ><span class="image-caption">安装内核</span></p>
 <p>重启查看下内核：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">shutdown -r now<br><br>uname -r<br></code></pre></td></tr></table></figure>
+<pre><code class="bash">shutdown -r now
 
+uname -r</code></pre>
 <p>看到内核版本是最新了（&gt; 4.9），就可以开启BBR加速了。</p>
 <p><img  src="https://pic.izhaoo.com/20170927221102.jpg"  ><span class="image-caption">最新内核</span></p>
-<h1 id="开启BBR"><a href="#开启BBR" class="headerlink" title="开启BBR"></a>开启BBR</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;net.core.default_qdisc=fq&quot;</span> &gt;&gt; /etc/sysctl.conf<br><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;net.ipv4.tcp_congestion_control=bbr&quot;</span> &gt;&gt; /etc/sysctl.conf<br><br>sysctl -p<br></code></pre></td></tr></table></figure>
+<h1 id="开启BBR"><a href="#开启BBR" class="headerlink" title="开启BBR"></a>开启BBR</h1><pre><code class="bash">echo &quot;net.core.default_qdisc=fq&quot; &gt;&gt; /etc/sysctl.conf
 
+echo &quot;net.ipv4.tcp_congestion_control=bbr&quot; &gt;&gt; /etc/sysctl.conf
+
+sysctl -p</code></pre>
 <p>查看是否生效：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sysctl net.ipv4.tcp_available_congestion_control<br></code></pre></td></tr></table></figure>
-
+<pre><code class="bash">sysctl net.ipv4.tcp_available_congestion_control</code></pre>
 <p>若返回“net.ipv4.tcp_available_congestion_control = bbr cubic reno”说明成功了。</p>
 <p><img  src="https://pic.izhaoo.com/20170927221352.jpg"  ><span class="image-caption">开启BBR</span></p>
       </section>

@@ -211,29 +211,45 @@
           <i class="iconfont iconeye"></i><span id="/2021/08/01/code-note/" class="leancloud" data-flag-title="搬砖笔记"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2179</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3887</span>
     </div>
   </div>
 </section>
     <section class="main">
       <section class="content">
         <h3 id="子组件监听滚动"><a href="#子组件监听滚动" class="headerlink" title="子组件监听滚动"></a>子组件监听滚动</h3><p>React 子组件生命周期中 <em>addEventListener</em> 的时候，需要将第三个参数设置为 <code>true</code>。因为 React 对事件做了合成处理，子组件滚动是捕获事件，父组件滚动是冒泡事件。addEventListener 第三个参数默认为 <em>false</em>，只监听冒泡事件，所以子组件的捕获事件默认监听不到，需要改成 <em>true</em>。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript">useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&quot;scroll&quot;</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> &#123;top, bottom, left, right&#125; = e.target.getBoundingClientRect();<br>  &#125;, <span class="hljs-literal">true</span>);<br>&#125;, []);<br></code></pre></td></tr></table></figure>
-
+<pre><code class="javascript">useEffect(() =&gt; &#123;
+  window.addEventListener(&quot;scroll&quot;, (e) =&gt; &#123;
+    const &#123;top, bottom, left, right&#125; = e.target.getBoundingClientRect();
+  &#125;, true);
+&#125;, []);</code></pre>
 <h3 id="浮层禁止背景滚动"><a href="#浮层禁止背景滚动" class="headerlink" title="浮层禁止背景滚动"></a>浮层禁止背景滚动</h3><p><em>rxpi-pad</em> 浮动面板有个坑，面板滚动事件和背景滚动事件做了绑定，通过 <em>autoLockScrolling</em> 属性只能全部开启或关闭。一般我们需要让背景禁止滚动，而面板内容可以滚动，只能 hack 一下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript">useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> body = <span class="hljs-built_in">document</span>.body;<br>  <span class="hljs-keyword">if</span> (visible) &#123;<br>    body.style.overflow = <span class="hljs-string">&quot;hidden&quot;</span>;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    body.style.overflow = <span class="hljs-string">&quot;visible&quot;</span>;<br>  &#125;<br>&#125;, [visible]);<br></code></pre></td></tr></table></figure>
-
+<pre><code class="javascript">useEffect(() =&gt; &#123;
+  const body = document.body;
+  if (visible) &#123;
+    body.style.overflow = &quot;hidden&quot;;
+  &#125; else &#123;
+    body.style.overflow = &quot;visible&quot;;
+  &#125;
+&#125;, [visible]);</code></pre>
 <h3 id="在数组指定项插入数组"><a href="#在数组指定项插入数组" class="headerlink" title="在数组指定项插入数组"></a>在数组指定项插入数组</h3><p>JavaScript 中的 <em>splice</em> 只能在数组中删除或插入一个元素，而不能插入数组，可借助 <strong>apply</strong> 赋能。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> arr1 = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>]; <br><span class="hljs-keyword">const</span> arr2 = [<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>]; <br>arr2.unshift(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br><span class="hljs-built_in">Array</span>.prototype.splice.apply(arr1, arr2);<br><span class="hljs-built_in">console</span>.log(arr1)  <span class="hljs-comment">// [&quot;a&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;c&quot;]</span><br></code></pre></td></tr></table></figure>
-
+<pre><code class="javascript">const arr1 = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]; 
+const arr2 = [&#39;1&#39;, &#39;2&#39;, &#39;3&#39;]; 
+arr2.unshift(1, 1);
+Array.prototype.splice.apply(arr1, arr2);
+console.log(arr1)  // [&quot;a&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;c&quot;]</code></pre>
 <p>相当于：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> arr1 = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>]; <br><span class="hljs-keyword">const</span> arr2 = [<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>];<br>arr1.splice(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3’);</span><br></code></pre></td></tr></table></figure>
-
+<pre><code class="javascript">const arr1 = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]; 
+const arr2 = [&#39;1&#39;, &#39;2&#39;, &#39;3&#39;];
+arr1.splice(1, 1, &#39;1&#39;, &#39;2&#39;, &#39;3’);</code></pre>
 <h3 id="标签换行截断"><a href="#标签换行截断" class="headerlink" title="标签换行截断"></a>标签换行截断</h3><p>标签组都会设置一个宽度，当标签过多或过长时，最后一项会被“砍掉”，很尴尬。给容器设置一个固定高度和换行，将超出部分顶到第二行隐藏，干掉总比破掉好。</p>
 <p><img  src="https://pic.izhaoo.com/20210801001641.jpg"  ><span class="image-caption">超出截断</span></p>
 <p><img  src="https://pic.izhaoo.com/20210801001546.jpg"  ><span class="image-caption">超出隐藏</span></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.tags-wrapper</span> &#123;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">40</span>rpx;  <span class="hljs-comment">/* 标签高度 */</span><br>  <span class="hljs-attribute">flex-wrap</span>: wrap;<br>  <span class="hljs-attribute">overflow</span>: hidden;<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="css">.tags-wrapper &#123;
+  height: 40rpx;  /* 标签高度 */
+  flex-wrap: wrap;
+  overflow: hidden;
+&#125;</code></pre>
 <h3 id="iphoneX-适配"><a href="#iphoneX-适配" class="headerlink" title="iphoneX 适配"></a>iphoneX 适配</h3><p>iphoneX 这破手机就是反人类，丑得要死，给前端小哥哥烦的要死，适配 iphoneX 也是老生常谈的事。一次业务中遇到个非主流坑，淘宝端 iphoneX 底部会多出一块白条，其他客户端和机型都没问题。通过层级定位后发现这个白条是在容器外部产生的，甚至可能是客户端处。最后师兄一句 <code>height: 100vh</code> 解决。</p>
 <p>这不是 iphoneX 适配标准解法吗？？？</p>
 <p>666！！！</p>
@@ -247,12 +263,70 @@
 <li>constant(safe-area-inset-left)</li>
 <li>constant(safe-area-inset-right)</li>
 </ul>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.container</span> &#123;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-built_in">constant</span>(safe-area-inset-top) <span class="hljs-built_in">constant</span>(safe-area-inset-right) <span class="hljs-built_in">constant</span>(safe-area-inset-bottom) <span class="hljs-built_in">constant</span>(safe-area-inset-left);<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="css">.container &#123;
+  padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
+&#125;</code></pre>
 <p><strong>方案二</strong></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">position</span>: absolute;<br><span class="hljs-attribute">top</span>: ???;<br><span class="hljs-attribute">bottom</span>: ???;<br></code></pre></td></tr></table></figure>
-
+<pre><code class="css">position: absolute;
+top: ???;
+bottom: ???;</code></pre>
 <p>绝对定位一把梭，不服就干，怕过谁。劳资的代码只有 <strong>absolute</strong>！</p>
+<h3 id="useState-同步获取最新状态值"><a href="#useState-同步获取最新状态值" class="headerlink" title="useState 同步获取最新状态值"></a>useState 同步获取最新状态值</h3><p>React 中 <code>this.setState()</code> 的第二个参数可以传入一个回调函数用于获取实时更新后的状态值，例如：</p>
+<pre><code class="javascript">this.setState(&#123;
+  username: &#39;兆兆&#39;
+&#125;, () =&gt; &#123;
+  console.log(this.state.username);
+&#125;);</code></pre>
+<p>但是 Hooks 中的 useState 官方却把它干掉了，我们可以结合 useState、useRef、useEffect 来模拟一个：</p>
+<pre><code class="js">const useCallbackState = (state) =&gt; &#123;
+  const ref = useRef();
+  const [data, setData] = useState(state);
+
+  useEffect(() =&gt; &#123;
+    ref.current &amp;&amp; ref.current(data);
+  &#125;, [data]);
+
+  return [data, function (val, callback) &#123;
+    ref.current = callback;
+    setData(val);
+  &#125;];
+&#125;</code></pre>
+<p>似乎蕴含了点哲学：</p>
+<ul>
+<li>useState：异步存储数据</li>
+<li>useRef：同步缓存最新数据</li>
+<li>useEffect：监测数据状态变更</li>
+</ul>
+<h3 id="Taro-点击穿透"><a href="#Taro-点击穿透" class="headerlink" title="Taro 点击穿透"></a>Taro 点击穿透</h3><p>在使用 Taro 开发小程序时，被点击穿透坑了。背景如图，在一个评论浮层中点击输入框，点击事件会穿透到底部的浮层上，直接把浮层关了。Taro 文档汇总说明需要使用 <code>e.stopPropagation()</code> 代替小程序中的 <code>catchEvent</code>，然并卵。查看源码后发现，Taro 在编译过程中会直接将 <code>e.stopPropagation()</code> 转换为 <code>catchEvent</code> 打到 <code>wxml</code> 上，这套路…后来发现，在自定义组件中，这条逻辑不生效。解决方案是只需要在自定义组件外层再套一层 <code>View</code>，并加上 <code>e.stopPropagation()</code> 即可。</p>
+<p><img  src="https://pic.izhaoo.com/20210815123034.jpg"  ><span class="image-caption">评论浮层</span></p>
+<h3 id="forEach-异步调用"><a href="#forEach-异步调用" class="headerlink" title="forEach 异步调用"></a>forEach 异步调用</h3><p>最近开发的小程序发布评论提审被驳回了，需要接入安全风控中心。整个流程如下：1、首先通过 LeanCloud 接口获取获取存储在 BaaS 上的评论数据。2、遍历评论列表，将每条评论内容上传至云函数。3、通过审核接口获取内容敏感程度，剔除不正能量的内容。过程中多次使用 <code>forEach</code> 遍历，并且在遍历过程中调用了异步接口。<code>forEach</code> 本身是同步的，但是在遍历中如果调用了异步代码，并不会阻塞进程，很有可能还没拿到结果就执行了后续的代码。有如下解决方案：</p>
+<p><strong>内部同步，外部异步</strong></p>
+<pre><code class="javascript">comments.forEach(async (item, index) =&gt;&#123;
+  await secCheck(item);
+  filterRes(item);
+  return item;
+&#125;)</code></pre>
+<p><strong>内部异步，外部同步</strong></p>
+<pre><code class="javascript">const asyncFunc = [];
+comments.forEach((item, index) =&gt;&#123;
+  asyncFun.push(secCheck(item));
+  filterRes(item);
+&#125;)
+Promise.all(asyncFun).then((res) =&gt; &#123;
+  return res;
+&#125;);</code></pre>
+<p><strong>内部外部都同步</strong></p>
+<pre><code class="javascript">Promise.all(
+  comments.map( item =&gt;&#123;
+    return new Promise(async (resolve, reject) =&gt;&#123;
+      await secCheck(item);
+      filterRes(item);
+      resolve();
+    &#125;)
+  &#125;)
+).then((res) =&gt;&#123;
+  return res;
+&#125;)</code></pre>
       </section>
       <section class="extra">
         
@@ -327,7 +401,7 @@
           
   <aside class="toc-wrap">
     <h3 class="toc-title">文章目录：</h3>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9B%91%E5%90%AC%E6%BB%9A%E5%8A%A8"><span class="toc-text">子组件监听滚动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%AE%E5%B1%82%E7%A6%81%E6%AD%A2%E8%83%8C%E6%99%AF%E6%BB%9A%E5%8A%A8"><span class="toc-text">浮层禁止背景滚动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%95%B0%E7%BB%84%E6%8C%87%E5%AE%9A%E9%A1%B9%E6%8F%92%E5%85%A5%E6%95%B0%E7%BB%84"><span class="toc-text">在数组指定项插入数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E6%8D%A2%E8%A1%8C%E6%88%AA%E6%96%AD"><span class="toc-text">标签换行截断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iphoneX-%E9%80%82%E9%85%8D"><span class="toc-text">iphoneX 适配</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9B%91%E5%90%AC%E6%BB%9A%E5%8A%A8"><span class="toc-text">子组件监听滚动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%AE%E5%B1%82%E7%A6%81%E6%AD%A2%E8%83%8C%E6%99%AF%E6%BB%9A%E5%8A%A8"><span class="toc-text">浮层禁止背景滚动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%95%B0%E7%BB%84%E6%8C%87%E5%AE%9A%E9%A1%B9%E6%8F%92%E5%85%A5%E6%95%B0%E7%BB%84"><span class="toc-text">在数组指定项插入数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E6%8D%A2%E8%A1%8C%E6%88%AA%E6%96%AD"><span class="toc-text">标签换行截断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iphoneX-%E9%80%82%E9%85%8D"><span class="toc-text">iphoneX 适配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useState-%E5%90%8C%E6%AD%A5%E8%8E%B7%E5%8F%96%E6%9C%80%E6%96%B0%E7%8A%B6%E6%80%81%E5%80%BC"><span class="toc-text">useState 同步获取最新状态值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Taro-%E7%82%B9%E5%87%BB%E7%A9%BF%E9%80%8F"><span class="toc-text">Taro 点击穿透</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#forEach-%E5%BC%82%E6%AD%A5%E8%B0%83%E7%94%A8"><span class="toc-text">forEach 异步调用</span></a></li></ol>
   </aside>
 
         

@@ -211,7 +211,7 @@
           <i class="iconfont iconeye"></i><span id="/2019/12/28/algorithm-note/" class="leancloud" data-flag-title="算法笔记"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>6412</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>6276</span>
     </div>
   </div>
 </section>
@@ -219,27 +219,201 @@
       <section class="content">
         <p>&lt;封面摄于浙江·嵊州的四明山，山颠为冰雪覆盖，北欧的感觉。&gt;</p>
 <h3 id="分治算法"><a href="#分治算法" class="headerlink" title="分治算法"></a>分治算法</h3><h5 id="线性时间选择"><a href="#线性时间选择" class="headerlink" title="线性时间选择"></a>线性时间选择</h5><p>O(n)</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//随机线性选择（伪代码），O(n)</span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">partition</span> <span class="hljs-params">(Type a[], <span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> r)</span> </span>&#123;<br>  <span class="hljs-keyword">int</span> i = p, j = r+<span class="hljs-number">1</span><br>  Type x = a[p]    <span class="hljs-comment">//第一个元素为基准</span><br>  <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>    <span class="hljs-keyword">while</span> (a[++i] &lt; x &amp;&amp; i &lt; r)    <span class="hljs-comment">//左标兵向右</span><br>    <span class="hljs-keyword">while</span> (a[--j] &gt; x)    <span class="hljs-comment">//右标兵向左</span><br>    <span class="hljs-keyword">if</span> (i &gt;= j)<br>      <span class="hljs-keyword">break</span><br>    <span class="hljs-built_in">swap</span>(a[i], a[j])    <span class="hljs-comment">//交换位置</span><br>  &#125;<br>  a[p] = a[j]    <span class="hljs-comment">//第一个元素和最小数交换位置</span><br>  a[j] = x<br>  <span class="hljs-keyword">return</span> j    <span class="hljs-comment">//返回基准位置</span><br>&#125;<br><br><span class="hljs-keyword">int</span> <span class="hljs-built_in">randomizedPartition</span> (Type a[], <span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> r) &#123;<br>  <span class="hljs-keyword">int</span> i = <span class="hljs-built_in">random</span>(p, r)<br>  <span class="hljs-built_in">swap</span>(a[i], a[p])    <span class="hljs-comment">//将随机元素作为基准（第一个元素）</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">partition</span>(a, p, r)<br>&#125;<br><br>Type <span class="hljs-built_in">randomizedSelect</span>(Type a[], <span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> k) &#123;    <span class="hljs-comment">//第k小个元素</span><br>  <span class="hljs-keyword">if</span> (p == r)    <span class="hljs-comment">//只有一个元素</span><br>    <span class="hljs-keyword">return</span> a[p]<br>  <span class="hljs-keyword">int</span> i = <span class="hljs-built_in">randomizedPartition</span>(a, p ,r)    <span class="hljs-comment">//i为随机基准位置</span><br>  j = i-p+<span class="hljs-number">1</span>    <span class="hljs-comment">//计算数组a[p:i]个数（左边）</span><br>  <span class="hljs-keyword">if</span> (k &lt;= j)<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">randomizedSelect</span>(a, p, i, k)    <span class="hljs-comment">//落在左边</span><br>  <span class="hljs-keyword">else</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">randomizedSelect</span>(a, i+<span class="hljs-number">1</span>, r, k-j)    <span class="hljs-comment">//落在右边</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="c++">//随机线性选择（伪代码），O(n)
 
+int partition (Type a[], int p, int r) &#123;
+  int i = p, j = r+1
+  Type x = a[p]    //第一个元素为基准
+  while (true) &#123;
+    while (a[++i] &lt; x &amp;&amp; i &lt; r)    //左标兵向右
+    while (a[--j] &gt; x)    //右标兵向左
+    if (i &gt;= j)
+      break
+    swap(a[i], a[j])    //交换位置
+  &#125;
+  a[p] = a[j]    //第一个元素和最小数交换位置
+  a[j] = x
+  return j    //返回基准位置
+&#125;
+
+int randomizedPartition (Type a[], int p, int r) &#123;
+  int i = random(p, r)
+  swap(a[i], a[p])    //将随机元素作为基准（第一个元素）
+  return partition(a, p, r)
+&#125;
+
+Type randomizedSelect(Type a[], int p, int r, int k) &#123;    //第k小个元素
+  if (p == r)    //只有一个元素
+    return a[p]
+  int i = randomizedPartition(a, p ,r)    //i为随机基准位置
+  j = i-p+1    //计算数组a[p:i]个数（左边）
+  if (k &lt;= j)
+    return randomizedSelect(a, p, i, k)    //落在左边
+  else
+    return randomizedSelect(a, i+1, r, k-j)    //落在右边
+&#125;</code></pre>
 <h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><h5 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h5><p>O(n)</p>
 <blockquote>
 <p>参考：<a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/714964?spm=a2c4e.11153940.0.0.16233fa9KjyGn1&type=2">算法题之动态规划-01背包问题</a></p>
 </blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">knapsack</span><span class="hljs-params">(Type v, <span class="hljs-keyword">int</span> w, <span class="hljs-keyword">int</span> c, <span class="hljs-keyword">int</span> n, Type **m)</span> </span>&#123;     <span class="hljs-comment">//价值，重量，容量，数量，矩阵</span><br>  <span class="hljs-keyword">int</span> jMax = <span class="hljs-built_in">min</span>(w[n]<span class="hljs-number">-1</span>, c)<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt;= jMax; j++)<br>      m[n][j] = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = w[n]; j &lt;= c; j++)<br>      m[n][j] = v[n]<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = n<span class="hljs-number">-1</span>; i &gt; <span class="hljs-number">1</span>; i==) &#123;<br>      jMax = <span class="hljs-built_in">min</span>(w[i] - <span class="hljs-number">1</span>, c)<br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt;= jMax; j++)<br>        m[i][j] = m[i+<span class="hljs-number">1</span>][j]<br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j =w [i]; j &lt;= c; j++)<br>        m[i][j] = <span class="hljs-built_in">max</span>(m[<span class="hljs-number">1</span>][c], m[<span class="hljs-number">2</span>][c-w[<span class="hljs-number">1</span>]]+v[i])<br>      m[<span class="hljs-number">1</span>][c] = m[<span class="hljs-number">2</span>][c]<br>      <span class="hljs-keyword">if</span> (c &gt;= w[<span class="hljs-number">1</span>])<br>        m[<span class="hljs-number">1</span>][c] = <span class="hljs-built_in">max</span>(m[<span class="hljs-number">1</span>][c], m[<span class="hljs-number">2</span>][c-w[<span class="hljs-number">1</span>]]+v[<span class="hljs-number">1</span>])<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="c++">void knapsack(Type v, int w, int c, int n, Type **m) &#123;     //价值，重量，容量，数量，矩阵
+  int jMax = min(w[n]-1, c)
+    for (int j = 0; j &lt;= jMax; j++)
+      m[n][j] = 0
+    for (int j = w[n]; j &lt;= c; j++)
+      m[n][j] = v[n]
+    for (int i = n-1; i &gt; 1; i==) &#123;
+      jMax = min(w[i] - 1, c)
+      for (int j = 0; j &lt;= jMax; j++)
+        m[i][j] = m[i+1][j]
+      for (int j =w [i]; j &lt;= c; j++)
+        m[i][j] = max(m[1][c], m[2][c-w[1]]+v[i])
+      m[1][c] = m[2][c]
+      if (c &gt;= w[1])
+        m[1][c] = max(m[1][c], m[2][c-w[1]]+v[1])
+    &#125;
+&#125;</code></pre>
+<pre><code class="javascript">// 01背包问题，动态规划，O(n)
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 01背包问题，动态规划，O(n)</span><br><br><span class="hljs-keyword">var</span> knapsack = &#123;<br>  <span class="hljs-attr">getMaxValue</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">weight, value, n, w</span>) </span>&#123;    <span class="hljs-comment">//各物品重量，各物品价值，物品数量，背包容量</span><br>    <span class="hljs-keyword">var</span> table = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(n)<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; table.length; i++) &#123;<br>      table[i] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(w)<br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; table[i].length; j++)<br>        table[i][j] = <span class="hljs-number">0</span><br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">1</span>; i &lt; n; i++) &#123;    <span class="hljs-comment">//物品数量</span><br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">1</span>; j &lt; w; j++) &#123;    <span class="hljs-comment">//背包容量</span><br>        <span class="hljs-keyword">if</span> (weight[i] &gt; j)<br>          table[i][j] = table[i - <span class="hljs-number">1</span>][j]    <span class="hljs-comment">//装不下(物品价值大于背包容量)</span><br>        <span class="hljs-keyword">else</span><br>          table[i][j] = <span class="hljs-built_in">Math</span>.max(table[i - <span class="hljs-number">1</span>][j], table[i - <span class="hljs-number">1</span>][j - weight[i]] + value[i])    <span class="hljs-comment">//装得下(max&#123;装，不装&#125;)</span><br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> table[n-<span class="hljs-number">1</span>][w-<span class="hljs-number">1</span>]<br>  &#125;,<br>  <span class="hljs-attr">main</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">var</span> weight = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-number">6</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>)<br>    <span class="hljs-keyword">var</span> value = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">6</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4</span>)<br>    <span class="hljs-keyword">var</span> n = <span class="hljs-number">5</span>,<br>      w = <span class="hljs-number">10</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.getMaxValue(weight, value, n, w)<br>  &#125;<br>&#125;<br><span class="hljs-built_in">console</span>.log(knapsack.main())<br></code></pre></td></tr></table></figure>
+var knapsack = &#123;
+  getMaxValue: function (weight, value, n, w) &#123;    //各物品重量，各物品价值，物品数量，背包容量
+    var table = new Array(n)
+    for (var i = 0; i &lt; table.length; i++) &#123;
+      table[i] = new Array(w)
+      for (var j = 0; j &lt; table[i].length; j++)
+        table[i][j] = 0
+    &#125;
+    for (var i = 1; i &lt; n; i++) &#123;    //物品数量
+      for (var j = 1; j &lt; w; j++) &#123;    //背包容量
+        if (weight[i] &gt; j)
+          table[i][j] = table[i - 1][j]    //装不下(物品价值大于背包容量)
+        else
+          table[i][j] = Math.max(table[i - 1][j], table[i - 1][j - weight[i]] + value[i])    //装得下(max&#123;装，不装&#125;)
+      &#125;
+    &#125;
+    return table[n-1][w-1]
+  &#125;,
+  main: function () &#123;
+    var weight = new Array(6, 3, 5, 4, 6)
+    var value = new Array(2, 2, 6, 5, 4)
+    var n = 5,
+      w = 10
+    return this.getMaxValue(weight, value, n, w)
+  &#125;
+&#125;
+console.log(knapsack.main())</code></pre>
+<h3 id="回溯法"><a href="#回溯法" class="headerlink" title="回溯法"></a>回溯法</h3><h5 id="n皇后问题"><a href="#n皇后问题" class="headerlink" title="n皇后问题"></a>n皇后问题</h5><pre><code class="c++">bool place(int t) &#123;
+    for (int i; i &lt; t; i++)
+    if ((x[i] == x[t]) || (abs(t-i) == abs(x[t]-x[i])))
+      return false
+  return true
+&#125;
 
-<h3 id="回溯法"><a href="#回溯法" class="headerlink" title="回溯法"></a>回溯法</h3><h5 id="n皇后问题"><a href="#n皇后问题" class="headerlink" title="n皇后问题"></a>n皇后问题</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">place</span><span class="hljs-params">(<span class="hljs-keyword">int</span> t)</span> </span>&#123;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i; i &lt; t; i++)<br>    <span class="hljs-keyword">if</span> ((x[i] == x[t]) || (<span class="hljs-built_in">abs</span>(t-i) == <span class="hljs-built_in">abs</span>(x[t]-x[i])))<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br><br><span class="hljs-keyword">void</span> <span class="hljs-built_in">backtrack</span>(<span class="hljs-keyword">int</span> t) &#123;<br>  <span class="hljs-keyword">if</span> (t &gt; n)<br>    sum++<br>  <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i; i &lt; n; i++) &#123;<br>      x[t] = i    <span class="hljs-comment">//关键</span><br>      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">place</span>(t))<br>        <span class="hljs-built_in">backtrack</span>(t+<span class="hljs-number">1</span>)<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+void backtrack(int t) &#123;
+  if (t &gt; n)
+    sum++
+  else &#123;
+    for (int i; i &lt; n; i++) &#123;
+      x[t] = i    //关键
+      if (place(t))
+        backtrack(t+1)
+    &#125;
+  &#125;
+&#125;</code></pre>
+<pre><code class="javascript">//n皇后问题，回溯法
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//n皇后问题，回溯法</span><br><br><span class="hljs-keyword">var</span> n = <span class="hljs-number">4</span><br><span class="hljs-keyword">var</span> x = []<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">place</span>(<span class="hljs-params">t</span>) </span>&#123;    <span class="hljs-comment">//判断第t个皇后能否放在第i个位置</span><br>  <span class="hljs-keyword">var</span> flag = <span class="hljs-literal">true</span><br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; t; j++) &#123;<br>    <span class="hljs-keyword">if</span> (x[t] === x[j] || t - j === <span class="hljs-built_in">Math</span>.abs(x[t] - x[j])) &#123;    <span class="hljs-comment">//判断与竖、撇捺是否有冲突</span><br>      flag = <span class="hljs-literal">false</span><br>      <span class="hljs-keyword">break</span><br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> flag<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">backtrack</span>(<span class="hljs-params">t</span>) </span>&#123;<br>  <span class="hljs-keyword">if</span> (t === n) &#123;    <span class="hljs-comment">//当前位置到了叶节点输出一个解</span><br>    <span class="hljs-built_in">console</span>.log(x)<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>      x[t] = i<br>      <span class="hljs-keyword">if</span> (place(t)) &#123;<br>        queen(t + <span class="hljs-number">1</span>)    <span class="hljs-comment">//不冲突进行下一行搜索</span><br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br>backtrack(<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
-
+var n = 4
+var x = []
+function place(t) &#123;    //判断第t个皇后能否放在第i个位置
+  var flag = true
+  for (var j = 0; j &lt; t; j++) &#123;
+    if (x[t] === x[j] || t - j === Math.abs(x[t] - x[j])) &#123;    //判断与竖、撇捺是否有冲突
+      flag = false
+      break
+    &#125;
+  &#125;
+  return flag
+&#125;
+function backtrack(t) &#123;
+  if (t === n) &#123;    //当前位置到了叶节点输出一个解
+    console.log(x)
+  &#125; else &#123;
+    for (var i = 0; i &lt; n; i++) &#123;
+      x[t] = i
+      if (place(t)) &#123;
+        queen(t + 1)    //不冲突进行下一行搜索
+      &#125;
+    &#125;
+  &#125;
+&#125;
+backtrack(0)</code></pre>
 <h3 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h3><h5 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h5><p>O(n^2)</p>
 <p>MST性质（最小生成树定义）：假设G=(V, E)是一个连通网，U 是顶点集V的真子集。若(u, v )是一条具有最小权值的边，其中u∈U， v∈V-U，则必存在一棵包含边(u, v)的最小生成树。</p>
 <p>MST性质证明：假设G的任何一颗最小生成树都不含边(u, v)。将边(u, v)添加到G的一颗最小生成树上，将产生含有边(u, v)的圈，并且在这个圈上有一条不同于(u, v)的边(u’, v’)，使得u’∈U，v’∈V-U。将这条边(u’, v’)删去，得到G的另一颗生成树T’。因为c[u][v]&lt;=c[u’][v’]，所以T’的耗费&lt;=T的耗费。于是T’是一颗含有边(u, v)的最小生成树，与原假设矛盾，即证明MST成立。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">prim</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, Type **c)</span> </span>&#123;<br>  Type lowcost[maxint]<br>  <span class="hljs-keyword">int</span> closet[maxint]<br>  <span class="hljs-keyword">bool</span> s[maxint]<br>  s[<span class="hljs-number">1</span>] = <span class="hljs-literal">true</span><br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++) &#123;<br>    lowcost[i] = c[<span class="hljs-number">1</span>][i]<br>    closet[i] = <span class="hljs-number">1</span><br>    s[i] = <span class="hljs-literal">false</span><br>  &#125;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++) &#123;<br>    Type min = INF<br>    <span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">2</span>; k &lt;= n; k++) &#123;<br>      <span class="hljs-keyword">if</span> ((lowcost[k] &lt; min) &amp;&amp; (!s[k])) &#123;<br>        min = lowcost[k]<br>        j = k<br>      &#125;<br>    &#125;<br>    s[j] = <span class="hljs-literal">true</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">2</span>; k &lt;= n; k++) &#123;<br>      <span class="hljs-keyword">if</span> ((c[j][k] &lt; <span class="hljs-built_in">lowcost</span>(k)) &amp;&amp; (!s[k])) &#123;<br>        lowcost[k] = c[j][k]<br>        closet[k] = j<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="c++">void prim(int n, Type **c) &#123;
+  Type lowcost[maxint]
+  int closet[maxint]
+  bool s[maxint]
+  s[1] = true
+  for (int i = 2; i &lt;= n; i++) &#123;
+    lowcost[i] = c[1][i]
+    closet[i] = 1
+    s[i] = false
+  &#125;
+  for (int i = 1; i &lt; n; i++) &#123;
+    Type min = INF
+    int j = 1
+    for (int k = 2; k &lt;= n; k++) &#123;
+      if ((lowcost[k] &lt; min) &amp;&amp; (!s[k])) &#123;
+        min = lowcost[k]
+        j = k
+      &#125;
+    &#125;
+    s[j] = true
+    for (int k = 2; k &lt;= n; k++) &#123;
+      if ((c[j][k] &lt; lowcost(k)) &amp;&amp; (!s[k])) &#123;
+        lowcost[k] = c[j][k]
+        closet[k] = j
+      &#125;
+    &#125;
+  &#125;
+&#125;</code></pre>
+<pre><code class="javascript">//最小生成树，prim算法（伪代码）
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//最小生成树，prim算法（伪代码）</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">prim</span>(<span class="hljs-params">int n, int u0, int c[N][N]</span>) </span>&#123;<br>  s[u0] = <span class="hljs-literal">true</span>    <span class="hljs-comment">//第一个点在U内</span><br>  <span class="hljs-comment">//初始化</span><br>  <span class="hljs-keyword">for</span> (int i; i &lt; n; i++) &#123;<br>    <span class="hljs-keyword">if</span> (i !== u0) &#123;<br>      lowcost[i] = c[u0][i]    <span class="hljs-comment">//最近权为到u0的权</span><br>      closet[i] = u0    <span class="hljs-comment">//最近点为u0</span><br>      s[i] = <span class="hljs-literal">false</span>    <span class="hljs-comment">//不在U内</span><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      lowcost[i] = <span class="hljs-number">0</span><br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">for</span> (int i = <span class="hljs-number">1</span>; i &lt; n; i++) &#123;<br>    int temp = INF    <span class="hljs-comment">//权</span><br>    int t = u0<br>    <span class="hljs-keyword">for</span> (int j = <span class="hljs-number">1</span>; j &lt; n; j++) &#123;<br>      <span class="hljs-keyword">if</span> ((!s[j]) &amp;&amp; (lowcost[j] &lt; temp)) &#123;    <span class="hljs-comment">//不在U内且权更小</span><br>        t = j<br>        temp = lowcost[j]<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (t === u0)    <span class="hljs-comment">//找不到最小路径点</span><br>      <span class="hljs-keyword">break</span><br>    s[t] = <span class="hljs-literal">true</span>    <span class="hljs-comment">//加入U</span><br>    <span class="hljs-comment">//更新lowcost和closet</span><br>    <span class="hljs-keyword">for</span> (int j = <span class="hljs-number">1</span>; j &lt;= n; j++) &#123;<br>      <span class="hljs-keyword">if</span> ((!s[j]) &amp;&amp; (c[t][j] &lt; lowcost[j])) &#123;    <span class="hljs-comment">//不在U内且t到j的权小于最短权</span><br>        lowcost[j] = c[t][j]<br>        closest[j] = t<br>      &#125;<br>    &#125;<br>  &#125;<br>  <span class="hljs-comment">//最小费用为lowcost之和</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
+function prim(int n, int u0, int c[N][N]) &#123;
+  s[u0] = true    //第一个点在U内
+  //初始化
+  for (int i; i &lt; n; i++) &#123;
+    if (i !== u0) &#123;
+      lowcost[i] = c[u0][i]    //最近权为到u0的权
+      closet[i] = u0    //最近点为u0
+      s[i] = false    //不在U内
+    &#125; else &#123;
+      lowcost[i] = 0
+    &#125;
+  &#125;
+  for (int i = 1; i &lt; n; i++) &#123;
+    int temp = INF    //权
+    int t = u0
+    for (int j = 1; j &lt; n; j++) &#123;
+      if ((!s[j]) &amp;&amp; (lowcost[j] &lt; temp)) &#123;    //不在U内且权更小
+        t = j
+        temp = lowcost[j]
+      &#125;
+    &#125;
+    if (t === u0)    //找不到最小路径点
+      break
+    s[t] = true    //加入U
+    //更新lowcost和closet
+    for (int j = 1; j &lt;= n; j++) &#123;
+      if ((!s[j]) &amp;&amp; (c[t][j] &lt; lowcost[j])) &#123;    //不在U内且t到j的权小于最短权
+        lowcost[j] = c[t][j]
+        closest[j] = t
+      &#125;
+    &#125;
+  &#125;
+  //最小费用为lowcost之和
+&#125;</code></pre>
 <h3 id="排序算法比较"><a href="#排序算法比较" class="headerlink" title="排序算法比较"></a>排序算法比较</h3><table>
 <thead>
 <tr>
