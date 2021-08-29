@@ -208,7 +208,7 @@
           <i class="iconfont iconeye"></i><span id="/2021/01/27/deploy-openfaas-on-mac/" class="leancloud" data-flag-title="Mac OS 部署 OpenFaas"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2444</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2437</span>
     </div>
   </div>
 </section>
@@ -224,17 +224,8 @@
 <p>设置硬件配置，建议将内存设置为大于 4GB。</p>
 <p><img  src="https://pic.izhaoo.com/20210127203750.jpg"  ><span class="image-caption">设置硬件</span></p>
 <p>设置镜像源加速下载：</p>
-<pre><code class="json">&#123;
-  &quot;debug&quot;: true,
-  &quot;experimental&quot;: false,
-  &quot;registry-mirrors&quot;: [
-    &quot;https://reg-mirror.qiniu.com&quot;,
-    &quot;https://docker.mirrors.ustc.edu.cn&quot;,
-    &quot;https://dockerhub.azk8s.cn&quot;,
-    &quot;https://hub-mirror.c.163.com&quot;,
-    &quot;https://registry.docker-cn.com&quot;
-  ]
-&#125;</code></pre>
+<figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;debug&quot;</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-attr">&quot;experimental&quot;</span>: <span class="hljs-literal">false</span>,<br>  <span class="hljs-attr">&quot;registry-mirrors&quot;</span>: [<br>    <span class="hljs-string">&quot;https://reg-mirror.qiniu.com&quot;</span>,<br>    <span class="hljs-string">&quot;https://docker.mirrors.ustc.edu.cn&quot;</span>,<br>    <span class="hljs-string">&quot;https://dockerhub.azk8s.cn&quot;</span>,<br>    <span class="hljs-string">&quot;https://hub-mirror.c.163.com&quot;</span>,<br>    <span class="hljs-string">&quot;https://registry.docker-cn.com&quot;</span><br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
 <p><img  src="https://pic.izhaoo.com/20210127203823.jpg"  ><span class="image-caption">设置镜像源</span></p>
 <p>注意：不要在此处一键安装 Kubernets，会因为缺少依赖跑不起来，后面我们单独安装。</p>
 <h3 id="安装-Kubernets"><a href="#安装-Kubernets" class="headerlink" title="安装 Kubernets"></a>安装 Kubernets</h3><p>这里我们使用阿里云的脚本一键安装 Kubernets。</p>
@@ -242,53 +233,55 @@
 <p>需要在 Docker-Desktop 中查看 Kubernets 的版本，我这里是 <em>v1.19.3</em>。</p>
 <p><img  src="https://pic.izhaoo.com/20210127215825.jpg"  ><span class="image-caption">查看 Kubernets 版本</span></p>
 <p>然后将分支切换到对应的版本，下载脚本并执行如下命令。</p>
-<pre><code class="bash">cd k8s-for-docker-desktop  # 进入脚本目录
-chmod +x ./load_images.sh  # 赋予权限
-./load_images.sh  # 执行安装脚本</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> k8s-for-docker-desktop  <span class="hljs-comment"># 进入脚本目录</span><br>chmod +x ./load_images.sh  <span class="hljs-comment"># 赋予权限</span><br>./load_images.sh  <span class="hljs-comment"># 执行安装脚本</span><br></code></pre></td></tr></table></figure>
+
 <p>稍等片刻后安装完成。此时我们在 Docker-Desktop 中设置【开启 Kubernets】，重启 Docker 即可。</p>
 <p><img  src="https://pic.izhaoo.com/20210127220650.jpg"  ><span class="image-caption">开启 Kubernets</span></p>
 <p><img  src="https://pic.izhaoo.com/20210127220723.jpg"  ><span class="image-caption">重启 Docker</span></p>
 <h3 id="安装-OpenFaas"><a href="#安装-OpenFaas" class="headerlink" title="安装 OpenFaas"></a>安装 OpenFaas</h3><p>执行以下命令安装 OpenFaas：</p>
 <p><strong>命名空间</strong></p>
-<pre><code class="bash">git clone https://github.com/openfaas/faas-netes  # 克隆源码
-cd faas-netes  # 进入目录
-kubectl apply -f namespaces.yml  # 应用命名空间</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/openfaas/faas-netes  <span class="hljs-comment"># 克隆源码</span><br><span class="hljs-built_in">cd</span> faas-netes  <span class="hljs-comment"># 进入目录</span><br>kubectl apply -f namespaces.yml  <span class="hljs-comment"># 应用命名空间</span><br></code></pre></td></tr></table></figure>
+
 <p><strong>设置账号</strong></p>
 <p>将以下脚本保存为 <code>pwd.sh</code> 文件并执行，设置用户名和密码。</p>
-<pre><code class="sh">kubectl -n openfaas create secret generic basic-auth \
---from-literal=basic-auth-user=admin \  # 用户名 admin
---from-literal=basic-auth-password=admin  # 密码 admin</code></pre>
-<pre><code class="bash">chmod +x ./pws.sh  # 赋予权限
-./pwd.sh  # 执行安装脚本</code></pre>
-<p><strong>部署应用</strong></p>
-<pre><code class="bash">kubectl apply -f ./yaml  #部署应用
-kubectl get pods -n openfaas  #查看应用运行状态
+<figure class="highlight sh"><table><tr><td class="code"><pre><code class="hljs sh">kubectl -n openfaas create secret generic basic-auth \<br>--from-literal=basic-auth-user=admin \  <span class="hljs-comment"># 用户名 admin</span><br>--from-literal=basic-auth-password=admin  <span class="hljs-comment"># 密码 admin</span><br></code></pre></td></tr></table></figure>
 
-# 当应用全部启动（Running）时表示安装成功</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">chmod +x ./pws.sh  <span class="hljs-comment"># 赋予权限</span><br>./pwd.sh  <span class="hljs-comment"># 执行安装脚本</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>部署应用</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">kubectl apply -f ./yaml  <span class="hljs-comment">#部署应用</span><br>kubectl get pods -n openfaas  <span class="hljs-comment">#查看应用运行状态</span><br><br><span class="hljs-comment"># 当应用全部启动（Running）时表示安装成功</span><br></code></pre></td></tr></table></figure>
+
 <p>此时浏览器访问 <code>http://127.0.0.1:31112</code> 输入用户名密码，即可进入 <em>Web GUI</em>。可在该页面部署函数，系统也自带了一些实例函数。</p>
 <p><img  src="https://pic.izhaoo.com/20210127221825.jpg"  ><span class="image-caption">Web GUI</span></p>
 <h3 id="安装-OpenFaas-CLI"><a href="#安装-OpenFaas-CLI" class="headerlink" title="安装 OpenFaas-CLI"></a>安装 OpenFaas-CLI</h3><p>在实际开发中使用 <em>GUI</em> 并不是很方便，接下来我们安装 <em>CLI</em>，以命令行的形式部署函数。</p>
 <p>Mac 中可以使用 <em>brew</em> 一键安装 openfaas-cli：</p>
-<pre><code class="bash">brew install openfass-cli  # 使用 brew 安装</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">brew install openfass-cli  <span class="hljs-comment"># 使用 brew 安装</span><br></code></pre></td></tr></table></figure>
+
 <p>也可以使用在线脚本安装：</p>
-<pre><code class="bash">curl -sSL https://cli.openfaas.com | sudo sh  # 使用在线脚本安装</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">curl -sSL https://cli.openfaas.com | sudo sh  <span class="hljs-comment"># 使用在线脚本安装</span><br></code></pre></td></tr></table></figure>
+
 <p>测试一下是否安装成功：</p>
-<pre><code class="bash">fass-cli help # 打印帮助文档</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">fass-cli <span class="hljs-built_in">help</span> <span class="hljs-comment"># 打印帮助文档</span><br></code></pre></td></tr></table></figure>
+
 <h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>接下来部署一个名为 <em>hello</em> 的 Node.js 函数作为示例。</p>
 <p>首先先我们去 <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a> 注册一个账号。</p>
 <p><strong>创建函数</strong></p>
-<pre><code class="bash">faas-cli new hello --lang node12 -p zhaoo  # 创建函数</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">faas-cli new hello --lang node12 -p zhaoo  <span class="hljs-comment"># 创建函数</span><br></code></pre></td></tr></table></figure>
+
 <p><code>--lang node12</code> 表示使用 Node v12，可以使用 <code>faas-cli template store list</code> 打印所有语言模板。<br><code>-p</code> 表示命名前缀，使用刚才创建的 <em>Docker Hub</em> 的用户名即可。</p>
 <p><strong>构建函数</strong></p>
 <p>函数安装生成环境的依赖并打包构建。</p>
-<pre><code class="bash">faas-cli build -f hello.yml  # 构建函数</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">faas-cli build -f hello.yml  <span class="hljs-comment"># 构建函数</span><br></code></pre></td></tr></table></figure>
+
 <p><strong>推送函数</strong></p>
 <p>将构建好的函数推送到 <em>Docker Hub</em> 仓库。</p>
-<pre><code class="bash">faas-cli push -f hello.yml  # 推送函数</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">faas-cli push -f hello.yml  <span class="hljs-comment"># 推送函数</span><br></code></pre></td></tr></table></figure>
+
 <p>推送完成后可在 <a target="_blank" rel="noopener" href="https://hub.docker.com/repositories">Docker Hub 仓库</a> 中查看。</p>
 <p><strong>部署函数</strong></p>
 <p>从 <em>Docker Hub</em> 仓库中拉取函数源码并部署到生产环境，这里的环境就是本地。</p>
-<pre><code class="bash">faas-cli deploy  # 部署函数</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">faas-cli deploy  <span class="hljs-comment"># 部署函数</span><br></code></pre></td></tr></table></figure>
+
 <p>部署完成后可以通过 <em>Web GUI</em> 查看到我们部署的函数，点击 <em>INVOKE</em> 按钮可调用函数。</p>
       </section>
       <section class="extra">

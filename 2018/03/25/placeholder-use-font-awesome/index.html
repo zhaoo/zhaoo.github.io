@@ -217,9 +217,8 @@
         <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>最近在写一个后台登陆页面，构思在帐号密码输入框的占位符内添加一个<code>Font-awesome</code>图标文字。（如图）</p>
 <p><img  src="https://pic.izhaoo.com/20180325203555.jpg"  ><span class="image-caption">表单</span></p>
 <p>可是呢，占位符文本是定义在<code>placeholder=&quot;&quot;</code>这个属性里的。而<code>Font-awesome</code>呢又是用<code>&lt;li&gt;</code>标签加<code>class=&quot;fa&quot;</code>类来实现的。所以这个带<code>class</code>的<code>&lt;li&gt;</code>标签就没法插到<code>placeholder</code>里去了。 </p>
-<pre><code class="html">&lt;input type=&quot;text&quot; class=&quot;text&quot; placeholder=&quot;用户名&quot;&gt;
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;用户名&quot;</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;fa fa-user&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
-&lt;i class=&quot;fa fa-user&quot;&gt;&lt;/i&gt;</code></pre>
 <h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>查了资料后找到了阿里的<code>IconFont</code>，也是一个图标字体框架。和<code>Font-awesome</code>不同的是，<code>IconFont</code>提供了多种引用方式。这里我们就通过<code>unicode</code>引用方式将图标文字插入到表单占位符中。</p>
 <ol>
 <li>首先我们选择几个心仪的图标加入到自己的项目中。值得一提的时图标库中也有<code>Font-awesome</code>图标哦。</li>
@@ -229,7 +228,8 @@
 <li>然后在<code>placeholder</code>的值中插入对应图标的<code>unicode</code>即可。</li>
 </ol>
 <p><img  src="https://pic.izhaoo.com/20180325205512.jpg"  ><span class="image-caption">iconfont</span></p>
-<pre><code class="html">&lt;input type=&quot;text&quot; class=&quot;text&quot; placeholder=&quot;&amp;#xe751;&amp;nbsp;用户名&quot;&gt;</code></pre>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;<span class="hljs-symbol">&amp;#xe751;</span><span class="hljs-symbol">&amp;nbsp;</span>用户名&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>最后总结一下 <code>IconFont</code>的优点：</p>
 <ol>
 <li>有多种应用方式，可以应对不同情况引入图标字体。</li>

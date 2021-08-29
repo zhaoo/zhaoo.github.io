@@ -208,7 +208,7 @@
           <i class="iconfont iconeye"></i><span id="/2021/08/29/hexo-webhook/" class="leancloud" data-flag-title="Hexo - 自动部署博客"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1704</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1686</span>
     </div>
   </div>
 </section>
@@ -217,42 +217,10 @@
         <p>兆兆博客部署在宝塔面板上，每次部署时都要登录面板、上传文件，贼麻烦。燃鹅每次都忍了…终于有一天，忍无可忍了！</p>
 <p>比较方便的方式可以通过 GitHub-Webhooks 设置钩子，在向 GitHub 远程仓库提交代码时，使用 webhook 向服务器发送请求，自动拉取代码更新博客。</p>
 <p>在服务器的 <code>webroot</code> 目录下新建两个文件：</p>
-<pre><code class="javascript">// webhook.js
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// webhook.js</span><br><br><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>);<br><span class="hljs-keyword">const</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;util&#x27;</span>);<br><span class="hljs-keyword">const</span> child_process = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>);<br><br><span class="hljs-keyword">const</span> exec = util.promisify(child_process.exec);<br><span class="hljs-keyword">const</span> port = <span class="hljs-number">3000</span>;  <span class="hljs-comment">//配置端口</span><br><span class="hljs-keyword">const</span> host = <span class="hljs-string">&#x27;localhost&#x27;</span>;  <span class="hljs-comment">//配置域名</span><br><span class="hljs-keyword">const</span> matchUrl = <span class="hljs-string">&#x27;/webhook&#x27;</span>;  <span class="hljs-comment">//配置路由</span><br><br><span class="hljs-keyword">const</span> server = http<br>  .createServer(<span class="hljs-keyword">async</span> (request, response) =&gt; &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-keyword">const</span> url = request.url;<br>      <span class="hljs-keyword">if</span> (url === matchUrl) &#123;<br>        <span class="hljs-keyword">await</span> exec(<span class="hljs-string">&#x27;sh webhook.sh&#x27;</span>);  <span class="hljs-comment">//执行当前目录下的脚本</span><br>        response.write(<span class="hljs-string">&#x27;Hexo webhook executed successfully&#x27;</span>);<br>        response.end();<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        response.write(<span class="hljs-string">`Hexo webhook running at: http://<span class="hljs-subst">$&#123;host&#125;</span>:<span class="hljs-subst">$&#123;port&#125;</span><span class="hljs-subst">$&#123;matchUrl&#125;</span>`</span>);<br>        response.end();<br>      &#125;<br>    &#125; <span class="hljs-keyword">catch</span> (e) &#123;<br>      <span class="hljs-built_in">console</span>.error(e);<br>    &#125;<br>  &#125;)<br>  .listen(port, host, <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Hexo webhook running at: http://<span class="hljs-subst">$&#123;host&#125;</span>:<span class="hljs-subst">$&#123;port&#125;</span><span class="hljs-subst">$&#123;matchUrl&#125;</span>`</span>);<br>  &#125;);<br></code></pre></td></tr></table></figure>
 
-const http = require(&#39;http&#39;);
-const util = require(&#39;util&#39;);
-const child_process = require(&#39;child_process&#39;);
+<figure class="highlight sh"><table><tr><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># webhook.sh</span><br><span class="hljs-comment">#!/usr/bin/env bash</span><br><br>rm -rf ~/www/wwwroot/zhaoo/*<br><span class="hljs-built_in">cd</span> ~/www/wwwroot/zhaoo/<br>git pull https://github.com/zhaoo/zhaoo.github.io.git<br></code></pre></td></tr></table></figure>
 
-const exec = util.promisify(child_process.exec);
-const port = 3000;  //配置端口
-const host = &#39;localhost&#39;;  //配置域名
-const matchUrl = &#39;/webhook&#39;;  //配置路由
-
-const server = http
-  .createServer(async (request, response) =&gt; &#123;
-    try &#123;
-      const url = request.url;
-      if (url === matchUrl) &#123;
-        await exec(&#39;sh webhook.sh&#39;);  //执行当前目录下的脚本
-        response.write(&#39;Hexo webhook executed successfully&#39;);
-        response.end();
-      &#125; else &#123;
-        response.write(`Hexo webhook running at: http://$&#123;host&#125;:$&#123;port&#125;$&#123;matchUrl&#125;`);
-        response.end();
-      &#125;
-    &#125; catch (e) &#123;
-      console.error(e);
-    &#125;
-  &#125;)
-  .listen(port, host, () =&gt; &#123;
-    console.log(`Hexo webhook running at: http://$&#123;host&#125;:$&#123;port&#125;$&#123;matchUrl&#125;`);
-  &#125;);</code></pre>
-<pre><code class="sh"># webhook.sh
-#!/usr/bin/env bash
-
-rm -rf ~/www/wwwroot/zhaoo/*
-cd ~/www/wwwroot/zhaoo/
-git pull https://github.com/zhaoo/zhaoo.github.io.git</code></pre>
 <p>在宝塔面板的软件商店中安装 <em>PM2管理器</em>，运行 JavaScript 脚本：</p>
 <p><img  src="https://pic.izhaoo.com/20210829204722.jpg"  ><span class="image-caption">配置 PM2</span></p>
 <p>现在脚本是运行在 <code>http://localhost:3000</code> 下，外网无法访问，使用我们需要配置一个反向代理：</p>

@@ -211,45 +211,29 @@
           <i class="iconfont iconeye"></i><span id="/2021/08/01/code-note/" class="leancloud" data-flag-title="搬砖笔记"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4780</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4737</span>
     </div>
   </div>
 </section>
     <section class="main">
       <section class="content">
         <h3 id="子组件监听滚动"><a href="#子组件监听滚动" class="headerlink" title="子组件监听滚动"></a>子组件监听滚动</h3><p>React 子组件生命周期中 <em>addEventListener</em> 的时候，需要将第三个参数设置为 <code>true</code>。因为 React 对事件做了合成处理，子组件滚动是捕获事件，父组件滚动是冒泡事件。addEventListener 第三个参数默认为 <em>false</em>，只监听冒泡事件，所以子组件的捕获事件默认监听不到，需要改成 <em>true</em>。</p>
-<pre><code class="javascript">useEffect(() =&gt; &#123;
-  window.addEventListener(&quot;scroll&quot;, (e) =&gt; &#123;
-    const &#123;top, bottom, left, right&#125; = e.target.getBoundingClientRect();
-  &#125;, true);
-&#125;, []);</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&quot;scroll&quot;</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> &#123;top, bottom, left, right&#125; = e.target.getBoundingClientRect();<br>  &#125;, <span class="hljs-literal">true</span>);<br>&#125;, []);<br></code></pre></td></tr></table></figure>
+
 <h3 id="浮层禁止背景滚动"><a href="#浮层禁止背景滚动" class="headerlink" title="浮层禁止背景滚动"></a>浮层禁止背景滚动</h3><p><em>rxpi-pad</em> 浮动面板有个坑，面板滚动事件和背景滚动事件做了绑定，通过 <em>autoLockScrolling</em> 属性只能全部开启或关闭。一般我们需要让背景禁止滚动，而面板内容可以滚动，只能 hack 一下：</p>
-<pre><code class="javascript">useEffect(() =&gt; &#123;
-  const body = document.body;
-  if (visible) &#123;
-    body.style.overflow = &quot;hidden&quot;;
-  &#125; else &#123;
-    body.style.overflow = &quot;visible&quot;;
-  &#125;
-&#125;, [visible]);</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> body = <span class="hljs-built_in">document</span>.body;<br>  <span class="hljs-keyword">if</span> (visible) &#123;<br>    body.style.overflow = <span class="hljs-string">&quot;hidden&quot;</span>;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    body.style.overflow = <span class="hljs-string">&quot;visible&quot;</span>;<br>  &#125;<br>&#125;, [visible]);<br></code></pre></td></tr></table></figure>
+
 <h3 id="在数组指定项插入数组"><a href="#在数组指定项插入数组" class="headerlink" title="在数组指定项插入数组"></a>在数组指定项插入数组</h3><p>JavaScript 中的 <em>splice</em> 只能在数组中删除或插入一个元素，而不能插入数组，可借助 <strong>apply</strong> 赋能。</p>
-<pre><code class="javascript">const arr1 = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]; 
-const arr2 = [&#39;1&#39;, &#39;2&#39;, &#39;3&#39;]; 
-arr2.unshift(1, 1);
-Array.prototype.splice.apply(arr1, arr2);
-console.log(arr1)  // [&quot;a&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;c&quot;]</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> arr1 = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>]; <br><span class="hljs-keyword">const</span> arr2 = [<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>]; <br>arr2.unshift(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br><span class="hljs-built_in">Array</span>.prototype.splice.apply(arr1, arr2);<br><span class="hljs-built_in">console</span>.log(arr1)  <span class="hljs-comment">// [&quot;a&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;c&quot;]</span><br></code></pre></td></tr></table></figure>
+
 <p>相当于：</p>
-<pre><code class="javascript">const arr1 = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]; 
-const arr2 = [&#39;1&#39;, &#39;2&#39;, &#39;3&#39;];
-arr1.splice(1, 1, &#39;1&#39;, &#39;2&#39;, &#39;3’);</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> arr1 = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>]; <br><span class="hljs-keyword">const</span> arr2 = [<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>];<br>arr1.splice(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3’);</span><br></code></pre></td></tr></table></figure>
+
 <h3 id="标签换行截断"><a href="#标签换行截断" class="headerlink" title="标签换行截断"></a>标签换行截断</h3><p>标签组都会设置一个宽度，当标签过多或过长时，最后一项会被“砍掉”，很尴尬。给容器设置一个固定高度和换行，将超出部分顶到第二行隐藏，干掉总比破掉好。</p>
 <p><img  src="https://pic.izhaoo.com/20210801001641.jpg"  ><span class="image-caption">超出截断</span></p>
 <p><img  src="https://pic.izhaoo.com/20210801001546.jpg"  ><span class="image-caption">超出隐藏</span></p>
-<pre><code class="css">.tags-wrapper &#123;
-  height: 40rpx;  /* 标签高度 */
-  flex-wrap: wrap;
-  overflow: hidden;
-&#125;</code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.tags-wrapper</span> &#123;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">40</span>rpx;  <span class="hljs-comment">/* 标签高度 */</span><br>  <span class="hljs-attribute">flex-wrap</span>: wrap;<br>  <span class="hljs-attribute">overflow</span>: hidden;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 <h3 id="iphoneX-适配"><a href="#iphoneX-适配" class="headerlink" title="iphoneX 适配"></a>iphoneX 适配</h3><p>iphoneX 这破手机就是反人类，丑得要死，给前端小哥哥烦的要死，适配 iphoneX 也是老生常谈的事。一次业务中遇到个非主流坑，淘宝端 iphoneX 底部会多出一块白条，其他客户端和机型都没问题。通过层级定位后发现这个白条是在容器外部产生的，甚至可能是客户端处。最后师兄一句 <code>height: 100vh</code> 解决。</p>
 <p>这不是 iphoneX 适配标准解法吗？？？</p>
 <p>666！！！</p>
@@ -263,34 +247,18 @@ arr1.splice(1, 1, &#39;1&#39;, &#39;2&#39;, &#39;3’);</code></pre>
 <li>constant(safe-area-inset-left)</li>
 <li>constant(safe-area-inset-right)</li>
 </ul>
-<pre><code class="css">.container &#123;
-  padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
-&#125;</code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.container</span> &#123;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-built_in">constant</span>(safe-area-inset-top) <span class="hljs-built_in">constant</span>(safe-area-inset-right) <span class="hljs-built_in">constant</span>(safe-area-inset-bottom) <span class="hljs-built_in">constant</span>(safe-area-inset-left);<br>&#125;<br></code></pre></td></tr></table></figure>
+
 <p><strong>方案二</strong></p>
-<pre><code class="css">position: absolute;
-top: ???;
-bottom: ???;</code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">position</span>: absolute;<br><span class="hljs-attribute">top</span>: ???;<br><span class="hljs-attribute">bottom</span>: ???;<br></code></pre></td></tr></table></figure>
+
 <p>绝对定位一把梭，不服就干，怕过谁。劳资的代码只有 <strong>absolute</strong>！</p>
 <h3 id="useState-同步获取最新状态值"><a href="#useState-同步获取最新状态值" class="headerlink" title="useState 同步获取最新状态值"></a>useState 同步获取最新状态值</h3><p>React 中 <code>this.setState()</code> 的第二个参数可以传入一个回调函数用于获取实时更新后的状态值，例如：</p>
-<pre><code class="javascript">this.setState(&#123;
-  username: &#39;兆兆&#39;
-&#125;, () =&gt; &#123;
-  console.log(this.state.username);
-&#125;);</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">this</span>.setState(&#123;<br>  <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;兆兆&#x27;</span><br>&#125;, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.state.username);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
 <p>但是 Hooks 中的 useState 官方却把它干掉了，我们可以结合 useState、useRef、useEffect 来模拟一个：</p>
-<pre><code class="js">const useCallbackState = (state) =&gt; &#123;
-  const ref = useRef();
-  const [data, setData] = useState(state);
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> useCallbackState = <span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> ref = useRef();<br>  <span class="hljs-keyword">const</span> [data, setData] = useState(state);<br> <br>  useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>    ref.current &amp;&amp; ref.current(data);<br>  &#125;, [data]);<br> <br>  <span class="hljs-keyword">return</span> [data, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">val, callback</span>) </span>&#123;<br>    ref.current = callback;<br>    setData(val);<br>  &#125;];<br>&#125;<br></code></pre></td></tr></table></figure>
 
-  useEffect(() =&gt; &#123;
-    ref.current &amp;&amp; ref.current(data);
-  &#125;, [data]);
-
-  return [data, function (val, callback) &#123;
-    ref.current = callback;
-    setData(val);
-  &#125;];
-&#125;</code></pre>
 <p>似乎蕴含了点哲学：</p>
 <ul>
 <li>useState：异步存储数据</li>
@@ -301,67 +269,24 @@ bottom: ???;</code></pre>
 <p><img  src="https://pic.izhaoo.com/20210815123034.jpg"  ><span class="image-caption">评论浮层</span></p>
 <h3 id="forEach-异步调用"><a href="#forEach-异步调用" class="headerlink" title="forEach 异步调用"></a>forEach 异步调用</h3><p>最近开发的小程序发布评论提审被驳回了，需要接入安全风控中心。整个流程如下：1、首先通过 LeanCloud 接口获取获取存储在 BaaS 上的评论数据。2、遍历评论列表，将每条评论内容上传至云函数。3、通过审核接口获取内容敏感程度，剔除不正能量的内容。过程中多次使用 <code>forEach</code> 遍历，并且在遍历过程中调用了异步接口。<code>forEach</code> 本身是同步的，但是在遍历中如果调用了异步代码，并不会阻塞进程，很有可能还没拿到结果就执行了后续的代码。有如下解决方案：</p>
 <p><strong>内部同步，外部异步</strong></p>
-<pre><code class="javascript">comments.forEach(async (item, index) =&gt;&#123;
-  await secCheck(item);
-  filterRes(item);
-  return item;
-&#125;)</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">comments.forEach(<span class="hljs-keyword">async</span> (item, index) =&gt;&#123;<br>  <span class="hljs-keyword">await</span> secCheck(item);<br>  filterRes(item);<br>  <span class="hljs-keyword">return</span> item;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
 <p><strong>内部异步，外部同步</strong></p>
-<pre><code class="javascript">const asyncFunc = [];
-comments.forEach((item, index) =&gt;&#123;
-  asyncFun.push(secCheck(item));
-  filterRes(item);
-&#125;)
-Promise.all(asyncFun).then((res) =&gt; &#123;
-  return res;
-&#125;);</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> asyncFunc = [];<br>comments.forEach(<span class="hljs-function">(<span class="hljs-params">item, index</span>) =&gt;</span>&#123;<br>  asyncFun.push(secCheck(item));<br>  filterRes(item);<br>&#125;)<br><span class="hljs-built_in">Promise</span>.all(asyncFun).then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> res;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
 <p><strong>内部外部都同步</strong></p>
-<pre><code class="javascript">Promise.all(
-  comments.map( item =&gt;&#123;
-    return new Promise(async (resolve, reject) =&gt;&#123;
-      await secCheck(item);
-      filterRes(item);
-      resolve();
-    &#125;)
-  &#125;)
-).then((res) =&gt;&#123;
-  return res;
-&#125;)</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">Promise</span>.all(<br>  comments.map( <span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-keyword">async</span> (resolve, reject) =&gt;&#123;<br>      <span class="hljs-keyword">await</span> secCheck(item);<br>      filterRes(item);<br>      resolve();<br>    &#125;)<br>  &#125;)<br>).then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span>&#123;<br>  <span class="hljs-keyword">return</span> res;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
 <h3 id="常用-Hooks-封装"><a href="#常用-Hooks-封装" class="headerlink" title="常用 Hooks 封装"></a>常用 Hooks 封装</h3><p><strong>缓存状态</strong></p>
 <p>获取上一次执行的状态。</p>
-<pre><code class="javascript">const usePrevious = (value: any) =&gt; &#123;
-  const ref = useRef();
-  useEffect(() =&gt; &#123;
-    ref.current = value;
-  &#125;, [value]);
-  return ref.current;
-&#125;</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> usePrevious = <span class="hljs-function">(<span class="hljs-params">value: any</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> ref = useRef();<br>  useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>    ref.current = value;<br>  &#125;, [value]);<br>  <span class="hljs-keyword">return</span> ref.current;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 <p><strong>批量设置状态</strong></p>
 <p>像 <code>this.setState()</code> 一样批量设置状态。</p>
-<pre><code class="javascript">const useSet = (initState: any) =&gt; &#123;
-  return useReducer((state: any, newState: any) =&gt; &#123;
-    return &#123; ...state, ...newState &#125;;
-  &#125;, initState);
-&#125;</code></pre>
-<p><strong>节流</strong></p>
-<pre><code class="javascript">const useThrottle = (fn: any, delay: number, dep = []) =&gt; &#123;
-  const &#123; current &#125; = useRef(&#123; fn, timer: null &#125;);
-  useEffect(
-    function () &#123;
-      current.fn = fn;
-    &#125;,
-    [fn],
-  );
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> useSet = <span class="hljs-function">(<span class="hljs-params">initState: any</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> useReducer(<span class="hljs-function">(<span class="hljs-params">state: any, newState: any</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> &#123; ...state, ...newState &#125;;<br>  &#125;, initState);<br>&#125;<br></code></pre></td></tr></table></figure>
 
-  return useCallback(function f(...args: any) &#123;
-    if (!current.timer) &#123;
-      current.timer = setTimeout(() =&gt; &#123;
-        delete current.timer;
-      &#125;, delay);
-      current.fn(...args);
-    &#125;
-  &#125;, dep);
-&#125;</code></pre>
+<p><strong>节流</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> useThrottle = <span class="hljs-function">(<span class="hljs-params">fn: any, delay: number, dep = []</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> &#123; current &#125; = useRef(&#123; fn, <span class="hljs-attr">timer</span>: <span class="hljs-literal">null</span> &#125;);<br>  useEffect(<br>    <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>      current.fn = fn;<br>    &#125;,<br>    [fn],<br>  );<br><br>  <span class="hljs-keyword">return</span> useCallback(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">...args: any</span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (!current.timer) &#123;<br>      current.timer = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-keyword">delete</span> current.timer;<br>      &#125;, delay);<br>      current.fn(...args);<br>    &#125;<br>  &#125;, dep);<br>&#125;<br></code></pre></td></tr></table></figure>
       </section>
       <section class="extra">
         

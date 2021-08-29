@@ -208,252 +208,40 @@
           <i class="iconfont iconeye"></i><span id="/2020/02/29/design-pattern-note/" class="leancloud" data-flag-title="JavaScript - 设计模式"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>5500</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>5406</span>
     </div>
   </div>
 </section>
     <section class="main">
       <section class="content">
-        <h1 id="行为类"><a href="#行为类" class="headerlink" title="行为类"></a>行为类</h1><h3 id="发布-订阅模式-Publish-Subscribe"><a href="#发布-订阅模式-Publish-Subscribe" class="headerlink" title="发布-订阅模式 Publish-Subscribe"></a>发布-订阅模式 Publish-Subscribe</h3><pre><code class="javascript"></code></pre>
+        <h1 id="行为类"><a href="#行为类" class="headerlink" title="行为类"></a>行为类</h1><h3 id="发布-订阅模式-Publish-Subscribe"><a href="#发布-订阅模式-Publish-Subscribe" class="headerlink" title="发布-订阅模式 Publish-Subscribe"></a>发布-订阅模式 Publish-Subscribe</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><br></code></pre></td></tr></table></figure>
+
 <h1 id="创建类"><a href="#创建类" class="headerlink" title="创建类"></a>创建类</h1><h3 id="构造器模式-Constructor"><a href="#构造器模式-Constructor" class="headerlink" title="构造器模式 Constructor"></a>构造器模式 Constructor</h3><p>类似于面向对象中的构造器，由于ES5中没有很好的对象概念，现以函数的形式模拟，本质一样。</p>
-<pre><code class="javascript">// ES5
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// ES5</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Student</span>(<span class="hljs-params">name, gender</span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.name = name;<br>  <span class="hljs-built_in">this</span>.gender = gender<br>  <span class="hljs-built_in">this</span>.print = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;姓名:&#x27;</span> + <span class="hljs-built_in">this</span>.name + <span class="hljs-string">&#x27;性别:&#x27;</span> + <span class="hljs-built_in">this</span>.gender);<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> zhaoo = <span class="hljs-keyword">new</span> Student(<span class="hljs-string">&#x27;小兆&#x27;</span>, <span class="hljs-string">&#x27;male&#x27;</span>);<br><span class="hljs-keyword">var</span> pp = <span class="hljs-keyword">new</span> Student(<span class="hljs-string">&#x27;小欣&#x27;</span>, <span class="hljs-string">&#x27;female&#x27;</span>);<br><br>zhaoo.print();<br>pp.print();<br></code></pre></td></tr></table></figure>
 
-function Student(name, gender) &#123;
-  this.name = name;
-  this.gender = gender
-  this.print = function () &#123;
-    console.log(&#39;姓名:&#39; + this.name + &#39;性别:&#39; + this.gender);
-  &#125;
-&#125;
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// ES6</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">name, gender</span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.name = name;<br>    <span class="hljs-built_in">this</span>.gender = gender;<br>  &#125;<br><br>  print = <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`姓名:<span class="hljs-subst">$&#123;<span class="hljs-built_in">this</span>.name&#125;</span>性别:<span class="hljs-subst">$&#123;<span class="hljs-built_in">this</span>.gender&#125;</span>`</span>);<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> zhaoo = <span class="hljs-keyword">new</span> Student(<span class="hljs-string">&#x27;小兆&#x27;</span>, <span class="hljs-string">&#x27;male&#x27;</span>);<br><span class="hljs-keyword">const</span> pp = <span class="hljs-keyword">new</span> Student(<span class="hljs-string">&#x27;小欣&#x27;</span>, <span class="hljs-string">&#x27;female&#x27;</span>);<br><br>zhaoo.print();<br>pp.print();<br></code></pre></td></tr></table></figure>
 
-var zhaoo = new Student(&#39;小兆&#39;, &#39;male&#39;);
-var pp = new Student(&#39;小欣&#39;, &#39;female&#39;);
-
-zhaoo.print();
-pp.print();</code></pre>
-<pre><code class="javascript">// ES6
-
-class Student &#123;
-  constructor(name, gender) &#123;
-    this.name = name;
-    this.gender = gender;
-  &#125;
-
-  print = () =&gt; &#123;
-    console.log(`姓名:$&#123;this.name&#125;性别:$&#123;this.gender&#125;`);
-  &#125;
-&#125;
-
-const zhaoo = new Student(&#39;小兆&#39;, &#39;male&#39;);
-const pp = new Student(&#39;小欣&#39;, &#39;female&#39;);
-
-zhaoo.print();
-pp.print();</code></pre>
 <h3 id="原型模式-Prototype"><a href="#原型模式-Prototype" class="headerlink" title="原型模式 Prototype"></a>原型模式 Prototype</h3><p>之前对象中，每创建一个实例，内部都会实例化一份<code>print</code>函数，造成资源浪费。现使用<code>prototype</code>构造对象原型，相当于对<code>print</code>函数的一个引用，进行了优化。</p>
-<pre><code class="javascript">// ES5
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// ES5</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Student</span>(<span class="hljs-params">name, gender</span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.name = name;<br>  <span class="hljs-built_in">this</span>.gender = gender<br>&#125;<br><br>Student.prototype.print = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;姓名:&#x27;</span> + <span class="hljs-built_in">this</span>.name + <span class="hljs-string">&#x27;性别:&#x27;</span> + <span class="hljs-built_in">this</span>.gender);<br>&#125;<br><br><span class="hljs-keyword">var</span> zhaoo = <span class="hljs-keyword">new</span> Student(<span class="hljs-string">&#x27;小兆&#x27;</span>, <span class="hljs-string">&#x27;male&#x27;</span>);<br><span class="hljs-keyword">var</span> pp = <span class="hljs-keyword">new</span> Student(<span class="hljs-string">&#x27;小欣&#x27;</span>, <span class="hljs-string">&#x27;female&#x27;</span>);<br><br>zhaoo.print();<br>pp.print();<br></code></pre></td></tr></table></figure>
 
-function Student(name, gender) &#123;
-  this.name = name;
-  this.gender = gender
-&#125;
-
-Student.prototype.print = function () &#123;
-  console.log(&#39;姓名:&#39; + this.name + &#39;性别:&#39; + this.gender);
-&#125;
-
-var zhaoo = new Student(&#39;小兆&#39;, &#39;male&#39;);
-var pp = new Student(&#39;小欣&#39;, &#39;female&#39;);
-
-zhaoo.print();
-pp.print();</code></pre>
 <h3 id="建造者模式-Builder"><a href="#建造者模式-Builder" class="headerlink" title="建造者模式 Builder"></a>建造者模式 Builder</h3><p>在对象外封装一层构建器，作为基层控制者，使用<code>set</code>、<code>get</code>等方法创建获取内部变量。在对象内部可以方便对成员变量进行操纵、校验等操作，更加灵活、规范。</p>
-<pre><code class="javascript">// ES5
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// ES5</span><br><br><span class="hljs-keyword">var</span> failCount = <span class="hljs-number">0</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Student</span>(<span class="hljs-params"></span>) </span>&#123;&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">StudentBuilder</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.student = <span class="hljs-keyword">new</span> Student();<br><br>  StudentBuilder.prototype.setName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) </span>&#123;<br>    <span class="hljs-built_in">this</span>.student.name = name;<br>  &#125;<br><br>  StudentBuilder.prototype.setScore = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">score</span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> score !== <span class="hljs-built_in">Number</span>)<br>      <span class="hljs-keyword">throw</span> (<span class="hljs-string">&#x27;score 输入类型错误&#x27;</span>);<br>    <span class="hljs-built_in">this</span>.student.score = score;<br>  &#125;<br><br>  StudentBuilder.prototype.build = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.student.score &lt; <span class="hljs-number">60</span>)<br>      failCount++;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.student;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> builder = <span class="hljs-keyword">new</span> StudentBuilder();<br>builder.setName(<span class="hljs-string">&#x27;小兆&#x27;</span>);<br>builder.setScore(<span class="hljs-number">90</span>);<br><span class="hljs-keyword">var</span> zhaoo = builder.build();<br><br><span class="hljs-keyword">var</span> builder = <span class="hljs-keyword">new</span> StudentBuilder();<br>builder.setName(<span class="hljs-string">&#x27;小欣&#x27;</span>);<br>builder.setScore(<span class="hljs-number">59</span>);<br><span class="hljs-keyword">var</span> pp = builder.build();<br><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;挂科人数:&#x27;</span> + failCount);<br></code></pre></td></tr></table></figure>
 
-var failCount = 0;
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// ES6</span><br><br><span class="hljs-keyword">let</span> failCount = <span class="hljs-number">0</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> </span>&#123;&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StudentBuilder</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.student = <span class="hljs-keyword">new</span> Student();<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">setName</span>(<span class="hljs-params">name</span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.student.name = name;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">setScore</span>(<span class="hljs-params">score</span>)</span> &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> score !== <span class="hljs-built_in">Number</span>)<br>      <span class="hljs-keyword">throw</span> (<span class="hljs-string">&#x27;score 输入类型错误&#x27;</span>);<br>    <span class="hljs-built_in">this</span>.student.score = score;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">build</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.student.score &lt; <span class="hljs-number">60</span>)<br>      failCount++;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.student;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> builder = <span class="hljs-keyword">new</span> StudentBuilder();<br>builder.setName(<span class="hljs-string">&#x27;小兆&#x27;</span>);<br>builder.setScore(<span class="hljs-number">90</span>);<br><span class="hljs-keyword">const</span> zhaoo = builder.build();<br><br><span class="hljs-keyword">const</span> builder = <span class="hljs-keyword">new</span> StudentBuilder();<br>builder.setName(<span class="hljs-string">&#x27;小欣&#x27;</span>);<br>builder.setScore(<span class="hljs-number">59</span>);<br><span class="hljs-keyword">const</span> pp = builder.build();<br><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;挂科人数:&#x27;</span> + failCount);<br></code></pre></td></tr></table></figure>
 
-function Student() &#123;&#125;
-
-function StudentBuilder() &#123;
-  this.student = new Student();
-
-  StudentBuilder.prototype.setName = function (name) &#123;
-    this.student.name = name;
-  &#125;
-
-  StudentBuilder.prototype.setScore = function (score) &#123;
-    if (typeof score !== Number)
-      throw (&#39;score 输入类型错误&#39;);
-    this.student.score = score;
-  &#125;
-
-  StudentBuilder.prototype.build = function () &#123;
-    if (this.student.score &lt; 60)
-      failCount++;
-    return this.student;
-  &#125;
-&#125;
-
-var builder = new StudentBuilder();
-builder.setName(&#39;小兆&#39;);
-builder.setScore(90);
-var zhaoo = builder.build();
-
-var builder = new StudentBuilder();
-builder.setName(&#39;小欣&#39;);
-builder.setScore(59);
-var pp = builder.build();
-
-console.log(&#39;挂科人数:&#39; + failCount);</code></pre>
-<pre><code class="javascript">// ES6
-
-let failCount = 0;
-
-class Student &#123;&#125;
-
-class StudentBuilder &#123;
-  constructor() &#123;
-    this.student = new Student();
-  &#125;
-
-  setName(name) &#123;
-    this.student.name = name;
-  &#125;
-
-  setScore(score) &#123;
-    if (typeof score !== Number)
-      throw (&#39;score 输入类型错误&#39;);
-    this.student.score = score;
-  &#125;
-
-  build() &#123;
-    if (this.student.score &lt; 60)
-      failCount++;
-    return this.student;
-  &#125;
-&#125;
-
-const builder = new StudentBuilder();
-builder.setName(&#39;小兆&#39;);
-builder.setScore(90);
-const zhaoo = builder.build();
-
-const builder = new StudentBuilder();
-builder.setName(&#39;小欣&#39;);
-builder.setScore(59);
-const pp = builder.build();
-
-console.log(&#39;挂科人数:&#39; + failCount);</code></pre>
 <h3 id="工厂模式-Factory"><a href="#工厂模式-Factory" class="headerlink" title="工厂模式 Factory"></a>工厂模式 Factory</h3><p>包装并返回对象。</p>
-<pre><code class="javascript">// ES5
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// ES5</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Student</span>(<span class="hljs-params">name, subjects</span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.name = name;<br>  <span class="hljs-built_in">this</span>.subjects = subjects;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">factory</span>(<span class="hljs-params">name, type</span>) </span>&#123;<br>  <span class="hljs-keyword">switch</span> (type) &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;软件工程&#x27;</span>:<br>      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Student(name, [<span class="hljs-string">&#x27;数据结构&#x27;</span>, <span class="hljs-string">&#x27;设计模式&#x27;</span>, <span class="hljs-string">&#x27;算法设计&#x27;</span>]);<br>      <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;城乡规划&#x27;</span>:<br>      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Student(name, [<span class="hljs-string">&#x27;城市道路与交通规划&#x27;</span>, <span class="hljs-string">&#x27;村镇规划设计&#x27;</span>, <span class="hljs-string">&#x27;城市建设史与规划史&#x27;</span>]);<br>      <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">default</span>:<br>      <span class="hljs-keyword">throw</span> <span class="hljs-string">&#x27;没这个专业，别瞎填&#x27;</span>;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> zhaoo = factory(<span class="hljs-string">&#x27;小兆&#x27;</span>, <span class="hljs-string">&#x27;软件工程&#x27;</span>);<br><span class="hljs-keyword">var</span> pp = factory(<span class="hljs-string">&#x27;小欣&#x27;</span>, <span class="hljs-string">&#x27;城乡规划&#x27;</span>);<br></code></pre></td></tr></table></figure>
 
-function Student(name, subjects) &#123;
-  this.name = name;
-  this.subjects = subjects;
-&#125;
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// ES6</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">name, subjects</span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.name = name;<br>    <span class="hljs-built_in">this</span>.subjects = subjects;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> factory = <span class="hljs-function">(<span class="hljs-params">name, type</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">switch</span> (type) &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;软件工程&#x27;</span>:<br>      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Student(name, [<span class="hljs-string">&#x27;数据结构&#x27;</span>, <span class="hljs-string">&#x27;设计模式&#x27;</span>, <span class="hljs-string">&#x27;算法设计&#x27;</span>]);<br>      <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;城乡规划&#x27;</span>:<br>      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Student(name, [<span class="hljs-string">&#x27;城市道路与交通规划&#x27;</span>, <span class="hljs-string">&#x27;村镇规划设计&#x27;</span>, <span class="hljs-string">&#x27;城市建设史与规划史&#x27;</span>]);<br>      <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">default</span>:<br>      <span class="hljs-keyword">throw</span> <span class="hljs-string">&#x27;没这个专业，别瞎填&#x27;</span>;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> zhaoo = factory(<span class="hljs-string">&#x27;小兆&#x27;</span>, <span class="hljs-string">&#x27;软件工程&#x27;</span>);<br><span class="hljs-keyword">const</span> pp = factory(<span class="hljs-string">&#x27;小欣&#x27;</span>, <span class="hljs-string">&#x27;城乡规划&#x27;</span>);<br></code></pre></td></tr></table></figure>
 
-function factory(name, type) &#123;
-  switch (type) &#123;
-    case &#39;软件工程&#39;:
-      return new Student(name, [&#39;数据结构&#39;, &#39;设计模式&#39;, &#39;算法设计&#39;]);
-      break;
-    case &#39;城乡规划&#39;:
-      return new Student(name, [&#39;城市道路与交通规划&#39;, &#39;村镇规划设计&#39;, &#39;城市建设史与规划史&#39;]);
-      break;
-    default:
-      throw &#39;没这个专业，别瞎填&#39;;
-  &#125;
-&#125;
-
-var zhaoo = factory(&#39;小兆&#39;, &#39;软件工程&#39;);
-var pp = factory(&#39;小欣&#39;, &#39;城乡规划&#39;);</code></pre>
-<pre><code class="javascript">// ES6
-
-class Student &#123;
-  constructor(name, subjects) &#123;
-    this.name = name;
-    this.subjects = subjects;
-  &#125;
-&#125;
-
-const factory = (name, type) =&gt; &#123;
-  switch (type) &#123;
-    case &#39;软件工程&#39;:
-      return new Student(name, [&#39;数据结构&#39;, &#39;设计模式&#39;, &#39;算法设计&#39;]);
-      break;
-    case &#39;城乡规划&#39;:
-      return new Student(name, [&#39;城市道路与交通规划&#39;, &#39;村镇规划设计&#39;, &#39;城市建设史与规划史&#39;]);
-      break;
-    default:
-      throw &#39;没这个专业，别瞎填&#39;;
-  &#125;
-&#125;
-
-const zhaoo = factory(&#39;小兆&#39;, &#39;软件工程&#39;);
-const pp = factory(&#39;小欣&#39;, &#39;城乡规划&#39;);</code></pre>
 <h3 id="抽象工程模式-AbstractFactory"><a href="#抽象工程模式-AbstractFactory" class="headerlink" title="抽象工程模式 AbstractFactory"></a>抽象工程模式 AbstractFactory</h3><p>工厂外再包一层工厂，用于上产工厂。</p>
-<pre><code class="javascript">function Student() &#123;
-  this.intro = &#39;我是个学生&#39;;
-&#125;
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Student</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.intro = <span class="hljs-string">&#x27;我是个学生&#x27;</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Teacher</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.intro = <span class="hljs-string">&#x27;我是个老师&#x27;</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">StudentFactory</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Student();<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TeacherFactory</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Teacher();<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Producer</span>(<span class="hljs-params">factory</span>) </span>&#123;<br>  <span class="hljs-keyword">switch</span> (factory) &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;student&#x27;</span>:<br>      <span class="hljs-keyword">return</span> StudentFactory;<br>      <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;teacher&#x27;</span>:<br>      <span class="hljs-keyword">return</span> TeacherFactory;<br>      <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">default</span>:<br>      <span class="hljs-keyword">throw</span> <span class="hljs-string">&#x27;没这个工厂&#x27;</span>;<br>      <span class="hljs-keyword">break</span>;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> sFactory = Producer(<span class="hljs-string">&#x27;student&#x27;</span>);<br><span class="hljs-keyword">var</span> zhaoo = factory(<span class="hljs-string">&#x27;小兆&#x27;</span>);<br><span class="hljs-keyword">var</span> tFactory = Producer(<span class="hljs-string">&#x27;teacher&#x27;</span>);<br><span class="hljs-keyword">var</span> pp = factory(<span class="hljs-string">&#x27;小潘&#x27;</span>);<br></code></pre></td></tr></table></figure>
 
-function Teacher() &#123;
-  this.intro = &#39;我是个老师&#39;;
-&#125;
-
-function StudentFactory() &#123;
-  return new Student();
-&#125;
-
-function TeacherFactory() &#123;
-  return new Teacher();
-&#125;
-
-function Producer(factory) &#123;
-  switch (factory) &#123;
-    case &#39;student&#39;:
-      return StudentFactory;
-      break;
-    case &#39;teacher&#39;:
-      return TeacherFactory;
-      break;
-    default:
-      throw &#39;没这个工厂&#39;;
-      break;
-  &#125;
-&#125;
-
-var sFactory = Producer(&#39;student&#39;);
-var zhaoo = factory(&#39;小兆&#39;);
-var tFactory = Producer(&#39;teacher&#39;);
-var pp = factory(&#39;小潘&#39;);</code></pre>
 <h3 id="单例模式-Singleton"><a href="#单例模式-Singleton" class="headerlink" title="单例模式 Singleton"></a>单例模式 Singleton</h3><p>避免重复创建，实例化对象前先判断是已实例化。</p>
-<pre><code class="javascript">// ES5
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// ES5</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Singleton</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">if</span> (Singleton.instance)<br>    <span class="hljs-keyword">return</span> Singleton.instance;<br>  <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-built_in">this</span>.countdown = <span class="hljs-number">60</span>;<br>    Singleton.instance = <span class="hljs-built_in">this</span>;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> s1 = <span class="hljs-keyword">new</span> Singleton();<br><span class="hljs-keyword">var</span> s2 = <span class="hljs-keyword">new</span> <span class="hljs-keyword">new</span> Singleton();<br></code></pre></td></tr></table></figure>
 
-function Singleton() &#123;
-  if (Singleton.instance)
-    return Singleton.instance;
-  else &#123;
-    this.countdown = 60;
-    Singleton.instance = this;
-  &#125;
-&#125;
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// ES6</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>&#123;<br>  <span class="hljs-title">constructor</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">if</span> (Singleton.instance)<br>      <span class="hljs-keyword">return</span> Singleton.instance;<br>    <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-built_in">this</span>.countdown = <span class="hljs-number">60</span>;<br>      Singleton.instance = <span class="hljs-built_in">this</span>;<br>    &#125;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> s1 = <span class="hljs-keyword">new</span> Singleton();<br><span class="hljs-keyword">const</span> s2 = <span class="hljs-keyword">new</span> <span class="hljs-keyword">new</span> Singleton();<br></code></pre></td></tr></table></figure>
 
-var s1 = new Singleton();
-var s2 = new new Singleton();</code></pre>
-<pre><code class="javascript">// ES6
-
-class Singleton &#123;
-  constructor () &#123;
-    if (Singleton.instance)
-      return Singleton.instance;
-    else &#123;
-      this.countdown = 60;
-      Singleton.instance = this;
-    &#125;
-  &#125;
-&#125;
-
-const s1 = new Singleton();
-const s2 = new new Singleton();</code></pre>
 <p>未完待续……</p>
       </section>
       <section class="extra">

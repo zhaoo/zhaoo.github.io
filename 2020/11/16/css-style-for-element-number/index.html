@@ -208,7 +208,7 @@
           <i class="iconfont iconeye"></i><span id="/2020/11/16/css-style-for-element-number/" class="leancloud" data-flag-title="CSS - 元素数量选择器"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4520</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4436</span>
     </div>
   </div>
 </section>
@@ -218,65 +218,19 @@
 <h2 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h2><h3 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a>场景一</h3><p>今天在给 <code>hexo-theme-zhaoo</code> 写 <strong>文章目录 (toc)</strong>，有个需求：当目录不存在时，不显示标题。</p>
 <p><img  src="https://pic.izhaoo.com/20201116195907.png"  ><span class="image-caption">文章目录</span></p>
 <p>抽象出 <code>DOM</code> 结构：</p>
-<pre><code class="html">&lt;aside class=&quot;toc-wrap&quot;&gt;
-  &lt;h3 class=&quot;toc-title&quot;&gt;文章目录：&lt;/h3&gt;
-  &lt;ol class=&quot;toc&quot;&gt;...&lt;/ol&gt;
-&lt;/aside&gt;</code></pre>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">aside</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;toc-wrap&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;toc-title&quot;</span>&gt;</span>文章目录：<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">ol</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;toc&quot;</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">ol</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">aside</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
 <p>最直接的思路是匹配 <code>.toc</code>，若该元素不存在，则将它前面的 <code>.toc-title</code> 隐藏。但是 <code>CSS</code> 没有向前选择，因为这样回引起回流。</p>
 <p>需要想个办法曲线救国，其实借助它们的公共父元素 <code>.toc-wrap</code> 即可解决，若 <code>.toc-wrap</code> 只有一个子元素则将它隐藏。如下：</p>
-<pre><code class="css">.toc-wrap
-  &amp; &gt; :only-child
-    display none</code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.toc-wrap</span><br>  &amp; &gt; <span class="hljs-selector-pseudo">:only-child</span><br>    <span class="hljs-attribute">display</span> <span class="hljs-attribute">none</span><br></code></pre></td></tr></table></figure>
+
 <p>🌰 很简单，却值得思考一下，<code>CSS</code> 真的不能 “向前选择” 嘛？</p>
 <h3 id="场景二"><a href="#场景二" class="headerlink" title="场景二"></a>场景二</h3><p>在构建 <em>栅格化</em> 布局的时候，早期的 <code>BootStrap</code> 使用了大量的重复代码，类似这样：</p>
-<pre><code class="css">@media (min-width: 768px) &#123;
-  .col-md-1 &#123; flex: 0 0 8.33333%; max-width: 8.33333%; &#125;
-  .col-md-2 &#123; flex: 0 0 16.6667%; max-width: 16.6667%; &#125;
-  .col-md-3 &#123; flex: 0 0 25%; max-width: 25%; &#125;
-  .col-md-4 &#123; flex: 0 0 33.3333%; max-width: 33.3333%; &#125;
-  .col-md-5 &#123; flex: 0 0 41.6667%; max-width: 41.6667%; &#125;
-  .col-md-6 &#123; flex: 0 0 50%; max-width: 50%; &#125;
-  .col-md-7 &#123; flex: 0 0 58.3333%; max-width: 58.3333%; &#125;
-  .col-md-8 &#123; flex: 0 0 66.6667%; max-width: 66.6667%; &#125;
-  .col-md-9 &#123; flex: 0 0 75%; max-width: 75%; &#125;
-  .col-md-10 &#123; flex: 0 0 83.3333%; max-width: 83.3333%; &#125;
-  .col-md-11 &#123; flex: 0 0 91.6667%; max-width: 91.6667%; &#125;
-  .col-md-12 &#123; flex: 0 0 100%; max-width: 100%; &#125;
-&#125;
-@media (min-width: 992px) &#123;
-  .col-lg-1 &#123; flex: 0 0 8.33333%; max-width: 8.33333%; &#125;
-  .col-lg-2 &#123; flex: 0 0 16.6667%; max-width: 16.6667%; &#125;
-  .col-lg-3 &#123; flex: 0 0 25%; max-width: 25%; &#125;
-  .col-lg-4 &#123; flex: 0 0 33.3333%; max-width: 33.3333%; &#125;
-  .col-lg-5 &#123; flex: 0 0 41.6667%; max-width: 41.6667%; &#125;
-  .col-lg-6 &#123; flex: 0 0 50%; max-width: 50%; &#125;
-  .col-lg-7 &#123; flex: 0 0 58.3333%; max-width: 58.3333%; &#125;
-  .col-lg-8 &#123; flex: 0 0 66.6667%; max-width: 66.6667%; &#125;
-  .col-lg-9 &#123; flex: 0 0 75%; max-width: 75%; &#125;
-  .col-lg-10 &#123; flex: 0 0 83.3333%; max-width: 83.3333%; &#125;
-  .col-lg-11 &#123; flex: 0 0 91.6667%; max-width: 91.6667%; &#125;
-  .col-lg-12 &#123; flex: 0 0 100%; max-width: 100%; &#125;
-&#125;</code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) &#123;<br>  <span class="hljs-selector-class">.col-md-1</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">8.33333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">8.33333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-2</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">16.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">16.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-3</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">25%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">25%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-4</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">33.3333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">33.3333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-5</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">41.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">41.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-6</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">50%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">50%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-7</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">58.3333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">58.3333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-8</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">66.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">66.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-9</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">75%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">75%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-10</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">83.3333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">83.3333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-11</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">91.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">91.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-md-12</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">100%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">100%</span>; &#125;<br>&#125;<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">992px</span>) &#123;<br>  <span class="hljs-selector-class">.col-lg-1</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">8.33333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">8.33333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-2</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">16.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">16.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-3</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">25%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">25%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-4</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">33.3333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">33.3333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-5</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">41.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">41.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-6</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">50%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">50%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-7</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">58.3333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">58.3333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-8</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">66.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">66.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-9</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">75%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">75%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-10</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">83.3333%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">83.3333%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-11</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">91.6667%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">91.6667%</span>; &#125;<br>  <span class="hljs-selector-class">.col-lg-12</span> &#123; <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">100%</span>; <span class="hljs-attribute">max-width</span>: <span class="hljs-number">100%</span>; &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 <p>在使用 <code>CSS 预处理器</code> 后可以简化成下面这样，但是编译后依然存在大量重复代码。</p>
-<pre><code class="css">for $i in 1 .. 12
-  .col-&#123;$i&#125;
-    col-attr round(($i * 100 / 12) %, 6)
-@media (min-width 576px)
-  for $i in 1 .. 12
-    .col-sm-&#123;$i&#125;
-      col-attr round(($i * 100 / 12) %, 6)
-@media (min-width 768px)
-  for $i in 1 .. 12
-    .col-md-&#123;$i&#125;
-      col-attr round(($i * 100 / 12) %, 6)
-@media (min-width 992px)
-  for $i in 1 .. 12
-    .col-lg-&#123;$i&#125;
-      col-attr round(($i * 100 / 12) %, 6)
-@media (min-width 1200px)
-  for $i in 1 .. 12
-    .col-xl-&#123;$i&#125;
-      col-attr round(($i * 100 / 12) %, 6)</code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css">for $<span class="hljs-selector-tag">i</span> in <span class="hljs-number">1</span> .. <span class="hljs-number">12</span><br>  <span class="hljs-selector-class">.col-</span>&#123;$<span class="hljs-selector-tag">i</span>&#125;<br>    col-attr round(($<span class="hljs-selector-tag">i</span> * <span class="hljs-number">100</span> / <span class="hljs-number">12</span>) %, <span class="hljs-number">6</span>)<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span> <span class="hljs-number">576px</span>)<br>  for $i in <span class="hljs-number">1</span> .. <span class="hljs-number">12</span><br>    .col-sm-&#123;$<span class="hljs-selector-tag">i</span>&#125;<br>      col-attr round(($<span class="hljs-selector-tag">i</span> * <span class="hljs-number">100</span> / <span class="hljs-number">12</span>) %, <span class="hljs-number">6</span>)<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span> <span class="hljs-number">768px</span>)<br>  for $i in <span class="hljs-number">1</span> .. <span class="hljs-number">12</span><br>    .col-md-&#123;$<span class="hljs-selector-tag">i</span>&#125;<br>      col-attr round(($<span class="hljs-selector-tag">i</span> * <span class="hljs-number">100</span> / <span class="hljs-number">12</span>) %, <span class="hljs-number">6</span>)<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span> <span class="hljs-number">992px</span>)<br>  for $i in <span class="hljs-number">1</span> .. <span class="hljs-number">12</span><br>    .col-lg-&#123;$<span class="hljs-selector-tag">i</span>&#125;<br>      col-attr round(($<span class="hljs-selector-tag">i</span> * <span class="hljs-number">100</span> / <span class="hljs-number">12</span>) %, <span class="hljs-number">6</span>)<br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span> <span class="hljs-number">1200px</span>)<br>  for $i in <span class="hljs-number">1</span> .. <span class="hljs-number">12</span><br>    .col-xl-&#123;$<span class="hljs-selector-tag">i</span>&#125;<br>      col-attr round(($<span class="hljs-selector-tag">i</span> * <span class="hljs-number">100</span> / <span class="hljs-number">12</span>) %, <span class="hljs-number">6</span>)<br></code></pre></td></tr></table></figure>
+
 <p>灵魂拷问，<code>CSS</code> 真的不适合处理 “重复元素” 的场景嘛？</p>
 <h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>一些 <code>CSS3</code> 选择器：</p>
 <ul>
@@ -296,54 +250,31 @@
 </ul>
 <h2 id="化学反应"><a href="#化学反应" class="headerlink" title="化学反应"></a>化学反应</h2><p>结合以上的 <em>选择器</em> 和 <em>伪类</em> 可以产生一些有趣的 “化学反应”，基于元素的数量来匹配样式。</p>
 <p><code>DOM</code> 结构如下：</p>
-<pre><code class="html">&lt;ul&gt;
-  &lt;li&gt;1&lt;/li&gt;
-  &lt;li&gt;2&lt;/li&gt;
-  &lt;li&gt;3&lt;/li&gt;
-  ...
-&lt;/ul&gt;</code></pre>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  ...<br><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
 <h3 id="Andre-Luis"><a href="#Andre-Luis" class="headerlink" title="André Luís"></a>André Luís</h3><p><code>André Luís</code> 方案如下：</p>
-<pre><code class="css">/* 只有一个元素时 */
-ul&gt;li:nth-child(1):nth-last-child(1) &#123; width: 100%; &#125;  /* 匹配第一个元素 */
-ul&gt;li:only-child &#123; width: 100%; &#125;  /* 匹配第一个元素 */</code></pre>
-<pre><code class="css">/* 有且仅有两个元素时 */
-ul&gt;li:nth-child(1):nth-last-child(2),  /* 匹配第一个元素 */
-ul&gt;li:nth-child(2):nth-last-child(1) &#123;  /* 匹配第二个元素 */
-    width: 50%;  /* 合起来就是匹配所有元素 */
-&#125;</code></pre>
-<pre><code class="css">/* 有且仅有三个元素时 */
-ul&gt;li:nth-child(1):nth-last-child(3),
-ul&gt;li:nth-child(2):nth-last-child(2),
-ul&gt;li:nth-child(3):nth-last-child(1) &#123;
-    width: 33.3333%;
-&#125;</code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 只有一个元素时 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-child</span>(<span class="hljs-number">1</span>)<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">1</span>) &#123; <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>; &#125;  <span class="hljs-comment">/* 匹配第一个元素 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:only-child</span> &#123; <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>; &#125;  <span class="hljs-comment">/* 匹配第一个元素 */</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 有且仅有两个元素时 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-child</span>(<span class="hljs-number">1</span>)<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">2</span>),  <span class="hljs-comment">/* 匹配第一个元素 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-child</span>(<span class="hljs-number">2</span>)<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">1</span>) &#123;  <span class="hljs-comment">/* 匹配第二个元素 */</span><br>	<span class="hljs-attribute">width</span>: <span class="hljs-number">50%</span>;  <span class="hljs-comment">/* 合起来就是匹配所有元素 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 有且仅有三个元素时 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-child</span>(<span class="hljs-number">1</span>)<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">3</span>),<br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-child</span>(<span class="hljs-number">2</span>)<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">2</span>),<br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-child</span>(<span class="hljs-number">3</span>)<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">1</span>) &#123;<br>	<span class="hljs-attribute">width</span>: <span class="hljs-number">33.3333%</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 <blockquote>
 <p><a target="_blank" rel="noopener" href="http://andr3.net/blog/post/142">Clever lists with CSS3 selectors</a></p>
 </blockquote>
 <h3 id="Lea-Verou"><a href="#Lea-Verou" class="headerlink" title="Lea Verou"></a>Lea Verou</h3><p>上述方案存在一个问题，当元素数量过多时，还是存在大量的重复选择器。升级版的 <code>Lea Verou</code> 方案只需两行固定的选择器即可解决。</p>
-<pre><code class="css">/* 只有一个元素时 */
-ul&gt;li:first-child:nth-last-child(1) &#123;
-    width: 100%;
-&#125;</code></pre>
-<pre><code class="css">/* 有且仅有两个元素时 */
-ul&gt;li:first-child:nth-last-child(2),
-ul&gt;li:first-child:nth-last-child(2) ~ li &#123;
-    width: 50%;
-&#125;</code></pre>
-<pre><code class="css">/* 有且仅有三个元素时 */
-ul&gt;li:first-child:nth-last-child(3),  /* 匹配第一个元素 */
-ul&gt;li:first-child:nth-last-child(3) ~ li &#123;  /* 匹配除第一个元素外的所有元素 */
-    width: 33.3333%;
-&#125;</code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 只有一个元素时 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:first</span>-child<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">1</span>) &#123;<br>	<span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 有且仅有两个元素时 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:first</span>-child<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">2</span>),<br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:first</span>-child<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">2</span>) ~ <span class="hljs-selector-tag">li</span> &#123;<br>	<span class="hljs-attribute">width</span>: <span class="hljs-number">50%</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 有且仅有三个元素时 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:first</span>-child<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">3</span>),  <span class="hljs-comment">/* 匹配第一个元素 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:first</span>-child<span class="hljs-selector-pseudo">:nth-last-child</span>(<span class="hljs-number">3</span>) ~ <span class="hljs-selector-tag">li</span> &#123;  <span class="hljs-comment">/* 匹配除第一个元素外的所有元素 */</span><br>	<span class="hljs-attribute">width</span>: <span class="hljs-number">33.3333%</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://lea.verou.me/2011/01/styling-children-based-on-their-number-with-css3/">Styling elements based on sibling count</a></p>
 </blockquote>
 <h3 id="再改进"><a href="#再改进" class="headerlink" title="再改进"></a>再改进</h3><p>不确定元素数量时：</p>
-<pre><code class="css">/* 大于三个元素时 */
-ul&gt;li:first-child:nth-last-child(n+3),
-ul&gt;li:first-child:nth-last-child(n+3) ~ li &#123;
-  width: calc(100% / n);
-&#125;</code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 大于三个元素时 */</span><br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:first</span>-child<span class="hljs-selector-pseudo">:nth-last-child</span>(n+<span class="hljs-number">3</span>),<br><span class="hljs-selector-tag">ul</span>&gt;<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:first</span>-child<span class="hljs-selector-pseudo">:nth-last-child</span>(n+<span class="hljs-number">3</span>) ~ <span class="hljs-selector-tag">li</span> &#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-number">100%</span> / n);<br>&#125;<br></code></pre></td></tr></table></figure>
+
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过上述方法即可解决 <strong>向前选择</strong> 和 <strong>重复元素</strong> 这两个问题，遇到实际场景时借助父元素灵活运用即可。</p>
       </section>
       <section class="extra">

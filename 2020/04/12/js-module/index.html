@@ -211,7 +211,7 @@
           <i class="iconfont iconeye"></i><span id="/2020/04/12/js-module/" class="leancloud" data-flag-title="JavaScript - 模块化"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>6236</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>6118</span>
     </div>
   </div>
 </section>
@@ -239,62 +239,27 @@
 <li>文件模块: 一般为用户自己定义的一些模块，一个文件就是一个模块，模块标识符为<strong>文件路径</strong>。由于指明了文件加载路径，所以加载速度较快。</li>
 <li>自定义模块: 用户使用<code>npm</code>等包管理工具安装的模块，一般保存在<code>node_moudles</code>目录下，模块标识符为<strong>模块名称</strong>。由于需要按照<code>npm</code>的加载规则匹配模块，所以加载过程较慢。</li>
 </ul>
-<pre><code class="javascript">//main.js
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//main.js</span><br><br><span class="hljs-keyword">var</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>);  <span class="hljs-comment">//引入核心模块</span><br><span class="hljs-keyword">var</span> math = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./math&#x27;</span>);  <span class="hljs-comment">//引入文件模块</span><br><span class="hljs-keyword">var</span> koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;koa&#x27;</span>);  <span class="hljs-comment">//引入自定义模块</span><br><br><span class="hljs-built_in">console</span>.log(math.add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>));  <span class="hljs-comment">//使用math模块，输出3</span><br></code></pre></td></tr></table></figure>
 
-var http = require(&#39;http&#39;);  //引入核心模块
-var math = require(&#39;./math&#39;);  //引入文件模块
-var koa = require(&#39;koa&#39;);  //引入自定义模块
-
-console.log(math.add(1, 2));  //使用math模块，输出3</code></pre>
 <h5 id="模块定义"><a href="#模块定义" class="headerlink" title="模块定义"></a>模块定义</h5><p>对于文件模块，我们需要自己定义，一个文件就是一个模块。在CommonJS规范中<code>exports</code>对象是模块的唯一出口，定义导出的变量或方法。</p>
-<pre><code class="javascript">//math.js
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//math.js</span><br><br><span class="hljs-built_in">exports</span>.add = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>&#123;  <span class="hljs-comment">//导出add方法</span><br>  <span class="hljs-keyword">return</span> a + b;<br>&#125;<br><br><span class="hljs-built_in">exports</span>.subtract = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>&#123;  <span class="hljs-comment">//导出subtract方法</span><br>  <span class="hljs-keyword">return</span> a - b;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-exports.add = function (a, b) &#123;  //导出add方法
-  return a + b;
-&#125;
-
-exports.subtract = function (a, b) &#123;  //导出subtract方法
-  return a - b;
-&#125;</code></pre>
 <p>但是Node并不是完全按照CommonJS规范实现的，而是根据自身需要做了一些取舍，所以表现出一些特性。在Node中，我们更推荐使用<code>module.exports</code>来定义模块。</p>
-<pre><code class="javascript">//math.js
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//math.js</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span> (<span class="hljs-params">a, b</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> a + b;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">subtract</span> (<span class="hljs-params">a, b</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> a - b;<br>&#125;<br><br><span class="hljs-built_in">module</span>.exports = &#123;<br>  <span class="hljs-attr">add</span>: add,<br>  <span class="hljs-attr">subtract</span>: subtract<br>&#125;;<br></code></pre></td></tr></table></figure>
 
-function add (a, b) &#123;
-  return a + b;
-&#125;
-
-function subtract (a, b) &#123;
-  return a - b;
-&#125;
-
-module.exports = &#123;
-  add: add,
-  subtract: subtract
-&#125;;</code></pre>
 <h5 id="module-exports-和-exports"><a href="#module-exports-和-exports" class="headerlink" title="module.exports 和 exports"></a>module.exports 和 exports</h5><p>在Node中，一个模块(文件)就是一个闭包，通过闭包机制实现了命名空间。</p>
-<pre><code class="javascript">(function (exports, require, module, __filename, __dirname) &#123;
-  //code
-&#125;)();</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-built_in">exports</span>, <span class="hljs-built_in">require</span>, <span class="hljs-built_in">module</span>, __filename, __dirname</span>) </span>&#123;<br>  <span class="hljs-comment">//code</span><br>&#125;)();<br></code></pre></td></tr></table></figure>
+
 <p>每执行一个文件，就会自动创建一个<code>module</code>对象，而<code>module.exports</code>是其中的一个属性。所以<code>module.exports</code>才是真正的模块对象，<code>exports</code>只是对它的一个引用。</p>
 <p>因此，使用<code>module.exports</code>可以对该变量重新赋值，而使用<code>exports</code>不能进行重新赋值，只能对<code>exports</code>下的属性进行赋值，如<code>exports.add = add</code>。</p>
 <h3 id="ES6模块"><a href="#ES6模块" class="headerlink" title="ES6模块"></a>ES6模块</h3><p><code>ES6</code>标准在语法层面上实现了模块化，通过使用<code>import</code>和<code>export</code>实现<code>模块加载</code>和<code>模块定义</code>。由于是标准规范，使用在客户端和服务端都可以使用，一般是配合<code>webpack</code>等打包工具进行管理，因为现阶段<code>ES6</code>还需通过<code>babel</code>进行编码。</p>
 <p>不同于其他三种模块化方式，<code>ES6模块</code>是在<strong>编译过程中</strong>加载模块，而不是动态地引入一个对象。</p>
 <h5 id="模块定义-1"><a href="#模块定义-1" class="headerlink" title="模块定义"></a>模块定义</h5><p>使用<code>export</code>命令导出模块，也可以使用<code>export default</code>指定默认输出模块。</p>
-<pre><code class="javascript">//math.js
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//math.js</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span> (<span class="hljs-params">a, b</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> a + b;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">subtract</span> (<span class="hljs-params">a, b</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> a - b;<br>&#125;<br><br><span class="hljs-keyword">export</span> &#123;add, subtract&#125;  <span class="hljs-comment">//输出函数</span><br></code></pre></td></tr></table></figure>
 
-function add (a, b) &#123;
-  return a + b;
-&#125;
-
-function subtract (a, b) &#123;
-  return a - b;
-&#125;
-
-export &#123;add, subtract&#125;  //输出函数</code></pre>
 <h5 id="模块引用-1"><a href="#模块引用-1" class="headerlink" title="模块引用"></a>模块引用</h5><p>使用<code>import</code>命令导入模块，可以使用<code>解构赋值</code>的方式导入。</p>
-<pre><code class="javascript">import &#123;add, subtract&#125; from &#39;./math&#39;;  //引入add和subtract函数
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123;add, subtract&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./math&#x27;</span>;  <span class="hljs-comment">//引入add和subtract函数</span><br><br><span class="hljs-built_in">console</span>.log(add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>));  <span class="hljs-comment">//使用add函数，输出3</span><br></code></pre></td></tr></table></figure>
 
-console.log(add(1, 2));  //使用add函数，输出3</code></pre>
 <h5 id="CommonJS-和-ES6模块"><a href="#CommonJS-和-ES6模块" class="headerlink" title="CommonJS 和 ES6模块"></a>CommonJS 和 ES6模块</h5><blockquote>
 <p>摘自 - 前端模块化：CommonJS,AMD,CMD,ES6</p>
 </blockquote>
@@ -311,138 +276,39 @@ console.log(add(1, 2));  //使用add函数，输出3</code></pre>
 <p>在客户端，一般是远程加载模块，受网络限制，使用异步方式更合理。</p>
 <p><code>AMD</code>以<strong>异步</strong>方式加载模块，推崇依赖前置，提前执行，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。</p>
 <h5 id="模块引用-2"><a href="#模块引用-2" class="headerlink" title="模块引用"></a>模块引用</h5><p>首先需要在<code>HTML</code>中使用<code>&lt;script&gt;</code>引入<code>require.js</code>和主模块。</p>
-<pre><code class="html">// HTML
-&lt;script src=&quot;js/require.js&quot; data-main=&quot;js/main&quot;&gt;&lt;/script&gt;  //引入require.js 和 main.js</code></pre>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html">// HTML<br><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;js/require.js&quot;</span> <span class="hljs-attr">data-main</span>=<span class="hljs-string">&quot;js/main&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>  //引入require.js 和 main.js<br></code></pre></td></tr></table></figure>
+
 <p>使用<code>require.config()</code>引入模块文件，可以设置路径前缀、设置模块名称。再使用<code>require()</code>使用模块，如下方式设置别名。</p>
-<pre><code class="javascript">//main.js
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//main.js</span><br><br><span class="hljs-comment">//模块引入</span><br><span class="hljs-built_in">require</span>.config(&#123;<br>  <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&quot;js/lib&quot;</span>,  <span class="hljs-comment">//路径前缀</span><br>  <span class="hljs-attr">paths</span>: &#123;<br>    <span class="hljs-string">&quot;jquery&quot;</span>: <span class="hljs-string">&quot;jquery.min&quot;</span>,  <span class="hljs-comment">//实际路径为js/lib/jquery.min.js</span><br>    <span class="hljs-string">&quot;underscore&quot;</span>: <span class="hljs-string">&quot;underscore.min&quot;</span>,<br>    <span class="hljs-string">&quot;math&quot;</span>: <span class="hljs-string">&quot;math&quot;</span><br>  &#125;<br>&#125;);<br><br><span class="hljs-comment">//模块使用</span><br><span class="hljs-built_in">require</span>([<span class="hljs-string">&quot;jquery&quot;</span>, <span class="hljs-string">&quot;underscore&quot;</span>, <span class="hljs-string">&quot;math&quot;</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$, _, math</span>)</span>&#123;  <span class="hljs-comment">//使用别名</span><br>  <span class="hljs-comment">//code...</span><br>  $(<span class="hljs-string">&quot;body&quot;</span>).addClass(<span class="hljs-string">&quot;lock-screen&quot;</span>);  <span class="hljs-comment">//通过$别名使用jQuery</span><br>  <span class="hljs-built_in">console</span>.log(math.add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>));  <span class="hljs-comment">//通过math别名使用math模块，输出3</span><br>&#125;);<br></code></pre></td></tr></table></figure>
 
-//模块引入
-require.config(&#123;
-  baseUrl: &quot;js/lib&quot;,  //路径前缀
-  paths: &#123;
-    &quot;jquery&quot;: &quot;jquery.min&quot;,  //实际路径为js/lib/jquery.min.js
-    &quot;underscore&quot;: &quot;underscore.min&quot;,
-    &quot;math&quot;: &quot;math&quot;
-  &#125;
-&#125;);
-
-//模块使用
-require([&quot;jquery&quot;, &quot;underscore&quot;, &quot;math&quot;], function($, _, math)&#123;  //使用别名
-  //code...
-  $(&quot;body&quot;).addClass(&quot;lock-screen&quot;);  //通过$别名使用jQuery
-  console.log(math.add(1, 2));  //通过math别名使用math模块，输出3
-&#125;);</code></pre>
 <h5 id="模块定义-2"><a href="#模块定义-2" class="headerlink" title="模块定义"></a>模块定义</h5><p>使用<code>define()</code>方法定义一个模块，模块内容放在<code>回调函数</code>中，并通过<code>return</code>抛出。</p>
-<pre><code class="javascript">// math.js
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// math.js</span><br><br><span class="hljs-comment">// 定义math模块</span><br>define(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">x, y</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> x + y;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">subtract</span> (<span class="hljs-params">a, b</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> a - b;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> &#123;<br>    <span class="hljs-attr">add</span>: add,<br>    <span class="hljs-attr">subtract</span>: subtract<br>  &#125;;<br>&#125;);<br><br><span class="hljs-comment">// 定义一个依赖jQuery的模块</span><br>define([<span class="hljs-string">&#x27;jquery&#x27;</span>],<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$</span>)</span>&#123;<br>  <br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setClass</span>(<span class="hljs-params"></span>) </span>&#123;<br>    $(<span class="hljs-string">&quot;body&quot;</span>).addClass(<span class="hljs-string">&quot;lock-screen&quot;</span>);<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> &#123;<br>    <span class="hljs-attr">setClass</span>: setClass<br>  &#125;;<br>&#125;)<br></code></pre></td></tr></table></figure>
 
-// 定义math模块
-define(function () &#123;
-  function add(x, y) &#123;
-    return x + y;
-  &#125;
-
-  function subtract (a, b) &#123;
-    return a - b;
-  &#125;
-
-  return &#123;
-    add: add,
-    subtract: subtract
-  &#125;;
-&#125;);
-
-// 定义一个依赖jQuery的模块
-define([&#39;jquery&#39;],function($)&#123;
-
-  function setClass() &#123;
-    $(&quot;body&quot;).addClass(&quot;lock-screen&quot;);
-  &#125;
-
-  return &#123;
-    setClass: setClass
-  &#125;;
-&#125;)</code></pre>
 <h3 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h3><p><code>sea.js</code>是<code>CMD</code>规范的主要实践者，<code>CMD</code>吸收了<code>CommonJS</code>和<code>AMD</code>。</p>
 <p><code>CMD</code>以<strong>异步</strong>方式加载模块，推崇依赖就近，延迟执行，在代码中引入模块并运行。</p>
 <h5 id="模块引用-3"><a href="#模块引用-3" class="headerlink" title="模块引用"></a>模块引用</h5><p>首先需要在<code>HTML</code>中使用<code>&lt;script&gt;</code>引入<code>sea.js</code>和主模块。</p>
-<pre><code class="html">// HTML
-&lt;script src=&quot;js/sea.js&quot; data-main=&quot;js/main&quot;&gt;&lt;/script&gt;  //引入sea.js 和 main.js</code></pre>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html">// HTML<br><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;js/sea.js&quot;</span> <span class="hljs-attr">data-main</span>=<span class="hljs-string">&quot;js/main&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>  //引入sea.js 和 main.js<br></code></pre></td></tr></table></figure>
+
 <p>使用<code>define()</code>创建作用域，在<code>回调函数</code>(传入参数reuqire)中通过<code>require()</code>引入模块。</p>
-<pre><code class="javascript">// main.js
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// main.js</span><br><br>define(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-built_in">require</span></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> math = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./math&#x27;</span>);<br>  <span class="hljs-built_in">console</span>.log(math.add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>));  <span class="hljs-comment">//使用math模块，输出3</span><br>&#125;)<br></code></pre></td></tr></table></figure>
 
-define(function (require) &#123;
-  var math = require(&#39;./math&#39;);
-  console.log(math.add(1, 2));  //使用math模块，输出3
-&#125;)</code></pre>
-<h5 id="模块定义-3"><a href="#模块定义-3" class="headerlink" title="模块定义"></a>模块定义</h5><pre><code class="javascript">// math.js
+<h5 id="模块定义-3"><a href="#模块定义-3" class="headerlink" title="模块定义"></a>模块定义</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// math.js</span><br><br>define(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-built_in">require</span>, <span class="hljs-built_in">exports</span>, <span class="hljs-built_in">module</span></span>) </span>&#123;<br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">x, y</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> x + y;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">subtract</span> (<span class="hljs-params">a, b</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> a - b;<br>  &#125;<br><br>  <span class="hljs-built_in">module</span>.exports = &#123;<br>    <span class="hljs-attr">add</span>: add,<br>    <span class="hljs-attr">subtract</span>: subtract<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
 
-define(function (require, exports, module) &#123;
-  function add(x, y) &#123;
-    return x + y;
-  &#125;
-
-  function subtract (a, b) &#123;
-    return a - b;
-  &#125;
-
-  module.exports = &#123;
-    add: add,
-    subtract: subtract
-  &#125;
-&#125;)</code></pre>
 <h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>JS的全局变量其实是定义在一个window对象下的，例如<code>var history = 1;</code>其实是<code>var window.history = 1;</code>。然而，window对象又有许多的内置属性，如果我们自定义的属性刚好和内置属性重名的话，就会起冲突。</p>
 <p>因此，为了避免变量冲突，就有必要引入<code>命名空间</code>来隔离变量作用域，其实是用到<code>闭包</code>和<code>自触发函数</code>来模拟的。许多<code>模块化</code>的库都是基于这一原理。</p>
 <h5 id="自触发函数"><a href="#自触发函数" class="headerlink" title="自触发函数"></a>自触发函数</h5><p>先来看看<code>自触发函数</code>(IIFE)，在函数定义后立即触发。因为立即执行，后续一般不会再调用，所以可以使用匿名函数。</p>
-<pre><code class="javascript">// Type 1, 没有匿名，但是立即触发
-start();
-function start() &#123;
-  //...
-&#125;
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// Type 1, 没有匿名，但是立即触发</span><br>start();<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">start</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-comment">//...</span><br>&#125;<br><br><span class="hljs-comment">//Tpye 2</span><br>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-comment">//...</span><br>&#125;)();<br><br><span class="hljs-comment">//Type 3</span><br>!<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-comment">//...</span><br>&#125;();<br><br>Tpye <span class="hljs-number">4</span><br>;(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-comment">//...</span><br>&#125;)();<br></code></pre></td></tr></table></figure>
 
-//Tpye 2
-(function () &#123;
-  //...
-&#125;)();
-
-//Type 3
-!function () &#123;
-  //...
-&#125;();
-
-Tpye 4
-;(function() &#123;
-  //...
-&#125;)();</code></pre>
 <h5 id="命名空间-1"><a href="#命名空间-1" class="headerlink" title="命名空间"></a>命名空间</h5><p>结合<code>闭包</code>和<code>立即执行函数</code>，我们就可以很好的封装一个模块了。<code>闭包</code>用来限定作用域（命名空间），<code>立即执行函数</code>避免全局变量名字冲突。</p>
 <p><code>jQuery</code>就是用于以上两种机制，暴露出了一个<code>$</code>，来操作内部方法。</p>
 <p>以下例子，封住了<code>user</code>模块，解决变量冲突。</p>
-<pre><code class="javascript">(function(window) &#123;
-  var name;
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-built_in">window</span></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> name;<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getName</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> name;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setName</span>(<span class="hljs-params">name</span>) </span>&#123;<br>    name = name;<br>  &#125;<br><br>  <span class="hljs-built_in">window</span>.user = &#123; getName, setName &#125;;<br>&#125;)(<span class="hljs-built_in">window</span>);<br><br>user.setName(<span class="hljs-string">&#x27;zhaoo&#x27;</span>);<br><span class="hljs-built_in">console</span>.log(user.getName()); <span class="hljs-comment">// zhaoo</span><br></code></pre></td></tr></table></figure>
 
-  function getName() &#123;
-    return name;
-  &#125;
-
-  function setName(name) &#123;
-    name = name;
-  &#125;
-
-  window.user = &#123; getName, setName &#125;;
-&#125;)(window);
-
-user.setName(&#39;zhaoo&#39;);
-console.log(user.getName()); // zhaoo</code></pre>
 <p>此外，ES6中的<code>let</code>和<code>const</code>可以产生一个块级作用域，其实也是用到了该原理。用<code>babel</code>编译后是如下ES5代码，是不是一目了然。</p>
-<pre><code class="javascript">// ES6
-&#123;
-  let a = &quot;abc&quot;;
-&#125;;
-console.log(a);  // Error, a is not defind</code></pre>
-<pre><code class="javascript">// ES5
-(function()&#123;
-  var a = &quot;abc&quot;;
-&#125;)();
-console.log(a);  // Error, a is not defind</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// ES6</span><br>&#123;<br>  <span class="hljs-keyword">let</span> a = <span class="hljs-string">&quot;abc&quot;</span>;<br>&#125;;<br><span class="hljs-built_in">console</span>.log(a);  <span class="hljs-comment">// Error, a is not defind</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// ES5</span><br>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>  <span class="hljs-keyword">var</span> a = <span class="hljs-string">&quot;abc&quot;</span>;<br>&#125;)();<br><span class="hljs-built_in">console</span>.log(a);  <span class="hljs-comment">// Error, a is not defind</span><br></code></pre></td></tr></table></figure>
+
 <p>命名空间模式也存在许多不足，一般在<code>ES5</code>年代比较多见。现在一般都是用<code>模块化</code>的方式直接引入文件模块了。</p>
 <h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><blockquote>
 <p><a target="_blank" rel="noopener" href="https://juejin.im/post/5aaa37c8f265da23945f365c#heading-4">前端模块化：CommonJS,AMD,CMD,ES6</a></p>

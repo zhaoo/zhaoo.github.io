@@ -208,7 +208,7 @@
           <i class="iconfont iconeye"></i><span id="/2018/11/05/zjctf-wirteup/" class="leancloud" data-flag-title="浙江省首届网络安全大赛题解"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3505</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3500</span>
     </div>
   </div>
 </section>
@@ -220,7 +220,9 @@
 <li><p>URL丢到SQLMap跑一下，注入成功，数据库成功脱库。</p>
 </li>
 </ol>
-<pre><code>sqlmap -u &quot;http://172.21.1.102:61234/XYRM8AGv29?id=1&amp;Submit=%E6%90%9C%E7%B4%A2&quot; -a</code></pre><ol start="3">
+<figure class="highlight perl"><table><tr><td class="code"><pre><code class="hljs perl">sqlmap -u <span class="hljs-string">&quot;http://172.21.1.102:61234/XYRM8AGv29?id=1&amp;Submit=%E6%90%9C%E7%B4%A2&quot;</span> -a<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
 <li><p>脱库后可以查到8个数据表，其中1个表存着七章网络法标题，另外7个表存着相应的七章安全法内容。</p>
 </li>
 <li><p>写脚本提交了5位数内的数字，都没任何返回值。因此判断flag可能不存在数据库中，而是写死在PHP中。</p>
@@ -238,35 +240,28 @@
 <li><p>因为HttpRequest.class文件里的函数是sendGet和sendPost，所以全文检索这两个方法，发现TetrisGame$ResultPanel.class文件中有一个sendGet。其代码如下：</p>
 </li>
 </ol>
-<pre><code>String var4 = var2.getProperty(&quot;url&quot;);
-this.pointsLabel.setText(Integer.toString(this.points) + var1);
-long var5 = System.currentTimeMillis();
-String var7 = Long.toString(var5);
-Encoder var8 = Base64.getEncoder();
-byte[] var9 = var8.encode(Integer.toString(this.points).getBytes());
-String var10 = new String(var9);
-String var11 = HttpRequest.sendGet(var4, var7 + &quot;&amp;&quot; + var10);
-System.out.println(var11);</code></pre><p>发现发送的格式是url？时间戳&amp;分数的base64编码。</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml">String var4 = var2.get<span class="hljs-constructor">Property(<span class="hljs-string">&quot;url&quot;</span>)</span>;<br>this.pointsLabel.set<span class="hljs-constructor">Text(Integer.<span class="hljs-params">toString</span>(<span class="hljs-params">this</span>.<span class="hljs-params">points</span>)</span> + var1);<br>long var5 = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>current<span class="hljs-constructor">TimeMillis()</span>;<br>String var7 = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Long</span>.</span></span><span class="hljs-keyword">to</span><span class="hljs-constructor">String(<span class="hljs-params">var5</span>)</span>;<br>Encoder var8 = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Base64</span>.</span></span>get<span class="hljs-constructor">Encoder()</span>;<br>byte<span class="hljs-literal">[]</span> var9 = var8.encode(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Integer</span>.</span></span><span class="hljs-keyword">to</span><span class="hljs-constructor">String(<span class="hljs-params">this</span>.<span class="hljs-params">points</span>)</span>.get<span class="hljs-constructor">Bytes()</span>);<br>String var10 = <span class="hljs-keyword">new</span> <span class="hljs-constructor">String(<span class="hljs-params">var9</span>)</span>;<br>String var11 = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">HttpRequest</span>.</span></span>send<span class="hljs-constructor">Get(<span class="hljs-params">var4</span>, <span class="hljs-params">var7</span> + <span class="hljs-string">&quot;&amp;&quot;</span> + <span class="hljs-params">var10</span>)</span>;<br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(var11);<br></code></pre></td></tr></table></figure>
+
+<p>发现发送的格式是url？时间戳&amp;分数的base64编码。</p>
 <ol start="5">
 <li><p>根据var4一路回溯，找到url来自config.properties文件，打开一看，就是目标url了。</p>
 </li>
 <li><p>然后复制HttpRequrst,class中的代码，写脚本来按格式发送过去，就可以得到flag。<br>代码如下：</p>
 </li>
 </ol>
-<pre><code>int points = 20180;
-Encoder var8 = Base64.getEncoder();
-byte[] var9 = var8.encode(Integer.toString(points).getBytes());
-String var10 = new String(var9);
-long var5 = System.currentTimeMillis();
-String var7 = Long.toString(var5);
-String var11 = HttpRequest.sendGet(&quot;http://172.21.1.102:61234/Gb9k0TPyqz&quot;, var5 + &quot;&amp;&quot; + var10);
-System.out.println(var11);</code></pre><h3 id="2-1-圆圈圈圆"><a href="#2-1-圆圈圈圆" class="headerlink" title="2-1 圆圈圈圆"></a>2-1 圆圈圈圆</h3><ol>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml"><span class="hljs-built_in">int</span> points = <span class="hljs-number">20180</span>;<br>Encoder var8 = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Base64</span>.</span></span>get<span class="hljs-constructor">Encoder()</span>;<br>byte<span class="hljs-literal">[]</span> var9 = var8.encode(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Integer</span>.</span></span><span class="hljs-keyword">to</span><span class="hljs-constructor">String(<span class="hljs-params">points</span>)</span>.get<span class="hljs-constructor">Bytes()</span>);<br>String var10 = <span class="hljs-keyword">new</span> <span class="hljs-constructor">String(<span class="hljs-params">var9</span>)</span>;<br>long var5 = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>current<span class="hljs-constructor">TimeMillis()</span>;<br>String var7 = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Long</span>.</span></span><span class="hljs-keyword">to</span><span class="hljs-constructor">String(<span class="hljs-params">var5</span>)</span>;<br>String var11 = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">HttpRequest</span>.</span></span>send<span class="hljs-constructor">Get(<span class="hljs-string">&quot;http://172.21.1.102:61234/Gb9k0TPyqz&quot;</span>, <span class="hljs-params">var5</span> + <span class="hljs-string">&quot;&amp;&quot;</span> + <span class="hljs-params">var10</span>)</span>;<br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(var11);<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-1-圆圈圈圆"><a href="#2-1-圆圈圈圆" class="headerlink" title="2-1 圆圈圈圆"></a>2-1 圆圈圈圆</h3><ol>
 <li>用binwalk对下载的1.PNG进行分析,发现其中隐藏了一些文件。</li>
 </ol>
-<pre><code>binwalk 1.png</code></pre><ol start="2">
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">binwalk</span> <span class="hljs-number">1</span>.png<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
 <li>用foremost提取到如下文件：<br>zip(00002888.zip)  rar(00000943.rar)  png(00000000.png)  ole(00001886.ole)  jpg(00001899.jpg)</li>
 </ol>
-<pre><code>foremost -v -i 1.png -o /root/aa</code></pre><ol start="3">
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">foremost -v -i <span class="hljs-number">1</span>.png -o <span class="hljs-regexp">/root/</span>aa<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
 <li><p>打开rar文件，发现压缩包内包含了paper2.png图片，尝试解压，但需要密码无法解压。</p>
 </li>
 <li><p>用WinHex打开jpg文件，发现文件头包含”photoshop cs5”字样，尝试用photoshop打开该文件，寻找隐藏信息，未果。</p>

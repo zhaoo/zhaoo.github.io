@@ -208,7 +208,7 @@
           <i class="iconfont iconeye"></i><span id="/2018/05/12/frp-deploy/" class="leancloud" data-flag-title="frp - 内网穿透"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>5631</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>5510</span>
     </div>
   </div>
 </section>
@@ -219,188 +219,67 @@
 <p>Ngrok和Frp的原理其实是差不多的，相比之下，Frp的部署更简单，使用效率更高，所有这里就介绍Frp的部署了。</p>
 <p>通过在服务器(外网)和内网设备(内网)上分别部署Frp服务端和客户端，内网的客户端会反向连接外网的服务端，从而建立连接。然后我们只需访问外网服务器地址即可重定向到内网设备，从而达到目的。这里的服务器可以充当桥梁的作业。本篇将介绍如何在服务器和内网设备上部署Frp，没有服务器的朋友可以去网上搜索现成的Frp服务器使用，一般是免费的。</p>
 <h3 id="服务端-腾讯云服务器-Ubuntu"><a href="#服务端-腾讯云服务器-Ubuntu" class="headerlink" title="服务端 - 腾讯云服务器(Ubuntu)"></a>服务端 - 腾讯云服务器(Ubuntu)</h3><p>这里用到一个脚本来方便部署。</p>
-<pre><code class="bash">wget --no-check-certificate https://raw.githubusercontent.com/clangcn/onekey-install-shell/master/frps/install-frps.sh -O ./install-frps.sh    #下载脚本
-chmod 755 ./install-frps.sh    #赋予权限
-./install-frps.sh install    #安装脚本</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">wget --no-check-certificate https://raw.githubusercontent.com/clangcn/onekey-install-shell/master/frps/install-frps.sh -O ./install-frps.sh    <span class="hljs-comment">#下载脚本</span><br>chmod 755 ./install-frps.sh    <span class="hljs-comment">#赋予权限</span><br>./install-frps.sh install    <span class="hljs-comment">#安装脚本</span><br></code></pre></td></tr></table></figure>
+
 <p>然后脚本开始运行，会让你输入一些配置，直接回车是默认配置。</p>
-<pre><code class="bash">Please input frps bind_port [1-65535](Default Server Port: 5443):[7000]
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">Please input frps bind_port [1-65535](Default Server Port: 5443):[7000]<br><br><span class="hljs-comment">#输入frp提供服务的端口，用于服务器端和客户端通信</span><br><br>Please input frps vhost_http_port [1-65535](Default vhost_http_port: 80):[7080]<br><br><span class="hljs-comment">#输入frp进行http穿透的http服务端口，建议修改防止冲突呀</span><br><br>Please input frps vhost_https_port [1-65535](Default vhost_https_port: 443):[70443]<br><br><span class="hljs-comment">#输入frp进行https穿透的https服务端口，建议修改防止冲突呀</span><br><br>Please input frps dashboard_port [1-65535](Default dashboard_port: 6443):[7081]<br><br><span class="hljs-comment">#输入frp的控制台服务端口，用于查看frp工作状态</span><br><br>Please input dashboard_user (Default: admin):[admin]<br><br><span class="hljs-comment">#登录控制台的用户名</span><br><br>Please input dashboard_pwd (Default: kpkpM7VZ):[admin]<br><br><span class="hljs-comment">#登录控制台的密码</span><br><br>Please input privilege_token (Default: 9m2UAOWa6hx5Eise):[admin]<br><br><span class="hljs-comment">#Frp服务端和客户端的通信密码</span><br><br>下面的内容都是默认即可<br></code></pre></td></tr></table></figure>
 
-#输入frp提供服务的端口，用于服务器端和客户端通信
-
-Please input frps vhost_http_port [1-65535](Default vhost_http_port: 80):[7080]
-
-#输入frp进行http穿透的http服务端口，建议修改防止冲突呀
-
-Please input frps vhost_https_port [1-65535](Default vhost_https_port: 443):[70443]
-
-#输入frp进行https穿透的https服务端口，建议修改防止冲突呀
-
-Please input frps dashboard_port [1-65535](Default dashboard_port: 6443):[7081]
-
-#输入frp的控制台服务端口，用于查看frp工作状态
-
-Please input dashboard_user (Default: admin):[admin]
-
-#登录控制台的用户名
-
-Please input dashboard_pwd (Default: kpkpM7VZ):[admin]
-
-#登录控制台的密码
-
-Please input privilege_token (Default: 9m2UAOWa6hx5Eise):[admin]
-
-#Frp服务端和客户端的通信密码
-
-下面的内容都是默认即可</code></pre>
 <p>到此服务端安装完成。</p>
 <p><img  src="https://pic.izhaoo.com/20180512114749.jpg"  ><span class="image-caption">Frp服务端</span></p>
 <p>综上可知，服务端配置如下:</p>
-<pre><code class="bash">[common]
-bind_addr = 0.0.0.0
-bind_port = 7000
-subdomain_host = zhaoo.cc    #后面加的，配置域名
-kcp_bind_port = 7000
-dashboard_port = 7081
-dashboard_user = admin
-dashboard_pwd = admin
-vhost_http_port = 7080
-vhost_https_port = 70443
-log_file = ./frps.log
-log_level = info
-log_max_days = 3
-privilege_token = admin
-max_pool_count = 50
-tcp_mux = true</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">[common]<br>bind_addr = 0.0.0.0<br>bind_port = 7000<br>subdomain_host = zhaoo.cc    <span class="hljs-comment">#后面加的，配置域名</span><br>kcp_bind_port = 7000<br>dashboard_port = 7081<br>dashboard_user = admin<br>dashboard_pwd = admin<br>vhost_http_port = 7080<br>vhost_https_port = 70443<br>log_file = ./frps.log<br>log_level = info<br>log_max_days = 3<br>privilege_token = admin<br>max_pool_count = 50<br>tcp_mux = <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
 <p>从配置可以看到，我又加了条主域名配置，在之后的客户端我们可以再配置子域名。配置域名后不会生效，需要添加解析：泛解析，<code>*.zhaoo.cc</code>和空解析，<code>@.zhaoo.cc</code>。</p>
 <p>使用命令：</p>
-<pre><code class="bash">/etc/init.d/frps start    #启动
-/etc/init.d/frps stop    #关闭
-/etc/init.d/frps restart    #重启
-/etc/init.d/frps status    #查看状态
-/etc/init.d/frps config    #查看配置
-/etc/init.d/frps version    #查看版本</code></pre>
-<pre><code class="bash">./install-frps.sh update      #更新
-./install-frps.sh uninstall    #卸载
-./install-frps.sh config    #修改配置</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">/etc/init.d/frps start    <span class="hljs-comment">#启动</span><br>/etc/init.d/frps stop    <span class="hljs-comment">#关闭</span><br>/etc/init.d/frps restart    <span class="hljs-comment">#重启</span><br>/etc/init.d/frps status    <span class="hljs-comment">#查看状态</span><br>/etc/init.d/frps config    <span class="hljs-comment">#查看配置</span><br>/etc/init.d/frps version    <span class="hljs-comment">#查看版本</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">./install-frps.sh update      <span class="hljs-comment">#更新</span><br>./install-frps.sh uninstall    <span class="hljs-comment">#卸载</span><br>./install-frps.sh config    <span class="hljs-comment">#修改配置</span><br></code></pre></td></tr></table></figure>
+
 <p>开启Frp服务器后，访问<code>http:服务器IP:7081</code>可访问Frp控制台。</p>
 <blockquote>
 <p>Tips: 服务器如果开启了防火墙，别忘了放行以上端口哦。我用了宝塔面板，老是忘了这一茬。</p>
 </blockquote>
 <h3 id="客户端-香橙派-Armbian"><a href="#客户端-香橙派-Armbian" class="headerlink" title="客户端 - 香橙派(Armbian)"></a>客户端 - 香橙派(Armbian)</h3><h5 id="安装Frpc"><a href="#安装Frpc" class="headerlink" title="安装Frpc"></a>安装Frpc</h5><p>下面在香橙派上部署Frp客户端，树莓派用的是arm的cpu，所以我们要下载arm版的。</p>
-<pre><code class="bash">wget https://github.com/fatedier/frp/releases/download/v0.18.0/frp_0.18.0_linux_arm.tar.gz    #下载Frp，amd版本
-tar -zxvf frp_0.18.0_linux_arm.tar.gz    #解压
-cd frp_0.18.0_linux_arm.tar.gz    #移动到frp目录
-sudo vim frpc.ini    #编辑配置</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">wget https://github.com/fatedier/frp/releases/download/v0.18.0/frp_0.18.0_linux_arm.tar.gz    <span class="hljs-comment">#下载Frp，amd版本</span><br>tar -zxvf frp_0.18.0_linux_arm.tar.gz    <span class="hljs-comment">#解压</span><br><span class="hljs-built_in">cd</span> frp_0.18.0_linux_arm.tar.gz    <span class="hljs-comment">#移动到frp目录</span><br>sudo vim frpc.ini    <span class="hljs-comment">#编辑配置</span><br></code></pre></td></tr></table></figure>
+
 <p>详细配置见下表：</p>
-<pre><code class="bash">注：打&quot;*&quot;的说明要和服务器上的配置一致
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">注：打<span class="hljs-string">&quot;*&quot;</span>的说明要和服务器上的配置一致<br><br><span class="hljs-comment">#基础配置</span><br>[common]<br>server_addr = 服务器IP    <span class="hljs-comment">#服务器IP</span><br>server_port = 7000    <span class="hljs-comment">#服务器通信端口 *</span><br>privilege_token = admin    <span class="hljs-comment">#服务器通信密码 *</span><br>login_fail_exit = <span class="hljs-literal">false</span>    <span class="hljs-comment">#后续设置自动启动使用</span><br><br><span class="hljs-comment">#ssh配置</span><br>[ssh]<br><span class="hljs-built_in">type</span> = tcp    <span class="hljs-comment">#tcp方式</span><br>local_ip = 127.0.0.1    <span class="hljs-comment">#本地IP</span><br>local_port = 22    <span class="hljs-comment">#本地端口</span><br>remote_port = 7122    <span class="hljs-comment">#远程连接端口</span><br><br><span class="hljs-comment">#http配置</span><br>[http]<br><span class="hljs-built_in">type</span> = http    <span class="hljs-comment">#http方式</span><br>local_ip = 127.0.0.1    <span class="hljs-comment">#本地IP</span><br>local_port = 80    <span class="hljs-comment">#本地地址</span><br>subdomain = opi    <span class="hljs-comment">#子域名</span><br><br><span class="hljs-comment">#https配置</span><br>[https]<br><span class="hljs-built_in">type</span> = https    <span class="hljs-comment">#https方式</span><br>local_ip = 127.0.0.1    <span class="hljs-comment">#本地IP</span><br>local_port = 443    <span class="hljs-comment">#本地地址</span><br>custom_domains = opi    <span class="hljs-comment">#子域名</span><br></code></pre></td></tr></table></figure>
 
-#基础配置
-[common]
-server_addr = 服务器IP    #服务器IP
-server_port = 7000    #服务器通信端口 *
-privilege_token = admin    #服务器通信密码 *
-login_fail_exit = false    #后续设置自动启动使用
-
-#ssh配置
-[ssh]
-type = tcp    #tcp方式
-local_ip = 127.0.0.1    #本地IP
-local_port = 22    #本地端口
-remote_port = 7122    #远程连接端口
-
-#http配置
-[http]
-type = http    #http方式
-local_ip = 127.0.0.1    #本地IP
-local_port = 80    #本地地址
-subdomain = opi    #子域名
-
-#https配置
-[https]
-type = https    #https方式
-local_ip = 127.0.0.1    #本地IP
-local_port = 443    #本地地址
-custom_domains = opi    #子域名</code></pre>
 <h5 id="安装Systemd自动启动Frp"><a href="#安装Systemd自动启动Frp" class="headerlink" title="安装Systemd自动启动Frp"></a>安装Systemd自动启动Frp</h5><p>客户端的<code>Frp</code>在香橙派每次重启后都要命令开启一下，那势必要在内网先连接ssh，很麻烦。所以安装<code>Systemd</code>，在香橙派每次开机时都能自动启动Frp服务。</p>
-<pre><code class="bash">apt-get install systemd    #安装systemd
-apt-get install systemd-sysv    #安装systemd</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">apt-get install systemd    <span class="hljs-comment">#安装systemd</span><br>apt-get install systemd-sysv    <span class="hljs-comment">#安装systemd</span><br></code></pre></td></tr></table></figure>
+
 <p>下面需要配置<code>Grub</code>文件，在开机时自动运行Systemd。</p>
-<pre><code class="bash">sudo vim /etc/default/grub    #编辑grub</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sudo vim /etc/default/grub    <span class="hljs-comment">#编辑grub</span><br></code></pre></td></tr></table></figure>
+
 <p>写入以下内容：</p>
-<pre><code class="bash">GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash init=/lib/systemd/systemd&quot;</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">GRUB_CMDLINE_LINUX_DEFAULT=<span class="hljs-string">&quot;quiet splash init=/lib/systemd/systemd&quot;</span><br></code></pre></td></tr></table></figure>
+
 <p>保存并重启一下。</p>
 <p>编辑<code>Syetemd</code>配置来自启动<code>Frp</code>。</p>
-<pre><code class="bash">cd 到frpc目录下
-cp frpc /usr/local/bin/frpc    #复制frpc文件到系统目录
-mkdir /etc/frp    #系统目录下新建frp文件夹
-cp frpc.ini /etc/frp/frpc.ini    复制frpc配置文件
-vim /usr/lib/systemd/system/frpc.service    #编辑frpc.service文件，敲入以下命令：</code></pre>
-<pre><code class="bash">[Unit]
-Description=frpc
-After=network.target
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> 到frpc目录下<br>cp frpc /usr/<span class="hljs-built_in">local</span>/bin/frpc    <span class="hljs-comment">#复制frpc文件到系统目录</span><br>mkdir /etc/frp    <span class="hljs-comment">#系统目录下新建frp文件夹</span><br>cp frpc.ini /etc/frp/frpc.ini    复制frpc配置文件<br>vim /usr/lib/systemd/system/frpc.service    <span class="hljs-comment">#编辑frpc.service文件，敲入以下命令：</span><br></code></pre></td></tr></table></figure>
 
-[Service]
-TimeoutStartSec=30
-ExecStart=/usr/local/bin/frpc -c /etc/frp/frpc.ini
-ExecStop=/bin/kill $MAINPID
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">[Unit]<br>Description=frpc<br>After=network.target<br><br>[Service]<br>TimeoutStartSec=30<br>ExecStart=/usr/<span class="hljs-built_in">local</span>/bin/frpc -c /etc/frp/frpc.ini<br>ExecStop=/bin/<span class="hljs-built_in">kill</span> <span class="hljs-variable">$MAINPID</span><br><br>[Install]<br>WantedBy=multi-user.target<br></code></pre></td></tr></table></figure>
 
-[Install]
-WantedBy=multi-user.target</code></pre>
-<pre><code>systemctl enable frpc    #启动frp并设置开机自启
-systemctl start frpc
-systemctl status frpc</code></pre><blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">systemctl <span class="hljs-built_in">enable</span> frpc    <span class="hljs-comment">#启动frp并设置开机自启</span><br>systemctl start frpc<br>systemctl status frpc<br></code></pre></td></tr></table></figure>
+
+<blockquote>
 <p>Tips: frpc启动无效时,可以尝试先停止服务： systemctl stop frpc</p>
 </blockquote>
 <p>到此，香橙派上的Frp客户端配置完成，树莓派啊各种派配置也是一样的。</p>
-<h5 id="连接说明"><a href="#连接说明" class="headerlink" title="连接说明"></a>连接说明</h5><pre><code class="bash">SSH: IP地址 -&gt; opi.zhaoo.cc    端口 -&gt; 7122
-HTTP: http://opi.zhaoo.cc:7180
-HTTPS: https://opi.zhaoo.cc:71433</code></pre>
+<h5 id="连接说明"><a href="#连接说明" class="headerlink" title="连接说明"></a>连接说明</h5><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">SSH: IP地址 -&gt; opi.zhaoo.cc    端口 -&gt; 7122<br>HTTP: http://opi.zhaoo.cc:7180<br>HTTPS: https://opi.zhaoo.cc:71433<br></code></pre></td></tr></table></figure>
+
 <h3 id="客户端-小米路由器3-Padavan"><a href="#客户端-小米路由器3-Padavan" class="headerlink" title="客户端 - 小米路由器3(Padavan)"></a>客户端 - 小米路由器3(Padavan)</h3><p><a target="_blank" rel="noopener" href="https://note.izhaoo.com/mi-router-3-flash-padavan.html">参考 – 小米路由器3 – 烧录Padavan固件</a></p>
 <p><a target="_blank" rel="noopener" href="https://note.izhaoo.com/mi-router-3-padavan.html">参考 – 小米路由器3 – Padavan固件</a></p>
 <p>我给小米路由器3刷了Padavan，自带Frp功能，所以就直接配置了。</p>
 <p><img  src="https://pic.izhaoo.com/20180516130007.jpg"  ><span class="image-caption">小米路由器3-frp</span></p>
 <p>启用前先更新一下Frp版本，确保和服务端的版本一致，否则无法建立通信。然后只需在脚本处填写配置即可，我的配置如下：</p>
-<pre><code class="bash">#基础配置
-[common]
-server_addr = zhaoo.cc    #IP地址（直接写IP也可以）
-server_port = 7000
-privilege_token = admin
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#基础配置</span><br>[common]<br>server_addr = zhaoo.cc    <span class="hljs-comment">#IP地址（直接写IP也可以）</span><br>server_port = 7000<br>privilege_token = admin<br><br><span class="hljs-comment">#Web配置（Hexo轻博客）</span><br>[mirt-web]<br><span class="hljs-built_in">type</span> = http<br>local_ip = 192.168.1.1<br>local_port = 80<br>use_gzip = <span class="hljs-literal">true</span>    <span class="hljs-comment">#启用gzip压缩</span><br>subdomain = mirt    <span class="hljs-comment">#子域名</span><br><br><span class="hljs-comment">#SSH配置</span><br>[mirt-ssh]<br><span class="hljs-built_in">type</span> = tcp<br>local_ip = 192.168.1.1<br>local_port = 22<br>remote_port = 7222<br><br><span class="hljs-comment">#Web后台配置</span><br>[mirt-admin]<br><span class="hljs-built_in">type</span> = tcp<br>local_ip = 192.168.1.1<br>local_port = 81    <span class="hljs-comment">#本地端口我改成了81，防止和web的80端口冲突。</span><br>remote_port = 7281<br><br><span class="hljs-comment">#KODE文件管理系统配置</span><br>[mirt-kode]<br><span class="hljs-built_in">type</span> = tcp<br>local_ip = 192.168.1.1<br>local_port = 82<br>remote_port = 7282<br></code></pre></td></tr></table></figure>
 
-#Web配置（Hexo轻博客）
-[mirt-web]
-type = http
-local_ip = 192.168.1.1
-local_port = 80
-use_gzip = true    #启用gzip压缩
-subdomain = mirt    #子域名
-
-#SSH配置
-[mirt-ssh]
-type = tcp
-local_ip = 192.168.1.1
-local_port = 22
-remote_port = 7222
-
-#Web后台配置
-[mirt-admin]
-type = tcp
-local_ip = 192.168.1.1
-local_port = 81    #本地端口我改成了81，防止和web的80端口冲突。
-remote_port = 7281
-
-#KODE文件管理系统配置
-[mirt-kode]
-type = tcp
-local_ip = 192.168.1.1
-local_port = 82
-remote_port = 7282</code></pre>
 <p>解释一下：Frp一个子域名下只能穿透一条http或htpps线路，而tcp线路却可以有多条。我们路由器上有许多Web服务需要穿透（轻博客、后台、KODE文件管理系统……），所以这里我们就采取曲线救国的方式，将其他Web线路配置成tcp方式，访问的时候跟上对应的远程端口即可。</p>
 <p><img  src="https://pic.izhaoo.com/20180516130535.jpg"  ><span class="image-caption">保存配置</span></p>
 <p>写入配置脚本后，点击下方的<code>应用本页面设置</code>，再<code>重启一下</code>Frp服务，通信即建立。</p>
-<h5 id="连接说明-1"><a href="#连接说明-1" class="headerlink" title="连接说明"></a>连接说明</h5><pre><code class="bash">SSH: IP地址 -&gt; mirt.zhaoo.cc    端口 -&gt; 7222
-博客: http://mirt.zhaoo.cc:7080
-路由器后台: http://mirt.zhaoo.cc:7081
-KODE文件管理系统: http://mirt.zhaoo.cc:7082</code></pre>
+<h5 id="连接说明-1"><a href="#连接说明-1" class="headerlink" title="连接说明"></a>连接说明</h5><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">SSH: IP地址 -&gt; mirt.zhaoo.cc    端口 -&gt; 7222<br>博客: http://mirt.zhaoo.cc:7080<br>路由器后台: http://mirt.zhaoo.cc:7081<br>KODE文件管理系统: http://mirt.zhaoo.cc:7082<br></code></pre></td></tr></table></figure>
+
 <h3 id="Nginx反向代理"><a href="#Nginx反向代理" class="headerlink" title="Nginx反向代理"></a>Nginx反向代理</h3><p>按照之前的配置，如果我要访问小米路由器3上搭建的Hexo博客，那么需要访问的地址是<code>mirt.zhaoo.cc:7080</code>，需要跟上个端口号。哪有人访问Web页面还得加个端口号的，况且这样也不利于SEO。所以我们用到Nginx反向代理这项技术，将<code>7080</code>🇨🇳端口反代到<code>80</code>端口上。</p>
 <p>我服务器安装了<code>宝塔面板</code>，可以很直观的设置反向代理，这里仅做个演示。没安装的朋友用命令行配置也是没问题的，具体问度娘。<br>在宝塔面板下新建网站，绑定域名，然后设置。</p>
 <p><img  src="https://pic.izhaoo.com/20180516164500.jpg"  ><span class="image-caption">宝塔面板-新建网站</span></p>

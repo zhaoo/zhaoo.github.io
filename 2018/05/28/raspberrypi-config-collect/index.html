@@ -208,7 +208,7 @@
           <i class="iconfont iconeye"></i><span id="/2018/05/28/raspberrypi-config-collect/" class="leancloud" data-flag-title="树莓派 - 安装配置汇总"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>11595</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>11560</span>
     </div>
   </div>
 </section>
@@ -226,48 +226,15 @@
 <p>打开“/boot/”目录。新建一个“wpa_supplicant.conf”文件，注意后缀哦，记事本打开。</p>
 <p><img  src="https://pic.izhaoo.com/20170920095142.jpg"  ><span class="image-caption">boot目录</span></p>
 <p>写入以下代码：</p>
-<pre><code>country=CN
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">country</span>=CN<br><span class="hljs-attribute">ctrl_interface</span>=DIR=/var/run/wpa_supplicant <span class="hljs-attribute">GROUP</span>=netdev<br><span class="hljs-attribute">update_config</span>=1<br> <br>network=&#123;<br><span class="hljs-attribute">ssid</span>=<span class="hljs-string">&quot;zhaoo&quot;</span>        #ssid（wifi用户名）<br><span class="hljs-attribute">psk</span>=<span class="hljs-string">&quot;12345678&quot;</span>      #password（wifi密码）<br><span class="hljs-attribute">key_mgmt</span>=WPA-PSK    #wifi加密方式<br><span class="hljs-attribute">priority</span>=1          #优先级<br>&#125;<br></code></pre></td></tr></table></figure>
 
-network=&#123;
-ssid=&quot;zhaoo&quot;        #ssid（wifi用户名）
-psk=&quot;12345678&quot;      #password（wifi密码）
-key_mgmt=WPA-PSK    #wifi加密方式
-priority=1          #优先级
-&#125;</code></pre><blockquote>
+<blockquote>
 <p>摘自：<a target="_blank" rel="noopener" href="http://shumeipai.nxez.com/2017/09/13/raspberry-pi-network-configuration-before-boot.html">树莓派实验室</a></p>
 </blockquote>
 <p>说明以及不同安全性的 WiFi 配置示例：</p>
-<pre><code>#ssid:网络的ssid
-#psk:密码
-#priority:连接优先级，数字越大优先级越高（不可以是负数）
-#scan_ssid:连接隐藏WiFi时需要指定该值为1
+<figure class="highlight makefile"><table><tr><td class="code"><pre><code class="hljs makefile"><span class="hljs-comment">#ssid:网络的ssid</span><br><span class="hljs-comment">#psk:密码</span><br><span class="hljs-comment">#priority:连接优先级，数字越大优先级越高（不可以是负数）</span><br><span class="hljs-comment">#scan_ssid:连接隐藏WiFi时需要指定该值为1</span><br><br>如果你的 WiFi 没有密码<br><br>network=&#123;<br>ssid=<span class="hljs-string">&quot;你的无线网络名称（ssid）&quot;</span><br>key_mgmt=NONE<br>&#125;<br><br>如果你的 WiFi 使用WEP加密<br><br>network=&#123;<br>ssid=<span class="hljs-string">&quot;你的无线网络名称（ssid）&quot;</span><br>key_mgmt=NONE<br>wep_key0=<span class="hljs-string">&quot;你的wifi密码&quot;</span><br>&#125;<br><br>如果你的 WiFi 使用WPA/WPA2加密<br><br>network=&#123;<br>ssid=<span class="hljs-string">&quot;你的无线网络名称（ssid）&quot;</span><br>key_mgmt=WPA-PSK<br>psk=<span class="hljs-string">&quot;你的wifi密码&quot;</span><br>&#125;<br><br>如果你不清楚 WiFi 的加密模式，可以在安卓手机上用 root explorer 打开 /data/misc/wifi/wpa/wpa_supplicant.conf，查看 WiFi 的信息。<br></code></pre></td></tr></table></figure>
 
-如果你的 WiFi 没有密码
-
-network=&#123;
-ssid=&quot;你的无线网络名称（ssid）&quot;
-key_mgmt=NONE
-&#125;
-
-如果你的 WiFi 使用WEP加密
-
-network=&#123;
-ssid=&quot;你的无线网络名称（ssid）&quot;
-key_mgmt=NONE
-wep_key0=&quot;你的wifi密码&quot;
-&#125;
-
-如果你的 WiFi 使用WPA/WPA2加密
-
-network=&#123;
-ssid=&quot;你的无线网络名称（ssid）&quot;
-key_mgmt=WPA-PSK
-psk=&quot;你的wifi密码&quot;
-&#125;
-
-如果你不清楚 WiFi 的加密模式，可以在安卓手机上用 root explorer 打开 /data/misc/wifi/wpa/wpa_supplicant.conf，查看 WiFi 的信息。</code></pre><h3 id="2-配置ssh"><a href="#2-配置ssh" class="headerlink" title="2.配置ssh"></a>2.配置ssh</h3><p>新版“Jessie”系统默认是关闭ssh的，说是为了安全，麻烦的一批。</p>
+<h3 id="2-配置ssh"><a href="#2-配置ssh" class="headerlink" title="2.配置ssh"></a>2.配置ssh</h3><p>新版“Jessie”系统默认是关闭ssh的，说是为了安全，麻烦的一批。</p>
 <p>在“/boot/”目录下新建“ssh”文件。（注意是小写且没有后缀的空文件）然后树莓派开机的时候检测到了这个文件就会开启ssh，还是没那么麻烦的。</p>
 <h3 id="3-电脑安装ssh连接软件"><a href="#3-电脑安装ssh连接软件" class="headerlink" title="3.电脑安装ssh连接软件"></a>3.电脑安装ssh连接软件</h3><p>安利俩个工具吧，自行下载。</p>
 <p><a target="_blank" rel="noopener" href="http://www.putty.org/">putty</a></p>
@@ -277,8 +244,9 @@ psk=&quot;你的wifi密码&quot;
 <p>然后ssh软件设置一下ip地址就可以连上树莓派了。</p>
 <p><img  src="https://pic.izhaoo.com/20170920101010.jpg"  ><span class="image-caption">填写ip</span></p>
 <p>需要填写树莓派ssh的用户名和密码。默认密码如下：</p>
-<pre><code>用户名：pi
-密码：raspberry</code></pre><p><img  src="https://pic.izhaoo.com/20170920084453.jpg"  ><span class="image-caption">填写用户名密码</span></p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">用户名：<span class="hljs-literal">pi</span><br>密码：raspberry<br></code></pre></td></tr></table></figure>
+
+<p><img  src="https://pic.izhaoo.com/20170920084453.jpg"  ><span class="image-caption">填写用户名密码</span></p>
 <p>连接！看到以下界面就说明ssh连接树莓派成功了。尽情地折腾吧。</p>
 <p><img  src="https://pic.izhaoo.com/20170920084314.jpg"  ><span class="image-caption">ssh连接成功</span></p>
 <h1 id="IMG镜像解压"><a href="#IMG镜像解压" class="headerlink" title="IMG镜像解压"></a>IMG镜像解压</h1><p>今天折腾树莓派的更新源，手贱把原来的官方源删除了。网上教程都说加注释。别删！别删！别删！然后我不听，然后我就呵呵了。国内的源是残缺的，某些软件下载不了。</p>
@@ -301,43 +269,20 @@ psk=&quot;你的wifi密码&quot;
 <h1 id="VNC"><a href="#VNC" class="headerlink" title="VNC"></a>VNC</h1><p>折腾树莓派嘛，当然少不了GUI图形界面，除非你是大佬，TUI文本界面敲代码，膜拜膜拜。说正经的，本文我们将安装个vnc远程连接树莓派。</p>
 <h2 id="树莓派端安装vnc服务端"><a href="#树莓派端安装vnc服务端" class="headerlink" title="树莓派端安装vnc服务端"></a>树莓派端安装vnc服务端</h2><p>首先我们ssh连接树莓派，还没连接过ssh的可以看我之前文章。<a target="_blank" rel="noopener" href="http://note.izhaoo.com/raspberrypi-install-system-without-display/">树莓派 – 无屏幕安装系统</a></p>
 <p>敲入以下代码：</p>
-<pre><code>sudo apt-get install tightvncserver    #安装vnc服务端</code></pre><pre><code>vncpasswd    #设置vnc连接密码</code></pre><p>两次输入密码，回车，注意密码是不会显示的。然后提示你是否设置查看(view-only)密码，没必要，按“n”。</p>
-<pre><code>sudo nano /etc/init.d/tightvncserver    #新建“tightvncserver”文件，设置开机启动</code></pre><p>在nano编辑器内粘贴以下代码。然后按“ctrl+x”，再按“y”保存，回车确认。</p>
-<pre><code>#!/bin/sh
-### BEGIN INIT INFO
-# Provides:          tightvncserver
-# Required-Start:    $local_fs
-# Required-Stop:     $local_fs
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: Start/stop tightvncserver
-### END INIT INFO
-# More details see:
-# http://www.penguintutor.com/linux/tightvnc
-### Customize this entry
-# Set the USER variable to the name of the user to start tightvncserver under
-export USER=&#39;pi&#39;
-### End customization required
-eval cd ~$USER
-case &quot;$1&quot; in
-  start)
-    # 启动命令行。此处自定义分辨率（和你电脑分辨率设置一样吧）、控制台号码或其它参数。控制台号码设置为“0”的话之后可以不写。
-    su $USER -c &#39;/usr/bin/tightvncserver -depth 16 -geometry 1366x768 :1&#39;
-    echo &quot;Starting TightVNC server for $USER &quot;
-    ;;
-  stop)
-    # 终止命令行。此处控制台号码与启动一致。
-    su $USER -c &#39;/usr/bin/tightvncserver -kill :1&#39;
-    echo &quot;Tightvncserver stopped&quot;
-    ;;
-  *)
-    echo &quot;Usage: /etc/init.d/tightvncserver &#123;start|stop&#125;&quot;
-    exit 1
-    ;;
-esac
-exit 0</code></pre><p>再给tightvncserver文件加执行权限，并更新开机启动列表。</p>
-<pre><code>sudo chmod 755 /etc/init.d/tightvncserver
-sudo update-rc.d tightvncserver defaults</code></pre><p>OK！树莓派端折腾完毕。</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">sudo apt-<span class="hljs-keyword">get</span> install tightvncserver    <span class="hljs-comment">#安装vnc服务端</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight nginx"><table><tr><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">vncpasswd</span>    <span class="hljs-comment">#设置vnc连接密码</span><br></code></pre></td></tr></table></figure>
+
+<p>两次输入密码，回车，注意密码是不会显示的。然后提示你是否设置查看(view-only)密码，没必要，按“n”。</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">sudo nano <span class="hljs-regexp">/etc/i</span>nit.d/tightvncserver    <span class="hljs-comment">#新建“tightvncserver”文件，设置开机启动</span><br></code></pre></td></tr></table></figure>
+
+<p>在nano编辑器内粘贴以下代码。然后按“ctrl+x”，再按“y”保存，回车确认。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/sh</span><br><span class="hljs-comment">### BEGIN INIT INFO</span><br><span class="hljs-comment"># Provides:          tightvncserver</span><br><span class="hljs-comment"># Required-Start:    $local_fs</span><br><span class="hljs-comment"># Required-Stop:     $local_fs</span><br><span class="hljs-comment"># Default-Start:     2 3 4 5</span><br><span class="hljs-comment"># Default-Stop:      0 1 6</span><br><span class="hljs-comment"># Short-Description: Start/stop tightvncserver</span><br><span class="hljs-comment">### END INIT INFO</span><br><span class="hljs-comment"># More details see:</span><br><span class="hljs-comment"># http://www.penguintutor.com/linux/tightvnc</span><br><span class="hljs-comment">### Customize this entry</span><br><span class="hljs-comment"># Set the USER variable to the name of the user to start tightvncserver under</span><br><span class="hljs-built_in">export</span> USER=<span class="hljs-string">&#x27;pi&#x27;</span><br><span class="hljs-comment">### End customization required</span><br><span class="hljs-built_in">eval</span> <span class="hljs-built_in">cd</span> ~<span class="hljs-variable">$USER</span><br><span class="hljs-keyword">case</span> <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> <span class="hljs-keyword">in</span><br>  start)<br>    <span class="hljs-comment"># 启动命令行。此处自定义分辨率（和你电脑分辨率设置一样吧）、控制台号码或其它参数。控制台号码设置为“0”的话之后可以不写。</span><br>    su <span class="hljs-variable">$USER</span> -c <span class="hljs-string">&#x27;/usr/bin/tightvncserver -depth 16 -geometry 1366x768 :1&#x27;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Starting TightVNC server for <span class="hljs-variable">$USER</span> &quot;</span><br>    ;;<br>  stop)<br>    <span class="hljs-comment"># 终止命令行。此处控制台号码与启动一致。</span><br>    su <span class="hljs-variable">$USER</span> -c <span class="hljs-string">&#x27;/usr/bin/tightvncserver -kill :1&#x27;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Tightvncserver stopped&quot;</span><br>    ;;<br>  *)<br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Usage: /etc/init.d/tightvncserver &#123;start|stop&#125;&quot;</span><br>    <span class="hljs-built_in">exit</span> 1<br>    ;;<br><span class="hljs-keyword">esac</span><br><span class="hljs-built_in">exit</span> 0<br></code></pre></td></tr></table></figure>
+
+<p>再给tightvncserver文件加执行权限，并更新开机启动列表。</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">sudo chmod <span class="hljs-number">755</span> <span class="hljs-regexp">/etc/i</span>nit.d/tightvncserver<br>sudo update-rc.d tightvncserver defaults<br></code></pre></td></tr></table></figure>
+
+<p>OK！树莓派端折腾完毕。</p>
 <h2 id="PC端安装VNC客户端"><a href="#PC端安装VNC客户端" class="headerlink" title="PC端安装VNC客户端"></a>PC端安装VNC客户端</h2><p>安利一个vnc客户端（同时它也有服务端）</p>
 <p><a target="_blank" rel="noopener" href="https://www.realvnc.com/en/connect/download/vnc/">RealVnc</a></p>
 <h2 id="连接VNC"><a href="#连接VNC" class="headerlink" title="连接VNC"></a>连接VNC</h2><p>在RealVnc设置ip等，连接。提示输入密码，就是之前设置的那个。</p>
@@ -349,77 +294,66 @@ sudo update-rc.d tightvncserver defaults</code></pre><p>OK！树莓派端折腾�
 <h1 id="汉化"><a href="#汉化" class="headerlink" title="汉化"></a>汉化</h1><p>树莓派默认使用英文，对于我这种英语渣，就难以驾驭了。本文将介绍如何汉化树莓派。</p>
 <p>树莓派默认没装中文字库，如果强行更改语言为“中文”的话，会显示乱码或方块文。</p>
 <p>所以我们要先安装一个第三方字库。</p>
-<pre><code>sudo apt-get install ttf-wqy-zenhei</code></pre><p>按“y”同意，并回车继续。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-builtin-name">get</span> install ttf-wqy-zenhei<br></code></pre></td></tr></table></figure>
+
+<p>按“y”同意，并回车继续。</p>
 <p>然后我们再安装一个中文输入法。</p>
-<pre><code>sudo apt-get install scim-pinyin</code></pre><p>同样按“y”同意，并回车继续。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-builtin-name">get</span> install scim-pinyin<br></code></pre></td></tr></table></figure>
+
+<p>同样按“y”同意，并回车继续。</p>
 <p>安装完毕后我们要设置中文显示。</p>
-<pre><code>sudo raspi-config</code></pre><p>ps. 上下方向键选择，回车进入。</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino">sudo raspi-config<br></code></pre></td></tr></table></figure>
+
+
+<p>ps. 上下方向键选择，回车进入。</p>
 <p>“Internationalisation Options” –&gt; “change_locale” –&gt; “Default locale for the system environment:”</p>
 <p><img  src="https://pic.izhaoo.com/20170921081820.jpg"  ><span class="image-caption">语言配置</span></p>
 <p>ps. 光标上下移动，空格打“*”选择或取消。</p>
 <p>选择“zh_CN.UTF-8 UTF-8”，取消“en_GB.UTF-8 UTF-8”。</p>
 <p>然后按“tab”键将光标移到“ok”，回车保存。</p>
 <p>重启一下。</p>
-<pre><code>sudo shutdown -r now</code></pre><p>重启后显示中文了，按“ctrl + space”还可以切换中文输入法。</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino">sudo shutdown -r now<br></code></pre></td></tr></table></figure>
+
+<p>重启后显示中文了，按“ctrl + space”还可以切换中文输入法。</p>
 <p><img  src="https://pic.izhaoo.com/20170921082603.jpg"  ><span class="image-caption">显示中文</span></p>
 <p>OK！中文是全世界最美（keng）的语言！</p>
 <h1 id="Vim文本编辑器-安装及设置代码高亮"><a href="#Vim文本编辑器-安装及设置代码高亮" class="headerlink" title="Vim文本编辑器 - 安装及设置代码高亮"></a>Vim文本编辑器 - 安装及设置代码高亮</h1><p>树莓派默认安装的文本编辑器是“nano”，燃鹅我并不喜欢，还是我“vim”最好。虽说树莓派也安装了“vim”，但是比较诡异，可能是变异了吧，完全不符合一般人的使用逻辑。</p>
 <p>首先我们要卸载“变异版vim”。</p>
-<pre><code>sudo apt-get remove vim-common</code></pre><p>再重新安装“正常版vim”。</p>
-<pre><code>sudo apt-get install vim</code></pre><p>按“y”同意并回车，“vim”就安装好了。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-builtin-name">get</span> <span class="hljs-builtin-name">remove</span> vim-common<br></code></pre></td></tr></table></figure>
+
+<p>再重新安装“正常版vim”。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-builtin-name">get</span> install vim<br></code></pre></td></tr></table></figure>
+
+<p>按“y”同意并回车，“vim”就安装好了。</p>
 <p>“vim”具体的使用命令可以问问度娘。</p>
 <p>接下来我们还需要配置代码高亮显示，嘛，必备的。</p>
 <p>在~目录下面新建”.vimrc”文件。</p>
-<pre><code>pi@raspberrypi ~ $ cd ~
-pi@raspberrypi ~ $ vim .vimrc
+<figure class="highlight gams"><table><tr><td class="code"><pre><code class="hljs gams"><span class="hljs-built_in">pi</span>@raspberrypi ~ <span class="hljs-symbol">$</span> cd ~<br><span class="hljs-built_in">pi</span>@raspberrypi ~ <span class="hljs-symbol">$</span> vim .vimrc<br> <br><span class="hljs-keyword">set</span> number<br>syntax <span class="hljs-comment">on</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">tabstop=4</span><br></code></pre></td></tr></table></figure>
 
-set number
-syntax on
-set tabstop=4</code></pre><p>OK！代码高亮也配置完成。</p>
+<p>OK！代码高亮也配置完成。</p>
 <h1 id="更换为国内更新源"><a href="#更换为国内更新源" class="headerlink" title="更换为国内更新源"></a>更换为国内更新源</h1><p>树莓派默认更新源服务器位于国外，虽说没被墙，但下载速度太感人了，还是有必要换成国内源的。</p>
 <h2 id="更新-2017-10-04"><a href="#更新-2017-10-04" class="headerlink" title="更新-2017.10.04"></a>更新-2017.10.04</h2><p>修改“/etc/apt/sources.list”</p>
-<pre><code>deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ jessie main contrib non-free</code></pre><p>修改“/etc/apt/sources.list.d/raspi.list”</p>
-<pre><code>deb http://mirrors.ustc.edu.cn/archive.raspberrypi.org/debian/ jessie main</code></pre><p>！！！ “wheezy”、“jessie”、“stretch”根据自己的改字段</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">deb http:<span class="hljs-regexp">//mi</span>rrors.ustc.edu.cn<span class="hljs-regexp">/raspbian/</span>raspbian/ jessie main contrib non-free<br></code></pre></td></tr></table></figure>
+
+<p>修改“/etc/apt/sources.list.d/raspi.list”</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">deb http:<span class="hljs-regexp">//mi</span>rrors.ustc.edu.cn<span class="hljs-regexp">/archive.raspberrypi.org/</span>debian/ jessie main<br></code></pre></td></tr></table></figure>
+
+<p>！！！ “wheezy”、“jessie”、“stretch”根据自己的改字段</p>
 <p>！！！ 以下内容作废，可参考过程。</p>
 <h2 id="更换阿里云源"><a href="#更换阿里云源" class="headerlink" title="更换阿里云源"></a>更换阿里云源</h2><p>这里我们以阿里云源为例说明如何更换更新源。</p>
 <p>编辑“/etc/apt/sources.list”文件，将原来的源加“#”注释掉，再将以下阿里云源粘贴即可。</p>
-<pre><code>sudo nano /etc/apt/sources.list   #编辑“sources.list”文件</code></pre><pre><code>deb http://mirrors.aliyun.com/raspbian/raspbian/ jessie main contrib non-free    #阿里云源
-deb-src http://mirrors.aliyun.com/raspbian/raspbian/ jessie main contrib non-free    #阿里云源</code></pre><p><img  src="https://pic.izhaoo.com/20170921085740.jpg"  ><span class="image-caption">更换源</span></p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">sudo nano <span class="hljs-regexp">/etc/</span>apt/sources.list   <span class="hljs-comment">#编辑“sources.list”文件</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">deb http:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/raspbian/</span>raspbian/ jessie main contrib non-free    <span class="hljs-comment">#阿里云源</span><br>deb-src http:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/raspbian/</span>raspbian/ jessie main contrib non-free    <span class="hljs-comment">#阿里云源</span><br></code></pre></td></tr></table></figure>
+
+<p><img  src="https://pic.izhaoo.com/20170921085740.jpg"  ><span class="image-caption">更换源</span></p>
 <p>！！！ wheezy系统务必将上面的“jessie”字段换成“wheezy”。</p>
-<pre><code>sudo apt-get update &amp;&amp; apt-get upgrade -y     #更新源&amp;更新系统</code></pre><p><img  src="https://pic.izhaoo.com/20170921091143.jpg"  ><span class="image-caption">更新系统和源</span></p>
-<h2 id="国内源列表"><a href="#国内源列表" class="headerlink" title="国内源列表"></a>国内源列表</h2><pre><code>中国科学技术大学
-Raspbian http://mirrors.ustc.edu.cn/raspbian/raspbian/
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">sudo apt-<span class="hljs-builtin-name">get</span> update &amp;&amp; apt-<span class="hljs-builtin-name">get</span><span class="hljs-built_in"> upgrade </span>-y     #更新源&amp;更新系统<br></code></pre></td></tr></table></figure>
 
-阿里云
-Raspbian http://mirrors.aliyun.com/raspbian/raspbian/
+<p><img  src="https://pic.izhaoo.com/20170921091143.jpg"  ><span class="image-caption">更新系统和源</span></p>
+<h2 id="国内源列表"><a href="#国内源列表" class="headerlink" title="国内源列表"></a>国内源列表</h2><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">中国科学技术大学<br>Raspbian http:<span class="hljs-regexp">//mi</span>rrors.ustc.edu.cn<span class="hljs-regexp">/raspbian/</span>raspbian/<br><br>阿里云<br>Raspbian http:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/raspbian/</span>raspbian/<br><br>清华大学<br>Raspbian http:<span class="hljs-regexp">//mi</span>rrors.tuna.tsinghua.edu.cn<span class="hljs-regexp">/raspbian/</span>raspbian/<br><br>华中科技大学<br>Raspbian http:<span class="hljs-regexp">//mi</span>rrors.hustunique.com<span class="hljs-regexp">/raspbian/</span>raspbian/<br>Arch Linux ARM http:<span class="hljs-regexp">//mi</span>rrors.hustunique.com<span class="hljs-regexp">/archlinuxarm/</span><br><br>华南农业大学（华南用户）<br>Raspbian http:<span class="hljs-regexp">//mi</span>rrors.scau.edu.cn<span class="hljs-regexp">/raspbian/</span><br><br>大连东软信息学院源（北方用户）<br>Raspbian http:<span class="hljs-regexp">//mi</span>rrors.neusoft.edu.cn<span class="hljs-regexp">/raspbian/</span>raspbian/<br><br>重庆大学源（中西部用户）<br>Raspbian http:<span class="hljs-regexp">//mi</span>rrors.cqu.edu.cn<span class="hljs-regexp">/Raspbian/</span>raspbian/<br><br>中山大学 已跳转至中国科学技术大学源<br>Raspbian http:<span class="hljs-regexp">//mi</span>rror.sysu.edu.cn<span class="hljs-regexp">/raspbian/</span>raspbian/<br><br>新加坡国立大学（国外）<br>Raspbian http:<span class="hljs-regexp">//mi</span>rror.nus.edu.sg<span class="hljs-regexp">/raspbian/</span>raspbian<br><br>牛津大学（国外）<br>Raspbian http:<span class="hljs-regexp">//mi</span>rror.ox.ac.uk<span class="hljs-regexp">/sites/</span>archive.raspbian.org<span class="hljs-regexp">/archive/</span>raspbian/<br><br>韩国KAIST大学（国外）<br>Raspbian http:<span class="hljs-regexp">//</span>ftp.kaist.ac.kr<span class="hljs-regexp">/raspbian/</span>raspbian/<br></code></pre></td></tr></table></figure>
 
-清华大学
-Raspbian http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/
-
-华中科技大学
-Raspbian http://mirrors.hustunique.com/raspbian/raspbian/
-Arch Linux ARM http://mirrors.hustunique.com/archlinuxarm/
-
-华南农业大学（华南用户）
-Raspbian http://mirrors.scau.edu.cn/raspbian/
-
-大连东软信息学院源（北方用户）
-Raspbian http://mirrors.neusoft.edu.cn/raspbian/raspbian/
-
-重庆大学源（中西部用户）
-Raspbian http://mirrors.cqu.edu.cn/Raspbian/raspbian/
-
-中山大学 已跳转至中国科学技术大学源
-Raspbian http://mirror.sysu.edu.cn/raspbian/raspbian/
-
-新加坡国立大学（国外）
-Raspbian http://mirror.nus.edu.sg/raspbian/raspbian
-
-牛津大学（国外）
-Raspbian http://mirror.ox.ac.uk/sites/archive.raspbian.org/archive/raspbian/
-
-韩国KAIST大学（国外）
-Raspbian http://ftp.kaist.ac.kr/raspbian/raspbian/</code></pre><h1 id="绑定域名-让外网可以访问树莓派"><a href="#绑定域名-让外网可以访问树莓派" class="headerlink" title="绑定域名 - 让外网可以访问树莓派"></a>绑定域名 - 让外网可以访问树莓派</h1><p>树莓派绑定域名，让外网也可以通过域名访问。</p>
+<h1 id="绑定域名-让外网可以访问树莓派"><a href="#绑定域名-让外网可以访问树莓派" class="headerlink" title="绑定域名 - 让外网可以访问树莓派"></a>绑定域名 - 让外网可以访问树莓派</h1><p>树莓派绑定域名，让外网也可以通过域名访问。</p>
 <h2 id="2017-09-27"><a href="#2017-09-27" class="headerlink" title="2017-09-27"></a>2017-09-27</h2><p>今天发现，学校虽然是公网IP，但还是有租期，也就是说跳IP。只能路由器DDNS咯。</p>
 <h2 id="2017-09-26"><a href="#2017-09-26" class="headerlink" title="2017-09-26"></a>2017-09-26</h2><p>这几天一直在渡劫，如何给树莓派绑定域名，搭建一台小型服务器。然后我试了以下方式。</p>
 <p>|:————- :|:————-:|<br>|花生壳-DDNS|要实名交钱，太麻烦|<br>|Dnspod-DDNS|脚本没成功|<br>|ngrok-内网穿透|要敲的代码太多，太麻烦|<br>|frp-内网穿透|本地端没配置成功，是个bug|</p>
@@ -432,7 +366,9 @@ Raspbian http://ftp.kaist.ac.kr/raspbian/raspbian/</code></pre><h1 id="绑定域
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
 <li>安装python开发版</li>
 </ol>
-<pre><code>sudo apt-get install python-dev</code></pre><ol start="2">
+<figure class="highlight q"><table><tr><td class="code"><pre><code class="hljs q">sudo apt-<span class="hljs-built_in">get</span> install python-<span class="hljs-built_in">dev</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
 <li>安装GPIO</li>
 </ol>
 <p>到<a target="_blank" rel="noopener" href="https://pypi.python.org/pypi/RPi.GPIO">python-gpio页面</a>下载最新的python-gpio压缩包。</p>
@@ -440,27 +376,32 @@ Raspbian http://ftp.kaist.ac.kr/raspbian/raspbian/</code></pre><h1 id="绑定域
 <p>然后上传到树莓派。（可以通过宝塔面板或ftp上传）</p>
 <p>cd 到压缩包目录，解压缩，安装。</p>
 <p>！！！ 代码中的版本改成你下载的版本。</p>
-<pre><code>tar -xvzf RRPi.GPIO-0.6.3.tar.gz
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tar</span> -xvzf RRPi.GPIO-<span class="hljs-number">0</span>.<span class="hljs-number">6</span>.<span class="hljs-number">3</span>.tar.gz<br><br><span class="hljs-attribute">cd</span> WebIOPi-<span class="hljs-number">0</span>.<span class="hljs-number">6</span>.<span class="hljs-number">3</span><br><br><span class="hljs-attribute">sudo</span> ./setup.sh<br></code></pre></td></tr></table></figure>
 
-cd WebIOPi-0.6.3
-
-sudo ./setup.sh</code></pre><ol start="3">
+<ol start="3">
 <li>安装Webiopi</li>
 </ol>
 <p>到<a target="_blank" rel="noopener" href="http://webiopi.trouch.com/DOWNLOADS.html">webiopi项目官网</a>下载最新的webiopi压缩包。</p>
 <p><img  src="https://pic.izhaoo.com/20170928210103.jpg"  ><span class="image-caption">webiopi</span></p>
 <p>同样上传到树莓派，解压缩，安装。</p>
-<pre><code>tar xvzf WebIOPi-0.7.1.tar.gz
-cd WebIOPi-0.7.1
-sudo ./setup.sh</code></pre><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>修改webiopi的默认密码。</p>
-<pre><code>sudo webiopi-passwd</code></pre><p>输入默认用户名“webiopi”，然后输入你需要更改的密码两次。</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tar</span> xvzf WebIOPi-<span class="hljs-number">0</span>.<span class="hljs-number">7</span>.<span class="hljs-number">1</span>.tar.gz<br><span class="hljs-attribute">cd</span> WebIOPi-<span class="hljs-number">0</span>.<span class="hljs-number">7</span>.<span class="hljs-number">1</span><br><span class="hljs-attribute">sudo</span> ./setup.sh<br></code></pre></td></tr></table></figure>
+
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>修改webiopi的默认密码。</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sudo webiopi-passwd</span><br></code></pre></td></tr></table></figure>
+
+<p>输入默认用户名“webiopi”，然后输入你需要更改的密码两次。</p>
 <p>启动webiopi。</p>
-<pre><code>sudo /etc/init.d/webiopi start</code></pre><p>设置开机自动启动。</p>
-<pre><code>sudo update-rc.d webiopi defaults</code></pre><h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>然后用浏览器打开页面 –&gt; “<a target="_blank" rel="noopener" href="http://192.168.31.23:8000/webiopi/”">http://192.168.31.23:8000/webiopi/”</a></p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">sudo <span class="hljs-regexp">/etc/i</span>nit.d/webiopi start<br></code></pre></td></tr></table></figure>
+
+<p>设置开机自动启动。</p>
+<figure class="highlight n1ql"><table><tr><td class="code"><pre><code class="hljs n1ql">sudo <span class="hljs-keyword">update</span>-rc.d webiopi defaults<br></code></pre></td></tr></table></figure>
+
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>然后用浏览器打开页面 –&gt; “<a target="_blank" rel="noopener" href="http://192.168.31.23:8000/webiopi/”">http://192.168.31.23:8000/webiopi/”</a></p>
 <p>！！！ 地址换成你树莓派的地址，端口默认为“8000”。绑定了域名的树莓派也可以域名访问。</p>
 <p>提示输入用户名密码。</p>
-<pre><code>默认用户名：webiopi
-密码：刚你自己改的那个，不改默认是“webiopi”</code></pre><p>然后看到以下界面就说明安装成功了。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><code class="hljs">默认用户名：webiopi<br>密码：刚你自己改的那个，不改默认是“webiopi”<br></code></pre></td></tr></table></figure>
+
+<p>然后看到以下界面就说明安装成功了。</p>
 <p><img  src="https://pic.izhaoo.com/20170928210648.jpg"  ><span class="image-caption">安装成功</span></p>
 <p>点第一项进入控制页面。其他几项也可以研究下，监控界面什么的。</p>
 <p><img  src="https://pic.izhaoo.com/20170928211527.jpg"  ><span class="image-caption">控制页面</span></p>
@@ -472,24 +413,26 @@ sudo ./setup.sh</code></pre><h2 id="配置"><a href="#配置" class="headerlink"
 <h1 id="更换默认用户密码-amp-启用Root超级用户"><a href="#更换默认用户密码-amp-启用Root超级用户" class="headerlink" title="更换默认用户密码&amp;启用Root超级用户"></a>更换默认用户密码&amp;启用Root超级用户</h1><p>给树莓派默认用户“pi”更换默认密码，启用Root超级用户。</p>
 <p>最近在折腾给树莓派接公网安装服务器跑脚本什么的，既然接到公网嘛，用树莓派默认用户密码肯定是不安全的，指不定什么时候给脚本小子H了。（嗯，多虑了，谁会在意我怎么个破盒子）</p>
 <p>那么我们就把树莓派默认用户密码给换了吧，增加点安全性。顺便把Root超级用户也开了，方便整事儿。</p>
-<h2 id="更改默认密码"><a href="#更改默认密码" class="headerlink" title="更改默认密码"></a>更改默认密码</h2><pre><code>sudo passwd pi    #更换“pi”超级用户密码。</code></pre><p>两次输入密码，回车，OK。</p>
-<h2 id="启用Root用户"><a href="#启用Root用户" class="headerlink" title="启用Root用户"></a>启用Root用户</h2><pre><code>sudo passwd root    #更换“root”超级用户密码。</code></pre><p>两次输入密码，回车，OK。</p>
-<pre><code>sudo passwd --unlock root    #开启Root用户</code></pre><h1 id="BerryBoot-通过WiFi连接VNC远程桌面"><a href="#BerryBoot-通过WiFi连接VNC远程桌面" class="headerlink" title="BerryBoot - 通过WiFi连接VNC远程桌面"></a>BerryBoot - 通过WiFi连接VNC远程桌面</h1><p>通过WiFi给BerryBoot添加VNC远程桌面。</p>
+<h2 id="更改默认密码"><a href="#更改默认密码" class="headerlink" title="更改默认密码"></a>更改默认密码</h2><figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">sudo passwd <span class="hljs-literal">pi</span>    <span class="hljs-comment">#更换“pi”超级用户密码。</span><br></code></pre></td></tr></table></figure>
+
+<p>两次输入密码，回车，OK。</p>
+<h2 id="启用Root用户"><a href="#启用Root用户" class="headerlink" title="启用Root用户"></a>启用Root用户</h2><figure class="highlight nginx"><table><tr><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">sudo</span> passwd root    <span class="hljs-comment">#更换“root”超级用户密码。</span><br></code></pre></td></tr></table></figure>
+
+<p>两次输入密码，回车，OK。</p>
+<figure class="highlight dsconfig"><table><tr><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">sudo</span> <span class="hljs-string">passwd</span> <span class="hljs-built_in">--unlock</span> <span class="hljs-string">root</span>    <span class="hljs-comment">#开启Root用户</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="BerryBoot-通过WiFi连接VNC远程桌面"><a href="#BerryBoot-通过WiFi连接VNC远程桌面" class="headerlink" title="BerryBoot - 通过WiFi连接VNC远程桌面"></a>BerryBoot - 通过WiFi连接VNC远程桌面</h1><p>通过WiFi给BerryBoot添加VNC远程桌面。</p>
 <p>BerryBoot可能有童鞋了解，是给树莓派安装多系统的引导程序。问题又来了，作为苦逼的大学党，没有显示器。（其实这次返校从家里带了只旧显示器的，燃鹅，等我安到墙上后才发现，显示器是坏的→_→）没办法，试试看能不能VNC，别说还真可以，不过国内好像还没这方面教程，我是狗狗来的。</p>
 <h2 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h2><p>首先将安装BerryBoot的SD卡连接电脑，有个名为“boot”的FAT盘，打开它。</p>
 <p>打开“cmdline.txt”文件，改成：</p>
-<pre><code>smsc95xx.turbo_mode=N elevator=deadline quiet bootmenutimeout=30 vncinstall ipv4=192.168.1.152/255.255.255.0/192.168.1.1/wlan0</code></pre><p>PS. “cmdline.txt”源文件： <code>elevator=deadline bootmenutimeout=10 datadev=mmcblk0p2</code></p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">smsc95xx.<span class="hljs-attribute">turbo_mode</span>=N <span class="hljs-attribute">elevator</span>=deadline quiet <span class="hljs-attribute">bootmenutimeout</span>=30 vncinstall <span class="hljs-attribute">ipv4</span>=192.168.1.152/255.255.255.0/192.168.1.1/wlan0<br></code></pre></td></tr></table></figure>
+
+<p>PS. “cmdline.txt”源文件： <code>elevator=deadline bootmenutimeout=10 datadev=mmcblk0p2</code></p>
 <p>！！！注意    “192.168.1.152”改成你的树莓派IP    “192.168.1.1”改成你的网关（路由器地址）    “bootmenutimeout=30”是默认时间，长短随你</p>
 <p>新建一个“wpa_supplicant.conf”文件，写入：</p>
-<pre><code>country=CN
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">country</span>=CN<br><span class="hljs-attribute">ctrl_interface</span>=DIR=/var/run/wpa_supplicant <span class="hljs-attribute">GROUP</span>=netdev<br><span class="hljs-attribute">update_config</span>=1<br><br>network=&#123;<br><span class="hljs-attribute">ssid</span>=<span class="hljs-string">&quot;zhaoo&quot;</span> #ssid（wifi用户名）<br><span class="hljs-attribute">psk</span>=<span class="hljs-string">&quot;12345678&quot;</span> #password（wifi密码）<br><span class="hljs-attribute">priority</span>=1 #优先级<br>&#125;<br></code></pre></td></tr></table></figure>
 
-network=&#123;
-ssid=&quot;zhaoo&quot; #ssid（wifi用户名）
-psk=&quot;12345678&quot; #password（wifi密码）
-priority=1 #优先级
-&#125;</code></pre><p>然后插回SD卡上电开机，看到绿灯一闪一闪说明树莓派连上WiFi了。</p>
+<p>然后插回SD卡上电开机，看到绿灯一闪一闪说明树莓派连上WiFi了。</p>
 <p>打开VNCViewer，输入树莓派IP地址连接，端口是5900（可不填写），默认无帐号密码。</p>
 <p>！！！注意    色彩要改成24位真彩色，其他的显示不出。</p>
 <p><img  src="https://pic.izhaoo.com/20171015131949.jpg"  ><span class="image-caption">berryboot-vnc</span></p>
@@ -501,7 +444,9 @@ priority=1 #优先级
 <p><img  src="https://pic.izhaoo.com/20170923215657.jpg"  ><span class="image-caption">cpu&amp;内存监控</span></p>
 <h2 id="树莓派安装宝塔面板"><a href="#树莓派安装宝塔面板" class="headerlink" title="树莓派安装宝塔面板"></a>树莓派安装宝塔面板</h2><p>树莓派jessie系统是基于debian开发的，所以可以完美套用debian系统安装命令。</p>
 <p><img  src="https://pic.izhaoo.com/20170923083600.jpg"  ><span class="image-caption">jessie</span></p>
-<pre><code>wget -O install.sh http://download.bt.cn/install/install-ubuntu.sh &amp;&amp; bash install.sh</code></pre><p>一段代码搞定，easy吧。提示请输入“y”同意哦。等一会儿命令执行完的时候会返回宝塔面板默认用户名（admin）和密码（密匙），用这个用户名密码密码登陆宝塔面板，然后记得改下用户名密码。</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">wget -O install.sh http:<span class="hljs-regexp">//</span>download.bt.cn<span class="hljs-regexp">/install/i</span>nstall-ubuntu.sh &amp;&amp; bash install.sh<br></code></pre></td></tr></table></figure>
+
+<p>一段代码搞定，easy吧。提示请输入“y”同意哦。等一会儿命令执行完的时候会返回宝塔面板默认用户名（admin）和密码（密匙），用这个用户名密码密码登陆宝塔面板，然后记得改下用户名密码。</p>
 <p>ps. 地址：树莓派内网地址:8888     比如我是 192.168.31.23:8888</p>
 <p><img  src="https://pic.izhaoo.com/20170923221740.jpg"  ><span class="image-caption">更改用户名密码</span></p>
 <h2 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h2><p>这个也没什么好说的，到软件管理界面，点点鼠标，选择一个合适的版本安装就好了。</p>
@@ -545,13 +490,21 @@ priority=1 #优先级
 <p>ps. 以下操作在PC本地执行</p>
 <h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><p>到<a target="_blank" rel="noopener" href="http://nodejs.cn/download/">Node.js下载页面</a>下载最新客户端，并安装。只需更改安装目录，其他选项都保持默认。</p>
 <h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>打开CMD（当然GitBash也可以）</p>
-<pre><code>npm install -g hexo-cli</code></pre><p>完成后输入</p>
-<pre><code>hexo</code></pre><p>出现下图所示，说明安装成功。</p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><code class="hljs avrasm">npm install -g hexo-<span class="hljs-keyword">cli</span><br></code></pre></td></tr></table></figure>
+
+<p>完成后输入</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">hexo</span><br></code></pre></td></tr></table></figure>
+
+<p>出现下图所示，说明安装成功。</p>
 <p><img  src="https://pic.izhaoo.com/20170907090256.jpg"  ><span class="image-caption">Hexo安装成功</span></p>
 <h2 id="环境搭建（后编）"><a href="#环境搭建（后编）" class="headerlink" title="环境搭建（后编）"></a>环境搭建（后编）</h2><p>新建一个文件夹，cd到文件夹</p>
 <p>安装Hexo:</p>
-<pre><code>npm i -g hexo</code></pre><p>初始化Hexo：</p>
-<pre><code>hexo init</code></pre><p>看下目录结构，和我一样就OK了。</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i -g hexo<br></code></pre></td></tr></table></figure>
+
+<p>初始化Hexo：</p>
+<figure class="highlight csharp"><table><tr><td class="code"><pre><code class="hljs csharp">hexo <span class="hljs-keyword">init</span><br></code></pre></td></tr></table></figure>
+
+<p>看下目录结构，和我一样就OK了。</p>
 <p><img  src="https://pic.izhaoo.com/20170907090532.jpg"  ><span class="image-caption">目录结构</span></p>
 <p>然后就是写文章，生成MaekDown，生成静态页面。balabala……不会的看我前文吧。</p>
 <h2 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h2><p>ps. 以下操作在树莓派执行</p>
@@ -561,7 +514,11 @@ priority=1 #优先级
 <p>ps. 如果你绑定了域名，可以选择绑定域名。没有的话只能填写内网ip了，酱紫外网是访问不到的。</p>
 <p><img  src="https://pic.izhaoo.com/20170925141133.jpg"  ><span class="image-caption">新建网站</span></p>
 <h2 id="上传静态页面到树莓派"><a href="#上传静态页面到树莓派" class="headerlink" title="上传静态页面到树莓派"></a>上传静态页面到树莓派</h2><p>生成静态页面：</p>
-<pre><code>hexo clean</code></pre><pre><code>hexo g</code></pre><p>这时候，页面就存在“public”文件夹下了。把文件夹内的文件全部上传到树莓派上的网站目录即可。装了宝塔面板的话就可以直接上传压缩包，然后解压即可。</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">hexo clean</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">hexo g</span><br></code></pre></td></tr></table></figure>
+
+<p>这时候，页面就存在“public”文件夹下了。把文件夹内的文件全部上传到树莓派上的网站目录即可。装了宝塔面板的话就可以直接上传压缩包，然后解压即可。</p>
 <p>OK。浏览器输入域名或IP查看效果吧。</p>
 <p>不得不说，这种纯静态博客是最适合我们小树莓派了。</p>
       </section>

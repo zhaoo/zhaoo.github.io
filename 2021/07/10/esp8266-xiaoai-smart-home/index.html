@@ -208,7 +208,7 @@
           <i class="iconfont iconeye"></i><span id="/2021/07/10/esp8266-xiaoai-smart-home/" class="leancloud" data-flag-title="ESP8266 - 小爱同学智能家居"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3247</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3172</span>
     </div>
   </div>
 </section>
@@ -261,83 +261,8 @@
 <li><a target="_blank" rel="noopener" href="https://github.com/blinker-iot/blinker-library">blinker-library</a></li>
 </ul>
 <p>然后在编辑器中输入以下代码：</p>
-<pre><code class="c">#define BLINKER_PRINT Serial
-#define BLINKER_WIFI
-#define BLINKER_MIOT_LIGHT
+<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> BLINKER_PRINT Serial</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> BLINKER_WIFI</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> BLINKER_MIOT_LIGHT</span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ESP8266WiFi.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;IRremoteESP8266.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;IRsend.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ir_LG.h&gt;</span>  <span class="hljs-comment">// 换成对应型号空调</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Blinker.h&gt;</span></span><br><br><span class="hljs-keyword">char</span> auth[] = <span class="hljs-string">&quot;**********&quot;</span>;  <span class="hljs-comment">// Bliker key</span><br><span class="hljs-keyword">char</span> ssid[] = <span class="hljs-string">&quot;**********&quot;</span>;  <span class="hljs-comment">// WiFi 名称</span><br><span class="hljs-keyword">char</span> pswd[] = <span class="hljs-string">&quot;**********&quot;</span>;  <span class="hljs-comment">// WiFi 密码</span><br><br><span class="hljs-function">BlinkerButton <span class="hljs-title">Button1</span><span class="hljs-params">(<span class="hljs-string">&quot;btn-abc&quot;</span>)</span></span>;  <span class="hljs-comment">// 按钮名称换成 Blinker 中设置的名称</span><br>IRLgAc _ac(D3);  <span class="hljs-comment">// D3 对应开发板上火线口</span><br><br><br><span class="hljs-comment">// 按钮</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">button1_callback</span><span class="hljs-params">(<span class="hljs-keyword">const</span> String &amp; state)</span> </span>&#123;<br>  BLINKER_LOG(<span class="hljs-string">&quot;get button state: &quot;</span>, state);<br>  <span class="hljs-keyword">if</span> (state == <span class="hljs-string">&quot;on&quot;</span>) &#123;<br>    digitalWrite(LED_BUILTIN, LOW);<br>    Button1.print(<span class="hljs-string">&quot;on&quot;</span>);<br>    IRLgAc _ac(D3);<br>    _ac.begin();<br>    _ac.on();<br>    _ac.send();<br>  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (state == <span class="hljs-string">&quot;off&quot;</span>) &#123;<br><br>    digitalWrite(LED_BUILTIN, HIGH);<br>    Button1.print(<span class="hljs-string">&quot;off&quot;</span>);<br>    IRLgAc _ac(D3);<br>    _ac.begin();<br>    _ac.off();<br>    _ac.send();<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">//小爱</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">miotPowerState</span><span class="hljs-params">(<span class="hljs-keyword">const</span> String &amp; state)</span></span><br><span class="hljs-function"></span>&#123;<br>  BLINKER_LOG(<span class="hljs-string">&quot;need set power state: &quot;</span>, state);<br><br>  <span class="hljs-keyword">if</span> (state == BLINKER_CMD_ON) &#123;<br>    digitalWrite(LED_BUILTIN, LOW);<br>    BlinkerMIOT.powerState(<span class="hljs-string">&quot;on&quot;</span>);<br>    BlinkerMIOT.print();<br>    IRLgAc _ac(D3);<br>    _ac.begin();<br>    _ac.on();<br>    _ac.send();<br>  &#125;<br>  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (state == BLINKER_CMD_OFF) &#123;<br>    digitalWrite(LED_BUILTIN, HIGH);<br>    BlinkerMIOT.powerState(<span class="hljs-string">&quot;off&quot;</span>);<br>    BlinkerMIOT.print();<br>    IRLgAc _ac(D3);<br>    _ac.off();<br>    _ac.send();<br>  &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>&#123;<br>  Serial.begin(<span class="hljs-number">115200</span>);<br>  BLINKER_DEBUG.stream(Serial);<br>  pinMode(LED_BUILTIN, OUTPUT);<br>  digitalWrite(LED_BUILTIN, HIGH);<br>  Blinker.begin(auth, ssid, pswd);<br>  Button1.attach(button1_callback);<br>  BlinkerMIOT.attachPowerState(miotPowerState);<br><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>&#123;<br>  Blinker.run();<br>&#125;<br></code></pre></td></tr></table></figure>
 
-#include &lt;ESP8266WiFi.h&gt;
-#include &lt;IRremoteESP8266.h&gt;
-#include &lt;IRsend.h&gt;
-#include &lt;ir_LG.h&gt;  // 换成对应型号空调
-#include &lt;Blinker.h&gt;
-
-char auth[] = &quot;**********&quot;;  // Bliker key
-char ssid[] = &quot;**********&quot;;  // WiFi 名称
-char pswd[] = &quot;**********&quot;;  // WiFi 密码
-
-BlinkerButton Button1(&quot;btn-abc&quot;);  // 按钮名称换成 Blinker 中设置的名称
-IRLgAc _ac(D3);  // D3 对应开发板上火线口
-
-
-// 按钮
-void button1_callback(const String &amp; state) &#123;
-  BLINKER_LOG(&quot;get button state: &quot;, state);
-  if (state == &quot;on&quot;) &#123;
-    digitalWrite(LED_BUILTIN, LOW);
-    Button1.print(&quot;on&quot;);
-    IRLgAc _ac(D3);
-    _ac.begin();
-    _ac.on();
-    _ac.send();
-  &#125; else if (state == &quot;off&quot;) &#123;
-
-    digitalWrite(LED_BUILTIN, HIGH);
-    Button1.print(&quot;off&quot;);
-    IRLgAc _ac(D3);
-    _ac.begin();
-    _ac.off();
-    _ac.send();
-  &#125;
-&#125;
-
-//小爱
-void miotPowerState(const String &amp; state)
-&#123;
-  BLINKER_LOG(&quot;need set power state: &quot;, state);
-
-  if (state == BLINKER_CMD_ON) &#123;
-    digitalWrite(LED_BUILTIN, LOW);
-    BlinkerMIOT.powerState(&quot;on&quot;);
-    BlinkerMIOT.print();
-    IRLgAc _ac(D3);
-    _ac.begin();
-    _ac.on();
-    _ac.send();
-  &#125;
-  else if (state == BLINKER_CMD_OFF) &#123;
-    digitalWrite(LED_BUILTIN, HIGH);
-    BlinkerMIOT.powerState(&quot;off&quot;);
-    BlinkerMIOT.print();
-    IRLgAc _ac(D3);
-    _ac.off();
-    _ac.send();
-  &#125;
-&#125;
-
-void setup() &#123;
-  Serial.begin(115200);
-  BLINKER_DEBUG.stream(Serial);
-  pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, HIGH);
-  Blinker.begin(auth, ssid, pswd);
-  Button1.attach(button1_callback);
-  BlinkerMIOT.attachPowerState(miotPowerState);
-
-&#125;
-
-void loop() &#123;
-  Blinker.run();
-&#125;</code></pre>
 <p>然后用 USB 线连接至电脑，点击输入按钮刷入即可。</p>
 <p><img  src="https://pic.izhaoo.com/20210715143716.jpg"  ><span class="image-caption">输入固件</span></p>
 <p>可以在 [IRremoteESP8266 包的目录下找到几乎所有型号的空调，更改一下代码即可。</p>

@@ -211,7 +211,7 @@
           <i class="iconfont iconeye"></i><span id="/2020/05/05/hexo-theme-zhaoo-doc/" class="leancloud" data-flag-title="主题配置文档"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>17219</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>17080</span>
     </div>
   </div>
 </section>
@@ -223,113 +223,71 @@
 <p style="text-align: right;">文档更新于：2021年4月4日</p>
 
 <h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="主题安装"><a href="#主题安装" class="headerlink" title="主题安装"></a>主题安装</h3><p>安装 <code>Hexo</code> 后进入根目录：</p>
-<pre><code class="bash">$ cd hexo</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">cd</span> hexo<br></code></pre></td></tr></table></figure>
+
 <p>安装 <code>zhaoo</code> 主题：</p>
-<pre><code class="bash">$ git clone https://github.com/izhaoo/hexo-theme-zhaoo.git themes/zhaoo</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ git <span class="hljs-built_in">clone</span> https://github.com/izhaoo/hexo-theme-zhaoo.git themes/zhaoo<br></code></pre></td></tr></table></figure>
+
 <h3 id="开启主题"><a href="#开启主题" class="headerlink" title="开启主题"></a>开启主题</h3><p>修改 <code>Hexo</code> 根目录下的 <code>_config.yml</code> 文件启用 <code>zhaoo</code> 主题：</p>
-<pre><code class="yml">theme: zhaoo</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">theme:</span> <span class="hljs-string">zhaoo</span><br></code></pre></td></tr></table></figure>
+
 <p>启动 <code>Hexo</code> 服务器预览：</p>
-<pre><code class="bash">$ hexo clean &amp;&amp; hexo s</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo clean &amp;&amp; hexo s<br></code></pre></td></tr></table></figure>
+
 <h3 id="博客配置"><a href="#博客配置" class="headerlink" title="博客配置"></a>博客配置</h3><p>编辑 <code>Hexo</code> 根目录下的 <code>_config.yml</code> 文件，配置博客网站相关功能，对整个网站生效。</p>
 <p>建议将文章数量改为<strong>9</strong>篇：</p>
-<pre><code class="yml">index_generator:
-  path: &#39;&#39;
-  per_page: 9  #文章数量改为9篇（3的倍数更和谐）
-  order_by: -date</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">index_generator:</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">&#x27;&#x27;</span><br>  <span class="hljs-attr">per_page:</span> <span class="hljs-number">9</span>  <span class="hljs-comment">#文章数量改为9篇（3的倍数更和谐）</span><br>  <span class="hljs-attr">order_by:</span> <span class="hljs-string">-date</span><br></code></pre></td></tr></table></figure>
+
 <p>启用代码高亮效果：</p>
-<pre><code class="yml">highlight:
-  enable: true  #启用代码高亮效果
-  line_number: true
-  auto_detect: true
-  hljs: true
-  tab_replace:</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">highlight:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment">#启用代码高亮效果</span><br>  <span class="hljs-attr">line_number:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">auto_detect:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">hljs:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">tab_replace:</span><br></code></pre></td></tr></table></figure>
+
 <p>编辑 <code>zhaoo</code> 主题目录下的 <code>_config.yml</code> 文件，配置主题相关功能，只对主题生效。</p>
 <p>建议参考 <a target="_blank" rel="noopener" href="https://github.com/izhaoo/hexo-theme-zhaoo/blob/master/_config.yml">_config.yml</a> 和本文进行配置，具体配置内容见下文。</p>
 <h3 id="主题更新"><a href="#主题更新" class="headerlink" title="主题更新"></a>主题更新</h3><p>进入到 <code>zhaoo</code> 主题目录：</p>
-<pre><code class="bash">$ cd themes/zhaoo</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">cd</span> themes/zhaoo<br></code></pre></td></tr></table></figure>
+
 <p>从 <code>GitHub</code> 获取更新：</p>
-<pre><code class="bash">$ git pull</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ git pull<br></code></pre></td></tr></table></figure>
+
 <h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><h3 id="头部导航-NavBar"><a href="#头部导航-NavBar" class="headerlink" title="头部导航 (NavBar)"></a>头部导航 (NavBar)</h3><p>配置项 <code>navbar</code> 用于设置 <strong>头部导航条</strong>。</p>
-<pre><code class="yml">navbar:
-  enable: true
-  back_home: true</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">navbar:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">back_home:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
 <p><code>enable</code> 用于控制头部导航条全局显示/隐藏。</p>
 <p><code>back_home</code> 用于开启返回首页按钮；其余的功能按钮随各自配置开启，例如“二维码”、“黑夜模式”、“搜索”等。</p>
 <h3 id="导航菜单-Menu"><a href="#导航菜单-Menu" class="headerlink" title="导航菜单 (Menu)"></a>导航菜单 (Menu)</h3><p>配置项 <code>menu</code> 用于设置 <strong>导航菜单</strong>。</p>
-<pre><code class="yml"># Menu
-menu:
-  home: / || 首页
-  galleries: /galleries || 摄影
-  archives: /archives || 归档
-  tags: /tags || 标签
-  categories: /categories || 分类
-  about: /about || 关于</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Menu</span><br><span class="hljs-attr">menu:</span><br>  <span class="hljs-attr">home:</span> <span class="hljs-string">/</span> <span class="hljs-string">||</span> <span class="hljs-string">首页</span><br>  <span class="hljs-attr">galleries:</span> <span class="hljs-string">/galleries</span> <span class="hljs-string">||</span> <span class="hljs-string">摄影</span><br>  <span class="hljs-attr">archives:</span> <span class="hljs-string">/archives</span> <span class="hljs-string">||</span> <span class="hljs-string">归档</span><br>  <span class="hljs-attr">tags:</span> <span class="hljs-string">/tags</span> <span class="hljs-string">||</span> <span class="hljs-string">标签</span><br>  <span class="hljs-attr">categories:</span> <span class="hljs-string">/categories</span> <span class="hljs-string">||</span> <span class="hljs-string">分类</span><br>  <span class="hljs-attr">about:</span> <span class="hljs-string">/about</span> <span class="hljs-string">||</span> <span class="hljs-string">关于</span><br></code></pre></td></tr></table></figure>
+
 <p>用 <strong>||</strong> 将内容分割为两部分，前面部分为页面 <code>URL</code>，后面部分为菜单中显示的名称。</p>
 <p>对于系统默认页面，如 <code>归档（/archives）</code>、<code>首页（/）</code> 等，直接添加菜单即可；对于独立页面，如 <code>标签（tags）</code>、<code>分类（categories）</code>，则需先创建页面后再添加菜单。</p>
 <h3 id="主题颜色"><a href="#主题颜色" class="headerlink" title="主题颜色"></a>主题颜色</h3><p>可以根据个人喜好，定制主题颜色。在配置项 <code>color</code> 中设置颜色。</p>
-<pre><code class="yml"># Color
-color:
-  text: &#39;#33333D&#39;
-  text-secondary: &#39;#4e4e4e&#39;
-  text-third: &#39;#999999&#39;
-  background: &#39;#ffffff&#39;
-  background-secondary: &#39;#f6f8fa&#39;
-  border: &#39;#eeeeee&#39;
-  text-dark: &#39;#dddddd&#39;
-  text-secondary-dark: &#39;#9899ab&#39;
-  text-third-dark: &#39;#7d8594&#39;
-  background-dark: &#39;#1e2128&#39;
-  background-secondary-dark: &#39;#1a1d22&#39;
-  border-dark: &#39;#2b3038&#39;
-  link: &#39;#FF3B00&#39;</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Color</span><br><span class="hljs-attr">color:</span><br>  <span class="hljs-attr">text:</span> <span class="hljs-string">&#x27;#33333D&#x27;</span><br>  <span class="hljs-attr">text-secondary:</span> <span class="hljs-string">&#x27;#4e4e4e&#x27;</span><br>  <span class="hljs-attr">text-third:</span> <span class="hljs-string">&#x27;#999999&#x27;</span><br>  <span class="hljs-attr">background:</span> <span class="hljs-string">&#x27;#ffffff&#x27;</span><br>  <span class="hljs-attr">background-secondary:</span> <span class="hljs-string">&#x27;#f6f8fa&#x27;</span><br>  <span class="hljs-attr">border:</span> <span class="hljs-string">&#x27;#eeeeee&#x27;</span><br>  <span class="hljs-attr">text-dark:</span> <span class="hljs-string">&#x27;#dddddd&#x27;</span><br>  <span class="hljs-attr">text-secondary-dark:</span> <span class="hljs-string">&#x27;#9899ab&#x27;</span><br>  <span class="hljs-attr">text-third-dark:</span> <span class="hljs-string">&#x27;#7d8594&#x27;</span><br>  <span class="hljs-attr">background-dark:</span> <span class="hljs-string">&#x27;#1e2128&#x27;</span><br>  <span class="hljs-attr">background-secondary-dark:</span> <span class="hljs-string">&#x27;#1a1d22&#x27;</span><br>  <span class="hljs-attr">border-dark:</span> <span class="hljs-string">&#x27;#2b3038&#x27;</span><br>  <span class="hljs-attr">link:</span> <span class="hljs-string">&#x27;#FF3B00&#x27;</span><br></code></pre></td></tr></table></figure>
+
 <p>可以使用 <code>十六进制</code>、<code>rgba</code>、<code>颜色名称</code> 方式，注意需要用引号包裹。</p>
 <p>目前有两套颜色模式，分别是 <strong>浅色模式（白天）</strong> 和 <strong>深色模式（黑夜）</strong>，请注意颜色搭配。<code>link</code> 为强调色，表现为 <code>hover</code>、<code>active</code> 等。</p>
 <p>分享几个配色网站：<a target="_blank" rel="noopener" href="https://colors.ichuantong.cn/">中国传统颜色</a>、<a target="_blank" rel="noopener" href="https://nipponcolors.com/">日本传统颜色</a></p>
 <h3 id="站点图标"><a href="#站点图标" class="headerlink" title="站点图标"></a>站点图标</h3><p>配置项 <code>favicon</code> 可设置站点图标，建议使用 <code>ico</code> 或 <code>png</code> 格式。</p>
-<pre><code class="yml"># Favicon
-favicon:
-  small: /images/icons/favicon-16x16.png
-  medium: /images/icons/favicon-32x32.png
-  apple_touch_icon: /images/icons/apple-touch-icon.png
-  safari_pinned_tab: /images/icons/stun-logo.svg
-  msapplication: /images/icons/favicon-144x144.png</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Favicon</span><br><span class="hljs-attr">favicon:</span><br>  <span class="hljs-attr">small:</span> <span class="hljs-string">/images/icons/favicon-16x16.png</span><br>  <span class="hljs-attr">medium:</span> <span class="hljs-string">/images/icons/favicon-32x32.png</span><br>  <span class="hljs-attr">apple_touch_icon:</span> <span class="hljs-string">/images/icons/apple-touch-icon.png</span><br>  <span class="hljs-attr">safari_pinned_tab:</span> <span class="hljs-string">/images/icons/stun-logo.svg</span><br>  <span class="hljs-attr">msapplication:</span> <span class="hljs-string">/images/icons/favicon-144x144.png</span><br></code></pre></td></tr></table></figure>
+
 <p>有多种尺寸的图片需要配置，可以参考默认图标的尺寸用 <code>PS</code> 裁剪，或使用：<a target="_blank" rel="noopener" href="https://icon.wuruihong.com/">图标工厂</a></p>
 <h3 id="全局字体"><a href="#全局字体" class="headerlink" title="全局字体"></a>全局字体</h3><p>配置项 <code>font</code> 中可设置全局字体的 <strong>大小</strong> 和 <strong>风格系列</strong>。</p>
-<pre><code class="yml"># Font
-font:
-  size: 14px
-  family: &#39;Hiragino Sans GB&#39;, &#39;Hiragino Sans GB W3&#39;, &#39;Microsoft YaHei&#39;, &#39;WenQuanYi Micro Hei&#39;, sans-serif</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Font</span><br><span class="hljs-attr">font:</span><br>  <span class="hljs-attr">size:</span> <span class="hljs-string">14px</span><br>  <span class="hljs-attr">family:</span> <span class="hljs-string">&#x27;Hiragino Sans GB&#x27;</span><span class="hljs-string">,</span> <span class="hljs-string">&#x27;Hiragino Sans GB W3&#x27;</span><span class="hljs-string">,</span> <span class="hljs-string">&#x27;Microsoft YaHei&#x27;</span><span class="hljs-string">,</span> <span class="hljs-string">&#x27;WenQuanYi Micro Hei&#x27;</span><span class="hljs-string">,</span> <span class="hljs-string">sans-serif</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>size</code>: 字体大小。</li>
 <li><code>family</code>: 字体风格系列。</li>
 </ul>
 <h3 id="背景图片"><a href="#背景图片" class="headerlink" title="背景图片"></a>背景图片</h3><p>配置项 <code>background_image</code> 可设置背景图片，直接填写图片地址即可。</p>
-<pre><code class="yml"># Background Image
-background_image:</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Background Image</span><br><span class="hljs-attr">background_image:</span><br></code></pre></td></tr></table></figure>
+
 <p>tips: 建议不设置背景图片，默认的 <strong>纯白背景</strong> 最搭配，背景颜色也可在 <a href="#主题颜色">主题颜色</a> 中设置。</p>
 <h3 id="加载动画-Loading"><a href="#加载动画-Loading" class="headerlink" title="加载动画 (Loading)"></a>加载动画 (Loading)</h3><p>配置项 <code>loading</code> 可设置载入动画，会在 <em>页面跳转<em>、</em>懒加载</em> 时加载，目前仅支持图片形式。</p>
-<pre><code class="yml"># Loading
-loading: /images/theme/loading.gif</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Loading</span><br><span class="hljs-attr">loading:</span> <span class="hljs-string">/images/theme/loading.gif</span><br></code></pre></td></tr></table></figure>
+
 <p>建议使用 <code>gif</code> 动图，可在 <a target="_blank" rel="noopener" href="https://lottiefiles.com/">LottieFiles</a> 下载。</p>
 <p>tips: 未来将支持自定义 <code>css</code>、<code>svg</code> 等多种方式的载入动画，敬请期待。</p>
 <h3 id="欢迎页面"><a href="#欢迎页面" class="headerlink" title="欢迎页面"></a>欢迎页面</h3><p>配置项 <code>preview</code> 中的一些列配置可自定义欢迎页面。</p>
-<pre><code class="yml"># Preview
-preview:
-  enable: true
-  model: wave # wave cloud
-  background: 
-    type: image # image video
-    default_image:
-      light: /images/theme/welcome-image.jpg
-      dark: /images/theme/welcome-image.jpg
-    video:
-    api: # https://source.unsplash.com/random/1920x1080
-    size: cover # css: background-size
-    position: center # css: background-position
-  motto:
-    default: 我在开了灯的床头下，想问问自己的心啊。
-    api: https://v1.hitokoto.cn/?encode=text&amp;c=j
-    color: &#39;#ffffff&#39;</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Preview</span><br><span class="hljs-attr">preview:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">model:</span> <span class="hljs-string">wave</span> <span class="hljs-comment"># wave cloud</span><br>  <span class="hljs-attr">background:</span> <br>    <span class="hljs-attr">type:</span> <span class="hljs-string">image</span> <span class="hljs-comment"># image video</span><br>    <span class="hljs-attr">default_image:</span><br>      <span class="hljs-attr">light:</span> <span class="hljs-string">/images/theme/welcome-image.jpg</span><br>      <span class="hljs-attr">dark:</span> <span class="hljs-string">/images/theme/welcome-image.jpg</span><br>    <span class="hljs-attr">video:</span><br>    <span class="hljs-attr">api:</span> <span class="hljs-comment"># https://source.unsplash.com/random/1920x1080</span><br>    <span class="hljs-attr">size:</span> <span class="hljs-string">cover</span> <span class="hljs-comment"># css: background-size</span><br>    <span class="hljs-attr">position:</span> <span class="hljs-string">center</span> <span class="hljs-comment"># css: background-position</span><br>  <span class="hljs-attr">motto:</span><br>    <span class="hljs-attr">default:</span> <span class="hljs-string">我在开了灯的床头下，想问问自己的心啊。</span><br>    <span class="hljs-attr">api:</span> <span class="hljs-string">https://v1.hitokoto.cn/?encode=text&amp;c=j</span><br>    <span class="hljs-attr">color:</span> <span class="hljs-string">&#x27;#ffffff&#x27;</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>: 用来 <em>开启</em> / <em>关闭</em> 欢迎页面。</li>
 </ul>
@@ -353,166 +311,116 @@ preview:
 <h3 id="全局搜索"><a href="#全局搜索" class="headerlink" title="全局搜索"></a>全局搜索</h3><p>前置条件：需要开启<a href="#头部导航">头部导航</a>，否则会找不到入口滴。</p>
 <p>目前仅支持静态搜索能力（渲染时生成搜索索引文件），需要安装 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-generator-searchdb">hexo-generator-searchdb</a> 插件提供支持。</p>
 <p>安装 <code>hexo-generator-searchdb</code> 插件：</p>
-<pre><code class="bash">$ npm install hexo-generator-searchdb --save</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ npm install hexo-generator-searchdb --save<br></code></pre></td></tr></table></figure>
+
 <p>开启插件，在 <strong>博客配置</strong> 下新增：</p>
-<pre><code class="yml">search:
-  path: /search.xml  # 索引生成路径（需要设置绝对路径，否则二级页面读不到）
-  field: post  # post page all
-  format: html  # 只支持 html 类型
-  content: true  # 是否包含正文内容</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">search:</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">/search.xml</span>  <span class="hljs-comment"># 索引生成路径（需要设置绝对路径，否则二级页面读不到）</span><br>  <span class="hljs-attr">field:</span> <span class="hljs-string">post</span>  <span class="hljs-comment"># post page all</span><br>  <span class="hljs-attr">format:</span> <span class="hljs-string">html</span>  <span class="hljs-comment"># 只支持 html 类型</span><br>  <span class="hljs-attr">content:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># 是否包含正文内容</span><br></code></pre></td></tr></table></figure>
+
 <h3 id="版权信息"><a href="#版权信息" class="headerlink" title="版权信息"></a>版权信息</h3><p>配置项 <code>copyright</code> 用来设置页面底部显示的网站版权信息，填写 <strong>文本内容</strong> 或 <strong>HTML</strong> 即可。</p>
-<pre><code class="yml"># Copyright
-copyright: &lt;p&gt;Powered by &lt;a target=&quot;_blank&quot; href=&quot;https://hexo.io&quot;&gt;Hexo&lt;/a&gt;  |  Theme - &lt;a target=&quot;_blank&quot; href=&quot;https://github.com/izhaoo/hexo-theme-zhaoo&quot;&gt;zhaoo&lt;/a&gt;&lt;/p&gt;</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Copyright</span><br><span class="hljs-attr">copyright:</span> <span class="hljs-string">&lt;p&gt;Powered</span> <span class="hljs-string">by</span> <span class="hljs-string">&lt;a</span> <span class="hljs-string">target=&quot;_blank&quot;</span> <span class="hljs-string">href=&quot;https://hexo.io&quot;&gt;Hexo&lt;/a&gt;</span>  <span class="hljs-string">|</span>  <span class="hljs-string">Theme</span> <span class="hljs-bullet">-</span> <span class="hljs-string">&lt;a</span> <span class="hljs-string">target=&quot;_blank&quot;</span> <span class="hljs-string">href=&quot;https://github.com/izhaoo/hexo-theme-zhaoo&quot;&gt;zhaoo&lt;/a&gt;&lt;/p&gt;</span><br></code></pre></td></tr></table></figure>
+
 <h3 id="社交链接"><a href="#社交链接" class="headerlink" title="社交链接"></a>社交链接</h3><p>配置项 <code>social</code> 用来配置社交链接，在页面底部以 <code>Icon</code> 图标的形式展示，点击即可链接第三方平台。</p>
-<pre><code class="yml"># Social
-social:
-  qq: tencent://message/?Menu=yes&amp;uin=894519210 || iconQQ || &#39;#12B7F5&#39;
-  wechat: javascript:; || iconwechat-fill || &#39;#09BB07&#39;
-  instagram: https://www.instagram.com/izhaoo/ || iconinstagram || &#39;#DA2E76&#39;
-  github: https://github.com/izhaoo || icongithub-fill || &#39;#24292E&#39;
-  email: mailto:izhaoo@163.com || iconmail</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Social</span><br><span class="hljs-attr">social:</span><br>  <span class="hljs-attr">qq:</span> <span class="hljs-string">tencent://message/?Menu=yes&amp;uin=894519210</span> <span class="hljs-string">||</span> <span class="hljs-string">iconQQ</span> <span class="hljs-string">||</span> <span class="hljs-string">&#x27;#12B7F5&#x27;</span><br>  <span class="hljs-attr">wechat:</span> <span class="hljs-string">javascript:;</span> <span class="hljs-string">||</span> <span class="hljs-string">iconwechat-fill</span> <span class="hljs-string">||</span> <span class="hljs-string">&#x27;#09BB07&#x27;</span><br>  <span class="hljs-attr">instagram:</span> <span class="hljs-string">https://www.instagram.com/izhaoo/</span> <span class="hljs-string">||</span> <span class="hljs-string">iconinstagram</span> <span class="hljs-string">||</span> <span class="hljs-string">&#x27;#DA2E76&#x27;</span><br>  <span class="hljs-attr">github:</span> <span class="hljs-string">https://github.com/izhaoo</span> <span class="hljs-string">||</span> <span class="hljs-string">icongithub-fill</span> <span class="hljs-string">||</span> <span class="hljs-string">&#x27;#24292E&#x27;</span><br>  <span class="hljs-attr">email:</span> <span class="hljs-string">mailto:izhaoo@163.com</span> <span class="hljs-string">||</span> <span class="hljs-string">iconmail</span><br></code></pre></td></tr></table></figure>
+
 <p>配置内容分为三部分，以 <code>||</code> 划分。第一部分是 <em>社交链接</em> ，第二部分是 <em>图标样式（IconFont）</em> ，第三部分是 <em>选中颜色（hover）</em>。</p>
 <h3 id="右下角按钮-Fab"><a href="#右下角按钮-Fab" class="headerlink" title="右下角按钮 (Fab)"></a>右下角按钮 (Fab)</h3><p>配置项 <code>fab</code> 用于配置右下角的按钮。</p>
-<pre><code class="yml"># Fab (Float Action Button)
-fab:
-  enable: true
-  always_show: false</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Fab (Float Action Button)</span><br><span class="hljs-attr">fab:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">always_show:</span> <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>: 设置 <em>开启</em> / <em>关闭</em> 按钮。</li>
 <li><code>always_show</code>: 设置 <em>一直显示</em> / <em>过渡隐藏</em> 按钮。</li>
 </ul>
 <h3 id="二维码"><a href="#二维码" class="headerlink" title="二维码"></a>二维码</h3><p>配置项 <code>qrcode</code> 用来设置 <strong>二维码</strong>，开启后点击 <strong>导航栏</strong> 左侧的图标即可显示。</p>
-<pre><code class="yml"># QR Code
-qrcode:
-  enable: true
-  type: image # url image
-  image: https://pic.izhaoo.com/weapp-code.jpg</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># QR Code</span><br><span class="hljs-attr">qrcode:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">image</span> <span class="hljs-comment"># url image</span><br>  <span class="hljs-attr">image:</span> <span class="hljs-string">https://pic.izhaoo.com/weapp-code.jpg</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>: 设置 <em>开启</em> / <em>关闭</em> 二维码功能。</li>
 <li><code>type</code>: 设置二维码模式，有两种模式可选。<code>url</code> 显示当前文章链接生成的二维码；<code>image</code> 显示固定的二维码图片（如小程序码等）。</li>
 <li><code>image</code>: 选择 <code>image</code> 模式时需要指定图片链接。</li>
 </ul>
 <h3 id="深色模式"><a href="#深色模式" class="headerlink" title="深色模式"></a>深色模式</h3><p>配置项 <code>color_mode</code> 用来配置 <strong>深色模式</strong>。开启后主题会根据设备系统自动切换颜色模式，用户也可以点击 <strong>导航栏</strong> 左侧的图标手动切换颜色模式，系统会暂存用户选择状态。</p>
-<pre><code class="yml"># Color Mode
-color_mode:
-  enable: true</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Color Mode</span><br><span class="hljs-attr">color_mode:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>: <em>开启</em> / <em>关闭</em> 深色模式。</li>
 </ul>
 <p><em>深色模式</em> / <em>浅色模式</em> 的颜色可以参考 <a href="#主题颜色">主题颜色</a> 设置。</p>
 <h3 id="哀悼模式"><a href="#哀悼模式" class="headerlink" title="哀悼模式"></a>哀悼模式</h3><p>在举国默哀的日子，我们可以将博客灰化，通过配置项 <code>gray</code> 设置。</p>
-<pre><code class="yml"># Gray (Mourning Mode)
-gray:
-  enable: true  #开启哀悼模式</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Gray (Mourning Mode)</span><br><span class="hljs-attr">gray:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment">#开启哀悼模式</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>: <em>开启</em> / <em>关闭</em> 哀悼模式。</li>
 </ul>
 <p><img  src="https://pic.izhaoo.com/20201016102727.jpg"  ><span class="image-caption">哀悼</span></p>
 <h2 id="文章配置"><a href="#文章配置" class="headerlink" title="文章配置"></a>文章配置</h2><h3 id="文章封面"><a href="#文章封面" class="headerlink" title="文章封面"></a>文章封面</h3><h4 id="单独封面"><a href="#单独封面" class="headerlink" title="单独封面"></a>单独封面</h4><p>可以为每篇文章设置单独的文章封面图片，在文章 <code>Front-matter</code> 中添加 <code>image</code> 字段设置图片。</p>
 <p>若使用图床，直接添加图片文件的 <strong>完整URL</strong> 即可：</p>
-<pre><code class="markdown">---
-title: zhaoo - 主题文档
-image: https://pic.izhaoo.com/20200421200902.jpg  #设置图床图片
----</code></pre>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">---<br>title: zhaoo - 主题文档<br><span class="hljs-section">image: https://pic.izhaoo.com/20200421200902.jpg  #设置图床图片</span><br><span class="hljs-section">---</span><br></code></pre></td></tr></table></figure>
+
 <p>若将图片储存在本地，现将图片文件复制到主题 <code>~/zhaoo/source/images</code> 下，再添加 <strong>相对URL</strong> 即可：</p>
-<pre><code class="markdown">---
-title: zhaoo - 主题使用文档
-image: /images/20200421200902.jpg  #设置本地图片
----</code></pre>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">---<br>title: zhaoo - 主题使用文档<br><span class="hljs-section">image: /images/20200421200902.jpg  #设置本地图片</span><br><span class="hljs-section">---</span><br></code></pre></td></tr></table></figure>
+
 <h4 id="默认封面"><a href="#默认封面" class="headerlink" title="默认封面"></a>默认封面</h4><p>配置项 <code>post_image</code> 设置配置文章默认封面，就不用为每篇文章单独设置封面了：</p>
-<pre><code class="yml"># Post Image
-post_image:
-  random: galleries # local galleries
-  default: /images/theme/post-image.jpg</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Post Image</span><br><span class="hljs-attr">post_image:</span><br>  <span class="hljs-attr">random:</span> <span class="hljs-string">galleries</span> <span class="hljs-comment"># local galleries</span><br>  <span class="hljs-attr">default:</span> <span class="hljs-string">/images/theme/post-image.jpg</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>random</code>: 设置随机封面，有 <strong>galleries（相册图库）</strong> 和 <strong>local（本地图库）</strong>  两种模式。开启 <a href="#相册">相册</a> 功能后会自动调取相册中的图片；本地图库需要新建 <code>/_data/local_images.json</code> 文件，填写图片 <code>URL</code> 列表即可。</li>
 <li><code>default</code>: 未设置随机封面时启用 <strong>默认封面</strong>，填写图片 <code>URL</code> 即可。</li>
 </ul>
-<pre><code class="json">// local_images.json
-[
-  &quot;https://pic.izhaoo.com/2014031601.jpg&quot;,
-  &quot;https://pic.izhaoo.com/2017071602.jpg&quot;,
-  &quot;https://pic.izhaoo.com/2017071603.jpg&quot;,
-  &quot;https://pic.izhaoo.com/2017072104.jpg&quot;,
-  &quot;https://pic.izhaoo.com/2017072705.jpg&quot;,
-  &quot;https://pic.izhaoo.com/20200421201200.jpg&quot;,
-  &quot;https://pic.izhaoo.com/20200305030152.jpg&quot;,
-  &quot;https://pic.izhaoo.com/20191211065241.jpg&quot;,
-  &quot;https://pic.izhaoo.com/20200228081718.jpg&quot;,
-  &quot;https://pic.izhaoo.com/20191211065844.jpg&quot;,
-  &quot;https://pic.izhaoo.com/20200718151924.jpg&quot;,
-  &quot;https://pic.izhaoo.com/20200718152003.jpg&quot;,
-  &quot;https://pic.izhaoo.com/20200718152045.jpg&quot;,
-  &quot;https://pic.izhaoo.com/20200718152122.jpg&quot;,
-  &quot;https://pic.izhaoo.com/20200718151427.jpg&quot;
-]</code></pre>
+<figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json"><span class="hljs-comment">// local_images.json</span><br>[<br>  <span class="hljs-string">&quot;https://pic.izhaoo.com/2014031601.jpg&quot;</span>,<br>  <span class="hljs-string">&quot;https://pic.izhaoo.com/2017071602.jpg&quot;</span>,<br>  <span class="hljs-string">&quot;https://pic.izhaoo.com/2017071603.jpg&quot;</span>,<br>  <span class="hljs-string">&quot;https://pic.izhaoo.com/2017072104.jpg&quot;</span>,<br>  <span class="hljs-string">&quot;https://pic.izhaoo.com/2017072705.jpg&quot;</span>,<br>  <span class="hljs-string">&quot;https://pic.izhaoo.com/20200421201200.jpg&quot;</span>,<br>  <span class="hljs-string">&quot;https://pic.izhaoo.com/20200305030152.jpg&quot;</span>,<br>  <span class="hljs-string">&quot;https://pic.izhaoo.com/20191211065241.jpg&quot;</span>,<br>  <span class="hljs-string">&quot;https://pic.izhaoo.com/20200228081718.jpg&quot;</span>,<br>  <span class="hljs-string">&quot;https://pic.izhaoo.com/20191211065844.jpg&quot;</span>,<br>  <span class="hljs-string">&quot;https://pic.izhaoo.com/20200718151924.jpg&quot;</span>,<br>  <span class="hljs-string">&quot;https://pic.izhaoo.com/20200718152003.jpg&quot;</span>,<br>  <span class="hljs-string">&quot;https://pic.izhaoo.com/20200718152045.jpg&quot;</span>,<br>  <span class="hljs-string">&quot;https://pic.izhaoo.com/20200718152122.jpg&quot;</span>,<br>  <span class="hljs-string">&quot;https://pic.izhaoo.com/20200718151427.jpg&quot;</span><br>]<br></code></pre></td></tr></table></figure>
+
 <h3 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h3><p>在文章 <code>Front-matter</code> 中添加 <code>keywords</code> 字段设置关键词：</p>
-<pre><code class="markdown">title: zhaoo - 主题使用文档
-keywords: hexo-theme-zhaoo, hexo, 主题, 使用文档, document</code></pre>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">title: zhaoo - 主题使用文档<br>keywords: hexo-theme-zhaoo, hexo, 主题, 使用文档, document<br></code></pre></td></tr></table></figure>
+
 <p>配置项 <code>keywords</code> 为网站设置全局关键词，每个页面都会渲染，文章中无需重复添加：</p>
-<pre><code class="yml">keywords: hexo-theme-zhaoo, hexo</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">keywords:</span> <span class="hljs-string">hexo-theme-zhaoo,</span> <span class="hljs-string">hexo</span><br></code></pre></td></tr></table></figure>
+
 <h3 id="文章尺寸"><a href="#文章尺寸" class="headerlink" title="文章尺寸"></a>文章尺寸</h3><p>配置项 <code>post_page_size</code> 用于设置文章内容主体部分的相关尺寸。</p>
-<pre><code class="yml"># Page Size
-post_page_size:
-  width: 800px</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Page Size</span><br><span class="hljs-attr">post_page_size:</span><br>  <span class="hljs-attr">width:</span> <span class="hljs-string">800px</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>width</code>: 设置内容宽度。</li>
 </ul>
 <p>tips: 受外部元素的限制，<em>实际尺寸</em> 由计算后得出，不能保证与 <em>设定尺寸</em> 完全相等，只能保证接近该尺寸。</p>
 <h3 id="图片标注"><a href="#图片标注" class="headerlink" title="图片标注"></a>图片标注</h3><p>配置项 <code>caption</code> 用于设置 <strong>图片标注</strong>，开启后会在文章图片下方生成标注。</p>
-<pre><code class="yml"># Caption
-caption:
-  enable: true</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Caption</span><br><span class="hljs-attr">caption:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>: <em>开启</em> / <em>关闭</em> 图片标注。</li>
 </ul>
 <h3 id="文章目录"><a href="#文章目录" class="headerlink" title="文章目录"></a>文章目录</h3><p>配置项 <code>toc</code> 用于设置 <strong>文章目录</strong>，开启后会在文章内容右侧生成目录，点击目录可平滑到对应的标题处。</p>
-<pre><code class="yml"># TOC
-toc:
-  enable: true
-  min_depth: 1
-  max_depth: 3</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># TOC</span><br><span class="hljs-attr">toc:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">min_depth:</span> <span class="hljs-number">1</span><br>  <span class="hljs-attr">max_depth:</span> <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>: <em>开启</em> / <em>关闭</em> 文章目录。</li>
 <li><code>min_depth</code>:</li>
 <li><code>max_depth</code>:</li>
 </ul>
 <p>全局开启 <strong>文章目录</strong> 后，可以在文章 <code>Front-matter</code> 中添加 <code>toc</code> 字段单独控制该文章是否展示文章目录。</p>
-<pre><code class="markdown">---
-title: zhaoo - 主题文档
-toc: false # 关闭文章目录
----</code></pre>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">---<br>title: zhaoo - 主题文档<br><span class="hljs-section">toc: false # 关闭文章目录</span><br><span class="hljs-section">---</span><br></code></pre></td></tr></table></figure>
+
 <h3 id="打赏二维码"><a href="#打赏二维码" class="headerlink" title="打赏二维码"></a>打赏二维码</h3><p>配置项 <code>donate</code> 用于设置 <strong>打赏二维码</strong>，开启后可在文章下方展示二维码，扫一扫请博主喝杯咖啡吧~</p>
-<pre><code class="yml"># Donate
-donate:
-  enable: true
-  alipay: https://pic.izhaoo.com/alipay.jpg
-  wechat: https://pic.izhaoo.com/wechat.jpg</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Donate</span><br><span class="hljs-attr">donate:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">alipay:</span> <span class="hljs-string">https://pic.izhaoo.com/alipay.jpg</span><br>  <span class="hljs-attr">wechat:</span> <span class="hljs-string">https://pic.izhaoo.com/wechat.jpg</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>: <em>开启</em> / <em>关闭</em> 打赏二维码。</li>
 <li><code>alipay</code>: 支付宝收款二维码，填写图片 <code>URL</code>。</li>
 <li><code>wechat</code>: 微信收款二维码，填写图片 <code>URL</code>。</li>
 </ul>
 <h3 id="文章版权"><a href="#文章版权" class="headerlink" title="文章版权"></a>文章版权</h3><p>配置项 <code>post_copyright</code> 用于设置 <strong>文章版权</strong>，开启后可在文章下方展示版权信息。</p>
-<pre><code class="yml"># Copyright
-post_copyright:
-  enable: true</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Copyright</span><br><span class="hljs-attr">post_copyright:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>: <em>开启</em> / <em>关闭</em> 文章版权信息。</li>
 </ul>
 <p>全局开启 <strong>文章版权</strong> 后，可以在文章 <code>Front-matter</code> 中添加 <code>copyright</code> 字段单独控制该文章是否展示文章版权。</p>
-<pre><code class="markdown">---
-title: zhaoo - 主题文档
-copyright: false # 关闭文章版权
----</code></pre>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">---<br>title: zhaoo - 主题文档<br><span class="hljs-section">copyright: false # 关闭文章版权</span><br><span class="hljs-section">---</span><br></code></pre></td></tr></table></figure>
+
 <h3 id="文章搬运"><a href="#文章搬运" class="headerlink" title="文章搬运"></a>文章搬运</h3><p>配置项 <code>carrier</code> 用于开启 <strong>文章搬运</strong> 功能，方便博主们全文“借鉴”文章，效果如下：</p>
 <p><img  src="https://pic.izhaoo.com/20200727125519.jpg"  ><span class="image-caption">文章搬运</span></p>
 <p><img  src="https://pic.izhaoo.com/20200727125724.jpg"  ><span class="image-caption">弹窗提示</span></p>
 <p>前置条件：全局开启 <a href="#文章版权">文章版权</a></p>
-<pre><code class="yml"># Carrier
-carrier:
-  enable: true
-  type: markdown # markdown html text</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Carrier</span><br><span class="hljs-attr">carrier:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">markdown</span> <span class="hljs-comment"># markdown html text</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>: <em>开启</em> / <em>关闭</em> 文章搬运。</li>
 <li><code>type</code>: 搬运模式，可选择一键复制 <code>markdown</code>、<code>html</code>、<code>text</code> 格式的文章。</li>
@@ -521,45 +429,20 @@ carrier:
 <p><a target="_blank" rel="noopener" href="http://localhost:4000/2020/07/25/hexo-article-carrier/">Hexo - 开发文章搬运功能</a></p>
 </blockquote>
 <h3 id="文章置顶"><a href="#文章置顶" class="headerlink" title="文章置顶"></a>文章置顶</h3><p>找到 <code>/node_modules/hexo-generator-index/lib/generator.js</code> 文件，替换成如下代码：</p>
-<pre><code class="javascript">&#39;use strict&#39;;
-var pagination = require(&#39;hexo-pagination&#39;);
-module.exports = function (locals) &#123;
-  var config = this.config;
-  var posts = locals.posts;
-  posts.data = posts.data.sort(function (a, b) &#123;
-    if (a.top &amp;&amp; b.top) &#123;
-      if (a.top == b.top) return b.date - a.date;
-      else return b.top - a.top;
-    &#125; else if (a.top &amp;&amp; !b.top) &#123;
-      return -1;
-    &#125; else if (!a.top &amp;&amp; b.top) &#123;
-      return 1;
-    &#125; else return b.date - a.date;
-  &#125;);
-  var paginationDir = config.pagination_dir || &#39;page&#39;;
-  return pagination(&#39;&#39;, posts, &#123;
-    perPage: config.index_generator.per_page,
-    layout: [&#39;index&#39;, &#39;archive&#39;],
-    format: paginationDir + &#39;/%d/&#39;,
-    data: &#123;
-      __index: true
-    &#125;
-  &#125;);
-&#125;;</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-meta">&#x27;use strict&#x27;</span>;<br><span class="hljs-keyword">var</span> pagination = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;hexo-pagination&#x27;</span>);<br><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">locals</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> config = <span class="hljs-built_in">this</span>.config;<br>  <span class="hljs-keyword">var</span> posts = locals.posts;<br>  posts.data = posts.data.sort(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (a.top &amp;&amp; b.top) &#123;<br>      <span class="hljs-keyword">if</span> (a.top == b.top) <span class="hljs-keyword">return</span> b.date - a.date;<br>      <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> b.top - a.top;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (a.top &amp;&amp; !b.top) &#123;<br>      <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!a.top &amp;&amp; b.top) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> b.date - a.date;<br>  &#125;);<br>  <span class="hljs-keyword">var</span> paginationDir = config.pagination_dir || <span class="hljs-string">&#x27;page&#x27;</span>;<br>  <span class="hljs-keyword">return</span> pagination(<span class="hljs-string">&#x27;&#x27;</span>, posts, &#123;<br>    <span class="hljs-attr">perPage</span>: config.index_generator.per_page,<br>    <span class="hljs-attr">layout</span>: [<span class="hljs-string">&#x27;index&#x27;</span>, <span class="hljs-string">&#x27;archive&#x27;</span>],<br>    <span class="hljs-attr">format</span>: paginationDir + <span class="hljs-string">&#x27;/%d/&#x27;</span>,<br>    <span class="hljs-attr">data</span>: &#123;<br>      <span class="hljs-attr">__index</span>: <span class="hljs-literal">true</span><br>    &#125;<br>  &#125;);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
 <p>在文章的 <code>Front-matter</code> 中添加 <code>top</code> 字段，指定数值。数值越大，显示越靠前。</p>
-<pre><code class="markdown">---
-title: zhaoo - 主题使用文档
-top: 10  #添加该字段
----</code></pre>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">---<br>title: zhaoo - 主题使用文档<br><span class="hljs-section">top: 10  #添加该字段</span><br><span class="hljs-section">---</span><br></code></pre></td></tr></table></figure>
+
 <h3 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h3><h4 id="MathJax"><a href="#MathJax" class="headerlink" title="MathJax"></a>MathJax</h4><blockquote>
 <p><a target="_blank" rel="noopener" href="https://github.com/ikeq/hexo-filter-mathjax-ssr">hexo-filter-mathjax-ssr</a></p>
 </blockquote>
 <p>以 <code>svg</code> 的形式渲染数学公式，兼容性较好，推荐使用。</p>
 <p>安装 <code>MathJax</code> 插件依赖：</p>
-<pre><code class="bash">$ npm install hexo-filter-mathjax-ssr --save</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ npm install hexo-filter-mathjax-ssr --save<br></code></pre></td></tr></table></figure>
+
 <p>开启插件，在 <strong>博客配置</strong> 下新增：</p>
-<pre><code class="yml">mathjax:
-  inlineQuote: [&#39;<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="2.016ex" height="2.843ex" style="vertical-align: -0.671ex;" viewBox="0 -934.9 868.1 1223.9" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-1-Title">
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">mathjax:</span><br>  <span class="hljs-attr">inlineQuote:</span> [<span class="hljs-string">&#x27;<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="2.016ex" height="2.843ex" style="vertical-align: -0.671ex;" viewBox="0 -934.9 868.1 1223.9" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-1-Title">
 <title id="MathJax-SVG-1-Title">', '</title>
 <defs aria-hidden="true">
 <path stroke-width="1" id="E1-MJMAIN-2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path>
@@ -572,39 +455,36 @@ top: 10  #添加该字段
  <use transform="scale(0.707)" xlink:href="#E1-MJMAIN-2032" x="393" y="583"></use>
 </g>
 </g>
-</svg>&#39;]
-  blockQuote: [&#39;MATHJAX-SSR-2&#39;]</code></pre>
+</svg>&#x27;</span>]<br>  <span class="hljs-attr">blockQuote:</span> [<span class="hljs-string">&#x27;MATHJAX-SSR-2&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
 <h4 id="KaTex"><a href="#KaTex" class="headerlink" title="KaTex"></a>KaTex</h4><blockquote>
 <p><a target="_blank" rel="noopener" href="https://github.com/thcd/hexo-katex">hexo-katex</a></p>
 </blockquote>
 <p>以 <code>HTML</code> 标签的形式渲染数学公式，渲染速度较快，语法较简单，但是兼容性不是很好。</p>
 <p>安装渲染引擎 <code>hexo-renderer-pandoc</code>：</p>
-<pre><code class="bash">$ npm install hexo-renderer-pandoc --save</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ npm install hexo-renderer-pandoc --save<br></code></pre></td></tr></table></figure>
+
 <p>安装 <code>KaTex</code> 插件依赖：</p>
-<pre><code class="bash">$ npm install hexo-katex --save</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ npm install hexo-katex --save<br></code></pre></td></tr></table></figure>
+
 <p>开启插件，在 <strong>博客配置</strong> 下新增：</p>
-<pre><code class="yml">pandoc:
-  mathEngine: katex</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">pandoc:</span><br>  <span class="hljs-attr">mathEngine:</span> <span class="hljs-string">katex</span><br></code></pre></td></tr></table></figure>
+
 <h2 id="页面配置"><a href="#页面配置" class="headerlink" title="页面配置"></a>页面配置</h2><h3 id="相册页面"><a href="#相册页面" class="headerlink" title="相册页面"></a>相册页面</h3><blockquote>
 <p>【瀑布流风格相册】由 <a target="_blank" rel="noopener" href="https://github.com/HelloAny">AmiKara</a> 友情贡献~</p>
 </blockquote>
 <p>执行以下命令创建相册页面，会在 <code>source</code> 目录生成 <code>galleries/index.md</code> 文件：</p>
-<pre><code class="bash">$ hexo new page galleries  #创建相册页面</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new page galleries  <span class="hljs-comment">#创建相册页面</span><br></code></pre></td></tr></table></figure>
+
 <p>打开 <code>source/galleries/index.md</code> 文件，设置 <code>Front-matter</code> ，开启相册页面：</p>
-<pre><code class="markdown">---
-title: 相册
-layout: &quot;galleries&quot;
----</code></pre>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">---<br>title: 相册<br><span class="hljs-section">layout: &quot;galleries&quot;</span><br><span class="hljs-section">---</span><br></code></pre></td></tr></table></figure>
+
 <p>参考 <a href="#导航菜单">导航菜单</a> 设置相册页面的导航：</p>
-<pre><code class="yml">menu:
-  galleries: /galleries || 相册</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">menu:</span><br>  <span class="hljs-attr">galleries:</span> <span class="hljs-string">/galleries</span> <span class="hljs-string">||</span> <span class="hljs-string">相册</span><br></code></pre></td></tr></table></figure>
+
 <p>配置项 <code>galleries</code> 用于开启相册功能：</p>
-<pre><code class="yml">galleries:
-  enable: true
-  title: 相册
-  subtitle: Galleries
-  type: waterfull # waterful | grid
-  columns: 3</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">galleries:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">title:</span> <span class="hljs-string">相册</span><br>  <span class="hljs-attr">subtitle:</span> <span class="hljs-string">Galleries</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">waterfull</span> <span class="hljs-comment"># waterful | grid</span><br>  <span class="hljs-attr">columns:</span> <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>:  <em>开启</em> / <em>关闭</em> 相册功能。</li>
 <li><code>title</code>: 相册分类页面标题。</li>
@@ -613,32 +493,11 @@ layout: &quot;galleries&quot;
 <li><code>columns</code>: 相册列数。</li>
 </ul>
 <p>在 <code>/_data</code> 目录下新建 <code>galleries.json</code> 文件，创建相册分类目录及图片内容：</p>
-<pre><code class="json">[&#123;
-  &quot;name&quot;: &quot;colorful&quot;,  //相册名称
-  &quot;cover&quot;: &quot;/images/theme/post-image.jpg&quot;,  //相册封面
-  &quot;description&quot;: &quot;君未看花时，花与君同寂；君来看花日，花色一时明。&quot;,  //相册介绍
-  &quot;photos&quot;: [  //图片内容
-    &quot;/images/theme/post-image.jpg&quot;,
-    &quot;/images/theme/post-image.jpg&quot;,
-    &quot;/images/theme/post-image.jpg&quot;,
-    &quot;/images/theme/post-image.jpg&quot;
-  ]
-&#125;, &#123;
-  &quot;name&quot;: &quot;记事&quot;,
-  &quot;cover&quot;: &quot;/images/theme/post-image.jpg&quot;,
-  &quot;description&quot;: &quot;翻开随身携带的记事本，写着许多事都是关于你。&quot;,
-  &quot;photos&quot;: [
-    &quot;/images/theme/post-image.jpg&quot;,
-    &quot;/images/theme/post-image.jpg&quot;,
-    &quot;/images/theme/post-image.jpg&quot;,
-    &quot;/images/theme/post-image.jpg&quot;
-  ]
-&#125;]</code></pre>
+<figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json">[&#123;<br>  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;colorful&quot;</span>,  <span class="hljs-comment">//相册名称</span><br>  <span class="hljs-attr">&quot;cover&quot;</span>: <span class="hljs-string">&quot;/images/theme/post-image.jpg&quot;</span>,  <span class="hljs-comment">//相册封面</span><br>  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;君未看花时，花与君同寂；君来看花日，花色一时明。&quot;</span>,  <span class="hljs-comment">//相册介绍</span><br>  <span class="hljs-attr">&quot;photos&quot;</span>: [  <span class="hljs-comment">//图片内容</span><br>    <span class="hljs-string">&quot;/images/theme/post-image.jpg&quot;</span>,<br>    <span class="hljs-string">&quot;/images/theme/post-image.jpg&quot;</span>,<br>    <span class="hljs-string">&quot;/images/theme/post-image.jpg&quot;</span>,<br>    <span class="hljs-string">&quot;/images/theme/post-image.jpg&quot;</span><br>  ]<br>&#125;, &#123;<br>  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;记事&quot;</span>,<br>  <span class="hljs-attr">&quot;cover&quot;</span>: <span class="hljs-string">&quot;/images/theme/post-image.jpg&quot;</span>,<br>  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;翻开随身携带的记事本，写着许多事都是关于你。&quot;</span>,<br>  <span class="hljs-attr">&quot;photos&quot;</span>: [<br>    <span class="hljs-string">&quot;/images/theme/post-image.jpg&quot;</span>,<br>    <span class="hljs-string">&quot;/images/theme/post-image.jpg&quot;</span>,<br>    <span class="hljs-string">&quot;/images/theme/post-image.jpg&quot;</span>,<br>    <span class="hljs-string">&quot;/images/theme/post-image.jpg&quot;</span><br>  ]<br>&#125;]<br></code></pre></td></tr></table></figure>
+
 <p>在 <code>/source/galleries/</code> 目录下 <code>新建文件夹</code> ，命名需要和 <code>json</code> 中的 <code>name</code> 字段对应，例如：<em>colorful</em>、<em>记事</em>。 在文件夹下新建 <code>index.md</code> 文件，内容如下：</p>
-<pre><code class="markdown">---
-title: 记事  #名称也需要对应
-layout: &quot;gallery&quot;
----</code></pre>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">---<br>title: 记事  #名称也需要对应<br><span class="hljs-section">layout: &quot;gallery&quot;</span><br><span class="hljs-section">---</span><br></code></pre></td></tr></table></figure>
+
 <p>步骤可能有点难以理解，最后放几张截图，比较直观：</p>
 <p><img  src="https://pic.izhaoo.com/20200722185650.jpg"  ><span class="image-caption">gallery-1</span></p>
 <p><img  src="https://pic.izhaoo.com/20200722185721.jpg"  ><span class="image-caption">gallery-2</span></p>
@@ -646,62 +505,46 @@ layout: &quot;gallery&quot;
 <p><img  src="https://pic.izhaoo.com/20200722185829.jpg"  ><span class="image-caption">gallery-4</span></p>
 <p>也可以参考 <code>/_example/source</code> 中的相关栗子。</p>
 <h3 id="归档页面"><a href="#归档页面" class="headerlink" title="归档页面"></a>归档页面</h3><p>参考 <a href="#导航菜单">导航菜单</a> 设置归档页面的导航，系统会按文章创建时间自动归档。</p>
-<pre><code class="yml">menu:
-  archives: /archives || 归档</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">menu:</span><br>  <span class="hljs-attr">archives:</span> <span class="hljs-string">/archives</span> <span class="hljs-string">||</span> <span class="hljs-string">归档</span><br></code></pre></td></tr></table></figure>
+
 <h3 id="标签页面"><a href="#标签页面" class="headerlink" title="标签页面"></a>标签页面</h3><p>执行以下命令创建标签页面，会在 <code>source</code> 目录生成 <code>tags/index.md</code> 文件：</p>
-<pre><code class="bash">$ hexo new page tags  #创建标签页面</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new page tags  <span class="hljs-comment">#创建标签页面</span><br></code></pre></td></tr></table></figure>
 <p>打开 <code>source/tags/index.md</code> 文件，设置 <code>Front-matter</code> ，开启标签页面：</p>
-<pre><code class="markdown">---
-title: 标签
-type: &quot;tags&quot;
-layout: &quot;tags&quot;
----</code></pre>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">---<br>title: 标签<br>type: &quot;tags&quot;<br><span class="hljs-section">layout: &quot;tags&quot;</span><br><span class="hljs-section">---</span><br></code></pre></td></tr></table></figure>
+
 <p>参考 <a href="#导航菜单">导航菜单</a> 设置标签页面的导航：</p>
-<pre><code class="yml">menu:
-  tags: /tags || 标签</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">menu:</span><br>  <span class="hljs-attr">tags:</span> <span class="hljs-string">/tags</span> <span class="hljs-string">||</span> <span class="hljs-string">标签</span><br></code></pre></td></tr></table></figure>
+
 <p>创建文章时，在文章的 <code>Front-matter</code> 中使用 <code>tags</code> 字段添加标签即可：</p>
-<pre><code class="markdown">---
-title: zhaoo - 主题使用文档
-tags: [Hexo, 主题]  #设置标签
----</code></pre>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">---<br>title: zhaoo - 主题使用文档<br><span class="hljs-section">tags: [Hexo, 主题]  #设置标签</span><br><span class="hljs-section">---</span><br></code></pre></td></tr></table></figure>
+
 <h3 id="分类页面"><a href="#分类页面" class="headerlink" title="分类页面"></a>分类页面</h3><p>同标签页面，更改一些关键词即可。</p>
 <p>执行以下命令创建分类页面，会在 <code>source</code> 目录生成 <code>categories/index.md</code> 文件：</p>
-<pre><code class="bash">$ hexo new page categories  #创建分类页面</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new page categories  <span class="hljs-comment">#创建分类页面</span><br></code></pre></td></tr></table></figure>
+
 <p>打开 <code>source/categories/index.md</code> 文件，设置 <code>Front-matter</code> ，开启分类页面：</p>
-<pre><code class="markdown">---
-title: 标签
-type: &quot;categories&quot;
-layout: &quot;categories&quot;
----</code></pre>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">---<br>title: 标签<br>type: &quot;categories&quot;<br><span class="hljs-section">layout: &quot;categories&quot;</span><br><span class="hljs-section">---</span><br></code></pre></td></tr></table></figure>
+
 <p>参考 <a href="#导航菜单">导航菜单</a> 设置分类页面的导航：</p>
-<pre><code class="yml">menu:
-  categories: /categories || 分类</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">menu:</span><br>  <span class="hljs-attr">categories:</span> <span class="hljs-string">/categories</span> <span class="hljs-string">||</span> <span class="hljs-string">分类</span><br></code></pre></td></tr></table></figure>
+
 <p>创建文章时，在文章的 <code>Front-matter</code> 中使用 <code>categories</code> 字段添加标签即可：</p>
-<pre><code class="markdown">---
-title: zhaoo - 主题使用文档
-categories:  #设置分类
-- 项目
-- 博客
----</code></pre>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">---<br>title: zhaoo - 主题使用文档<br>categories:  #设置分类<br><span class="hljs-bullet">-</span> 项目<br><span class="hljs-section">- 博客</span><br><span class="hljs-section">---</span><br></code></pre></td></tr></table></figure>
+
 <h3 id="关于页面"><a href="#关于页面" class="headerlink" title="关于页面"></a>关于页面</h3><p>执行以下命令创建关于页面，会在 <code>source</code> 目录生成 <code>about/index.md</code> 文件：</p>
-<pre><code class="bash">$ hexo new page about  #创建关于页面</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new page about  <span class="hljs-comment">#创建关于页面</span><br></code></pre></td></tr></table></figure>
+
 <p>打开 <code>source/about/index.md</code> 文件，设置 <code>Front-matter</code> ，开启关于页面：</p>
-<pre><code class="markdown">---
-title: 标签
-type: &quot;about&quot;
-layout: &quot;about&quot;
----</code></pre>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">---<br>title: 标签<br>type: &quot;about&quot;<br><span class="hljs-section">layout: &quot;about&quot;</span><br><span class="hljs-section">---</span><br></code></pre></td></tr></table></figure>
+
 <p>参考 <a href="#导航菜单">导航菜单</a> 设置关于页面的导航：</p>
-<pre><code class="yml">menu:
-  about: /about || 关于</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">menu:</span><br>  <span class="hljs-attr">about:</span> <span class="hljs-string">/about</span> <span class="hljs-string">||</span> <span class="hljs-string">关于</span><br></code></pre></td></tr></table></figure>
+
 <p>在 <code>source/about/index.md</code> 中编写关于内容，如同写文章一样。</p>
 <p>tips: 建议在 <strong>关于页面</strong> 关闭 <em>文章目录</em> 和 <em>文章版权</em> 功能，在 <code>Front-matter</code> 中添加 <code>toc</code> 和 <code>copyright</code> 字段都设置为 <code>false</code> 即可。</p>
 <h2 id="插件配置"><a href="#插件配置" class="headerlink" title="插件配置"></a>插件配置</h2><h3 id="评论系统"><a href="#评论系统" class="headerlink" title="评论系统"></a>评论系统</h3><p>配置项 <code>comments</code> 用于配置评论系统，目前支持 <strong>Gitalk</strong>、<strong>Valine</strong>、<strong>畅言</strong> 三种评论系统。</p>
-<pre><code class="yml"># Comment
-comments:
-  enable: true
-  type: valine
-  button: true</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Comment</span><br><span class="hljs-attr">comments:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">valine</span><br>  <span class="hljs-attr">button:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>:  <em>开启</em> / <em>关闭</em> 评论功能。</li>
 <li><code>type</code>: 开启哪种评论系统，需要配置对应的评论系统。（参考下文）</li>
@@ -714,13 +557,8 @@ comments:
 <p>接着创建一个 <a target="_blank" rel="noopener" href="https://github.com/settings/applications/new">Github Application</a>，填写相应的参数。创建完成后会生成 <code>clientID</code> 和 <code>clientSecret</code>，记录一下。</p>
 <p><img  src="https://pic.izhaoo.com/20201119203435.png"  ><span class="image-caption">创建应用</span></p>
 <p>配置项 <code>gitalk</code> 用于配置 <code>Gitalk。</code></p>
-<pre><code class="yml"># Gitalk
-gitalk:
-  owner:
-  repo:
-  admin:
-  clientID:
-  clientSecret:</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Gitalk</span><br><span class="hljs-attr">gitalk:</span><br>  <span class="hljs-attr">owner:</span><br>  <span class="hljs-attr">repo:</span><br>  <span class="hljs-attr">admin:</span><br>  <span class="hljs-attr">clientID:</span><br>  <span class="hljs-attr">clientSecret:</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>owner</code>: <code>GitHub</code> 的用户名。</li>
 <li><code>repo</code>: 创建的仓库名称。</li>
@@ -734,14 +572,7 @@ gitalk:
 <p>进入应用管理界面，点击【存储】-&gt;【创建Class】，名称为 <strong>Comment</strong>，访问权限为 <strong>所有用户</strong>，写入权限为 <strong>限制写入</strong>。</p>
 <p>在【设置】-&gt;【应用Keys】中复制 <code>appId</code> 和 <code>appKey</code>。</p>
 <p>配置项 <code>valine</code> 用于设置 <code>Valine</code> 评论系统。</p>
-<pre><code class="yml"># Valine
-valine:
-  appId:
-  appKey:
-  placeholder: 雁过留痕
-  avatar: mp
-  pageSize: 10
-  lang: zh-CN</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Valine</span><br><span class="hljs-attr">valine:</span><br>  <span class="hljs-attr">appId:</span><br>  <span class="hljs-attr">appKey:</span><br>  <span class="hljs-attr">placeholder:</span> <span class="hljs-string">雁过留痕</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">mp</span><br>  <span class="hljs-attr">pageSize:</span> <span class="hljs-number">10</span><br>  <span class="hljs-attr">lang:</span> <span class="hljs-string">zh-CN</span><br></code></pre></td></tr></table></figure>
 <ul>
 <li><code>enable</code>: <em>开启</em> / <em>关闭</em> <code>Valine</code>。</li>
 <li><code>appId</code>: 填入刚才得到的 <code>appId</code>。</li>
@@ -758,10 +589,8 @@ valine:
 <p><img  src="https://pic.izhaoo.com/2020111984224.jpg"  ><span class="image-caption">畅言演示</span></p>
 <p>在 <a target="_blank" rel="noopener" href="http://changyan.kuaizhan.com/">畅言</a> 注册账号，进入后台创建一个站点，在【后台总览】记录一下 <code>APP ID</code> 和 <code>APP KEY</code>。</p>
 <p>配置项 <code>changyan</code> 用于设置 <code>畅言评论</code>。</p>
-<pre><code class="yml"># ChangYan
-changyan:
-  appId:
-  conf:</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># ChangYan</span><br><span class="hljs-attr">changyan:</span><br>  <span class="hljs-attr">appId:</span><br>  <span class="hljs-attr">conf:</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>appId</code>: 生成的 <code>APP ID</code>。</li>
 <li><code>conf</code>: 生成的 <code>APP KEY</code>。</li>
@@ -776,10 +605,8 @@ changyan:
 <p>在【安装应用】页面，复制 <code>app_id</code>。</p>
 <p><img  src="https://pic.izhaoo.com/20200808135815.jpg"  ><span class="image-caption">appid</span></p>
 <p>配置项 <code>daovoice</code> 配置应用。</p>
-<pre><code class="yml"># Daovoice
-daovoice:
-  enable: true
-  appId: abcdefg  #你的 app_id</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Daovoice</span><br><span class="hljs-attr">daovoice:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">appId:</span> <span class="hljs-string">abcdefg</span>  <span class="hljs-comment">#你的 app_id</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>: <em>开启</em> / <em>关闭</em> DaoVoice。</li>
 <li><code>appId</code>: 填写之前复制的 <code>app_id</code>。</li>
@@ -788,10 +615,8 @@ daovoice:
 <h3 id="意见反馈平台-腾讯兔小巢"><a href="#意见反馈平台-腾讯兔小巢" class="headerlink" title="意见反馈平台 (腾讯兔小巢)"></a>意见反馈平台 (腾讯兔小巢)</h3><p><a target="_blank" rel="noopener" href="https://txc.qq.com/">腾讯兔小巢</a> 是一款用户意见反馈平台。</p>
 <p>首先在 <a target="_blank" rel="noopener" href="https://txc.qq.com/">腾讯兔小巢</a> 官网上注册一个产品，在 <a target="_blank" rel="noopener" href="https://txc.qq.com/dashboard/products/">产品设置</a> 中复制 <code>ID</code>。</p>
 <p>配置项 <code>tencentChao</code> 用于配置兔小巢。</p>
-<pre><code class="yml"># Tencent Chao
-tencentChao:
-  enable: false
-  appId: # app_id</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Tencent Chao</span><br><span class="hljs-attr">tencentChao:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">false</span><br>  <span class="hljs-attr">appId:</span> <span class="hljs-comment"># app_id</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>:  <em>开启</em> / <em>关闭</em> 兔小巢。</li>
 <li><code>appId</code>: 填写之前复制的 <code>ID</code>。</li>
@@ -802,12 +627,8 @@ tencentChao:
 <p><img  src="https://pic.izhaoo.com/202011194911.jpg"  ><span class="image-caption">创建LeanCloud</span></p>
 <p>在【设置】-&gt;【应用Keys】中复制 <code>appId</code> 和 <code>appKey</code>。</p>
 <p>配置项 <code>leancloud</code> 用于设置 <code>LeanCloud</code>。</p>
-<pre><code class="yml"># LeanCloud
-leancloud:
-  enable: true
-  appId:
-  appKey:
-  serverURLs: https://leancloud.cn/</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># LeanCloud</span><br><span class="hljs-attr">leancloud:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">appId:</span><br>  <span class="hljs-attr">appKey:</span><br>  <span class="hljs-attr">serverURLs:</span> <span class="hljs-string">https://leancloud.cn/</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>: <em>开启</em> / <em>关闭</em> <code>LeanCloud</code>。</li>
 <li><code>appId</code>: 填入刚才得到的 <code>appId</code>。</li>
@@ -815,35 +636,26 @@ leancloud:
 <li><code>serverURLs</code>: 服务路径不用改，保持 <code>https://leancloud.cn/</code> 就可以了。</li>
 </ul>
 <h3 id="图片懒加载-LazyLoad"><a href="#图片懒加载-LazyLoad" class="headerlink" title="图片懒加载 (LazyLoad)"></a>图片懒加载 (LazyLoad)</h3><p>配置项 <code>lazyload</code> 用于配置图片懒加载。</p>
-<pre><code class="yml"># Lazyload
-lazyload:
-  enable: true
-  only_post: false
-  loading: /images/theme/loading.gif</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Lazyload</span><br><span class="hljs-attr">lazyload:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">only_post:</span> <span class="hljs-literal">false</span><br>  <span class="hljs-attr">loading:</span> <span class="hljs-string">/images/theme/loading.gif</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>: <em>开启</em> / <em>关闭</em> 图片懒加载。</li>
 <li><code>onlyPost</code>: 只对对文章中的图片开启懒加载功能。</li>
 <li><code>loading</code>: 加载动画，默认是开启 <code>placeholder（占位图）</code> 的，可以在网上下载喜欢的动图，填写 <code>图片URL</code> 即可。</li>
 </ul>
 <h3 id="图片灯箱-FancyBox"><a href="#图片灯箱-FancyBox" class="headerlink" title="图片灯箱 (FancyBox)"></a>图片灯箱 (FancyBox)</h3><p>配置项 <code>FancyBox</code> 用于设置图片灯箱效果，开启后点击文章中的图片会以幻灯片的形式播放。</p>
-<pre><code class="yml">fancybox: true</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">fancybox:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
 <h3 id="无刷新加载-PJAX"><a href="#无刷新加载-PJAX" class="headerlink" title="无刷新加载 (PJAX)"></a>无刷新加载 (PJAX)</h3><p>配置项 <code>pjax</code> 用于设置无刷新加载，开启后让你的博客嗖嗖嗖~</p>
-<pre><code class="yml">pjax: true</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">pjax:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
 <p>tips: 该功能暂时不稳定，会引起一些特效、功能的异常，暂时不建议开启。</p>
 <h3 id="代码高亮-HighLight"><a href="#代码高亮-HighLight" class="headerlink" title="代码高亮 (HighLight)"></a>代码高亮 (HighLight)</h3><p>在 <strong>博客配置</strong> 中开启代码高亮效果：</p>
-<pre><code class="yml">highlight:
-  enable: true  #启用代码高亮效果
-  line_number: true
-  auto_detect: true
-  hljs: true
-  tab_replace:</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">highlight:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment">#启用代码高亮效果</span><br>  <span class="hljs-attr">line_number:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">auto_detect:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">hljs:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">tab_replace:</span><br></code></pre></td></tr></table></figure>
+
 <p>配置项 <code>highlight</code> 用于设置代码高亮效果。</p>
-<pre><code class="yml"># HighLight
-highlight:
-  enable: true
-  style: # https://highlightjs.org/static/demo/
-    light: Xcode
-    dark: Solarized Dark</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># HighLight</span><br><span class="hljs-attr">highlight:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">style:</span> <span class="hljs-comment"># https://highlightjs.org/static/demo/</span><br>    <span class="hljs-attr">light:</span> <span class="hljs-string">Xcode</span><br>    <span class="hljs-attr">dark:</span> <span class="hljs-string">Solarized</span> <span class="hljs-string">Dark</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>enable</code>: <em>开启</em> / <em>关闭</em> 代码高亮。</li>
 <li><code>style -&gt; light</code>: <em>浅色模式</em> 时的高亮样式。</li>
@@ -851,19 +663,14 @@ highlight:
 </ul>
 <p>可以到 <a target="_blank" rel="noopener" href="https://highlightjs.org/static/demo/">官网</a> 预览高亮效果，填写样式名称即可。</p>
 <h3 id="SEO"><a href="#SEO" class="headerlink" title="SEO"></a>SEO</h3><p>配置项 <code>seo</code> 用于设置 SEO（网站关键词优化）功能。</p>
-<pre><code class="yml"># SEO
-seo:
-  baidu_auto_push: true</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># SEO</span><br><span class="hljs-attr">seo:</span><br>  <span class="hljs-attr">baidu_auto_push:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>baidu_auto_push</code>: 开启 <a target="_blank" rel="noopener" href="https://ziyuan.baidu.com/linksubmit/index">百度站长平台</a> 链接自动推送功能。</li>
 </ul>
 <h3 id="网页统计"><a href="#网页统计" class="headerlink" title="网页统计"></a>网页统计</h3><p>配置项 <code>analytics</code> 用于设置网站统计。</p>
-<pre><code class="yml"># Analytics
-analytics:
-  baidu: # id
-  google: # id
-  tencent: # id
-  cnzz: # id</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Analytics</span><br><span class="hljs-attr">analytics:</span><br>  <span class="hljs-attr">baidu:</span> <span class="hljs-comment"># id</span><br>  <span class="hljs-attr">google:</span> <span class="hljs-comment"># id</span><br>  <span class="hljs-attr">tencent:</span> <span class="hljs-comment"># id</span><br>  <span class="hljs-attr">cnzz:</span> <span class="hljs-comment"># id</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>baidu</code>: <a target="_blank" rel="noopener" href="https://tongji.baidu.com/web/welcome/login">百度统计</a></li>
 <li><code>google</code>: <a target="_blank" rel="noopener" href="https://analytics.google.com/analytics/web">谷歌统计</a></li>
@@ -873,21 +680,11 @@ analytics:
 <p>在对应的数据统计官网注册网站应用，复制对应的 <code>id</code> 填写即可。</p>
 <h2 id="脚本配置"><a href="#脚本配置" class="headerlink" title="脚本配置"></a>脚本配置</h2><h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>对于外部静态文件（CSS 或 JS），可以使用第三方 <code>CDN</code> 库进行优化加速。</p>
 <p>配置项 <code>vendors</code> 用于设置静态库引入位置，直接输入 <code>URL</code> 即可。您可以保持默认配置（BootCDN）,留空则从本地引入。</p>
-<pre><code class="yml">vendors:
-  jquery_js: https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js
-  fancybox_js: https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js
-  pjax_js: https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js
-  lazyload_js: https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js
-  fancybox_css: https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css
-  highlight_css: https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css
-  iconfont_css: //at.alicdn.com/t/font_1445822_58xq2j9v1id.css</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">vendors:</span><br>  <span class="hljs-attr">jquery_js:</span> <span class="hljs-string">https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js</span><br>  <span class="hljs-attr">fancybox_js:</span> <span class="hljs-string">https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js</span><br>  <span class="hljs-attr">pjax_js:</span> <span class="hljs-string">https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js</span><br>  <span class="hljs-attr">lazyload_js:</span> <span class="hljs-string">https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js</span><br>  <span class="hljs-attr">fancybox_css:</span> <span class="hljs-string">https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css</span><br>  <span class="hljs-attr">highlight_css:</span> <span class="hljs-string">https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css</span><br>  <span class="hljs-attr">iconfont_css:</span> <span class="hljs-string">//at.alicdn.com/t/font_1445822_58xq2j9v1id.css</span><br></code></pre></td></tr></table></figure>
+
 <h3 id="脚本埋点"><a href="#脚本埋点" class="headerlink" title="脚本埋点"></a>脚本埋点</h3><p>有时候我们需要埋入一些第三方脚本，例如 <code>百度统计</code>、<code>百度SEO</code> 等，主题在 <strong>头部</strong> 和 <strong>尾部</strong> 分别开放了埋点入口，通过配置项 <code>custom</code> 进行配置。</p>
-<pre><code class="yml"># Custom
-custom:
-  head:
-  foot:
-  css:
-  js:</code></pre>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Custom</span><br><span class="hljs-attr">custom:</span><br>  <span class="hljs-attr">head:</span><br>  <span class="hljs-attr">foot:</span><br>  <span class="hljs-attr">css:</span><br>  <span class="hljs-attr">js:</span><br></code></pre></td></tr></table></figure>
+
 <ul>
 <li><code>head</code>: 引入头部的代码。</li>
 <li><code>foot</code>: 引入尾部的代码。</li>

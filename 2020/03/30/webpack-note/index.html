@@ -211,7 +211,7 @@
           <i class="iconfont iconeye"></i><span id="/2020/03/30/webpack-note/" class="leancloud" data-flag-title="webpack - 学习笔记"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2759</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2766</span>
     </div>
   </div>
 </section>
@@ -220,59 +220,29 @@
         <h3 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h3><p>昨天小伙伴一面阿里，面试官上来就<code>webpack</code>三连，直接问蒙。对于我们这些搬砖仔，平时项目一般都是直接开脚手架，根本没想到去碰<code>webpack</code>，即使需要配插件，也是按照官方文档照搬。不过，该学的还是得学。</p>
 <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><code>webpack</code>大家应该很熟悉了，没用过肯定见过。简单的讲就是一个<code>静态模块打包器</code>，递归地构建项目依赖，然后打包输出。<code>webpack</code>可以自动的为我们打包项目，同时还能引入一些插件完成辅助功能，最终实现前端工程化。</p>
 <p>安装:</p>
-<pre><code class="bash">yarn webpack webpack-cli --save-dev</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">yarn webpack webpack-cli --save-dev<br></code></pre></td></tr></table></figure>
+
 <p>安装成功后直接在项目目录新建一个配置文件<code>webpack.config.js</code>，内容类似于这样:</p>
-<pre><code class="javascript">&#39;use strict&#39;
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-meta">&#x27;use strict&#x27;</span><br><br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><br><span class="hljs-built_in">module</span>.exports = &#123;<br>  <span class="hljs-attr">entry</span>: &#123;<br>    <span class="hljs-attr">index</span>: <span class="hljs-string">&#x27;./src/app.js&#x27;</span>,<br>  &#125;,<br>  <span class="hljs-attr">output</span>: &#123;<br>    <span class="hljs-attr">path</span>: path.join(__dirname,<span class="hljs-string">&#x27;dist&#x27;</span>),<br>    <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;app.js&#x27;</span><br>  &#125;,<br>  <span class="hljs-attr">mode</span>: <span class="hljs-string">&#x27;production&#x27;</span>,<br>&#125;;<br></code></pre></td></tr></table></figure>
 
-const path = require(&#39;path&#39;);
-
-module.exports = &#123;
-  entry: &#123;
-    index: &#39;./src/app.js&#39;,
-  &#125;,
-  output: &#123;
-    path: path.join(__dirname,&#39;dist&#39;),
-    filename: &#39;app.js&#39;
-  &#125;,
-  mode: &#39;production&#39;,
-&#125;;</code></pre>
 <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p><code>webpack</code>有四个核心概念，分别是<strong>入口 (entry)</strong>、<strong>出口 (output)</strong>、<strong>加载器 (loader)</strong>、<strong>插件 (plugins)</strong>，下面一一介绍:</p>
 <h5 id="入口-entry"><a href="#入口-entry" class="headerlink" title="入口 (entry)"></a>入口 (entry)</h5><p>入口可以理解为打包的起点，<code>webpack</code>从入口开始，首先找到入口文件的相关依赖，再依次递归查找整个项目的依赖。入口可以有<em>一个</em>或者<em>多个</em>。</p>
-<pre><code class="javascript">module.exports = &#123;
-  entry: &#39;.src/app.js&#39;  //单入口
-&#125;;</code></pre>
-<pre><code class="javascript">module.exports = &#123;
-  entry: &#123;  //多入口
-    app: &#39;./src/app.js&#39;,
-    vendors: &#39;./src/vendors.js&#39;
-  &#125;
-&#125;;</code></pre>
-<h5 id="出口-output"><a href="#出口-output" class="headerlink" title="出口 (output)"></a>出口 (output)</h5><p>出口告诉<code>webpack</code>将打包后的文件输出到哪里，以及如何命名这些文件。</p>
-<pre><code class="javascript">const path = require(&#39;path&#39;);
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">module</span>.exports = &#123;<br>  <span class="hljs-attr">entry</span>: <span class="hljs-string">&#x27;.src/app.js&#x27;</span>  <span class="hljs-comment">//单入口</span><br>&#125;;<br></code></pre></td></tr></table></figure>
 
-module.exports = &#123;
-  output: &#123;
-    path: path.resolve(__dirname, &#39;dist&#39;),  //输出到 dist 文件夹
-    filename: &#39;bundle.js&#39;  //重命名为 bundle.js
-  &#125;
-&#125;;</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">module</span>.exports = &#123;<br>  <span class="hljs-attr">entry</span>: &#123;  <span class="hljs-comment">//多入口</span><br>    <span class="hljs-attr">app</span>: <span class="hljs-string">&#x27;./src/app.js&#x27;</span>,<br>    <span class="hljs-attr">vendors</span>: <span class="hljs-string">&#x27;./src/vendors.js&#x27;</span><br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h5 id="出口-output"><a href="#出口-output" class="headerlink" title="出口 (output)"></a>出口 (output)</h5><p>出口告诉<code>webpack</code>将打包后的文件输出到哪里，以及如何命名这些文件。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><br><span class="hljs-built_in">module</span>.exports = &#123;<br>  <span class="hljs-attr">output</span>: &#123;<br>    <span class="hljs-attr">path</span>: path.resolve(__dirname, <span class="hljs-string">&#x27;dist&#x27;</span>),  <span class="hljs-comment">//输出到 dist 文件夹</span><br>    <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;bundle.js&#x27;</span>  <span class="hljs-comment">//重命名为 bundle.js</span><br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
 <h5 id="加载器-loader"><a href="#加载器-loader" class="headerlink" title="加载器 (loader)"></a>加载器 (loader)</h5><p><code>webpack</code>自身只能处理<code>JS</code>文件，但是项目中肯定不只有JS。这时候就要用到加载器了，通过它可以将其他类型的文件转换为<code>webpack</code>能够处理的模块，例如<em>CSS</em>、<em>图片</em>、<em>文件</em>。</p>
-<pre><code class="javascript">const config = &#123;
-  module: &#123;
-    rules: [
-      &#123; 
-        test: /\.scss$/,  //正则表达式匹配 CSS 文件
-        use: [&#39;style-loader&#39;, &#39;css-loader&#39;, &#39;sass-loader&#39;]  //依次使用三个 loader，注意先后顺序
-      &#125;
-    ]
-  &#125;
-&#125;;</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> config = &#123;<br>  <span class="hljs-attr">module</span>: &#123;<br>    <span class="hljs-attr">rules</span>: [<br>      &#123; <br>        <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.scss$/</span>,  <span class="hljs-comment">//正则表达式匹配 CSS 文件</span><br>        use: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>, <span class="hljs-string">&#x27;sass-loader&#x27;</span>]  <span class="hljs-comment">//依次使用三个 loader，注意先后顺序</span><br>      &#125;<br>    ]<br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
 <h5 id="插件-plugins"><a href="#插件-plugins" class="headerlink" title="插件 (plugins)"></a>插件 (plugins)</h5><p>加载器只是简单地被用于转换某些类型的模块，而插件则可以用于执行范围更广的任务。例如<em>打包优化</em>、<em>压缩</em>、<em>变量重定义</em>等等。</p>
-<pre><code class="javascript"></code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><br></code></pre></td></tr></table></figure>
+
 <h5 id="模式-mode"><a href="#模式-mode" class="headerlink" title="模式 (mode)"></a>模式 (mode)</h5><p>顺带提一下模式，我们可以使用模式来定义开发环境，<code>development</code>或<code>production</code>二选一，从而在不同的环境下定义不同的执行逻辑。</p>
-<pre><code class="javascript">module.exports = &#123;
-  mode: &#39;production&#39;  //定义生产环境
-&#125;;</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">module</span>.exports = &#123;<br>  <span class="hljs-attr">mode</span>: <span class="hljs-string">&#x27;production&#x27;</span>  <span class="hljs-comment">//定义生产环境</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
 <h3 id="菜单"><a href="#菜单" class="headerlink" title="菜单"></a>菜单</h3><p>作为第二问，面试官肯定会让你报上常用的<code>loader</code>和<code>plugins</code>，奉上常用菜单。</p>
 <h5 id="Loader"><a href="#Loader" class="headerlink" title="Loader"></a>Loader</h5><ul>
 <li><p>file-loader<br>打包静态资源，蒋文君输出到打包文件夹中，代码中可以通过相对地址引入文件。</p>
@@ -301,15 +271,8 @@ module.exports = &#123;
 </li>
 </ul>
 <h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><h5 id="别名-alias"><a href="#别名-alias" class="headerlink" title="别名 (alias)"></a>别名 (alias)</h5><p>在代码中导入文件的时候，使用相对路径(<code>../../</code>)或绝对路径(<code>/</code>)会很麻烦。这时候我们可以配置一个别名来简化路径，例如常见的<code>@</code>或<code>~</code>表示根目录。</p>
-<pre><code class="javascript">resolve: &#123;
-  alias: &#123;
-    &#39;@&#39;: path.resolve(__dirname, &#39;src&#39;),  //用 @ 表示根目录，下面同理
-    utils: path.resolve(__dirname, &#39;src/utils&#39;),
-    pages: path.resolve(__dirname, &#39;src/pages&#39;),
-    components: path.resolve(__dirname, &#39;src/components&#39;),
-    utils: path.resolve(__dirname, &#39;src/utils&#39;),
-  &#125;
-&#125;</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">resolve: &#123;<br>  <span class="hljs-attr">alias</span>: &#123;<br>    <span class="hljs-string">&#x27;@&#x27;</span>: path.resolve(__dirname, <span class="hljs-string">&#x27;src&#x27;</span>),  <span class="hljs-comment">//用 @ 表示根目录，下面同理</span><br>    <span class="hljs-attr">utils</span>: path.resolve(__dirname, <span class="hljs-string">&#x27;src/utils&#x27;</span>),<br>    <span class="hljs-attr">pages</span>: path.resolve(__dirname, <span class="hljs-string">&#x27;src/pages&#x27;</span>),<br>    <span class="hljs-attr">components</span>: path.resolve(__dirname, <span class="hljs-string">&#x27;src/components&#x27;</span>),<br>    <span class="hljs-attr">utils</span>: path.resolve(__dirname, <span class="hljs-string">&#x27;src/utils&#x27;</span>),<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 <p>原理部分还在学习中，有时间补充……</p>
       </section>
       <section class="extra">

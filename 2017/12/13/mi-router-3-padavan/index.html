@@ -209,7 +209,7 @@
           <i class="iconfont iconeye"></i><span id="/2017/12/13/mi-router-3-padavan/" class="leancloud" data-flag-title="小米路由器3 - Padavan固件"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1914</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1915</span>
     </div>
   </div>
 </section>
@@ -256,8 +256,8 @@
 <li>Linux更新源在国外，下载会很慢，我们把他换成国内的163源。当然番羽.墙过的朋友可以无视，有耐心的朋友也可以无视。</li>
 </ol>
 <p>输入<code>sudo nano /etc/apt/sources.list</code>。在原来的源前面打上“#”注释掉，在文件尾添加以下源。</p>
-<pre><code class="bash">deb http://mirrors.163.com/debian/ jessie main contrib non-free
-deb-src http://mirrors.163.com/debian jessie main contrib non-free</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">deb http://mirrors.163.com/debian/ jessie main contrib non-free<br>deb-src http://mirrors.163.com/debian jessie main contrib non-free<br></code></pre></td></tr></table></figure>
+
 <p>按“ctrl”+“x”，再按下“Y”回车，保存退出。重启一下虚拟机。</p>
 <ol start="4">
 <li>重启后进刷机脚本。选择5，再选择1，再再选择2。输入路由器IP回车，路由器SSH用户名回车（一般是root）,路由器SSH密码回车（SSH解锁页面可以查）。保存后重启一下。</li>
@@ -279,12 +279,13 @@ deb-src http://mirrors.163.com/debian jessie main contrib non-free</code></pre>
 <ol start="8">
 <li>等待几分钟，刷入完成，路由器重启。看到俩个名称为“AUSA”的路由器，连接。</li>
 </ol>
-<pre><code class="bash">密码：12344567890</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">密码：12344567890<br></code></pre></td></tr></table></figure>
+
 <ol start="9">
 <li>浏览器输入“192.168.1.1”进入路由器后台。</li>
 </ol>
-<pre><code class="bash">用户名：admin
-密码：admin</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">用户名：admin<br>密码：admin<br></code></pre></td></tr></table></figure>
+
 <ol start="10">
 <li>进去后可以看到是老版本，还是英文的。没事，我们更新一下。<a target="_blank" rel="noopener" href="https://eyun.baidu.com/s/3kV0JV19">Padavan最新固件</a>，下载mi3最新固件，trx文件。然后路由器后台，高级设置–&gt;系统管理–&gt;固件刷入（抱歉，英文菜单我忘了），然后选择刚下的估计，上传即可。</li>
 </ol>
