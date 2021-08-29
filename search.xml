@@ -1038,6 +1038,7 @@ custom:
     <content><![CDATA[<p><code>zhaoo</code> 主题孪生小程序的相关部署文档。</p>
 <span id="more"></span>
 
+<h2 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h2><p><img  src="https://pic.izhaoo.com/weapp-code.jpg"  ><span class="image-caption">hexo-weapp-zhaoo</span></p>
 <h2 id="关于文档"><a href="#关于文档" class="headerlink" title="关于文档"></a>关于文档</h2><blockquote>
 <p>如有疑惑欢迎加鹅群咨询：<strong>550262893</strong><br>需要使用者具备一丢丢的前端基础。</p>
 </blockquote>
@@ -1123,17 +1124,90 @@ $ npm run build:weapp  # 打包</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>Hexo - 自动部署博客</title>
+    <url>/2021/08/29/hexo-webhook/</url>
+    <content><![CDATA[<p>基于 GitHub-Webhooks 自动拉取并部署博客。</p>
+<span id="more"></span>
+
+<p>兆兆博客部署在宝塔面板上，每次部署时都要登录面板、上传文件，贼麻烦。燃鹅每次都忍了…终于有一天，忍无可忍了！</p>
+<p>比较方便的方式可以通过 GitHub-Webhooks 设置钩子，在向 GitHub 远程仓库提交代码时，使用 webhook 向服务器发送请求，自动拉取代码更新博客。</p>
+<p>在服务器的 <code>webroot</code> 目录下新建两个文件：</p>
+<pre><code class="javascript">// webhook.js
+
+const http = require(&#39;http&#39;);
+const util = require(&#39;util&#39;);
+const child_process = require(&#39;child_process&#39;);
+
+const exec = util.promisify(child_process.exec);
+const port = 3000;  //配置端口
+const host = &#39;localhost&#39;;  //配置域名
+const matchUrl = &#39;/webhook&#39;;  //配置路由
+
+const server = http
+  .createServer(async (request, response) =&gt; &#123;
+    try &#123;
+      const url = request.url;
+      if (url === matchUrl) &#123;
+        await exec(&#39;sh webhook.sh&#39;);  //执行当前目录下的脚本
+        response.write(&#39;Hexo webhook executed successfully&#39;);
+        response.end();
+      &#125; else &#123;
+        response.write(`Hexo webhook running at: http://$&#123;host&#125;:$&#123;port&#125;$&#123;matchUrl&#125;`);
+        response.end();
+      &#125;
+    &#125; catch (e) &#123;
+      console.error(e);
+    &#125;
+  &#125;)
+  .listen(port, host, () =&gt; &#123;
+    console.log(`Hexo webhook running at: http://$&#123;host&#125;:$&#123;port&#125;$&#123;matchUrl&#125;`);
+  &#125;);</code></pre>
+<pre><code class="sh"># webhook.sh
+#!/usr/bin/env bash
+
+rm -rf ~/www/wwwroot/zhaoo/*
+cd ~/www/wwwroot/zhaoo/
+git pull https://github.com/zhaoo/zhaoo.github.io.git</code></pre>
+<p>在宝塔面板的软件商店中安装 <em>PM2管理器</em>，运行 JavaScript 脚本：</p>
+<p><img  src="https://pic.izhaoo.com/20210829204722.jpg"  ><span class="image-caption">配置 PM2</span></p>
+<p>现在脚本是运行在 <code>http://localhost:3000</code> 下，外网无法访问，使用我们需要配置一个反向代理：</p>
+<p><img  src="https://pic.izhaoo.com/20210829204907.jpg"  ><span class="image-caption">配置反向代理</span></p>
+<p>默认是整个域名进行转发，会导致博客无法访问，所以需要修改下 Nginx 配置，只转发 <code>/webhook</code> 路由。</p>
+<p><img  src="https://pic.izhaoo.com/20210829205136.jpg"  ><span class="image-caption">配置 Nginx</span></p>
+<p>现在访问一下 <code>https://www.izhaoo.com/webhook/</code>，successfully！现在只需访问一次该 URL，服务器便会自动从 GitHub 拉取代码并更新博客。</p>
+<p>最后只需要在 GitHub 配置一下 Webhooks 即可，向 GitHub 推代码时会自动向服务器发送请求。</p>
+<p><img  src="https://pic.izhaoo.com/20210829205527.jpg"  ><span class="image-caption">配置 Webhooks</span></p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>兆兆的香菜观察日记</title>
     <url>/2021/08/15/growing-coriander-diary/</url>
-    <content><![CDATA[<p>我种下一颗种子，终于长出了果实，今天是个伟大日子。摘下香菜炒个蛋，摘下香菜煲个汤，让香菜每天为你甜蜜。</p>
+    <content><![CDATA[<p>我种下一颗种子，终于长出了果实，今天是个伟大日子。<br>摘下香菜炒个蛋，摘下香菜煲个汤，让香菜每天为你甜蜜。</p>
 <span id="more"></span>
 
 <p><strong>2021.08.14</strong></p>
-<p>今天是个下雨的七夕劫，适合“播种”。女朋友送了我几包香菜种子，还有来自长白山的泥土。我将用我的勤劳的双手，将它们变成香菜炒蛋。</p>
+<p>今天是个下雨的七夕劫，适合“播种”。女朋友送了几包香菜种子，还有来自长白山的泥土。我将用我的勤劳的双手，将它们变成香菜炒蛋。</p>
 <p><img  src="https://pic.izhaoo.com/20210815193431.jpg"  ><span class="image-caption">装备</span></p>
 <p><img  src="https://pic.izhaoo.com/20210815193457.jpg"  ><span class="image-caption">松土</span></p>
 <p><img  src="https://pic.izhaoo.com/20210815193521.jpg"  ><span class="image-caption">播种</span></p>
 <p>就这么简单，欲知后事如何，咱们下期再会。</p>
+<p><strong>2021.08.19</strong></p>
+<p>这两天参加公司训练营，每天早出晚归，无暇在人间逗留。今晚无意瞥到香菜苗苗居然 🌱 了，可喜可贺。By the way，小伙伴们很给力</p>
+<p><img  src="https://pic.izhaoo.com/20210820000445.jpg"  ><span class="image-caption">🌱</span></p>
+<p><strong>2021.08.21</strong></p>
+<p>今天已经长成小苗苗了，炒一碗香菜苗。</p>
+<p><img  src="https://pic.izhaoo.com/20210821210653.jpg"  ><span class="image-caption">小苗苗</span></p>
+<p><strong>2021.08.26</strong></p>
+<p>这两天海豹训练营太卷了，每天肝到十二点，只能让你暗里生长了。</p>
+<p><img  src="https://pic.izhaoo.com/20210826011732.jpg"  ><span class="image-caption">暗里</span></p>
+<p><img  src="https://pic.izhaoo.com/20210826011747.jpg"  ><span class="image-caption">生长</span></p>
 ]]></content>
       <categories>
         <category>随笔</category>
@@ -1532,6 +1606,41 @@ Promise.all(asyncFun).then((res) =&gt; &#123;
 ).then((res) =&gt;&#123;
   return res;
 &#125;)</code></pre>
+<h3 id="常用-Hooks-封装"><a href="#常用-Hooks-封装" class="headerlink" title="常用 Hooks 封装"></a>常用 Hooks 封装</h3><p><strong>缓存状态</strong></p>
+<p>获取上一次执行的状态。</p>
+<pre><code class="javascript">const usePrevious = (value: any) =&gt; &#123;
+  const ref = useRef();
+  useEffect(() =&gt; &#123;
+    ref.current = value;
+  &#125;, [value]);
+  return ref.current;
+&#125;</code></pre>
+<p><strong>批量设置状态</strong></p>
+<p>像 <code>this.setState()</code> 一样批量设置状态。</p>
+<pre><code class="javascript">const useSet = (initState: any) =&gt; &#123;
+  return useReducer((state: any, newState: any) =&gt; &#123;
+    return &#123; ...state, ...newState &#125;;
+  &#125;, initState);
+&#125;</code></pre>
+<p><strong>节流</strong></p>
+<pre><code class="javascript">const useThrottle = (fn: any, delay: number, dep = []) =&gt; &#123;
+  const &#123; current &#125; = useRef(&#123; fn, timer: null &#125;);
+  useEffect(
+    function () &#123;
+      current.fn = fn;
+    &#125;,
+    [fn],
+  );
+
+  return useCallback(function f(...args: any) &#123;
+    if (!current.timer) &#123;
+      current.timer = setTimeout(() =&gt; &#123;
+        delete current.timer;
+      &#125;, delay);
+      current.fn(...args);
+    &#125;
+  &#125;, dep);
+&#125;</code></pre>
 ]]></content>
       <categories>
         <category>前端</category>
@@ -5056,8 +5165,8 @@ CLink.prototype.remove = function (el) &#123;
         <category>前端</category>
       </categories>
       <tags>
-        <tag>算法</tag>
         <tag>js</tag>
+        <tag>算法</tag>
         <tag>javascript</tag>
       </tags>
   </entry>
@@ -6758,8 +6867,8 @@ priority=1 #优先级
         <category>技术</category>
       </categories>
       <tags>
-        <tag>树莓派</tag>
         <tag>hack</tag>
+        <tag>树莓派</tag>
         <tag>raspberrypi</tag>
       </tags>
   </entry>
@@ -7184,8 +7293,8 @@ opkg install luci-i18n-base-zh-cn</code></pre><p>然后进后台设置即可。<
         <category>技术</category>
       </categories>
       <tags>
-        <tag>树莓派</tag>
         <tag>hack</tag>
+        <tag>树莓派</tag>
         <tag>raspberrypi</tag>
       </tags>
   </entry>

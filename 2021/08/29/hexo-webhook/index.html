@@ -6,12 +6,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>标签 - zhaoo</title>
+  <title>Hexo - 自动部署博客 - zhaoo</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
-  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题">
-  <meta name="description" content="兆兆的博客，分享技术，记录生活。">
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, hexo, Webhooks, GitHub, github-webhook, 自动部署, 一键部署">
+  <meta name="description" content="基于 GitHub-Webhooks 自动拉取并部署博...">
   <meta name="author" content="zhaoo">
   <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
@@ -154,7 +154,7 @@
         <i class="iconfont iconsearch j-navbar-search"></i>
       
     </div>
-    <div class="center">标签</div>
+    <div class="center">Hexo - 自动部署博客</div>
     <div class="right">
       <i class="iconfont iconmenu j-navbar-menu"></i>
     </div>
@@ -180,7 +180,7 @@
       </li><li class="menu-item">
         <a href="/archives/ " class="underline "> 归档</a>
       </li><li class="menu-item">
-        <a href="/tags/ " class="underline active"> 标签</a>
+        <a href="/tags/ " class="underline "> 标签</a>
       </li><li class="menu-item">
         <a href="/categories/ " class="underline "> 分类</a>
       </li><li class="menu-item">
@@ -192,15 +192,152 @@
   </div>
 </nav>
   <main id="main">
-  <section class="tags">
-    <header class="header">
-  <h1 class="header-title">标签</h1>
-  <p class="header-subtitle">共: 28 个</p>
-</header>
-    <div class="tags-container">
-      <a href="/tags/Hexo/" style="font-size: 30.5px; color: #323232">Hexo</a> <a href="/tags/IoT/" style="font-size: 14px; color: #666">IoT</a> <a href="/tags/React/" style="font-size: 19.5px; color: #555">React</a> <a href="/tags/arduino/" style="font-size: 16.75px; color: #5d5d5d">arduino</a> <a href="/tags/css/" style="font-size: 14px; color: #666">css</a> <a href="/tags/ctf/" style="font-size: 14px; color: #666">ctf</a> <a href="/tags/esp8266/" style="font-size: 16.75px; color: #5d5d5d">esp8266</a> <a href="/tags/faas/" style="font-size: 14px; color: #666">faas</a> <a href="/tags/hack/" style="font-size: 33.25px; color: #2a2a2a">hack</a> <a href="/tags/javascript/" style="font-size: 14px; color: #666">javascript</a> <a href="/tags/js/" style="font-size: 27.75px; color: #3b3b3b">js</a> <a href="/tags/raspberrypi/" style="font-size: 22.25px; color: #4c4c4c">raspberrypi</a> <a href="/tags/router/" style="font-size: 14px; color: #666">router</a> <a href="/tags/%E4%B8%BB%E9%A2%98/" style="font-size: 25px; color: #444">主题</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 36px; color: #212121">前端</a> <a href="/tags/%E5%90%8E%E7%AB%AF/" style="font-size: 19.5px; color: #555">后端</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 14px; color: #666">小程序</a> <a href="/tags/%E6%97%85%E8%A1%8C/" style="font-size: 22.25px; color: #4c4c4c">旅行</a> <a href="/tags/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/" style="font-size: 14px; color: #666">智能家居</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 19.5px; color: #555">服务器</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 25px; color: #444">树莓派</a> <a href="/tags/%E6%A1%86%E6%9E%B6/" style="font-size: 16.75px; color: #5d5d5d">框架</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 16.75px; color: #5d5d5d">生活</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 16.75px; color: #5d5d5d">算法</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px; color: #666">设计模式</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/" style="font-size: 22.25px; color: #4c4c4c">路由器</a> <a href="/tags/%E9%98%B3%E5%8F%B0%E7%A7%8D%E8%8F%9C/" style="font-size: 14px; color: #666">阳台种菜</a> <a href="/tags/%E9%A6%99%E6%A9%99%E6%B4%BE/" style="font-size: 14px; color: #666">香橙派</a>
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20210628213000.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Hexo - 自动部署博客</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>八月 29, 2021</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2021/08/29/hexo-webhook/" class="leancloud" data-flag-title="Hexo - 自动部署博客"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1704</span>
     </div>
-  </section>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <p>兆兆博客部署在宝塔面板上，每次部署时都要登录面板、上传文件，贼麻烦。燃鹅每次都忍了…终于有一天，忍无可忍了！</p>
+<p>比较方便的方式可以通过 GitHub-Webhooks 设置钩子，在向 GitHub 远程仓库提交代码时，使用 webhook 向服务器发送请求，自动拉取代码更新博客。</p>
+<p>在服务器的 <code>webroot</code> 目录下新建两个文件：</p>
+<pre><code class="javascript">// webhook.js
+
+const http = require(&#39;http&#39;);
+const util = require(&#39;util&#39;);
+const child_process = require(&#39;child_process&#39;);
+
+const exec = util.promisify(child_process.exec);
+const port = 3000;  //配置端口
+const host = &#39;localhost&#39;;  //配置域名
+const matchUrl = &#39;/webhook&#39;;  //配置路由
+
+const server = http
+  .createServer(async (request, response) =&gt; &#123;
+    try &#123;
+      const url = request.url;
+      if (url === matchUrl) &#123;
+        await exec(&#39;sh webhook.sh&#39;);  //执行当前目录下的脚本
+        response.write(&#39;Hexo webhook executed successfully&#39;);
+        response.end();
+      &#125; else &#123;
+        response.write(`Hexo webhook running at: http://$&#123;host&#125;:$&#123;port&#125;$&#123;matchUrl&#125;`);
+        response.end();
+      &#125;
+    &#125; catch (e) &#123;
+      console.error(e);
+    &#125;
+  &#125;)
+  .listen(port, host, () =&gt; &#123;
+    console.log(`Hexo webhook running at: http://$&#123;host&#125;:$&#123;port&#125;$&#123;matchUrl&#125;`);
+  &#125;);</code></pre>
+<pre><code class="sh"># webhook.sh
+#!/usr/bin/env bash
+
+rm -rf ~/www/wwwroot/zhaoo/*
+cd ~/www/wwwroot/zhaoo/
+git pull https://github.com/zhaoo/zhaoo.github.io.git</code></pre>
+<p>在宝塔面板的软件商店中安装 <em>PM2管理器</em>，运行 JavaScript 脚本：</p>
+<p><img  src="https://pic.izhaoo.com/20210829204722.jpg"  ><span class="image-caption">配置 PM2</span></p>
+<p>现在脚本是运行在 <code>http://localhost:3000</code> 下，外网无法访问，使用我们需要配置一个反向代理：</p>
+<p><img  src="https://pic.izhaoo.com/20210829204907.jpg"  ><span class="image-caption">配置反向代理</span></p>
+<p>默认是整个域名进行转发，会导致博客无法访问，所以需要修改下 Nginx 配置，只转发 <code>/webhook</code> 路由。</p>
+<p><img  src="https://pic.izhaoo.com/20210829205136.jpg"  ><span class="image-caption">配置 Nginx</span></p>
+<p>现在访问一下 <code>https://www.izhaoo.com/webhook/</code>，successfully！现在只需访问一次该 URL，服务器便会自动从 GitHub 拉取代码并更新博客。</p>
+<p>最后只需要在 GitHub 配置一下 Webhooks 即可，向 GitHub 推代码时会自动向服务器发送请求。</p>
+<p><img  src="https://pic.izhaoo.com/20210829205527.jpg"  ><span class="image-caption">配置 Webhooks</span></p>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2021/08/29/hexo-webhook/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2021&#x2F;08&#x2F;29&#x2F;hexo-webhook&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2021&#x2F;08&#x2F;29&#x2F;hexo-webhook&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a></a>
+    <a href="/2021/08/15/growing-coriander-diary/">兆兆的香菜观察日记<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
 </main>
   
 
