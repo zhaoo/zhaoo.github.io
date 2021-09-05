@@ -871,6 +871,41 @@
       </tags>
   </entry>
   <entry>
+    <title>兆兆日记</title>
+    <url>/2021/09/05/note/</url>
+    <content><![CDATA[<p>时光一去不复回，往事只能回味。</p>
+<span id="more"></span>
+
+<p><strong>2021.09.05</strong></p>
+<p>这两天玩的有点嗨，台球、剧本杀、酒局、857…</p>
+<p>昨晚两点在三墩，三点在黄龙，醒来就躺在转塘了。</p>
+<p><img  src="https://pic.izhaoo.com/20210905231209.jpg"  ><span class="image-caption">857</span></p>
+<p>傍晚去钱塘江吹风醒酒，红绿灯口挡着龙鸣工的道了，然后我们就靠边聊了起来，给我们看了面相。对我朋友说：小伙子你属兔，要小心，命里会有一劫。对我说：你属虎，我不敢给你看，吉相。</p>
+<blockquote>
+<p>“只是我们有缘，我随口一说，不要往心里去。五十年后，二十年后，要是遇到了事情，看看能不能想起，从前钱塘江边有个傻逼说了这么一句话。”</p>
+</blockquote>
+<p><img  src="https://pic.izhaoo.com/20210905231224.jpg"  ><span class="image-caption">钱塘江边</span></p>
+<p>我无神论，只拜祖宗。我不相信命运，但是我相信缘分。</p>
+<blockquote>
+<p>人潮汹涌，是否有个路人无意瞥你一眼，从此在你心头留了一痕。</p>
+</blockquote>
+<p><strong>2021.08.29</strong></p>
+<p>肝了两周的「海豹训练营」终于结束了，这段时间整日和小伙伴们聚在一起，令人意犹未尽。最终我们组获得了「韧性十足奖」，这也印证了我最初的猜测。</p>
+<p><img  src="https://pic.izhaoo.com/20210905231346.jpg"  ><span class="image-caption">韧性十足奖</span></p>
+<p>周六简单团建了一下，一天玩了四场，湘绯、密室、电影、KTV…</p>
+<p>密室真心😱，还是三星天使难度。燃鹅，录屏却充满喜感。</p>
+<p><video src="https://pic.izhaoo.com/mmexport1630220417036.mp4" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;"></video></p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+        <tag>随笔</tag>
+        <tag>日记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo - 自动部署博客</title>
     <url>/2021/08/29/hexo-webhook/</url>
     <content><![CDATA[<p>基于 GitHub-Webhooks 自动拉取并部署博客。</p>
@@ -897,12 +932,12 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
         <tag>前端</tag>
+        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
-    <title>兆兆的香菜观察日记</title>
+    <title>香菜观察日记</title>
     <url>/2021/08/15/growing-coriander-diary/</url>
     <content><![CDATA[<p>我种下一颗种子，终于长出了果实，今天是个伟大日子。<br>摘下香菜炒个蛋，摘下香菜煲个汤，让香菜每天为你甜蜜。</p>
 <span id="more"></span>
@@ -924,8 +959,11 @@
 <p><img  src="https://pic.izhaoo.com/20210826011732.jpg"  ><span class="image-caption">暗里</span></p>
 <p><img  src="https://pic.izhaoo.com/20210826011747.jpg"  ><span class="image-caption">生长</span></p>
 <p><strong>2021.08.30</strong></p>
-<p>这两天杭州太热了，一直给她放阳台晒，感觉晒萎了。赶紧拿到空调间吹吹空调。</p>
+<p>这两天杭州太热了，一直给她放阳台晒，感觉晒萎了。赶紧拿到空调间吹吹空调，似乎还能抢救一下。</p>
 <p><img  src="https://pic.izhaoo.com/20210830205209.jpg"  ><span class="image-caption">萎了</span></p>
+<p><strong>2021.09.05</strong></p>
+<p>尘归尘，土归土，香菜终究要归土。周末去菜市场买点香菜，炒个蛋，以祭奠香菜宝宝们的在天之灵。</p>
+<p><img  src="https://pic.izhaoo.com/20210905223653.jpg"  ><span class="image-caption">任务终了</span></p>
 ]]></content>
       <categories>
         <category>随笔</category>
@@ -1032,11 +1070,10 @@
 <p><img  src="https://pic.izhaoo.com/20210801001546.jpg"  ><span class="image-caption">超出隐藏</span></p>
 <figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.tags-wrapper</span> &#123;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">40</span>rpx;  <span class="hljs-comment">/* 标签高度 */</span><br>  <span class="hljs-attribute">flex-wrap</span>: wrap;<br>  <span class="hljs-attribute">overflow</span>: hidden;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="iphoneX-适配"><a href="#iphoneX-适配" class="headerlink" title="iphoneX 适配"></a>iphoneX 适配</h3><p>iphoneX 这破手机就是反人类，丑得要死，给前端小哥哥烦的要死，适配 iphoneX 也是老生常谈的事。一次业务中遇到个非主流坑，淘宝端 iphoneX 底部会多出一块白条，其他客户端和机型都没问题。通过层级定位后发现这个白条是在容器外部产生的，甚至可能是客户端处。最后师兄一句 <code>height: 100vh</code> 解决。</p>
-<p>这不是 iphoneX 适配标准解法吗？？？</p>
-<p>666！！！</p>
-<p><strong>方案一</strong></p>
-<p><em>适用于版本 &gt;= IOS11</em></p>
+<h3 id="iphoneX-适配"><a href="#iphoneX-适配" class="headerlink" title="iphoneX 适配"></a>iphoneX 适配</h3><p>iphoneX 这破手机就是反人类，丑得要死，给前端小哥哥烦的要死，适配 iphoneX 也是老生常谈的事。一次业务中遇到个非主流坑，淘宝端 iphoneX 底部会多出一块白条，其他客户端和机型都没问题，最后师兄一句 <code>height: 100vh</code> 解决。</p>
+<p>“这不是 iphoneX 适配标准解法吗？？？”</p>
+<p>“666！！！”</p>
+<p><strong>安全距离</strong></p>
 <p>在 HTML 头部 <em>viewport</em> 标签中，将 <em>viewport-fit</em> 值设置为 <code>contain</code>。（视口完全包含网页内容，头部位置固定元素将被包含在ios11的安全区域内）</p>
 <p>在 CSS 中使用以下布局常数，将布局限定在安全容器内：</p>
 <ul>
@@ -1047,10 +1084,7 @@
 </ul>
 <figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.container</span> &#123;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-built_in">constant</span>(safe-area-inset-top) <span class="hljs-built_in">constant</span>(safe-area-inset-right) <span class="hljs-built_in">constant</span>(safe-area-inset-bottom) <span class="hljs-built_in">constant</span>(safe-area-inset-left);<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><strong>方案二</strong></p>
-<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">position</span>: absolute;<br><span class="hljs-attribute">top</span>: ???;<br><span class="hljs-attribute">bottom</span>: ???;<br></code></pre></td></tr></table></figure>
-
-<p>绝对定位一把梭，不服就干，怕过谁。劳资的代码只有 <strong>absolute</strong>！</p>
+<p>设置了 <code>viewport-fit=cover</code> 后，<code>height: 100%</code> 不能撑满整个视口，高度并不等于视口高度，而是留出了 <code>constant(safe-area-inset-top)</code> 的高度，实际上就是整个页面被往上提了 <code>constant(safe-area-inset-top)</code> 的高度。并且这时 fixed 定位的元素设置 <code>bottom: 0</code> 以后也会距离底部<code>constant(safe-area-inset-top)</code> 的高度，通过给 *<body>* 设置 <code>height: 100vh</code> 可以解决。</p>
 <h3 id="useState-同步获取最新状态值"><a href="#useState-同步获取最新状态值" class="headerlink" title="useState 同步获取最新状态值"></a>useState 同步获取最新状态值</h3><p>React 中 <code>this.setState()</code> 的第二个参数可以传入一个回调函数用于获取实时更新后的状态值，例如：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">this</span>.setState(&#123;<br>  <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;兆兆&#x27;</span><br>&#125;, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.state.username);<br>&#125;);<br></code></pre></td></tr></table></figure>
 
@@ -1778,9 +1812,9 @@
         <category>前端</category>
       </categories>
       <tags>
+        <tag>前端</tag>
         <tag>Hexo</tag>
         <tag>主题</tag>
-        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -1918,9 +1952,9 @@
         <category>前端</category>
       </categories>
       <tags>
+        <tag>前端</tag>
         <tag>Hexo</tag>
         <tag>主题</tag>
-        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -2805,8 +2839,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
         <tag>算法</tag>
+        <tag>js</tag>
         <tag>javascript</tag>
       </tags>
   </entry>

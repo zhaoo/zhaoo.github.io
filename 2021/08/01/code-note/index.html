@@ -211,7 +211,7 @@
           <i class="iconfont iconeye"></i><span id="/2021/08/01/code-note/" class="leancloud" data-flag-title="搬砖笔记"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4737</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4858</span>
     </div>
   </div>
 </section>
@@ -234,11 +234,10 @@
 <p><img  src="https://pic.izhaoo.com/20210801001546.jpg"  ><span class="image-caption">超出隐藏</span></p>
 <figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.tags-wrapper</span> &#123;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">40</span>rpx;  <span class="hljs-comment">/* 标签高度 */</span><br>  <span class="hljs-attribute">flex-wrap</span>: wrap;<br>  <span class="hljs-attribute">overflow</span>: hidden;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="iphoneX-适配"><a href="#iphoneX-适配" class="headerlink" title="iphoneX 适配"></a>iphoneX 适配</h3><p>iphoneX 这破手机就是反人类，丑得要死，给前端小哥哥烦的要死，适配 iphoneX 也是老生常谈的事。一次业务中遇到个非主流坑，淘宝端 iphoneX 底部会多出一块白条，其他客户端和机型都没问题。通过层级定位后发现这个白条是在容器外部产生的，甚至可能是客户端处。最后师兄一句 <code>height: 100vh</code> 解决。</p>
-<p>这不是 iphoneX 适配标准解法吗？？？</p>
-<p>666！！！</p>
-<p><strong>方案一</strong></p>
-<p><em>适用于版本 &gt;= IOS11</em></p>
+<h3 id="iphoneX-适配"><a href="#iphoneX-适配" class="headerlink" title="iphoneX 适配"></a>iphoneX 适配</h3><p>iphoneX 这破手机就是反人类，丑得要死，给前端小哥哥烦的要死，适配 iphoneX 也是老生常谈的事。一次业务中遇到个非主流坑，淘宝端 iphoneX 底部会多出一块白条，其他客户端和机型都没问题，最后师兄一句 <code>height: 100vh</code> 解决。</p>
+<p>“这不是 iphoneX 适配标准解法吗？？？”</p>
+<p>“666！！！”</p>
+<p><strong>安全距离</strong></p>
 <p>在 HTML 头部 <em>viewport</em> 标签中，将 <em>viewport-fit</em> 值设置为 <code>contain</code>。（视口完全包含网页内容，头部位置固定元素将被包含在ios11的安全区域内）</p>
 <p>在 CSS 中使用以下布局常数，将布局限定在安全容器内：</p>
 <ul>
@@ -249,10 +248,7 @@
 </ul>
 <figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.container</span> &#123;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-built_in">constant</span>(safe-area-inset-top) <span class="hljs-built_in">constant</span>(safe-area-inset-right) <span class="hljs-built_in">constant</span>(safe-area-inset-bottom) <span class="hljs-built_in">constant</span>(safe-area-inset-left);<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><strong>方案二</strong></p>
-<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">position</span>: absolute;<br><span class="hljs-attribute">top</span>: ???;<br><span class="hljs-attribute">bottom</span>: ???;<br></code></pre></td></tr></table></figure>
-
-<p>绝对定位一把梭，不服就干，怕过谁。劳资的代码只有 <strong>absolute</strong>！</p>
+<p>设置了 <code>viewport-fit=cover</code> 后，<code>height: 100%</code> 不能撑满整个视口，高度并不等于视口高度，而是留出了 <code>constant(safe-area-inset-top)</code> 的高度，实际上就是整个页面被往上提了 <code>constant(safe-area-inset-top)</code> 的高度。并且这时 fixed 定位的元素设置 <code>bottom: 0</code> 以后也会距离底部<code>constant(safe-area-inset-top)</code> 的高度，通过给 *<body>* 设置 <code>height: 100vh</code> 可以解决。</p>
 <h3 id="useState-同步获取最新状态值"><a href="#useState-同步获取最新状态值" class="headerlink" title="useState 同步获取最新状态值"></a>useState 同步获取最新状态值</h3><p>React 中 <code>this.setState()</code> 的第二个参数可以传入一个回调函数用于获取实时更新后的状态值，例如：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">this</span>.setState(&#123;<br>  <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;兆兆&#x27;</span><br>&#125;, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.state.username);<br>&#125;);<br></code></pre></td></tr></table></figure>
 
