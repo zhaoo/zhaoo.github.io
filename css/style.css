@@ -863,6 +863,7 @@ body input {
 @media (hover: hover) and (pointer: fine) {
   .fab:hover {
     background-color: #ff3b00;
+    background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
     cursor: pointer;
   }
 }
@@ -887,7 +888,7 @@ body input {
   visibility: visible;
 }
 .fab-daovoice {
-  z-index: 10;
+  z-index: 80;
   visibility: hidden;
 }
 .fab-daovoice-active {
@@ -895,10 +896,18 @@ body input {
   visibility: visible;
 }
 .fab-tencent-chao {
-  z-index: 10;
+  z-index: 80;
   visibility: hidden;
 }
 .fab-tencent-chao-active {
+  bottom: 180px;
+  visibility: visible;
+}
+.fab-like {
+  z-index: 70;
+  visibility: hidden;
+}
+.fab-like-active {
   bottom: 180px;
   visibility: visible;
 }
@@ -1420,6 +1429,7 @@ body input {
   left: -28px;
   width: 100px;
   background-color: #ff3b00;
+  background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
   color: #fff;
   box-shadow: -3px 5px 6px -5px rgba(0,0,0,0.5);
 }
@@ -1778,6 +1788,7 @@ body input {
 }
 .article .wrap .main .comments .btn:hover {
   background-color: #ff3b00;
+  background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
   color: #fff;
   transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
   cursor: pointer;
