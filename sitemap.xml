@@ -501,6 +501,13 @@
   </url>
   
   <url>
+    <loc>https://www.izhaoo.com/tags/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.izhaoo.com/tags/js/</loc>
     <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
@@ -515,7 +522,7 @@
   </url>
   
   <url>
-    <loc>https://www.izhaoo.com/tags/%E7%AE%97%E6%B3%95/</loc>
+    <loc>https://www.izhaoo.com/tags/%E6%97%85%E8%A1%8C/</loc>
     <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -530,13 +537,6 @@
   
   <url>
     <loc>https://www.izhaoo.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
-    <lastmod>2021-11-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.izhaoo.com/tags/%E6%97%85%E8%A1%8C/</loc>
     <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -558,6 +558,13 @@
   
   <url>
     <loc>https://www.izhaoo.com/tags/%E5%90%8E%E7%AB%AF/</loc>
+    <lastmod>2021-11-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.izhaoo.com/tags/hack/</loc>
     <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -586,13 +593,6 @@
   
   <url>
     <loc>https://www.izhaoo.com/tags/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85/</loc>
-    <lastmod>2021-11-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.izhaoo.com/tags/hack/</loc>
     <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -713,14 +713,14 @@
   </url>
   
   <url>
-    <loc>https://www.izhaoo.com/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://www.izhaoo.com/categories/%E9%9A%8F%E7%AC%94/</loc>
     <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.izhaoo.com/categories/%E9%9A%8F%E7%AC%94/</loc>
+    <loc>https://www.izhaoo.com/categories/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2021-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
