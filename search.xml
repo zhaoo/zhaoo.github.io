@@ -2084,6 +2084,38 @@
       </tags>
   </entry>
   <entry>
+    <title>useEffect - 依赖对象或数组</title>
+    <url>/2020/08/01/useEffect-object-dependent/</url>
+    <content><![CDATA[<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>今天封了个轮子，对组件传入参数生成对应的动画实例，当入参变化时重新渲染新实例。自然而然想到的就是 useEffect 监听 props 依赖了，如：<code>useEffect(() =&gt; &#123; ... &#125;, [props]);</code>。然而遇到了问题，明明依赖项 props 没有变化，却还是在不停地重渲染。</p>
+<p><img  src="https://pic.izhaoo.com/20211028202300.jpg"  ><span class="image-caption">😓</span></p>
+<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>React 中各 Hooks 函数依赖数组会将依赖值与上次渲染依赖中的值做对比，如果相等则不需要重新渲染，否则重渲染。为了性能考虑，此处的对比是浅比较，即 <code>Object.is(arg1, arg2)</code>。对于基本类型没有问题，而组件每次渲染时传入的引用类型都会重新开辟一个全新的引用地址，这时候做浅比较就不等了，从而会触发渲染。如果在 useEffect 中修改了引用类型，则必然会引发无限渲染的问题。</p>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p><strong>解法一</strong></p>
+<p>了解完原理后，脑子里 0.1s 闪过的解法就是 <code>JSON.stringify()</code> 了。真好使，深浅比较问题一解一个爽。燃鹅理性告诉我，不能这么写，方法是好方法，就怕同行看到笑我是傻X。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  ...<br>&#125;, [<span class="hljs-built_in">JSON</span>.stringify(object)]);<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>老李：你TND还真是个天才…</p>
+</blockquote>
+<p><strong>解法二</strong></p>
+<p>可以基于 useRef 和深比较方法来解，useRef 的特性是跨渲染周期缓存数据。此处用来缓存上一次渲染的数据，并调用深比较方法判断，如果两个对象相等则返回上一次的数据，地址自然也没有变化。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; isEqual &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lodash&#x27;</span>;<br><br><span class="hljs-keyword">const</span> useCampare = <span class="hljs-function">(<span class="hljs-params">value: any, compare: any</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> ref = useRef&lt;any&gt;(<span class="hljs-literal">null</span>);<br><br>  <span class="hljs-keyword">if</span> (!compare(value, ref.current)) &#123;  <span class="hljs-comment">// deep compare</span><br>    ref.current = value;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> ref.current;<br>&#125;<br><br><span class="hljs-keyword">const</span> compareObject = useCampare(object, isEqual);<br><br>useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  ...<br>&#125;, [compareObject]);<br></code></pre></td></tr></table></figure>
+
+<p><strong>解法三</strong></p>
+<p>封装一个基于深比较的 useEffect 方法。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">type DeepIsEqualType&lt;TDeps = React.DependencyList&gt; = <span class="hljs-function">(<span class="hljs-params">newDeps: TDeps, oldDeps: TDeps</span>) =&gt;</span> boolean;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> useDeepEqualEffect&lt;TDeps = React.DependencyList&gt; = <span class="hljs-function">(<span class="hljs-params"></span></span><br><span class="hljs-params"><span class="hljs-function">  effect: React.EffectCallback,</span></span><br><span class="hljs-params"><span class="hljs-function">  deps: TDeps,</span></span><br><span class="hljs-params"><span class="hljs-function">  compare: DeepIsEqualType&lt;TDeps&gt; = isEqual</span></span><br><span class="hljs-params"><span class="hljs-function"></span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> oldDeps = React.useRef&lt;TDeps | <span class="hljs-literal">undefined</span>&gt;(<span class="hljs-literal">undefined</span>);<br>  <span class="hljs-keyword">if</span> (!oldDeps.current || !compare(deps, oldDeps.current <span class="hljs-keyword">as</span> TDeps)) &#123;<br>    oldDeps.current = deps;<br>  &#125;<br><br>  React.useEffect(effect, [oldDeps.current]);<br>&#125;<br><br>useDeepEqualEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  ...<br>&#125;, [object]);<br></code></pre></td></tr></table></figure>
+
+<p><strong>解法四</strong></p>
+<p>使用三方基于深比较的 useEffect 库，对性能还是有一定影响的，非必须不用。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> useDeepCompareEffect <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;use-deep-compare-effect&#x27;</span>;<br><br>useDeepCompareEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  ...<br>&#125;, [object]);<br></code></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo - 开发文章搬运功能</title>
     <url>/2020/07/25/hexo-article-carrier/</url>
     <content><![CDATA[<p>我们不生产文章，我们只是文章的搬运工。</p>

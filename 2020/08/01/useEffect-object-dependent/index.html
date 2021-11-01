@@ -6,12 +6,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>前端 - zhaoo</title>
+  <title>useEffect - 依赖对象或数组 - zhaoo</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
-  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题">
-  <meta name="description" content="兆兆的博客，分享技术，记录生活。">
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, React,前端,useEffect,依赖,对象,数组,Hooks">
+  <meta name="description" content="背景今天封了个轮子，对组件传入参数生成对应的动画实例，...">
   <meta name="author" content="zhaoo">
   <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
@@ -154,7 +154,7 @@
         <i class="iconfont iconsearch j-navbar-search"></i>
       
     </div>
-    <div class="center">标签</div>
+    <div class="center">useEffect - 依赖对象或数组</div>
     <div class="right">
       <i class="iconfont iconmenu j-navbar-menu"></i>
     </div>
@@ -194,161 +194,128 @@
   </div>
 </nav>
   <main id="main">
-  <section class="archive">
-    <div class="archive-container">
-      <div class="archive-post">
-        <h2 class="archive-total"># 前端</h2>
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20210628212702.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">useEffect - 依赖对象或数组</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>八月 01, 2020</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2020/08/01/useEffect-object-dependent/" class="leancloud-counter" data-flag-title="useEffect - 依赖对象或数组"></span>
+        </span>
+        <span class="post-info-item">
+          <i class="iconfont iconheart"></i><span id="/2020/08/01/useEffect-object-dependent/" class="leancloud-like" data-flag-title="useEffect - 依赖对象或数组"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1797</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>今天封了个轮子，对组件传入参数生成对应的动画实例，当入参变化时重新渲染新实例。自然而然想到的就是 useEffect 监听 props 依赖了，如：<code>useEffect(() =&gt; &#123; ... &#125;, [props]);</code>。然而遇到了问题，明明依赖项 props 没有变化，却还是在不停地重渲染。</p>
+<p><img  src="https://pic.izhaoo.com/20211028202300.jpg"  ><span class="image-caption">😓</span></p>
+<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>React 中各 Hooks 函数依赖数组会将依赖值与上次渲染依赖中的值做对比，如果相等则不需要重新渲染，否则重渲染。为了性能考虑，此处的对比是浅比较，即 <code>Object.is(arg1, arg2)</code>。对于基本类型没有问题，而组件每次渲染时传入的引用类型都会重新开辟一个全新的引用地址，这时候做浅比较就不等了，从而会触发渲染。如果在 useEffect 中修改了引用类型，则必然会引发无限渲染的问题。</p>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p><strong>解法一</strong></p>
+<p>了解完原理后，脑子里 0.1s 闪过的解法就是 <code>JSON.stringify()</code> 了。真好使，深浅比较问题一解一个爽。燃鹅理性告诉我，不能这么写，方法是好方法，就怕同行看到笑我是傻X。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  ...<br>&#125;, [<span class="hljs-built_in">JSON</span>.stringify(object)]);<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>老李：你TND还真是个天才…</p>
+</blockquote>
+<p><strong>解法二</strong></p>
+<p>可以基于 useRef 和深比较方法来解，useRef 的特性是跨渲染周期缓存数据。此处用来缓存上一次渲染的数据，并调用深比较方法判断，如果两个对象相等则返回上一次的数据，地址自然也没有变化。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; isEqual &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lodash&#x27;</span>;<br><br><span class="hljs-keyword">const</span> useCampare = <span class="hljs-function">(<span class="hljs-params">value: any, compare: any</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> ref = useRef&lt;any&gt;(<span class="hljs-literal">null</span>);<br><br>  <span class="hljs-keyword">if</span> (!compare(value, ref.current)) &#123;  <span class="hljs-comment">// deep compare</span><br>    ref.current = value;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> ref.current;<br>&#125;<br><br><span class="hljs-keyword">const</span> compareObject = useCampare(object, isEqual);<br><br>useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  ...<br>&#125;, [compareObject]);<br></code></pre></td></tr></table></figure>
+
+<p><strong>解法三</strong></p>
+<p>封装一个基于深比较的 useEffect 方法。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">type DeepIsEqualType&lt;TDeps = React.DependencyList&gt; = <span class="hljs-function">(<span class="hljs-params">newDeps: TDeps, oldDeps: TDeps</span>) =&gt;</span> boolean;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> useDeepEqualEffect&lt;TDeps = React.DependencyList&gt; = <span class="hljs-function">(<span class="hljs-params"></span></span><br><span class="hljs-params"><span class="hljs-function">  effect: React.EffectCallback,</span></span><br><span class="hljs-params"><span class="hljs-function">  deps: TDeps,</span></span><br><span class="hljs-params"><span class="hljs-function">  compare: DeepIsEqualType&lt;TDeps&gt; = isEqual</span></span><br><span class="hljs-params"><span class="hljs-function"></span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> oldDeps = React.useRef&lt;TDeps | <span class="hljs-literal">undefined</span>&gt;(<span class="hljs-literal">undefined</span>);<br>  <span class="hljs-keyword">if</span> (!oldDeps.current || !compare(deps, oldDeps.current <span class="hljs-keyword">as</span> TDeps)) &#123;<br>    oldDeps.current = deps;<br>  &#125;<br><br>  React.useEffect(effect, [oldDeps.current]);<br>&#125;<br><br>useDeepEqualEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  ...<br>&#125;, [object]);<br></code></pre></td></tr></table></figure>
+
+<p><strong>解法四</strong></p>
+<p>使用三方基于深比较的 useEffect 库，对性能还是有一定影响的，非必须不用。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> useDeepCompareEffect <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;use-deep-compare-effect&#x27;</span>;<br><br>useDeepCompareEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  ...<br>&#125;, [object]);<br></code></pre></td></tr></table></figure>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2020/08/01/useEffect-object-dependent/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;08&#x2F;01&#x2F;useEffect-object-dependent&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2020&#x2F;08&#x2F;01&#x2F;useEffect-object-dependent&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
         
         
-          
-            <h3 class="archive-year">2021 年</h3>
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2021/08/29/hexo-webhook/">08/29</a>
-            <a class="archive-title" href="/2021/08/29/hexo-webhook/">Hexo - 自动部署博客</a>
-          </div>
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2020/08/01/react-render-optimization/"><i class="iconfont iconleft"></i>React - 渲染性能优化</a>
+    <a href="/2020/07/25/hexo-article-carrier/">Hexo - 开发文章搬运功能<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
         
           
-          <div class="archive-item">
-            <a class="archive-date" href="/2021/08/03/intersection-observer/">08/03</a>
-            <a class="archive-title" href="/2021/08/03/intersection-observer/">IntersectionObserver</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2021/08/01/code-note/">08/01</a>
-            <a class="archive-title" href="/2021/08/01/code-note/">搬砖笔记</a>
-          </div>
-        
-          
-            <h3 class="archive-year">2020 年</h3>
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/12/18/number-key-for-params/">12/18</a>
-            <a class="archive-title" href="/2020/12/18/number-key-for-params/">请求参数中的数字键</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/11/16/css-style-for-element-number/">11/16</a>
-            <a class="archive-title" href="/2020/11/16/css-style-for-element-number/">CSS - 元素数量选择器</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/11/16/css-bem/">11/16</a>
-            <a class="archive-title" href="/2020/11/16/css-bem/">CSS - BEM 命名规范</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/11/12/adapt-to-dark-mode/">11/12</a>
-            <a class="archive-title" href="/2020/11/12/adapt-to-dark-mode/">适配深色模式</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/08/08/hexo-performance-optimization/">08/08</a>
-            <a class="archive-title" href="/2020/08/08/hexo-performance-optimization/">Hexo - 性能优化之旅</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/08/02/ai-garbage-classification/">08/02</a>
-            <a class="archive-title" href="/2020/08/02/ai-garbage-classification/">口袋拾荒 - 垃圾分类助手</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/08/01/react-render-optimization/">08/01</a>
-            <a class="archive-title" href="/2020/08/01/react-render-optimization/">React - 渲染性能优化</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/08/01/useEffect-object-dependent/">08/01</a>
-            <a class="archive-title" href="/2020/08/01/useEffect-object-dependent/">useEffect - 依赖对象或数组</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/07/17/js-promise/">07/17</a>
-            <a class="archive-title" href="/2020/07/17/js-promise/">JavaScript - Promise</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/06/25/rn-adapt-to-full-screen/">06/25</a>
-            <a class="archive-title" href="/2020/06/25/rn-adapt-to-full-screen/">RN - 适配安卓全面屏</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/04/12/js-module/">04/12</a>
-            <a class="archive-title" href="/2020/04/12/js-module/">JavaScript - 模块化</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/04/12/js-closure/">04/12</a>
-            <a class="archive-title" href="/2020/04/12/js-closure/">JS - 执行上下文/作用域链/闭包</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/04/10/react-setState/">04/10</a>
-            <a class="archive-title" href="/2020/04/10/react-setState/">React - setState</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/03/30/webpack-note/">03/30</a>
-            <a class="archive-title" href="/2020/03/30/webpack-note/">webpack - 学习笔记</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/03/28/rn-navigation-refresh/">03/28</a>
-            <a class="archive-title" href="/2020/03/28/rn-navigation-refresh/">RN - 页面跳转后刷新内容</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/02/29/design-pattern-note/">02/29</a>
-            <a class="archive-title" href="/2020/02/29/design-pattern-note/">JavaScript - 设计模式</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/02/12/weapp-debug-https/">02/12</a>
-            <a class="archive-title" href="/2020/02/12/weapp-debug-https/">小程序真机调试问题</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/01/07/rn-note/">01/07</a>
-            <a class="archive-title" href="/2020/01/07/rn-note/">ReactNative - 开发笔记</a>
-          </div>
-        
-          
-            <h3 class="archive-year">2019 年</h3>
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2019/12/20/stylus-grid/">12/20</a>
-            <a class="archive-title" href="/2019/12/20/stylus-grid/">Stylus - 实现栅格化</a>
-          </div>
-        
-          
-            <h3 class="archive-year">2018 年</h3>
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2018/03/25/placeholder-use-font-awesome/">03/25</a>
-            <a class="archive-title" href="/2018/03/25/placeholder-use-font-awesome/">表单Placeholder内使用IconFont图标文字</a>
-          </div>
         
       </div>
     </div>
-  </section>
+  </div>
 </main>
   
 
@@ -397,6 +364,10 @@
       <div class="fab fab-plus">
     <i class="iconfont iconplus"></i>
   </div>
+  
+    <div class="fab fab-like">
+      <i class="iconfont iconheart"></i>
+    </div>
   
   
     <div class="fab fab-daovoice">
