@@ -878,7 +878,7 @@
     <title>Dynamic Import</title>
     <url>/2021/11/04/dynamic-import/</url>
     <content><![CDATA[<p><code>import()</code> 动态引入依赖，实现按需加载和懒加载。</p>
-<!--  more -->
+<span id="more"></span>
 
 <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>最近封装一个动画组件，需要根据传入的 props 按需引入依赖，一方面实现定制化能力（如：开启插件），另一方面也能减少包体积。</p>
 <h3 id="Static-Import"><a href="#Static-Import" class="headerlink" title="Static Import"></a>Static Import</h3><p>众所周知 ES Modules <code>import</code> 是”静态“的，它只接受字符串作为模块标识符，在编译阶段就会进行依赖分析并将模块绑定到本地作用域，因此必须在文件顶部声明。虽然是常规操作，但是在一些场景并不适用：</p>
