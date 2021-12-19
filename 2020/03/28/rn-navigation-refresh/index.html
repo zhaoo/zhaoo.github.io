@@ -219,6 +219,9 @@
 </section>
     <section class="main">
       <section class="content">
+        
+          <p><p><code>ReactNative</code>中使用<code>Navigation</code>页面跳转后刷新内容的常用方法。</p></p>
+        
         <h3 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h3><p>最近准备实习面试，把一些原理性的内容学习了一遍，对前端的认识又上升了一个层次。顺便把之前的项目重构了一遍，过去的代码真是不堪入目。正如第一次面试时面试官说的，“基础的东西弄明白了，找Bug也会快一点”。</p>
 <p>之前做用户登录时遇到点小问题，登录成功后不刷新用户信息。逻辑如下：登录成功后获取到<code>token</code>，存入<code>redux</code>和<code>localStorage</code>，并且跳转到个人中心页面。个人中心页面在<code>componentDidMount</code>生命周期中请求后端获取用户信息并渲染。</p>
 <p>当时以为是<code>localStorage</code>的缘故，因为<code>ReactNative</code>中的<code>localStorage</code>是异步的，于是用<code>Promise</code>封装了一下，模拟成了同步，问题依然没有解决。后来发现，原来是<code>Navigation</code>跳转页面后不会触发<code>componentDidMount</code>生命周期，所以才没有渲染内容。</p>

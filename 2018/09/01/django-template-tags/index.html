@@ -219,6 +219,9 @@
 </section>
     <section class="main">
       <section class="content">
+        
+          <p><p>这几天一直在折腾Django的博客项目，今天本想着做完收尾工作就传到Gayhub上，没想到遇一大坑，各种填坑ing……</p></p>
+        
         <h1 id="挖坑"><a href="#挖坑" class="headerlink" title="挖坑"></a>挖坑</h1><p>先来简单介绍一下本人亲手挖的坑：</p>
 <p>本博客项目<code>templates</code>中的所有页面都通过<code>block</code>标签继承自<code>base.html</code>母模板。其中继承了<code>&lt;title&gt;</code>、<code>&lt;keywords&gt;</code>、<code>&lt;discription&gt;</code>等内容。开发阶段这些内容都是直接写死在<code>base.html</code>母模板中了，现在准备上线，总不能让用户（假设有用户）去模板中改吧？所以我得将它写到数据库中，让用户可以在后台方便地设置博客的<code>名称</code>、<code>关键词</code>、<code>描述</code>等内容，各大博客也都是这么做的。燃鹅，事情并非那么简单，随之而来的是各种坑，作为处女座代码狗，我TM必须解决……</p>
 <h1 id="填坑"><a href="#填坑" class="headerlink" title="填坑"></a>填坑</h1><p>尝试了各种方法之后，终于完美解决了问题。用到了自定义模板标签（simple_tag）这个方法。详细解释在后文（踩坑）中，这里只做演示：</p>

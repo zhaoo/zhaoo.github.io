@@ -219,6 +219,9 @@
 </section>
     <section class="main">
       <section class="content">
+        
+          <p><p><code>frp</code>服务端和客户端部署，穿透内网远程连接内网设备。以腾讯云服务器(Ubuntu)、香橙派(Armbian)、小米路由器3(Padavan)为例。</p></p>
+        
         <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p><a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/blob/master/README_zh.md">frp - Github</a></p>
 <p>我们部署在内网的设备，由于防火墙或动态IP等原因，外网是一般访问不到的。那么我们希望穿透内网，从外网访问该怎么操作呢？一般有以下几种方式：DDNS动态域名解析+路由器端口映射、Ngrok、Frp…</p>
 <p>Ngrok和Frp的原理其实是差不多的，相比之下，Frp的部署更简单，使用效率更高，所有这里就介绍Frp的部署了。</p>

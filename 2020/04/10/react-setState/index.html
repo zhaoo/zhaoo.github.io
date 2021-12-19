@@ -219,6 +219,9 @@
 </section>
     <section class="main">
       <section class="content">
+        
+          <p><p>React中，对于<code>setState</code>的理解，以及获取同步更新状态的方法。</p></p>
+        
         <h3 id="异步原理"><a href="#异步原理" class="headerlink" title="异步原理"></a>异步原理</h3><p>之前看过一些文章，有这么个说法，<code>setState</code>在合成事件中是<code>“异步”更新</code>，在原生事件中是<code>“同步”更新</code>。这个说法没错，但总感觉怪怪的，直到看到了<code>鲨叔</code>的文章（文末链接），才彻底理解。</p>
 <blockquote>
 <p><code>批量更新</code>是因，<code>异步执行</code>是果。</p>

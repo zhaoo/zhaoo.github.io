@@ -222,6 +222,9 @@ BBR...">
 </section>
     <section class="main">
       <section class="content">
+        
+          <p><p>Ubuntu升级内核，开启BBR网络加速。</p></p>
+        
         <h1 id="BBR"><a href="#BBR" class="headerlink" title="BBR"></a>BBR</h1><p>BBR是谷歌最近研发的一项技术，拥塞控制算法。原理是尽量跑满带宽, 并且尽量不要有排队的情况。可以比喻为你家马桶堵了，找根搅屎棍给他通了，屎冲的不就快了。<del>（谷歌别揍我，我是个粗人，想不到好的比喻）</del></p>
 <p>在最新内核的Linux系统上你默认配备BBR技术的。所以我们只需给老版本的系统升级最新内核，然后开启BBR即可。</p>
 <p>我的服务器是运行在阿里云上的Ubuntu 14.04。另外，据说采用OpenVZ虚拟技术的VPS不适合开启BBR，BUG多。</p>

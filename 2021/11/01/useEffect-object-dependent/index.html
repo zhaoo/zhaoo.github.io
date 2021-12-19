@@ -219,6 +219,9 @@
 </section>
     <section class="main">
       <section class="content">
+        
+          <p><p>useEffect 依赖项为对象或数组时，引发不断重渲染问题的原因及解法。</p></p>
+        
         <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>今天封了个轮子，对组件传入参数生成对应的动画实例，当入参变化时重新渲染新实例。自然而然想到的就是 useEffect 监听 props 依赖了，如：<code>useEffect(() =&gt; &#123; ... &#125;, [props]);</code>。然而遇到了问题，明明依赖项 props 没有变化，却还是在不停地重渲染。</p>
 <p><img  src="https://pic.izhaoo.com/20211028202300.jpg"  ><span class="image-caption">😓</span></p>
 <h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>React 中各 Hooks 函数依赖数组会将依赖值与上次渲染依赖中的值做对比，如果相等则不需要重新渲染，否则重渲染。为了性能考虑，此处的对比是浅比较，即 <code>Object.is(arg1, arg2)</code>。对于基本类型没有问题，而组件每次渲染时传入的引用类型都会重新开辟一个全新的引用地址，这时候做浅比较就不等了，从而会触发渲染。如果在 useEffect 中修改了引用类型，则必然会引发无限渲染的问题。</p>
