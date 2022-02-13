@@ -961,6 +961,80 @@
       </tags>
   </entry>
   <entry>
+    <title>聊聊程序员的公仔</title>
+    <url>/2022/02/13/programmer-memory/</url>
+    <content><![CDATA[<p>干了一年程序员，多了些公仔和徽章，少了些头发。</p>
+<span id="more"></span>
+
+<p><img  src="https://pic.izhaoo.com/20220213220114.jpg"  ><span class="image-caption">2021飞猪开门红公仔</span></p>
+<p>2021年飞猪开工送的公仔，另一只是积分换来送女朋友的，牛猪蛮可爱。</p>
+<p><img  src="https://pic.izhaoo.com/20220213220125.jpg"  ><span class="image-caption">2021腾讯牛年公仔</span></p>
+<p>微信的学弟送的牛年企鹅，牛企冲天。</p>
+<p><img  src="https://pic.izhaoo.com/20220213220203.jpg"  ><span class="image-caption">飞猪趴趴枕</span></p>
+<p>飞猪海豹训练营最佳韧性奖，回忆和小伙伴们熬夜爆肝的的点点滴滴。</p>
+<p><img  src="https://pic.izhaoo.com/20220213220135.jpg"  ><span class="image-caption">2021飞猪双十一徽章</span></p>
+<p>2021年飞猪双十一徽章，这次双十一主打会员会场，巧了正是鄙人开发的。</p>
+<p><img  src="https://pic.izhaoo.com/20220213220154.jpg"  ><span class="image-caption">2022阿里新年徽章</span></p>
+<p>爬楼梯攒积分换的新年徽章，开了只金盒马。</p>
+<p><img  src="https://pic.izhaoo.com/20220213220142.jpg"  ><span class="image-caption">飞猪徽章</span></p>
+<p>百阿同学送的飞猪徽章。</p>
+<p>还有一些放在家里，有机会补一下…</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>不会真的有人不会画 UML 图吧</title>
+    <url>/2022/01/15/uml-4-fe/</url>
+    <content><![CDATA[<p>如果我是前端，如果我不会画 UML 图，你还会爱我吗？</p>
+<span id="more"></span>
+
+<p>这就是个伪标题，管你是什么端都给我学！不会真的有人不会画 UML 图吧？诶，巧了，写这篇文章的人就不会，不过写完他应该就会了。</p>
+<p>回想起上次画 UML 图的时候，还是上次，学生时代。为了应付软件工程考试下了狠手，“刻苦”学习一小时，终于在第二天顺利通过考试，终于在第三天忘得一干二净。如今做了搬砖仔，每天都能在各路大佬的文档看到时它的身影，真牛。虽说看得懂，可咱不会画鸭，书到用时方恨少。终于，咱装不下去，不能让人家看了笑话，咱得学！学习，学个屁！真香！</p>
+<h1 id="PlantUML"><a href="#PlantUML" class="headerlink" title="PlantUML"></a>PlantUML</h1><blockquote>
+<p>工欲善其事，必先利其器。</p>
+</blockquote>
+<p>用软件拖拖拽拽画个图多 LOW 啊，这图就得用“文化人”的方式去画。<strong>PlantUML</strong> 就是一套类似 MarkDown 的脚本语言，写几行代码就能生成规范又漂亮的 UML 图。</p>
+<p>PlantUML 本身只是一套脚本语言，需要配合 <a href="http://www.graphviz.org/">Graphviz</a> 绘制图片，而 Graphviz 又跑在 Java 环境。下面记个流水账，论如何在 Mac 和 VSCode 平台下配置 PlantUML。</p>
+<ol>
+<li>安装 Java 环境</li>
+</ol>
+<p>Mac 下配置 Java 环境很简单，在<a href="https://www.java.com/zh-CN/download/">官网</a>下载 dmg 包一步步安装即可。</p>
+<p><img  src="https://pic.izhaoo.com/20220116003804.jpg"  ><span class="image-caption">Java</span></p>
+<ol start="2">
+<li>安装 Graphviz</li>
+</ol>
+<p>Mac 下安装 Graphviz 更简单，直接用 Homebrew 安装即可：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ brew install graphviz<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>安装 VSCode 插件</li>
+</ol>
+<p>首先你得先安装 VSCode 牌记事本，然后在 VSCode 中安装 PlantUML 和 Graphviz Preview 这两个插件。</p>
+<p><img  src="https://pic.izhaoo.com/20220116003022.jpg"  ><span class="image-caption">PlantUML</span></p>
+<p><img  src="https://pic.izhaoo.com/20220116003012.jpg"  ><span class="image-caption">Graphviz Preview</span></p>
+<ol start="4">
+<li>渲染 UML </li>
+</ol>
+<p>重启 VSCode，新建文档，输入以下测试代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs uml">@startuml<br>  ClassA &lt;-- ClassB:关联<br>  ClassA &lt;.. ClassB : 依赖<br>  ClassA o-- ClassB:聚集<br>  ClassA &lt;|-- ClassB:泛化<br>  ClassA &lt;|.. ClassB:实现<br>@enduml<br></code></pre></td></tr></table></figure>
+
+<p>按下 <code>option</code> + <code>D</code> 键即可生成预览 UML 状态图。如果提示报错请确认前置步骤，其他平台的配置方式大同小异。</p>
+<p><img  src="https://pic.izhaoo.com/20220116003956.jpg"  ><span class="image-caption">UML</span></p>
+<p>tips: 右键点击图片可以复制到剪切板</p>
+<h1 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h1><h2 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h2>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>技术</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Dynamic Import</title>
     <url>/2021/11/04/dynamic-import/</url>
     <content><![CDATA[<p><code>import()</code> 动态引入依赖，实现按需加载和懒加载。</p>
