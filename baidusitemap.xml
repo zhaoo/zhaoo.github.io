@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.izhaoo.com/2022/09/05/git-modify-user/</loc>
+    <lastmod>2022-09-05</lastmod>
+  </url>
+  <url>
     <loc>https://www.izhaoo.com/2022/02/13/programmer-memory/</loc>
-    <lastmod>2022-02-13</lastmod>
+    <lastmod>2022-09-05</lastmod>
   </url>
   <url>
     <loc>https://www.izhaoo.com/2022/01/15/uml-4-fe/</loc>
-    <lastmod>2022-01-16</lastmod>
+    <lastmod>2022-09-05</lastmod>
   </url>
   <url>
     <loc>https://www.izhaoo.com/2021/08/01/code-note/</loc>
-    <lastmod>2021-12-19</lastmod>
+    <lastmod>2022-09-05</lastmod>
   </url>
   <url>
     <loc>https://www.izhaoo.com/2021/11/04/dynamic-import/</loc>
@@ -23,10 +27,6 @@
   <url>
     <loc>https://www.izhaoo.com/2021/07/05/hexo-weapp-zhaoo-doc/</loc>
     <lastmod>2021-09-16</lastmod>
-  </url>
-  <url>
-    <loc>https://www.izhaoo.com/2021/09/05/note/</loc>
-    <lastmod>2021-09-05</lastmod>
   </url>
   <url>
     <loc>https://www.izhaoo.com/2021/08/15/growing-coriander-diary/</loc>

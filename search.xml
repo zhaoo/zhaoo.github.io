@@ -875,93 +875,29 @@
       </tags>
   </entry>
   <entry>
-    <title>搬砖笔记</title>
-    <url>/2021/08/01/code-note/</url>
-    <content><![CDATA[<p>搬砖杂记，前端是门手艺活，快来背八股文。</p>
+    <title>Git 批量修改用户名和邮箱</title>
+    <url>/2022/09/05/git-modify-user/</url>
+    <content><![CDATA[<p>一行脚本批量修改 Git 用户名和邮箱……</p>
 <span id="more"></span>
 
-<h3 id="子组件监听滚动"><a href="#子组件监听滚动" class="headerlink" title="子组件监听滚动"></a>子组件监听滚动</h3><p>React 子组件生命周期中 <em>addEventListener</em> 的时候，需要将第三个参数设置为 <code>true</code>。因为 React 对事件做了合成处理，子组件滚动是捕获事件，父组件滚动是冒泡事件。addEventListener 第三个参数默认为 <em>false</em>，只监听冒泡事件，所以子组件的捕获事件默认监听不到，需要改成 <em>true</em>。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&quot;scroll&quot;</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> &#123;top, bottom, left, right&#125; = e.target.getBoundingClientRect();<br>  &#125;, <span class="hljs-literal">true</span>);<br>&#125;, []);<br></code></pre></td></tr></table></figure>
+<p>业务上依赖了一个自动生成表单的库，虽然是楼下团队写的，但是维护在开源社区。</p>
+<p>最近遇到些水土不服的“Bug”，求人次数多了人家也烦，索性就自己改八改八推 GitHub PR 了。</p>
+<p>推完 GitHub 回来发现公司的 GitLab 推不上去了，要用公司账号才行，拉了一下提交 log 好家伙已经一堆了，每个手动改账号肯定不现实。</p>
+<p>于是便搜刮了一个批量改 Git 账号的脚本，sh 跑一下就行，灰常银杏~</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><code class="hljs sh">git filter-branch --env-filter <span class="hljs-string">&#x27;</span><br><span class="hljs-string"></span><br><span class="hljs-string">oldEmail=&quot;替换原邮箱&quot;</span><br><span class="hljs-string">newName=&quot;替换原用户名&quot;</span><br><span class="hljs-string">newEmail=&quot;替换新邮箱&quot;</span><br><span class="hljs-string"></span><br><span class="hljs-string">if [ &quot;$GIT_COMMITTER_EMAIL&quot; = &quot;$oldEmail&quot; ]; then</span><br><span class="hljs-string">    export GIT_COMMITTER_NAME=&quot;$newName&quot;</span><br><span class="hljs-string">    export GIT_COMMITTER_EMAIL=&quot;$newEmail&quot;</span><br><span class="hljs-string">fi</span><br><span class="hljs-string"></span><br><span class="hljs-string">if [ &quot;$GIT_AUTHOR_EMAIL&quot; = &quot;$oldEmail&quot; ]; then</span><br><span class="hljs-string">    export GIT_AUTHOR_NAME=&quot;$newName&quot;</span><br><span class="hljs-string">    export GIT_AUTHOR_EMAIL=&quot;$newEmail&quot;</span><br><span class="hljs-string">fi</span><br><span class="hljs-string"></span><br><span class="hljs-string">&#x27;</span> --tag-name-filter cat -- --branches --tags<br></code></pre></td></tr></table></figure>
 
-<h3 id="浮层禁止背景滚动"><a href="#浮层禁止背景滚动" class="headerlink" title="浮层禁止背景滚动"></a>浮层禁止背景滚动</h3><p><em>rxpi-pad</em> 浮动面板有个坑，面板滚动事件和背景滚动事件做了绑定，通过 <em>autoLockScrolling</em> 属性只能全部开启或关闭。一般我们需要让背景禁止滚动，而面板内容可以滚动，只能 hack 一下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> body = <span class="hljs-built_in">document</span>.body;<br>  <span class="hljs-keyword">if</span> (visible) &#123;<br>    body.style.overflow = <span class="hljs-string">&quot;hidden&quot;</span>;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    body.style.overflow = <span class="hljs-string">&quot;visible&quot;</span>;<br>  &#125;<br>&#125;, [visible]);<br></code></pre></td></tr></table></figure>
-
-<h3 id="在数组指定项插入数组"><a href="#在数组指定项插入数组" class="headerlink" title="在数组指定项插入数组"></a>在数组指定项插入数组</h3><p>JavaScript 中的 <em>splice</em> 只能在数组中删除或插入一个元素，而不能插入数组，可借助 <strong>apply</strong> 赋能。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> arr1 = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>]; <br><span class="hljs-keyword">const</span> arr2 = [<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>]; <br>arr2.unshift(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br><span class="hljs-built_in">Array</span>.prototype.splice.apply(arr1, arr2);<br><span class="hljs-built_in">console</span>.log(arr1)  <span class="hljs-comment">// [&quot;a&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;c&quot;]</span><br></code></pre></td></tr></table></figure>
-
-<p>相当于：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> arr1 = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>]; <br><span class="hljs-keyword">const</span> arr2 = [<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>];<br>arr1.splice(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3’);</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="标签换行截断"><a href="#标签换行截断" class="headerlink" title="标签换行截断"></a>标签换行截断</h3><p>标签组都会设置一个宽度，当标签过多或过长时，最后一项会被“砍掉”，很尴尬。给容器设置一个固定高度和换行，将超出部分顶到第二行隐藏，干掉总比破掉好。</p>
-<p><img  src="https://pic.izhaoo.com/20210801001641.jpg"  ><span class="image-caption">超出截断</span></p>
-<p><img  src="https://pic.izhaoo.com/20210801001546.jpg"  ><span class="image-caption">超出隐藏</span></p>
-<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.tags-wrapper</span> &#123;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">40</span>rpx;  <span class="hljs-comment">/* 标签高度 */</span><br>  <span class="hljs-attribute">flex-wrap</span>: wrap;<br>  <span class="hljs-attribute">overflow</span>: hidden;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="iphoneX-适配"><a href="#iphoneX-适配" class="headerlink" title="iphoneX 适配"></a>iphoneX 适配</h3><p>iphoneX 这破手机就是反人类，丑得要死，给前端小哥哥烦的要死，适配 iphoneX 也是老生常谈的事。一次业务中遇到个非主流坑，淘宝端 iphoneX 底部会多出一块白条，其他客户端和机型都没问题，最后师兄一句 <code>height: 100vh</code> 解决。</p>
-<p>“这不是 iphoneX 适配标准解法吗？？？”</p>
-<p>“666！！！”</p>
-<p><strong>安全距离</strong></p>
-<p>在 HTML 头部 <em>viewport</em> 标签中，将 <em>viewport-fit</em> 值设置为 <code>contain</code>。（视口完全包含网页内容，头部位置固定元素将被包含在ios11的安全区域内）</p>
-<p>在 CSS 中使用以下布局常数，将布局限定在安全容器内：</p>
-<ul>
-<li>constant(safe-area-inset-top)</li>
-<li>constant(safe-area-inset-bottom)</li>
-<li>constant(safe-area-inset-left)</li>
-<li>constant(safe-area-inset-right)</li>
-</ul>
-<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.container</span> &#123;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-built_in">constant</span>(safe-area-inset-top) <span class="hljs-built_in">constant</span>(safe-area-inset-right) <span class="hljs-built_in">constant</span>(safe-area-inset-bottom) <span class="hljs-built_in">constant</span>(safe-area-inset-left);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>设置了 <code>viewport-fit=cover</code> 后，<code>height: 100%</code> 不能撑满整个视口，高度并不等于视口高度，而是留出了 <code>constant(safe-area-inset-top)</code> 的高度，实际上就是整个页面被往上提了 <code>constant(safe-area-inset-top)</code> 的高度。并且这时 fixed 定位的元素设置 <code>bottom: 0</code> 以后也会距离底部<code>constant(safe-area-inset-top)</code> 的高度，通过给 *<body>* 设置 <code>height: 100vh</code> 可以解决。</p>
-<h3 id="useState-同步获取最新状态值"><a href="#useState-同步获取最新状态值" class="headerlink" title="useState 同步获取最新状态值"></a>useState 同步获取最新状态值</h3><p>React 中 <code>this.setState()</code> 的第二个参数可以传入一个回调函数用于获取实时更新后的状态值，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">this</span>.setState(&#123;<br>  <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;兆兆&#x27;</span><br>&#125;, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.state.username);<br>&#125;);<br></code></pre></td></tr></table></figure>
-
-<p>但是 Hooks 中的 useState 官方却把它干掉了，我们可以结合 useState、useRef、useEffect 来模拟一个：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> useCallbackState = <span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> ref = useRef();<br>  <span class="hljs-keyword">const</span> [data, setData] = useState(state);<br> <br>  useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>    ref.current &amp;&amp; ref.current(data);<br>  &#125;, [data]);<br> <br>  <span class="hljs-keyword">return</span> [data, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">val, callback</span>) </span>&#123;<br>    ref.current = callback;<br>    setData(val);<br>  &#125;];<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>似乎蕴含了点哲学：</p>
-<ul>
-<li>useState：异步存储数据</li>
-<li>useRef：同步缓存最新数据</li>
-<li>useEffect：监测数据状态变更</li>
-</ul>
-<h3 id="Taro-点击穿透"><a href="#Taro-点击穿透" class="headerlink" title="Taro 点击穿透"></a>Taro 点击穿透</h3><p>在使用 Taro 开发小程序时，被点击穿透坑了。背景如图，在一个评论浮层中点击输入框，点击事件会穿透到底部的浮层上，直接把浮层关了。Taro 文档汇总说明需要使用 <code>e.stopPropagation()</code> 代替小程序中的 <code>catchEvent</code>，然并卵。查看源码后发现，Taro 在编译过程中会直接将 <code>e.stopPropagation()</code> 转换为 <code>catchEvent</code> 打到 <code>wxml</code> 上，这套路…后来发现，在自定义组件中，这条逻辑不生效。解决方案是只需要在自定义组件外层再套一层 <code>View</code>，并加上 <code>e.stopPropagation()</code> 即可。</p>
-<p><img  src="https://pic.izhaoo.com/20210815123034.jpg"  ><span class="image-caption">评论浮层</span></p>
-<h3 id="forEach-异步调用"><a href="#forEach-异步调用" class="headerlink" title="forEach 异步调用"></a>forEach 异步调用</h3><p>最近开发的小程序发布评论提审被驳回了，需要接入安全风控中心。整个流程如下：1、首先通过 LeanCloud 接口获取获取存储在 BaaS 上的评论数据。2、遍历评论列表，将每条评论内容上传至云函数。3、通过审核接口获取内容敏感程度，剔除不正能量的内容。过程中多次使用 <code>forEach</code> 遍历，并且在遍历过程中调用了异步接口。<code>forEach</code> 本身是同步的，但是在遍历中如果调用了异步代码，并不会阻塞进程，很有可能还没拿到结果就执行了后续的代码。有如下解决方案：</p>
-<p><strong>内部同步，外部异步</strong></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">comments.forEach(<span class="hljs-keyword">async</span> (item, index) =&gt;&#123;<br>  <span class="hljs-keyword">await</span> secCheck(item);<br>  filterRes(item);<br>  <span class="hljs-keyword">return</span> item;<br>&#125;)<br></code></pre></td></tr></table></figure>
-
-<p><strong>内部异步，外部同步</strong></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> asyncFunc = [];<br>comments.forEach(<span class="hljs-function">(<span class="hljs-params">item, index</span>) =&gt;</span>&#123;<br>  asyncFun.push(secCheck(item));<br>  filterRes(item);<br>&#125;)<br><span class="hljs-built_in">Promise</span>.all(asyncFun).then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> res;<br>&#125;);<br></code></pre></td></tr></table></figure>
-
-<p><strong>内部外部都同步</strong></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">Promise</span>.all(<br>  comments.map( <span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-keyword">async</span> (resolve, reject) =&gt;&#123;<br>      <span class="hljs-keyword">await</span> secCheck(item);<br>      filterRes(item);<br>      resolve();<br>    &#125;)<br>  &#125;)<br>).then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span>&#123;<br>  <span class="hljs-keyword">return</span> res;<br>&#125;)<br></code></pre></td></tr></table></figure>
-
-<h3 id="常用-Hooks-封装"><a href="#常用-Hooks-封装" class="headerlink" title="常用 Hooks 封装"></a>常用 Hooks 封装</h3><p><strong>缓存状态</strong></p>
-<p>获取上一次执行的状态。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> usePrevious = <span class="hljs-function">(<span class="hljs-params">value: any</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> ref = useRef();<br>  useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>    ref.current = value;<br>  &#125;, [value]);<br>  <span class="hljs-keyword">return</span> ref.current;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p><strong>批量设置状态</strong></p>
-<p>像 <code>this.setState()</code> 一样批量设置状态。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> useSet = <span class="hljs-function">(<span class="hljs-params">initState: any</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> useReducer(<span class="hljs-function">(<span class="hljs-params">state: any, newState: any</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> &#123; ...state, ...newState &#125;;<br>  &#125;, initState);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p><strong>节流</strong></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> useThrottle = <span class="hljs-function">(<span class="hljs-params">fn: any, delay: number, dep = []</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> &#123; current &#125; = useRef(&#123; fn, <span class="hljs-attr">timer</span>: <span class="hljs-literal">null</span> &#125;);<br>  useEffect(<br>    <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>      current.fn = fn;<br>    &#125;,<br>    [fn],<br>  );<br><br>  <span class="hljs-keyword">return</span> useCallback(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">...args: any</span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (!current.timer) &#123;<br>      current.timer = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-keyword">delete</span> current.timer;<br>      &#125;, delay);<br>      current.fn(...args);<br>    &#125;<br>  &#125;, dep);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="时间戳兼容-Android-amp-IOS"><a href="#时间戳兼容-Android-amp-IOS" class="headerlink" title="时间戳兼容 Android &amp; IOS"></a>时间戳兼容 Android &amp; IOS</h3><p>在处理时间戳时是否经常遇到 Android 和 IOS 不兼容，时间为啥对不齐呢？离谱…</p>
-<p>在 Android 中日期分隔符是 <code>-</code>，如：<code>2021-12-19</code>，而在 IOS 中日期分隔符是 <code>/</code>，如：<code>2021/12/19</code>，混用会导致某端无法正确解析。</p>
-<p>兼容写法：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> data = <span class="hljs-string">&#x27;2021-12-19&#x27;</span>, time = <span class="hljs-string">&#x27;20:39:50&#x27;</span>;<br><span class="hljs-built_in">Date</span>.parse(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;data&#125;</span> <span class="hljs-subst">$&#123;time&#125;</span>`</span>)) || <span class="hljs-built_in">Date</span>.parse(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;data.replace(<span class="hljs-regexp">/-/g</span>,<span class="hljs-string">&#x27;/&#x27;</span>)&#125;</span> <span class="hljs-subst">$&#123;time&#125;</span>`</span>)); <span class="hljs-comment">// 兼容 Android &amp; IOS</span><br></code></pre></td></tr></table></figure>]]></content>
+<p><img  src="https://pic.izhaoo.com/20220829111417.png"  ><span class="image-caption">preview</span></p>
+]]></content>
       <categories>
-        <category>前端</category>
+        <category>技术</category>
       </categories>
       <tags>
-        <tag>前端</tag>
-        <tag>js</tag>
-        <tag>css</tag>
+        <tag>Git</tag>
+        <tag>技术</tag>
       </tags>
   </entry>
   <entry>
-    <title>聊聊程序员的公仔</title>
+    <title>晒一晒程序员公仔</title>
     <url>/2022/02/13/programmer-memory/</url>
     <content><![CDATA[<p>干了一年程序员，多了些公仔和徽章，少了些头发。</p>
 <span id="more"></span>
@@ -988,7 +924,7 @@
       </tags>
   </entry>
   <entry>
-    <title>不会真的有人不会画 UML 图吧</title>
+    <title>PlantUML</title>
     <url>/2022/01/15/uml-4-fe/</url>
     <content><![CDATA[<p>如果我是前端，如果我不会画 UML 图，你还会爱我吗？</p>
 <span id="more"></span>
@@ -1026,7 +962,10 @@
 <p>按下 <code>option</code> + <code>D</code> 键即可生成预览 UML 状态图。如果提示报错请确认前置步骤，其他平台的配置方式大同小异。</p>
 <p><img  src="https://pic.izhaoo.com/20220116003956.jpg"  ><span class="image-caption">UML</span></p>
 <p>tips: 右键点击图片可以复制到剪切板</p>
-<h1 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h1><h2 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h2>]]></content>
+<h1 id="语雀"><a href="#语雀" class="headerlink" title="语雀"></a>语雀</h1><p>还得是语雀啊，自带示例不怕忘了语法，真香！</p>
+<p><img  src="https://pic.izhaoo.com/20220905140625.png"  ><span class="image-caption">语雀</span></p>
+<h1 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h1><h2 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h2><p>未完待续……</p>
+]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -1118,41 +1057,6 @@
       <tags>
         <tag>前端</tag>
         <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>兆兆日记</title>
-    <url>/2021/09/05/note/</url>
-    <content><![CDATA[<p>时光一去不复回，往事只能回味。</p>
-<span id="more"></span>
-
-<p><strong>2021.09.05</strong></p>
-<p>这两天玩的有点嗨，台球、剧本杀、酒局、857…</p>
-<p>昨晚两点在三墩，三点在黄龙，醒来就躺在转塘了。</p>
-<p><img  src="https://pic.izhaoo.com/20210905231209.jpg"  ><span class="image-caption">857</span></p>
-<p>傍晚去钱塘江吹风醒酒，红绿灯口挡着龙鸣工的道了，然后我们就靠边聊了起来，给我们看了面相。对我朋友说：小伙子你属兔，要小心，命里会有一劫。对我说：你属虎，我不敢给你看，吉相。</p>
-<blockquote>
-<p>“只是我们有缘，我随口一说，不要往心里去。五十年后，二十年后，要是遇到了事情，看看能不能想起，从前钱塘江边有个傻逼说了这么一句话。”</p>
-</blockquote>
-<p><img  src="https://pic.izhaoo.com/20210905231224.jpg"  ><span class="image-caption">钱塘江边</span></p>
-<p>我无神论，只拜祖宗。我不相信命运，但是我相信缘分。</p>
-<blockquote>
-<p>人潮汹涌，是否有个路人无意瞥你一眼，从此在你心头留了一痕。</p>
-</blockquote>
-<p><strong>2021.08.29</strong></p>
-<p>肝了两周的「海豹训练营」终于结束了，这段时间整日和小伙伴们聚在一起，令人意犹未尽。最终我们组获得了「韧性十足奖」，这也印证了我最初的猜测。</p>
-<p><img  src="https://pic.izhaoo.com/20210905231346.jpg"  ><span class="image-caption">韧性十足奖</span></p>
-<p>周六简单团建了一下，一天玩了四场，湘绯、密室、电影、KTV…</p>
-<p>密室真心😱，还是三星天使难度。燃鹅，录屏却充满喜感。</p>
-<p><video src="https://pic.izhaoo.com/mmexport1630220417036.mp4" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;"></video></p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>生活</tag>
-        <tag>随笔</tag>
-        <tag>日记</tag>
       </tags>
   </entry>
   <entry>
@@ -1295,6 +1199,92 @@
       <tags>
         <tag>前端</tag>
         <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>搬砖笔记</title>
+    <url>/2021/08/01/code-note/</url>
+    <content><![CDATA[<p>搬砖杂记，前端是门手艺活，快来背八股文。</p>
+<span id="more"></span>
+
+<h3 id="子组件监听滚动"><a href="#子组件监听滚动" class="headerlink" title="子组件监听滚动"></a>子组件监听滚动</h3><p>React 子组件生命周期中 <em>addEventListener</em> 的时候，需要将第三个参数设置为 <code>true</code>。因为 React 对事件做了合成处理，子组件滚动是捕获事件，父组件滚动是冒泡事件。addEventListener 第三个参数默认为 <em>false</em>，只监听冒泡事件，所以子组件的捕获事件默认监听不到，需要改成 <em>true</em>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&quot;scroll&quot;</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> &#123;top, bottom, left, right&#125; = e.target.getBoundingClientRect();<br>  &#125;, <span class="hljs-literal">true</span>);<br>&#125;, []);<br></code></pre></td></tr></table></figure>
+
+<h3 id="浮层禁止背景滚动"><a href="#浮层禁止背景滚动" class="headerlink" title="浮层禁止背景滚动"></a>浮层禁止背景滚动</h3><p><em>rxpi-pad</em> 浮动面板有个坑，面板滚动事件和背景滚动事件做了绑定，通过 <em>autoLockScrolling</em> 属性只能全部开启或关闭。一般我们需要让背景禁止滚动，而面板内容可以滚动，只能 hack 一下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> body = <span class="hljs-built_in">document</span>.body;<br>  <span class="hljs-keyword">if</span> (visible) &#123;<br>    body.style.overflow = <span class="hljs-string">&quot;hidden&quot;</span>;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    body.style.overflow = <span class="hljs-string">&quot;visible&quot;</span>;<br>  &#125;<br>&#125;, [visible]);<br></code></pre></td></tr></table></figure>
+
+<h3 id="在数组指定项插入数组"><a href="#在数组指定项插入数组" class="headerlink" title="在数组指定项插入数组"></a>在数组指定项插入数组</h3><p>JavaScript 中的 <em>splice</em> 只能在数组中删除或插入一个元素，而不能插入数组，可借助 <strong>apply</strong> 赋能。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> arr1 = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>]; <br><span class="hljs-keyword">const</span> arr2 = [<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>]; <br>arr2.unshift(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br><span class="hljs-built_in">Array</span>.prototype.splice.apply(arr1, arr2);<br><span class="hljs-built_in">console</span>.log(arr1)  <span class="hljs-comment">// [&quot;a&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;c&quot;]</span><br></code></pre></td></tr></table></figure>
+
+<p>相当于：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> arr1 = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>]; <br><span class="hljs-keyword">const</span> arr2 = [<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>];<br>arr1.splice(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3’);</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="标签换行截断"><a href="#标签换行截断" class="headerlink" title="标签换行截断"></a>标签换行截断</h3><p>标签组都会设置一个宽度，当标签过多或过长时，最后一项会被“砍掉”，很尴尬。给容器设置一个固定高度和换行，将超出部分顶到第二行隐藏，干掉总比破掉好。</p>
+<p><img  src="https://pic.izhaoo.com/20210801001641.jpg"  ><span class="image-caption">超出截断</span></p>
+<p><img  src="https://pic.izhaoo.com/20210801001546.jpg"  ><span class="image-caption">超出隐藏</span></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.tags-wrapper</span> &#123;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">40</span>rpx;  <span class="hljs-comment">/* 标签高度 */</span><br>  <span class="hljs-attribute">flex-wrap</span>: wrap;<br>  <span class="hljs-attribute">overflow</span>: hidden;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="iphoneX-适配"><a href="#iphoneX-适配" class="headerlink" title="iphoneX 适配"></a>iphoneX 适配</h3><p>iphoneX 这破手机就是反人类，丑得要死，给前端小哥哥烦的要死，适配 iphoneX 也是老生常谈的事。一次业务中遇到个非主流坑，淘宝端 iphoneX 底部会多出一块白条，其他客户端和机型都没问题，最后师兄一句 <code>height: 100vh</code> 解决。</p>
+<p>“这不是 iphoneX 适配标准解法吗？？？”</p>
+<p>“666！！！”</p>
+<p><strong>安全距离</strong></p>
+<p>在 HTML 头部 <em>viewport</em> 标签中，将 <em>viewport-fit</em> 值设置为 <code>contain</code>。（视口完全包含网页内容，头部位置固定元素将被包含在ios11的安全区域内）</p>
+<p>在 CSS 中使用以下布局常数，将布局限定在安全容器内：</p>
+<ul>
+<li>constant(safe-area-inset-top)</li>
+<li>constant(safe-area-inset-bottom)</li>
+<li>constant(safe-area-inset-left)</li>
+<li>constant(safe-area-inset-right)</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.container</span> &#123;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-built_in">constant</span>(safe-area-inset-top) <span class="hljs-built_in">constant</span>(safe-area-inset-right) <span class="hljs-built_in">constant</span>(safe-area-inset-bottom) <span class="hljs-built_in">constant</span>(safe-area-inset-left);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>设置了 <code>viewport-fit=cover</code> 后，<code>height: 100%</code> 不能撑满整个视口，高度并不等于视口高度，而是留出了 <code>constant(safe-area-inset-top)</code> 的高度，实际上就是整个页面被往上提了 <code>constant(safe-area-inset-top)</code> 的高度。并且这时 fixed 定位的元素设置 <code>bottom: 0</code> 以后也会距离底部<code>constant(safe-area-inset-top)</code> 的高度，通过给 *<body>* 设置 <code>height: 100vh</code> 可以解决。</p>
+<h3 id="useState-同步获取最新状态值"><a href="#useState-同步获取最新状态值" class="headerlink" title="useState 同步获取最新状态值"></a>useState 同步获取最新状态值</h3><p>React 中 <code>this.setState()</code> 的第二个参数可以传入一个回调函数用于获取实时更新后的状态值，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">this</span>.setState(&#123;<br>  <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;兆兆&#x27;</span><br>&#125;, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.state.username);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>但是 Hooks 中的 useState 官方却把它干掉了，我们可以结合 useState、useRef、useEffect 来模拟一个：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> useCallbackState = <span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> ref = useRef();<br>  <span class="hljs-keyword">const</span> [data, setData] = useState(state);<br> <br>  useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>    ref.current &amp;&amp; ref.current(data);<br>  &#125;, [data]);<br> <br>  <span class="hljs-keyword">return</span> [data, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">val, callback</span>) </span>&#123;<br>    ref.current = callback;<br>    setData(val);<br>  &#125;];<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>似乎蕴含了点哲学：</p>
+<ul>
+<li>useState：异步存储数据</li>
+<li>useRef：同步缓存最新数据</li>
+<li>useEffect：监测数据状态变更</li>
+</ul>
+<h3 id="Taro-点击穿透"><a href="#Taro-点击穿透" class="headerlink" title="Taro 点击穿透"></a>Taro 点击穿透</h3><p>在使用 Taro 开发小程序时，被点击穿透坑了。背景如图，在一个评论浮层中点击输入框，点击事件会穿透到底部的浮层上，直接把浮层关了。Taro 文档汇总说明需要使用 <code>e.stopPropagation()</code> 代替小程序中的 <code>catchEvent</code>，然并卵。查看源码后发现，Taro 在编译过程中会直接将 <code>e.stopPropagation()</code> 转换为 <code>catchEvent</code> 打到 <code>wxml</code> 上，这套路…后来发现，在自定义组件中，这条逻辑不生效。解决方案是只需要在自定义组件外层再套一层 <code>View</code>，并加上 <code>e.stopPropagation()</code> 即可。</p>
+<p><img  src="https://pic.izhaoo.com/20210815123034.jpg"  ><span class="image-caption">评论浮层</span></p>
+<h3 id="forEach-异步调用"><a href="#forEach-异步调用" class="headerlink" title="forEach 异步调用"></a>forEach 异步调用</h3><p>最近开发的小程序发布评论提审被驳回了，需要接入安全风控中心。整个流程如下：1、首先通过 LeanCloud 接口获取获取存储在 BaaS 上的评论数据。2、遍历评论列表，将每条评论内容上传至云函数。3、通过审核接口获取内容敏感程度，剔除不正能量的内容。过程中多次使用 <code>forEach</code> 遍历，并且在遍历过程中调用了异步接口。<code>forEach</code> 本身是同步的，但是在遍历中如果调用了异步代码，并不会阻塞进程，很有可能还没拿到结果就执行了后续的代码。有如下解决方案：</p>
+<p><strong>内部同步，外部异步</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">comments.forEach(<span class="hljs-keyword">async</span> (item, index) =&gt;&#123;<br>  <span class="hljs-keyword">await</span> secCheck(item);<br>  filterRes(item);<br>  <span class="hljs-keyword">return</span> item;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p><strong>内部异步，外部同步</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> asyncFunc = [];<br>comments.forEach(<span class="hljs-function">(<span class="hljs-params">item, index</span>) =&gt;</span>&#123;<br>  asyncFun.push(secCheck(item));<br>  filterRes(item);<br>&#125;)<br><span class="hljs-built_in">Promise</span>.all(asyncFun).then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> res;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p><strong>内部外部都同步</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">Promise</span>.all(<br>  comments.map( <span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-keyword">async</span> (resolve, reject) =&gt;&#123;<br>      <span class="hljs-keyword">await</span> secCheck(item);<br>      filterRes(item);<br>      resolve();<br>    &#125;)<br>  &#125;)<br>).then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span>&#123;<br>  <span class="hljs-keyword">return</span> res;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="常用-Hooks-封装"><a href="#常用-Hooks-封装" class="headerlink" title="常用 Hooks 封装"></a>常用 Hooks 封装</h3><p><strong>缓存状态</strong></p>
+<p>获取上一次执行的状态。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> usePrevious = <span class="hljs-function">(<span class="hljs-params">value: any</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> ref = useRef();<br>  useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>    ref.current = value;<br>  &#125;, [value]);<br>  <span class="hljs-keyword">return</span> ref.current;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>批量设置状态</strong></p>
+<p>像 <code>this.setState()</code> 一样批量设置状态。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> useSet = <span class="hljs-function">(<span class="hljs-params">initState: any</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> useReducer(<span class="hljs-function">(<span class="hljs-params">state: any, newState: any</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> &#123; ...state, ...newState &#125;;<br>  &#125;, initState);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>节流</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> useThrottle = <span class="hljs-function">(<span class="hljs-params">fn: any, delay: number, dep = []</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> &#123; current &#125; = useRef(&#123; fn, <span class="hljs-attr">timer</span>: <span class="hljs-literal">null</span> &#125;);<br>  useEffect(<br>    <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>      current.fn = fn;<br>    &#125;,<br>    [fn],<br>  );<br><br>  <span class="hljs-keyword">return</span> useCallback(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">...args: any</span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (!current.timer) &#123;<br>      current.timer = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-keyword">delete</span> current.timer;<br>      &#125;, delay);<br>      current.fn(...args);<br>    &#125;<br>  &#125;, dep);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="时间戳兼容-Android-amp-IOS"><a href="#时间戳兼容-Android-amp-IOS" class="headerlink" title="时间戳兼容 Android &amp; IOS"></a>时间戳兼容 Android &amp; IOS</h3><p>在处理时间戳时是否经常遇到 Android 和 IOS 不兼容，时间为啥对不齐呢？离谱…</p>
+<p>在 Android 中日期分隔符是 <code>-</code>，如：<code>2021-12-19</code>，而在 IOS 中日期分隔符是 <code>/</code>，如：<code>2021/12/19</code>，混用会导致某端无法正确解析。</p>
+<p>兼容写法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> data = <span class="hljs-string">&#x27;2021-12-19&#x27;</span>, time = <span class="hljs-string">&#x27;20:39:50&#x27;</span>;<br><span class="hljs-built_in">Date</span>.parse(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;data&#125;</span> <span class="hljs-subst">$&#123;time&#125;</span>`</span>)) || <span class="hljs-built_in">Date</span>.parse(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;data.replace(<span class="hljs-regexp">/-/g</span>,<span class="hljs-string">&#x27;/&#x27;</span>)&#125;</span> <span class="hljs-subst">$&#123;time&#125;</span>`</span>)); <span class="hljs-comment">// 兼容 Android &amp; IOS</span><br></code></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>js</tag>
+        <tag>css</tag>
       </tags>
   </entry>
   <entry>
