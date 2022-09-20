@@ -875,6 +875,49 @@
       </tags>
   </entry>
   <entry>
+    <title>记一次随机渲染问题</title>
+    <url>/2022/09/20/random-render-list/</url>
+    <content><![CDATA[<p>通过种子随机保证 SSR 和 CSR 环境随机结果一致</p>
+<span id="more"></span>
+
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>PD: 兆兆啊，你给我做个开关，打开开关后这个列表随机排序渲染</p>
+<p>兆兆: 简单简单，这不分分钟搞定</p>
+<p>然后我写了一下午……</p>
+<p><img  src="https://pic.izhaoo.com/20220920225849.png"  ><span class="image-caption">preview</span></p>
+<h3 id="SSR-amp-CSR"><a href="#SSR-amp-CSR" class="headerlink" title="SSR &amp; CSR"></a>SSR &amp; CSR</h3><p>第一版代码如下，通过 <code>Math.random() - 0.5</code> 是正数或负数控制每次的排序顺序：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/** 随机排序 */</span><br><span class="hljs-keyword">const</span> renderList = coverList<br>  <span class="hljs-comment">//合并封面列表和直播列表</span><br>  .map(<span class="hljs-function">(<span class="hljs-params">coverItem</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> liveItem = liveList.find(<br>      <span class="hljs-function">(<span class="hljs-params">&#123; liveId &#125;</span>) =&gt;</span> liveId === coverItem?.liveId<br>    );<br>    <span class="hljs-keyword">return</span> &#123; ...liveItem, ...coverItem &#125;;<br>  &#125;)<br>  <span class="hljs-comment">//随机排序</span><br>  .sort(<span class="hljs-function">() =&gt;</span> (isRandom ? <span class="hljs-built_in">Math</span>.random() - <span class="hljs-number">0.5</span> : <span class="hljs-number">1</span>));<br></code></pre></td></tr></table></figure>
+
+<p>代码发上去一看有问题，页面渲染后会闪屏，体验很差。</p>
+<p>原因是 SSR 和 CSR 环境下都会随机排序一次，并且结果不一样，导致 hydrate 时两份 DOM 映射不上触发整体重渲染。</p>
+<p>有两个解法：</p>
+<ol>
+<li>架上一层 FaaS 在数据源上做随机排序，保证下发的数据完全一致；</li>
+<li>控制随机种子，确保 SSR 和 CSR 下生成同一个随机数，随机排序的结果自然也就一致了；</li>
+</ol>
+<h3 id="种子随机"><a href="#种子随机" class="headerlink" title="种子随机"></a>种子随机</h3><p>写 FaaS 太麻烦了还容易背锅，所以采用种子随机改了一版：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/** 种子随机 */</span><br><span class="hljs-keyword">const</span> random = <span class="hljs-function">(<span class="hljs-params">seed</span>) =&gt;</span> &#123;<br>  seed = (seed * <span class="hljs-number">9301</span> + <span class="hljs-number">49297</span>) % <span class="hljs-number">233280</span>;<br>  <span class="hljs-keyword">return</span> seed / <span class="hljs-number">233280.0</span>;<br>&#125;;<br><br><span class="hljs-comment">/** 随机排序 */</span><br><span class="hljs-keyword">const</span> renderList = coverList<br>  <span class="hljs-comment">//合并封面列表和直播列表</span><br>  .map(<span class="hljs-function">(<span class="hljs-params">coverItem</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> liveItem = liveList.find(<br>      <span class="hljs-function">(<span class="hljs-params">&#123; liveId &#125;</span>) =&gt;</span> liveId === coverItem?.liveId<br>    );<br>    <span class="hljs-keyword">return</span> &#123; ...liveItem, ...coverItem &#125;;<br>  &#125;)<br>  <span class="hljs-comment">//随机排序</span><br>  .sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> (isRandom ? random(serverTime + a?.liveId) - <span class="hljs-number">0.5</span> : <span class="hljs-number">1</span>));<br></code></pre></td></tr></table></figure>
+
+<p>这里用 <code>serverTime</code> 和 <code>id</code> 做种子，服务端时间可以保证每次刷新页面随机一次，唯一 ID 可以保证每一次遍历随机一次。在 SSR 下 和 CSR 下种子是一致的，随机出来的结果也就一致了。</p>
+<blockquote>
+<p>种子随机原理: <a href="https://www.zhihu.com/question/22818104">https://www.zhihu.com/question/22818104</a></p>
+</blockquote>
+<h3 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h3><p>跑了一下发现现象很神奇，SSR 和 CSR 下生成的随机数确实是一致的，但是随机排序生成的列表居然不一致，还是触发了重渲染。</p>
+<p>调了半天发线是 <code>array.sort()</code> 在 Node 和 Browser 环境下实现方式不一致：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log([-<span class="hljs-number">2</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>].sort());<br><br><span class="hljs-comment">// Node</span><br>[ -<span class="hljs-number">1</span>, -<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ]<br><br><span class="hljs-comment">// Browser</span><br>[-<span class="hljs-number">1</span>, -<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]<br></code></pre></td></tr></table></figure>
+
+<p>心中万马奔腾…… 改成这样就好了：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/** 种子随机 */</span><br><span class="hljs-keyword">const</span> random = <span class="hljs-function">(<span class="hljs-params">seed</span>) =&gt;</span> &#123;<br>  seed = (seed * <span class="hljs-number">9301</span> + <span class="hljs-number">49297</span>) % <span class="hljs-number">233280</span>;<br>  <span class="hljs-keyword">return</span> seed / <span class="hljs-number">233280.0</span>;<br>&#125;;<br><br><span class="hljs-comment">/** 随机排序 */</span><br><span class="hljs-keyword">const</span> renderList = coverList<br><span class="hljs-comment">//合并封面列表和直播列表，挂上随机数</span><br>  .map(<span class="hljs-function">(<span class="hljs-params">coverItem</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> liveItem = plugin.find(<span class="hljs-function">(<span class="hljs-params">&#123; liveId &#125;</span>) =&gt;</span> liveId === coverItem.liveId);<br>    <span class="hljs-keyword">return</span> &#123;<br>      ...liveItem,<br>      ...coverItem,<br>      <span class="hljs-attr">randomData</span>: random(<span class="hljs-built_in">Number</span>(serverTime) + liveItem.liveId),<br>    &#125;;<br>  &#125;)<br>  <span class="hljs-comment">//随机排序</span><br>  .sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> a.randomData - b.randomData;<br>  &#125;);<br></code></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>js</tag>
+        <tag>ssr</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git 批量修改用户名和邮箱</title>
     <url>/2022/09/05/git-modify-user/</url>
     <content><![CDATA[<p>一行脚本批量修改 Git 用户名和邮箱……</p>

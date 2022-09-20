@@ -6,12 +6,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>前端 - zhaoo</title>
+  <title>记一次随机渲染问题 - zhaoo</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
-  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题">
-  <meta name="description" content="兆兆的博客，分享技术，记录生活。">
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, ssr, random, sort, 随机渲染, hydrate">
+  <meta name="description" content="通过种子随机保证 SSR 和 CSR 环境随机结果一致...">
   <meta name="author" content="zhaoo">
   <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
@@ -154,7 +154,7 @@
         <i class="iconfont iconsearch j-navbar-search"></i>
       
     </div>
-    <div class="center">标签</div>
+    <div class="center">记一次随机渲染问题</div>
     <div class="right">
       <i class="iconfont iconmenu j-navbar-menu"></i>
     </div>
@@ -194,175 +194,137 @@
   </div>
 </nav>
   <main id="main">
-  <section class="archive">
-    <div class="archive-container">
-      <div class="archive-post">
-        <h2 class="archive-total"># 前端</h2>
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://pic.izhaoo.com/20220920232543.jpg" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">记一次随机渲染问题</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>九月 20, 2022</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2022/09/20/random-render-list/" class="leancloud-counter" data-flag-title="记一次随机渲染问题"></span>
+        </span>
+        <span class="post-info-item">
+          <i class="iconfont iconheart"></i><span id="/2022/09/20/random-render-list/" class="leancloud-like" data-flag-title="记一次随机渲染问题"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2040</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+          <p><p>通过种子随机保证 SSR 和 CSR 环境随机结果一致</p></p>
+        
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>PD: 兆兆啊，你给我做个开关，打开开关后这个列表随机排序渲染</p>
+<p>兆兆: 简单简单，这不分分钟搞定</p>
+<p>然后我写了一下午……</p>
+<p><img  src="https://pic.izhaoo.com/20220920225849.png"  ><span class="image-caption">preview</span></p>
+<h3 id="SSR-amp-CSR"><a href="#SSR-amp-CSR" class="headerlink" title="SSR &amp; CSR"></a>SSR &amp; CSR</h3><p>第一版代码如下，通过 <code>Math.random() - 0.5</code> 是正数或负数控制每次的排序顺序：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/** 随机排序 */</span><br><span class="hljs-keyword">const</span> renderList = coverList<br>  <span class="hljs-comment">//合并封面列表和直播列表</span><br>  .map(<span class="hljs-function">(<span class="hljs-params">coverItem</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> liveItem = liveList.find(<br>      <span class="hljs-function">(<span class="hljs-params">&#123; liveId &#125;</span>) =&gt;</span> liveId === coverItem?.liveId<br>    );<br>    <span class="hljs-keyword">return</span> &#123; ...liveItem, ...coverItem &#125;;<br>  &#125;)<br>  <span class="hljs-comment">//随机排序</span><br>  .sort(<span class="hljs-function">() =&gt;</span> (isRandom ? <span class="hljs-built_in">Math</span>.random() - <span class="hljs-number">0.5</span> : <span class="hljs-number">1</span>));<br></code></pre></td></tr></table></figure>
+
+<p>代码发上去一看有问题，页面渲染后会闪屏，体验很差。</p>
+<p>原因是 SSR 和 CSR 环境下都会随机排序一次，并且结果不一样，导致 hydrate 时两份 DOM 映射不上触发整体重渲染。</p>
+<p>有两个解法：</p>
+<ol>
+<li>架上一层 FaaS 在数据源上做随机排序，保证下发的数据完全一致；</li>
+<li>控制随机种子，确保 SSR 和 CSR 下生成同一个随机数，随机排序的结果自然也就一致了；</li>
+</ol>
+<h3 id="种子随机"><a href="#种子随机" class="headerlink" title="种子随机"></a>种子随机</h3><p>写 FaaS 太麻烦了还容易背锅，所以采用种子随机改了一版：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/** 种子随机 */</span><br><span class="hljs-keyword">const</span> random = <span class="hljs-function">(<span class="hljs-params">seed</span>) =&gt;</span> &#123;<br>  seed = (seed * <span class="hljs-number">9301</span> + <span class="hljs-number">49297</span>) % <span class="hljs-number">233280</span>;<br>  <span class="hljs-keyword">return</span> seed / <span class="hljs-number">233280.0</span>;<br>&#125;;<br><br><span class="hljs-comment">/** 随机排序 */</span><br><span class="hljs-keyword">const</span> renderList = coverList<br>  <span class="hljs-comment">//合并封面列表和直播列表</span><br>  .map(<span class="hljs-function">(<span class="hljs-params">coverItem</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> liveItem = liveList.find(<br>      <span class="hljs-function">(<span class="hljs-params">&#123; liveId &#125;</span>) =&gt;</span> liveId === coverItem?.liveId<br>    );<br>    <span class="hljs-keyword">return</span> &#123; ...liveItem, ...coverItem &#125;;<br>  &#125;)<br>  <span class="hljs-comment">//随机排序</span><br>  .sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> (isRandom ? random(serverTime + a?.liveId) - <span class="hljs-number">0.5</span> : <span class="hljs-number">1</span>));<br></code></pre></td></tr></table></figure>
+
+<p>这里用 <code>serverTime</code> 和 <code>id</code> 做种子，服务端时间可以保证每次刷新页面随机一次，唯一 ID 可以保证每一次遍历随机一次。在 SSR 下 和 CSR 下种子是一致的，随机出来的结果也就一致了。</p>
+<blockquote>
+<p>种子随机原理: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/22818104">https://www.zhihu.com/question/22818104</a></p>
+</blockquote>
+<h3 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h3><p>跑了一下发现现象很神奇，SSR 和 CSR 下生成的随机数确实是一致的，但是随机排序生成的列表居然不一致，还是触发了重渲染。</p>
+<p>调了半天发线是 <code>array.sort()</code> 在 Node 和 Browser 环境下实现方式不一致：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log([-<span class="hljs-number">2</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>].sort());<br><br><span class="hljs-comment">// Node</span><br>[ -<span class="hljs-number">1</span>, -<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ]<br><br><span class="hljs-comment">// Browser</span><br>[-<span class="hljs-number">1</span>, -<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]<br></code></pre></td></tr></table></figure>
+
+<p>心中万马奔腾…… 改成这样就好了：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/** 种子随机 */</span><br><span class="hljs-keyword">const</span> random = <span class="hljs-function">(<span class="hljs-params">seed</span>) =&gt;</span> &#123;<br>  seed = (seed * <span class="hljs-number">9301</span> + <span class="hljs-number">49297</span>) % <span class="hljs-number">233280</span>;<br>  <span class="hljs-keyword">return</span> seed / <span class="hljs-number">233280.0</span>;<br>&#125;;<br><br><span class="hljs-comment">/** 随机排序 */</span><br><span class="hljs-keyword">const</span> renderList = coverList<br><span class="hljs-comment">//合并封面列表和直播列表，挂上随机数</span><br>  .map(<span class="hljs-function">(<span class="hljs-params">coverItem</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> liveItem = plugin.find(<span class="hljs-function">(<span class="hljs-params">&#123; liveId &#125;</span>) =&gt;</span> liveId === coverItem.liveId);<br>    <span class="hljs-keyword">return</span> &#123;<br>      ...liveItem,<br>      ...coverItem,<br>      <span class="hljs-attr">randomData</span>: random(<span class="hljs-built_in">Number</span>(serverTime) + liveItem.liveId),<br>    &#125;;<br>  &#125;)<br>  <span class="hljs-comment">//随机排序</span><br>  .sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> a.randomData - b.randomData;<br>  &#125;);<br></code></pre></td></tr></table></figure>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>zhaoo</li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2022/09/20/random-render-list/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2022&#x2F;09&#x2F;20&#x2F;random-render-list&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2022&#x2F;09&#x2F;20&#x2F;random-render-list&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
         
         
-          
-            <h3 class="archive-year">2022 年</h3>
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2022/09/20/random-render-list/">09/20</a>
-            <a class="archive-title" href="/2022/09/20/random-render-list/">记一次随机渲染问题</a>
-          </div>
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img src="https://pic.izhaoo.com/alipay.jpg">
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssr/" rel="tag">ssr</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a></a>
+    <a href="/2022/09/05/git-modify-user/">Git 批量修改用户名和邮箱<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "5nmYX1URDFyDdOVu6WxizEsF-gzGzoHsz",
+        app_key: "xllg4mYlf0eT3efi7N0VOTeH",
+        placeholder: "雁过留痕",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
         
           
-            <h3 class="archive-year">2021 年</h3>
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2021/11/04/dynamic-import/">11/04</a>
-            <a class="archive-title" href="/2021/11/04/dynamic-import/">Dynamic Import</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2021/11/01/useEffect-object-dependent/">11/01</a>
-            <a class="archive-title" href="/2021/11/01/useEffect-object-dependent/">useEffect - 依赖对象或数组</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2021/08/29/hexo-webhook/">08/29</a>
-            <a class="archive-title" href="/2021/08/29/hexo-webhook/">Hexo - 自动部署博客</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2021/08/03/intersection-observer/">08/03</a>
-            <a class="archive-title" href="/2021/08/03/intersection-observer/">IntersectionObserver</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2021/08/01/code-note/">08/01</a>
-            <a class="archive-title" href="/2021/08/01/code-note/">搬砖笔记</a>
-          </div>
-        
-          
-            <h3 class="archive-year">2020 年</h3>
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/12/18/number-key-for-params/">12/18</a>
-            <a class="archive-title" href="/2020/12/18/number-key-for-params/">请求参数中的数字键</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/11/16/css-style-for-element-number/">11/16</a>
-            <a class="archive-title" href="/2020/11/16/css-style-for-element-number/">CSS - 元素数量选择器</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/11/16/css-bem/">11/16</a>
-            <a class="archive-title" href="/2020/11/16/css-bem/">CSS - BEM 命名规范</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/11/12/adapt-to-dark-mode/">11/12</a>
-            <a class="archive-title" href="/2020/11/12/adapt-to-dark-mode/">适配深色模式</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/08/08/hexo-performance-optimization/">08/08</a>
-            <a class="archive-title" href="/2020/08/08/hexo-performance-optimization/">Hexo - 性能优化之旅</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/08/02/ai-garbage-classification/">08/02</a>
-            <a class="archive-title" href="/2020/08/02/ai-garbage-classification/">口袋拾荒 - 垃圾分类助手</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/08/01/react-render-optimization/">08/01</a>
-            <a class="archive-title" href="/2020/08/01/react-render-optimization/">React - 渲染性能优化</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/07/17/js-promise/">07/17</a>
-            <a class="archive-title" href="/2020/07/17/js-promise/">JavaScript - Promise</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/06/25/rn-adapt-to-full-screen/">06/25</a>
-            <a class="archive-title" href="/2020/06/25/rn-adapt-to-full-screen/">RN - 适配安卓全面屏</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/04/12/js-module/">04/12</a>
-            <a class="archive-title" href="/2020/04/12/js-module/">JavaScript - 模块化</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/04/12/js-closure/">04/12</a>
-            <a class="archive-title" href="/2020/04/12/js-closure/">JS - 执行上下文/作用域链/闭包</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/04/10/react-setState/">04/10</a>
-            <a class="archive-title" href="/2020/04/10/react-setState/">React - setState</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/03/30/webpack-note/">03/30</a>
-            <a class="archive-title" href="/2020/03/30/webpack-note/">webpack - 学习笔记</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/03/28/rn-navigation-refresh/">03/28</a>
-            <a class="archive-title" href="/2020/03/28/rn-navigation-refresh/">RN - 页面跳转后刷新内容</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/02/29/design-pattern-note/">02/29</a>
-            <a class="archive-title" href="/2020/02/29/design-pattern-note/">JavaScript - 设计模式</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/02/12/weapp-debug-https/">02/12</a>
-            <a class="archive-title" href="/2020/02/12/weapp-debug-https/">小程序真机调试问题</a>
-          </div>
-        
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2020/01/07/rn-note/">01/07</a>
-            <a class="archive-title" href="/2020/01/07/rn-note/">ReactNative - 开发笔记</a>
-          </div>
-        
-          
-            <h3 class="archive-year">2019 年</h3>
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2019/12/20/stylus-grid/">12/20</a>
-            <a class="archive-title" href="/2019/12/20/stylus-grid/">Stylus - 实现栅格化</a>
-          </div>
-        
-          
-            <h3 class="archive-year">2018 年</h3>
-          
-          <div class="archive-item">
-            <a class="archive-date" href="/2018/03/25/placeholder-use-font-awesome/">03/25</a>
-            <a class="archive-title" href="/2018/03/25/placeholder-use-font-awesome/">表单Placeholder内使用IconFont图标文字</a>
-          </div>
         
       </div>
     </div>
-  </section>
+  </div>
 </main>
   
 
@@ -411,6 +373,10 @@
       <div class="fab fab-plus">
     <i class="iconfont iconplus"></i>
   </div>
+  
+    <div class="fab fab-like">
+      <i class="iconfont iconheart"></i>
+    </div>
   
   
     <div class="fab fab-daovoice">
