@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.izhaoo.com/about/index.html</loc>
+    
+    <lastmod>2022-10-29</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.izhaoo.com/2022/10/29/strawberry-chyan/</loc>
     
     <lastmod>2022-10-29</lastmod>
@@ -508,13 +515,6 @@
 
   
   <url>
-    <loc>https://www.izhaoo.com/tags/%E5%89%8D%E7%AB%AF/</loc>
-    <lastmod>2022-10-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.izhaoo.com/tags/Hexo/</loc>
     <lastmod>2022-10-29</lastmod>
     <changefreq>daily</changefreq>
@@ -523,6 +523,13 @@
   
   <url>
     <loc>https://www.izhaoo.com/tags/%E4%B8%BB%E9%A2%98/</loc>
+    <lastmod>2022-10-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.izhaoo.com/tags/%E5%89%8D%E7%AB%AF/</loc>
     <lastmod>2022-10-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -727,14 +734,14 @@
 
   
   <url>
-    <loc>https://www.izhaoo.com/categories/%E9%A1%B9%E7%9B%AE/</loc>
+    <loc>https://www.izhaoo.com/categories/%E5%89%8D%E7%AB%AF/</loc>
     <lastmod>2022-10-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.izhaoo.com/categories/%E5%89%8D%E7%AB%AF/</loc>
+    <loc>https://www.izhaoo.com/categories/%E9%A1%B9%E7%9B%AE/</loc>
     <lastmod>2022-10-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
