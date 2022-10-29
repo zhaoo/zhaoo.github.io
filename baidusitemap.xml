@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.izhaoo.com/2022/10/29/strawberry-chyan/</loc>
+    <lastmod>2022-10-29</lastmod>
+  </url>
+  <url>
+    <loc>https://www.izhaoo.com/2021/07/05/hexo-weapp-zhaoo-doc/</loc>
+    <lastmod>2022-10-29</lastmod>
+  </url>
+  <url>
     <loc>https://www.izhaoo.com/2022/09/20/random-render-list/</loc>
     <lastmod>2022-09-20</lastmod>
   </url>
@@ -27,10 +35,6 @@
   <url>
     <loc>https://www.izhaoo.com/2021/11/01/useEffect-object-dependent/</loc>
     <lastmod>2021-11-01</lastmod>
-  </url>
-  <url>
-    <loc>https://www.izhaoo.com/2021/07/05/hexo-weapp-zhaoo-doc/</loc>
-    <lastmod>2021-09-16</lastmod>
   </url>
   <url>
     <loc>https://www.izhaoo.com/2021/08/15/growing-coriander-diary/</loc>

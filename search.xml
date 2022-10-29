@@ -804,6 +804,54 @@
       </tags>
   </entry>
   <entry>
+    <title>安利一个薅羊毛神器</title>
+    <url>/2022/10/29/strawberry-chyan/</url>
+    <content><![CDATA[<p>草莓酱省钱助手，购物、外卖不光省钱还能赚钱，回复“Hexo”还有神秘惊喜哦~</p>
+<span id="more"></span>
+
+<p>草莓酱是博主搞得省钱公众号，分享电商高额优惠券、外卖神券，还能返利赚钱。欢迎各位粉丝关注使用，顺便帮忙推荐给身边的朋友们，就当是给这款免费主题打赏了。关注后记得回复 <strong>Hexo</strong> 关键词，还有有神秘惊喜~</p>
+<p><img  src="https://pic.izhaoo.com/qrcode_for_gh_0e1ac30de397_258.jpg"  ><span class="image-caption">扫码关注公众号</span></p>
+<h3 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h3><ol>
+<li>关注公众号即自动注册，回复 <strong>帮助</strong> 可查看使用指引；</li>
+<li>回复 <strong>补全资料</strong> 绑定手机号或支付宝，后续提现会自动打到账户；</li>
+<li>回复 <strong>余额</strong> 查看可提现金额，回复 <strong>提现</strong> 直接提现到微信或支付宝；</li>
+</ol>
+<p><img  src="https://pic.izhaoo.com/Screenshot_2022-10-29-18-52-52-139_com.tencent.mm.png"  ><span class="image-caption">查看帮助</span></p>
+<p><img  src="https://pic.izhaoo.com/Screenshot_2022-10-29-19-17-16-347_com.tencent.mm.png"  ><span class="image-caption">“巨额”提现</span></p>
+<h3 id="电商领券"><a href="#电商领券" class="headerlink" title="电商领券"></a>电商领券</h3><p>一样的宝贝我买到的为什么特别便宜？还能赚钱返现？返现金可能是全网最高了！</p>
+<ol>
+<li>淘宝、京东等电商平台，点击右上角分享按钮，打开浮层；</li>
+<li>点击【复制】按钮将淘口令或宝贝链接复制到剪切板；</li>
+<li>打开公众号，粘贴宝贝链接并发送，等待全网搜索返回；</li>
+<li>复制返回的淘口令，打开淘宝APP自动弹出宝贝，点击进入领券页；</li>
+<li>领券购买即可，稍等一会儿即可获得返利，一毛钱就可以提现；</li>
+</ol>
+<p><img  src="https://pic.izhaoo.com/mmexport1667041324096.jpg"  ><span class="image-caption">复制链接</span></p>
+<p><img  src="https://pic.izhaoo.com/mmexport1667041328221.jpg"  ><span class="image-caption">公众号回复</span></p>
+<p><img  src="https://pic.izhaoo.com/mmexport1667041332903.jpg"  ><span class="image-caption">打开APP</span></p>
+<p><img  src="https://pic.izhaoo.com/mmexport1667041334955.jpg"  ><span class="image-caption">领券购买</span></p>
+<h3 id="外卖神券"><a href="#外卖神券" class="headerlink" title="外卖神券"></a>外卖神券</h3><ol>
+<li><p>点击下方菜单【外卖神券】进入外卖小程序，领券即可；</p>
+</li>
+<li><p>或者回复 <strong>饿了么</strong> 或 <strong>美团</strong> 关键词也可领券，下单还能返利；</p>
+</li>
+</ol>
+<p><img  src="https://pic.izhaoo.com/Screenshot_2022-10-29-19-07-29-102_com.tencent.mm.png"  ><span class="image-caption">领券+返利</span></p>
+<h3 id="自助商城"><a href="#自助商城" class="headerlink" title="自助商城"></a>自助商城</h3><p>突然想买个东西，怎么才能全网最低价拿下？回复 <strong>商城</strong> 关键词，点击链接进入草莓酱商城，搜索想要买的宝贝，领券购买即可。</p>
+<p><img  src="https://pic.izhaoo.com/Screenshot_2022-10-29-18-51-32-000_com.tencent.mm.png"  ><span class="image-caption">自助搜索领券</span></p>
+<p>回复 <strong>榜单</strong> 关键词，点击链接查看限时热门榜单，大家都在抢的漏洞价。</p>
+<p><img  src="https://pic.izhaoo.com/Screenshot_2022-10-29-19-05-46-356_com.tencent.mm.png"  ><span class="image-caption">热门榜单</span></p>
+<p>最后，朋友帮忙推广一下哦，orz……</p>
+<p><img src="https://pic.izhaoo.com/Screenshot_2022-10-29-19-12-01-643_com.tencent.mm.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>小程序部署文档</title>
     <url>/2021/07/05/hexo-weapp-zhaoo-doc/</url>
     <content><![CDATA[<p><code>zhaoo</code> 主题孪生小程序的相关部署文档。</p>
@@ -1129,8 +1177,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
         <tag>前端</tag>
+        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -2014,9 +2062,9 @@
         <category>前端</category>
       </categories>
       <tags>
+        <tag>前端</tag>
         <tag>Hexo</tag>
         <tag>主题</tag>
-        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -2154,9 +2202,9 @@
         <category>前端</category>
       </categories>
       <tags>
+        <tag>前端</tag>
         <tag>Hexo</tag>
         <tag>主题</tag>
-        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
