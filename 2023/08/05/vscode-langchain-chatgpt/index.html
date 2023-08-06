@@ -6,12 +6,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>安利一个薅羊毛神器 - zhaoo</title>
+  <title>VSCode 插件适配 LangChain - zhaoo</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
-  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, 薅羊毛, 淘宝, 京东, 外卖, 优惠券, 返利, 赚钱, 特价, 漏洞, 草莓酱">
-  <meta name="description" content="草莓酱省钱助手，购物、外卖不光省钱还能赚钱，回复“He...">
+  <meta name="keywords" content="zhaoo, hexo-theme-zhaoo, 简约主题, vscode, langchain, 插件, chatgpt, AIGC, code copilot">
+  <meta name="description" content="记录 VSCode 插件接入 LangChain 过程...">
   <meta name="author" content="zhaoo">
   <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
@@ -154,7 +154,7 @@
         <i class="iconfont iconsearch j-navbar-search"></i>
       
     </div>
-    <div class="center">安利一个薅羊毛神器</div>
+    <div class="center">VSCode 插件适配 LangChain</div>
     <div class="right">
       <i class="iconfont iconmenu j-navbar-menu"></i>
     </div>
@@ -189,7 +189,7 @@
         <a href="/about/ " class="underline "> 关于</a>
       </li></ul>
     
-      <div class="menu-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+      <div class="menu-copyright"><p>Copyright© 2019 - 2023 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
     
   </div>
 </nav>
@@ -200,76 +200,59 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://pic.izhaoo.com/d4de8012a486855c87de2a662a517756.png" draggable="false">
+  <img src="https://pic.izhaoo.com/20210421013918.jpg" draggable="false">
   <div class="head-mask">
-    <h1 class="head-title">安利一个薅羊毛神器</h1>
+    <h1 class="head-title">VSCode 插件适配 LangChain</h1>
     <div class="head-info">
-      <span class="post-info-item"><i class="iconfont iconcalendar"></i>十月 29, 2022</span>
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>八月 05, 2023</span>
       
         <span class="post-info-item">
-          <i class="iconfont iconeye"></i><span id="/2022/10/29/strawberry-chyan/" class="leancloud-counter" data-flag-title="安利一个薅羊毛神器"></span>
+          <i class="iconfont iconeye"></i><span id="/2023/08/05/vscode-langchain-chatgpt/" class="leancloud-counter" data-flag-title="VSCode 插件适配 LangChain"></span>
         </span>
         <span class="post-info-item">
-          <i class="iconfont iconheart"></i><span id="/2022/10/29/strawberry-chyan/" class="leancloud-like" data-flag-title="安利一个薅羊毛神器"></span>
+          <i class="iconfont iconheart"></i><span id="/2023/08/05/vscode-langchain-chatgpt/" class="leancloud-like" data-flag-title="VSCode 插件适配 LangChain"></span>
         </span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>673</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1573</span>
     </div>
   </div>
 </section>
     <section class="main">
       <section class="content">
         
-          <p><p>草莓酱省钱助手，购物、外卖不光省钱还能赚钱，回复“Hexo”还有神秘惊喜哦~</p></p>
+          <p><p>记录 VSCode 插件接入 LangChain 过程中踩的一些坑…</p></p>
         
-        <p>草莓酱是博主搞得省钱公众号，分享电商高额优惠券、外卖神券，还能返利赚钱。欢迎各位粉丝关注使用，顺便帮忙分享给身边的朋友们，就当是给这款免费主题打赏了。关注后记得回复 <strong>Hexo</strong> 关键词，还有有神秘惊喜~</p>
-<p><img  src="https://pic.izhaoo.com/qrcode_for_gh_0e1ac30de397_258.jpg"  ><span class="image-caption">扫码关注公众号</span></p>
-<h3 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h3><ol>
-<li>关注公众号即自动注册，回复 <strong>帮助</strong> 可查看使用指引；</li>
-<li>回复 <strong>补全资料</strong> 绑定手机号或支付宝，后续提现会自动打到账户；</li>
-<li>回复 <strong>余额</strong> 查看可提现金额，回复 <strong>提现</strong> 直接提现到微信或支付宝；</li>
-</ol>
-<img  src="https://pic.izhaoo.com/Screenshot_2022-10-29-18-52-52-139_com.tencent.mm.png" width="49.5%"   /><span class="image-caption">查看帮助</span>
-<img  src="https://pic.izhaoo.com/Screenshot_2022-10-29-19-17-16-347_com.tencent.mm.png" width="49.5%"   /><span class="image-caption">“巨额”提现</span>
-
-
-<h3 id="电商领券"><a href="#电商领券" class="headerlink" title="电商领券"></a>电商领券</h3><p>一样的宝贝我买到的为什么特别便宜？还能赚钱返现？返现金可能是全网最高了！</p>
+        <p>最近在写一个基于 ChatGPT 的 VSCode 编码辅助插件，为了便于后续接入其他大语言模型和 Embedding，使用 <a target="_blank" rel="noopener" href="https://js.langchain.com/docs/get_started/introduction/">LangChain</a> 框架进行开发。我们的 LangChain 比较潮流只支持 Node.js 18+，燃鹅 VSCode 运行时使用的是内置的 Node.js 16 且无法升级，过程中遇到一些水土不服的问题，在此记录一下。</p>
+<h3 id="流式请求"><a href="#流式请求" class="headerlink" title="流式请求"></a>流式请求</h3><p>LangChain 新版网络请求用的是浏览器环境的 fetch，VSCode 环境无法使用，<a target="_blank" rel="noopener" href="https://js.langchain.com.cn/docs/getting-started/install#%E4%B8%8D%E5%8F%97%E6%94%AF%E6%8C%81-nodejs-16">官方文档</a>给出了两种解决方案：</p>
+<p>方案一，只需带着参数 <code>NODE_OPTIONS=&#39;--experimental-fetch&#39;</code> 运行 Node 即可，经过各种场所 VSCode 插件运行时无法动态置入参数，未果。</p>
+<p>方案二，使用 node-fetch 代替 fetch，具体操作如下：</p>
 <ol>
-<li>淘宝、京东等电商平台，点击右上角分享按钮，打开浮层；</li>
-<li>点击【复制】按钮将淘口令或宝贝链接复制到剪切板；</li>
-<li>打开公众号，粘贴宝贝链接并发送，等待全网搜索返回；</li>
-<li>复制返回的淘口令，打开淘宝APP自动弹出宝贝，点击进入领券页；</li>
-<li>领券购买即可，稍等一会儿即可获得返利，一毛钱就可以提现；</li>
+<li>安装 node-fetch 依赖</li>
 </ol>
-<img  src="https://pic.izhaoo.com/mmexport1667041324096.jpg" width="49.5%"   /><span class="image-caption">复制链接</span>
-<img  src="https://pic.izhaoo.com/mmexport1667041328221.jpg" width="49.5%"   /><span class="image-caption">公众号回复</span>
-<img  src="https://pic.izhaoo.com/mmexport1667041332903.jpg" width="49.5%"   /><span class="image-caption">打开APP</span>
-<img  src="https://pic.izhaoo.com/mmexport1667041334955.jpg" width="49.5%"   /><span class="image-caption">领券购买</span>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">yarn add node-fetch --save<br></code></pre></td></tr></table></figure>
 
-<h3 id="外卖神券"><a href="#外卖神券" class="headerlink" title="外卖神券"></a>外卖神券</h3><ol>
-<li><p>点击下方菜单【外卖神券】进入外卖小程序，领券即可；</p>
-</li>
-<li><p>或者回复 <strong>饿了么</strong> 或 <strong>美团</strong> 关键词也可领券，下单还能返利；</p>
-</li>
+<ol start="2">
+<li>polyfill，新建文件 <code>fetch-polyfill.ts</code> 代码如下，并在 LangChain 入口文件处引入此文件</li>
 </ol>
-<img  src="https://pic.izhaoo.com/Screenshot_2022-10-29-19-07-29-102_com.tencent.mm.png" width="49.5%" style="margin: 0 auto;"   /><span class="image-caption">领券+返利</span>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">/** </span><br><span class="hljs-comment"> * node-fetch polyfill</span><br><span class="hljs-comment"> * 注：langchian 仅支持 Node.js 18+，vscode 插件环境为打包好的 Node.js 16，需加载此垫片，并按此文档替换 langchain 依赖中的流式解析逻辑</span><br><span class="hljs-comment"> * https://github.com/hwchase17/langchainjs/issues/548#issuecomment-1607846463</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-keyword">import</span> fetch, &#123;Headers, Request, Response&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node-fetch&#x27;</span>;<br><br><span class="hljs-keyword">declare</span> <span class="hljs-built_in">global</span> &#123;<br>  <span class="hljs-keyword">var</span> fetch: <span class="hljs-built_in">any</span>;<br>  <span class="hljs-keyword">var</span> Headers: <span class="hljs-built_in">any</span>;<br>  <span class="hljs-keyword">var</span> Request: <span class="hljs-built_in">any</span>;<br>  <span class="hljs-keyword">var</span> Response: <span class="hljs-built_in">any</span>;<br>&#125;<br><br><span class="hljs-keyword">if</span> (!globalThis.fetch) &#123;<br>  globalThis.fetch = fetch;<br>  globalThis.Headers = Headers;<br>  globalThis.Request = Request;<br>  globalThis.Response = Response;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="自助商城"><a href="#自助商城" class="headerlink" title="自助商城"></a>自助商城</h3><p>突然想买个东西，怎么才能全网最低价拿下？回复 <strong>商城</strong> 关键词，点击链接进入草莓酱商城，搜索想要买的宝贝，领券购买即可。</p>
-<img  src="https://pic.izhaoo.com/Screenshot_2022-10-29-18-51-32-000_com.tencent.mm.png" width="49.5%" style="margin: 0 auto;"   /><span class="image-caption">自助搜索领券</span>
+<ol start="3">
+<li>将依赖 <code>/node_modules/langchain/dist/util/event-source-parse.cjs</code> 文件中的 <code>getBytes</code> 函数改成如下代码</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getBytes</span>(<span class="hljs-params">stream, onChunk</span>) </span>&#123;<br>    stream.on(<span class="hljs-string">&#x27;readable&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-keyword">let</span> chunk;<br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">null</span> !== (chunk = stream.read())) &#123;<br>            onChunk(chunk);<br>        &#125;<br>    &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>回复 <strong>榜单</strong> 关键词，点击链接查看限时热门榜单，大家都在抢的漏洞价。</p>
-<img  src="https://pic.izhaoo.com/Screenshot_2022-10-29-19-05-46-356_com.tencent.mm.png" width="49.5%" style="margin: 0 auto;"   /><span class="image-caption">热门榜单</span>
-
-<hr>
-<p>最后，朋友帮忙推广一下哦，orz……</p>
-<img  src="https://pic.izhaoo.com/Screenshot_2022-10-29-19-12-01-643_com.tencent.mm.png" width="49.5%" style="margin: 0 auto;"   /><span class="image-caption">交个朋友吧</span>
+<p>重新编辑 VSCode 插件运行即可发现流式请求能跑通了</p>
+<h3 id="HNSWLib"><a href="#HNSWLib" class="headerlink" title="HNSWLib"></a>HNSWLib</h3><p>HNSWLib 是一个内存向量存储器，可以将上下文保存到文件中，VSCode Node.js 16 环境也无法使用。</p>
+<p><img  src="https://gw.alicdn.com/imgextra/i2/O1CN01yhchZp1vBsjLSLrX4_!!6000000006135-0-tps-2060-272.jpg"  ><span class="image-caption">bug</span></p>
+<p>看报错提示虽然是依赖没有安装，但实际翻编译后的源码发现是 <code>dynamic import</code> 在低版本环境不支持，我们只需换种 import 方式即可（CJS or ESM）。</p>
+<p><img  src="https://gw.alicdn.com/imgextra/i1/O1CN01hwSxBq29lWATHrVxE_!!6000000008108-0-tps-2122-288.jpg"  ><span class="image-caption">import</span></p>
       </section>
       <section class="extra">
         
           <ul class="copyright">
   
     <li><strong>本文作者：</strong>zhaoo</li>
-    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2022/10/29/strawberry-chyan/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2022&#x2F;10&#x2F;29&#x2F;strawberry-chyan&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2022&#x2F;10&#x2F;29&#x2F;strawberry-chyan&#x2F;index.html</a></li>
+    <li><strong>本文链接：</strong><a href="https://www.izhaoo.com/2023/08/05/vscode-langchain-chatgpt/index.html" title="https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2023&#x2F;08&#x2F;05&#x2F;vscode-langchain-chatgpt&#x2F;index.html">https:&#x2F;&#x2F;www.izhaoo.com&#x2F;2023&#x2F;08&#x2F;05&#x2F;vscode-langchain-chatgpt&#x2F;index.html</a></li>
     <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
   
 </ul>
@@ -286,7 +269,7 @@
 </section>
         
         
-  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul> 
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a></li></ul> 
 
         
   <nav class="nav">
@@ -380,7 +363,7 @@
           <i class="iconfont  iconmail"></i>
       </a></div>
   
-    <div class="footer-copyright"><p>Copyright© 2019 - 2021 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
+    <div class="footer-copyright"><p>Copyright© 2019 - 2023 | <a target="_blank" href="https://www.izhaoo.com">zhaoo</a> .AllRightsReserved</p><p>浙ICP备17007822号</p></div>
   
 </footer>
   
