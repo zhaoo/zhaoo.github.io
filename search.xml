@@ -875,8 +875,85 @@
       </tags>
   </entry>
   <entry>
+    <title>CatGPT Copilot：基于 LangChain 构建代码知识库</title>
+    <url>/2023/08/31/catgpt-langchain-doc/</url>
+    <content><![CDATA[<p><a href="https://github.com/langchain-ai/langchainjs">LangChain</a> 是 LLMs 领域的瑞士军刀，封装了模型、提示、存储、索引、链、代理等核心能力，极大提高了 LLMs 应用的开发效率。CatGPT Copilot 直接内嵌了 LangChain.js 提供 LLMs 处理服务，其实更合理的方式应该从云端部署 LangChain 提供 API 调用服务，方便扩展和管理。哎，管不了那么多了，本地先怼上，还快一点…</p>
+<span id="more"></span>
+
+<h3 id="代码知识库"><a href="#代码知识库" class="headerlink" title="代码知识库"></a>代码知识库</h3><p>一个聪明的 Code Copilot 必然要结合代码上下文语境和知识库文档进行定制，提供更精准的代码检索和生成能力，主要有以下使用场景：</p>
+<ul>
+<li>代码片段：日常业务许多都是机械的搬砖工作，一个项目可以拆解成若干成熟的代码片段。还在翻文件“CV”代码？何不让 Copilot 帮你管理代码片段。一键收藏代码片段，敲个关键词直接输出，还能描述场景自动补全组件属性和函数出入参；</li>
+<li>知识库文档：组件库辣么多，方法属性记不住，翻文档挺浪费时间，那就让 Copilot 先学习一遍，有问题直接问她就行；<br>常用的微调训练方案有 Fine-tuning（微调）和 Embedding（嵌入）：</li>
+<li>Fine-tuning：提供更多小样本进行微调学习，使模型在特定知识领域更具专业性；支持私有化部署，适用于公司内部数据；</li>
+<li>Embedding：将知识文本转化为向量并持久化到向量数据库，在对话阶段通过相似度匹配召回相关文本，嵌入到请求上下文提供给模型进行查询；向量转换过程在线完成，存在数据泄露风险；</li>
+</ul>
+<p>Fine-tuning 需要的时间成本和机器资源较高，本次采用 Embedding 方案基于开源代码和文档微调，过程如下：</p>
+<p><img  src="https://pic.izhaoo.com/107b1bcd-e8a8-42a2-9df5-181a1ea43dd2.png"  ><span class="image-caption">Embedding</span></p>
+<h3 id="文本加载-amp-分割"><a href="#文本加载-amp-分割" class="headerlink" title="文本加载&amp;分割"></a>文本加载&amp;分割</h3><p>首先需要以文本形式导入本地代码和知识库文档，LangChain 支持多种<a href="https://js.langchain.com/docs/modules/data_connection/document_transformers/text_splitters/character_text_splitter">文件加载程序</a>，可以灵活适配各种文本来源：</p>
+<ul>
+<li>纯文本：用户输入的文本补全、光标所在上下文代码片段</li>
+<li>文件/文件夹：代码项目文件，注意剔除 node_modules 等冗余文件</li>
+<li>网页：官方文档、语雀知识库等其他在线文档</li>
+<li>GitLab：团队或域内代码仓库</li>
+</ul>
+<p>受语言模型入参文本数量的限制，还需要对文本进行分割再分批传输，可以使用默认<a href="https://js.langchain.com/docs/modules/data_connection/document_transformers/text_splitters/character_text_splitter">文本分割器</a>，只需指定最大字数即可；对于代码文本，建议使用<a href="https://js.langchain.com/docs/modules/data_connection/document_transformers/text_splitters/code_splitter">代码分割器</a>，对指定语言根据语法和语义分割更独立的代码块，保持代码连续性。</p>
+<h3 id="向量转换-amp-存储"><a href="#向量转换-amp-存储" class="headerlink" title="向量转换&amp;存储"></a>向量转换&amp;存储</h3><p>文本装载和切片后，需要使用 <a href="https://js.langchain.com.cn/docs/modules/models/embeddings/integrations#openaiembeddings">OpenAIEmbedding</a> 服务将本文片段转化为向量 Embedding，该过程按输入 token 计费，默认模型是 text-embedding-ada-002，可以传入 basePath 参数指定代理服务器科学上网。如果担心数据安全可以使用 TensorFlowEmbeddings 或 HuggingFaceInferenceEmbeddings 等私有化服务。</p>
+<p>Embedding 后需要将向量数据持久化。对于本地代码这类实时文本，可以直接存储到内存(<a href="https://js.langchain.com.cn/docs/modules/indexes/vector_stores/integrations/memory">Memory</a>)中，方便实时调用；像文档知识库这类比较固定的文本，可以写个脚本预处理一下，持久化到向量数据库(<a href="https://js.langchain.com.cn/docs/modules/indexes/vector_stores/integrations/milvus">Milvus</a>)或保存文件(<a href="https://js.langchain.com.cn/docs/modules/indexes/vector_stores/integrations/hnswlib">HNSWLib</a>)，节省 Embedding 费用。可以使用 addVectors 或 addDocuments 方法合并多个存储实例，实现多套方案并存。</p>
+<h3 id="内容召回"><a href="#内容召回" class="headerlink" title="内容召回"></a>内容召回</h3><p>知识库转向量数据后如何在实时问答中使用呢？可以用 <a href="https://js.langchain.com.cn/docs/modules/chains/index_related_chains/retrieval_qa">RetrievalQAChain</a> 或 <a href="https://js.langchain.com.cn/docs/modules/chains/index_related_chains/conversational_retrieval">ConversationalRetrievalQA</a> 这些比较成熟的文档检索链，它能从向量库和对话历史中检索相关文档，并注入到请求上下文中进行查询，整个过程都是黑盒执行，于我这种要求不高的懒人正好。</p>
+<p>如果需要定制更精细的回归算法和策略，可以基于 LangChain 提供的各类<a href="https://js.langchain.com.cn/docs/modules/indexes/retrievers/">召回器</a>编写召回函数，调整特征参数并在向量检索出入口做数据处理，将处理后的文本嵌入请求 history 入参即可。</p>
+<h3 id="模型选择"><a href="#模型选择" class="headerlink" title="模型选择"></a>模型选择</h3><p>LangChain 默认集成了 ChatGPT 模型服务，如果要调用其他模型，只需要继承 BaseChatModel 基类并补全网络请求方法即可，主流模型都能在 GitHub 搜到现成代码。</p>
+<h4 id="ChatGPT"><a href="#ChatGPT" class="headerlink" title="ChatGPT"></a>ChatGPT</h4><p>ChatGPT 虽然是一款通用的大语言模型，但是在代码辅助领域依然强大，搭配一些精心构造的 Prompt 完全够用，但是在某些方面还有待提升：</p>
+<ol>
+<li>安全性：无论是问答还是 Embedding 都需要在线查询，鬼知道 OpenAI 会不会拿我们的数据反哺模型，势必会造成企业私有数据泄露；</li>
+<li>速度：日常使用体感上比较流畅，但是在一些即时性和无法流式输出的场景还是有些捉急；</li>
+<li>准度：写个代码片段和正则表达式绰绰有余，但是问到一些小众知识领域容易出现“幻觉”，需要仔细甄别；</li>
+<li>费用：代码服务使用 gpt-3.5-turbo 模型足矣，代码生成和问答等“一次性”服务花不了几个钱，但是实时推理就吃不消了；</li>
+</ol>
+<p>综上所述，在企业内部推广使用需要解决两个核心问题：1) 数据私有化，不能造成信息泄露；2) 实时推理，需要提升速度、降低费用。故我们可以考虑部署代码领域私有模型，私有化、免费、够快。</p>
+<h4 id="CodeGeeX2-6B"><a href="#CodeGeeX2-6B" class="headerlink" title="CodeGeeX2-6B"></a>CodeGeeX2-6B</h4><blockquote>
+<p><a href="https://huggingface.co/THUDM/codegeex2-6b">CodeGeeX2-6B</a></p>
+</blockquote>
+<p>CodeGeeX2 以 ChatGLM2-6B 为基座语言模型对大量代码数据进行预训练，在代码领域支持度非常好，涵盖主流编程语言。在显卡模式加持下推理速度能干到 90 字符/s，完全可以支持实时推理，NewBee！</p>
+<p>部署方式非常简单，服务器上直接使用 transformers 调用 CodeGeeX2-6B 模型，再以 API 形式对外暴露推理服务即可，服务部署参考：<a href="https://github.com/CodeGeeX/codegeex-fastertransformer/blob/main/api.py">codegeex-fastertransformer</a>、请求调用参考：<a href="https://github.com/fxjhello/langchainjs_llm_nest/blob/main/service/src/chat_models/chatglm-6b.ts">langchainjs_llm_nest</a></p>
+<h4 id="TabbyML"><a href="#TabbyML" class="headerlink" title="TabbyML"></a>TabbyML</h4><blockquote>
+<p><a href="https://github.com/TabbyML/tabby">TabbyML</a></p>
+</blockquote>
+<p>TabbyML 是一款自托管的 AI 编程服务，对于服务器要求很低，支持 Mac 本地环境部署，同时还开源了配套 VSCode / Vim / IntelliJ  插件。目前该模型还在内测中，以 GitHub 公网代码为数据集，尝试下来对 JavaScript 和 Python 支持较好，准确度比 CodeGeeX2 略高。</p>
+<p>官方提供了 <a href="https://tabbyml.github.io/tabby/docs/self-hosting/docker">Docker</a> 部署脚本，但是还没有提供Embedding 等口子，如需扩展直接直接部署<a href="https://huggingface.co/TabbyML/StableCode-3B">模型</a>。</p>
+<h3 id="VSCode-插件接入-LangChain"><a href="#VSCode-插件接入-LangChain" class="headerlink" title="VSCode 插件接入 LangChain"></a>VSCode 插件接入 LangChain</h3><p>LangChain 比较潮流，只支持 Node.js 18+，然而 VSCode 插件运行时使用的是内置的 Node.js 16 且无法升级，过程中遇到一些水土不服的问题，在此记录一下：</p>
+<h4 id="流式请求"><a href="#流式请求" class="headerlink" title="流式请求"></a>流式请求</h4><p>LangChain 新版网络请求用的是浏览器环境的 fetch，VSCode 环境无法使用，<a href="https://js.langchain.com.cn/docs/getting-started/install#%E4%B8%8D%E5%8F%97%E6%94%AF%E6%8C%81-nodejs-16">官方文档</a>给出了两种解决方案：</p>
+<p>方案一，只需带着参数NODE_OPTIONS=’–experimental-fetch’运行 Node 即可，经过各种尝试 VSCode 插件运行时无法动态置入参数，未果。</p>
+<p>方案二，使用 node-fetch 代替 fetch，具体操作如下：</p>
+<ol>
+<li>安装 node-fetch 依赖</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">yarn add node-fetch --save<br></code></pre></td></tr></table></figure>
+
+<p>2.polyfill，新建文件 <code>fetch-polyfill.ts</code> 代码如下，并在 LangChain 入口文件处引入此文件</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">/** </span><br><span class="hljs-comment"> * node-fetch polyfill</span><br><span class="hljs-comment"> * 注：langchian 仅支持 Node.js 18+，vscode 插件环境为打包好的 Node.js 16，需加载此垫片，并按此文档替换 langchain 依赖中的流式解析逻辑</span><br><span class="hljs-comment"> * https://github.com/hwchase17/langchainjs/issues/548#issuecomment-1607846463</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-keyword">import</span> fetch, &#123;Headers, Request, Response&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node-fetch&#x27;</span>;<br><br><span class="hljs-keyword">declare</span> <span class="hljs-built_in">global</span> &#123;<br>  <span class="hljs-keyword">var</span> fetch: <span class="hljs-built_in">any</span>;<br>  <span class="hljs-keyword">var</span> Headers: <span class="hljs-built_in">any</span>;<br>  <span class="hljs-keyword">var</span> Request: <span class="hljs-built_in">any</span>;<br>  <span class="hljs-keyword">var</span> Response: <span class="hljs-built_in">any</span>;<br>&#125;<br><br><span class="hljs-keyword">if</span> (!globalThis.fetch) &#123;<br>  globalThis.fetch = fetch;<br>  globalThis.Headers = Headers;<br>  globalThis.Request = Request;<br>  globalThis.Response = Response;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>将依赖 <code>/node_modules/langchain/dist/util/event-source-parse.cjs</code> 文件中的 getBytes 函数改成如下代码</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getBytes</span>(<span class="hljs-params">stream, onChunk</span>) </span>&#123;<br>    stream.on(<span class="hljs-string">&#x27;readable&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-keyword">let</span> chunk;<br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">null</span> !== (chunk = stream.read())) &#123;<br>            onChunk(chunk);<br>        &#125;<br>    &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>重新编译 VSCode 插件，流式请求就能跑通了。</p>
+<h4 id="HNSWLib"><a href="#HNSWLib" class="headerlink" title="HNSWLib"></a>HNSWLib</h4><p>HNSWLib 是一个内存向量存储器，可以将上下文保存到文件中，VSCode Node.js 16 环境也无法使用。</p>
+<p><img  src="https://pic.izhaoo.com/9ba438d2-11a3-47b5-a567-63547fa3171b.webp"  ><span class="image-caption">报错</span></p>
+<p>看报错提示虽然是依赖没有安装，但实际扒编译后的源码发现是 dynamic import 在低版本环境不支持，我们只需换种 import 方式即可，CJS or ESM。</p>
+<p><img  src="https://pic.izhaoo.com/28cac90f-8a62-4290-bc31-649e1ce1840f.webp"  ><span class="image-caption">import</span></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>技术</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CatGPT Copilot：VSCode 编程辅助插件</title>
-    <url>/2023/09/03/catgpt-copilot/</url>
+    <url>/2023/08/28/catgpt-copilot/</url>
     <content><![CDATA[<p>一款基于 ChatGPT 的 VSCode 编程辅助插件，支持代码生成、对话问答、函数补全等编程辅助服务，且支持切换模型和导入本地知识库</p>
 <span id="more"></span>
 
@@ -892,18 +969,18 @@
 </blockquote>
 <p>CatGPT 是一款 VSCode 编程辅助插件，支持代码生成、对话问答、函数补全等编程辅助服务，且支持切换模型和导入本地知识库<br>（该有的功能都有，不该有的功能持续扩展中）</p>
 <h2 id="功能演示"><a href="#功能演示" class="headerlink" title="功能演示"></a>功能演示</h2><p>代码生成：描述需求，一键生成代码片段并流式插入编辑器</p>
-<p><video src="https://ata.atatech.org/api/v1/oss/getResourceRedirectUrl?fileId=neweditor%2F740ba7d4-c706-49ff-8fc2-9600c3194b08.mov&expire=30000" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;"></video></p>
+<p><video src="https://pic.izhaoo.com/740ba7d4-c706-49ff-8fc2-9600c3194b08.mov" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;"></video></p>
 <p>对话问答：聊天框对话问答，输出的代码支持一键插入编辑器，从面向 Google 编程到面向 AI 编程</p>
-<p><video src="https://ata.atatech.org/api/v1/oss/getResourceRedirectUrl?fileId=neweditor%2F15b6ee68-9ce9-433b-85fc-250988e6d7ce.mov&expire=30000" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;"></video></p>
+<p><video src="https://pic.izhaoo.com/15b6ee68-9ce9-433b-85fc-250988e6d7ce.mov" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;"></video></p>
 <p>函数提示：自动识别函数并在上方悬浮“解释”和“优化”按钮，点击执行对应操作并在对话框展示结果</p>
-<p><video src="https://ata.atatech.org/api/v1/oss/getResourceRedirectUrl?fileId=neweditor%2F5fbfdb30-91c0-444b-b252-c208b5e5e9b7.mov&expire=30000" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;"></video></p>
+<p><video src="https://pic.izhaoo.com/5fbfdb30-91c0-444b-b252-c208b5e5e9b7.mov" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;"></video></p>
 <p>划词释义：划词选中代码片段，在上方悬浮框中解释代码含义</p>
 <p><img  src="https://ata.atatech.org/api/v1/oss/getResourceRedirectUrl?fileId=neweditor%2F5bbe8399-d850-419d-b935-870929daa97e.png&expire=30000"  ><span class="image-caption">划词释义</span></p>
 <p>其他指令：右键菜单可以唤起更多代码辅助指令，本质上就是预置了一些 Prompt 和交互优化</p>
 <p><img  src="https://ata.atatech.org/api/v1/oss/getResourceRedirectUrl?fileId=neweditor%2Fed624763-7e05-45d3-b344-29843e4ea6f1.jpeg&expire=30000"  ><span class="image-caption">其他指令</span></p>
 <p><img  src="https://ata.atatech.org/api/v1/oss/getResourceRedirectUrl?fileId=neweditor%2F109bd207-7592-459e-b20c-f2c85a98bb6b.jpeg&expire=30000"  ><span class="image-caption">其他指令</span></p>
 <p>知识库：支持导入本地/在线知识库，提供更精准的辅助，目前支持类型有：文本输入、本地文件、在线网页</p>
-<p><video src="https://ata.atatech.org/api/v1/oss/getResourceRedirectUrl?fileId=neweditor%2F81bc1773-f41d-4372-818e-5cd72e703ba4.mov&expire=30000" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;"></video></p>
+<p><video src="https://pic.izhaoo.com/81bc1773-f41d-4372-818e-5cd72e703ba4.mov" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;"></video></p>
 <p>多模型：支持多模型切换，目前支持：ChatGPT-3.5/4、CodeGeeX2-6B、ChatGLM2-6B</p>
 <p><img  src="https://ata.atatech.org/api/v1/oss/getResourceRedirectUrl?fileId=neweditor%2Faf10d55e-949a-46a0-b806-5cce22d9c63d.jpeg&expire=30000"  ><span class="image-caption">多模型</span></p>
 <h2 id="安装使用"><a href="#安装使用" class="headerlink" title="安装使用"></a>安装使用</h2><p><img  src="https://gw.alicdn.com/imgextra/i3/O1CN01BcHAWT1IdZfZZY0xu_!!6000000000916-0-tps-948-352.jpg"  ><span class="image-caption">插件市场</span></p>
